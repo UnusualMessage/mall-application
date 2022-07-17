@@ -1,0 +1,7 @@
+@use "/src/utils/constants/colors.scss" as *;
+
+.default {
+  width: 30px;
+  height: 30px;
+  fill: $middle;
+}

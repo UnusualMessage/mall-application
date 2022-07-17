@@ -22,6 +22,7 @@
     "semi": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "react/jsx-key": "off",
+    "react/react-in-jsx-scope": "off",
 
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/quotes": ["error", "double"],

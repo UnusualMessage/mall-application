@@ -1,0 +1,100 @@
+@use "../../../../utils/mixins/flex" as *;
+@use "../../../../utils/constants/sizes" as *;
+@use "../../../../utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, center);
+
+  border: 2px solid white;
+  flex-basis: 28%;
+  gap: 10px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+  background: $back;
+
+  .title {
+	transition: all 0.3s ease-in-out;
+	padding: 5px;
+  }
+
+  .more {
+	@include flexible(row, center, space-between);
+
+	margin-top: 10px;
+	transition: all 0.3s ease-in-out;
+	width: 100%;
+
+	.info {
+	  @include flexible(column, flex-start, center);
+	}
+
+	.floor {
+	  border: 1px solid #252525;
+	  padding: 5px;
+	  transition: all 0.3s ease-in-out;
+	}
+  }
+
+  .logo {
+	min-width: 200px;
+	min-height: 200px;
+  }
+
+  .title {
+	@media screen and (max-width: $pre-medium) {
+	  font-size: 20px
+	}
+  }
+
+  @media screen and (min-width: $pre-big) {
+	&:hover {
+	  border: 2px solid red;
+	  background: white;
+	  transform: scale(1.2);
+	  z-index: 10;
+
+	  .title {
+		color: white;
+		background: $title;
+		padding: 5px;
+	  }
+
+	  .more {
+		.floor {
+		  color: white;
+		  background: $title;
+		}
+	  }
+	}
+  }
+
+  @media screen and (max-width: $pre-big) {
+	&:hover {
+	  border: 2px solid red;
+	  background: white;
+
+	  .title {
+		color: white;
+		background: $title;
+		padding: 5px;
+	  }
+
+	  .more {
+		.floor {
+		  color: white;
+		  background: $title;
+		}
+	  }
+	}
+
+	flex-basis: 25%;
+  }
+
+  @media screen and (max-width: $medium) {
+	flex-basis: 40%;
+  }
+
+  @media screen and (max-width: $pre-medium) {
+	flex-basis: 80%;
+  }
+}

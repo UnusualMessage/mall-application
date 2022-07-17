@@ -1,0 +1,10 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(row, flex-start, flex-start);
+
+  width: 100%;
+  margin-top: 50px;
+}
