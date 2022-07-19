@@ -1,6 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 	output: {
@@ -14,6 +14,7 @@ module.exports = {
 
 	performance: {
 		hints: 'error',
+		maxAssetSize: 1048576,
 	},
 
 	optimization: {
@@ -32,9 +33,20 @@ module.exports = {
 	},
 
 	plugins: [
-		new ESLintPlugin({
-			extensions: ["js", "jsx", "ts", "tsx"],
-		})
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, "../public"),
+					to: "[path][name][ext]",
+					noErrorOnMissing: true,
+					globOptions: {
+						dot: true,
+						gitignore: true,
+						ignore: ["**.html"]
+					}
+				},
+			]
+		}),
 	],
 
 	module: {

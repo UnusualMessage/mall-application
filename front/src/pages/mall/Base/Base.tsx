@@ -21,7 +21,9 @@ const Base = () => {
             <Header/>
             <Nav/>
             <Main breadcrumbs={NavigationStore.get()}>
-                <Outlet/>
+                <React.Suspense fallback={<>...</>}>
+                    <Outlet/>
+                </React.Suspense>
             </Main>
             <Footer/>
         </>

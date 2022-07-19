@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
 	entry: path.resolve(__dirname, '../src', 'index.tsx'),
@@ -20,20 +20,9 @@ module.exports = {
 			filename: "./static/css/style.[contenthash].css",
 		}),
 
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: path.resolve(__dirname, "../public"),
-					to: "[path][name][ext]",
-					noErrorOnMissing: true,
-					globOptions: {
-						dot: true,
-						gitignore: true,
-						ignore: ["**.html"]
-					}
-				},
-			]
-		}),
+		new ESLintPlugin({
+			extensions: ["js", "jsx", "ts", "tsx"],
+		})
 	],
 
 	resolve: {

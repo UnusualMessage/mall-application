@@ -4,7 +4,7 @@ const shops = [
 	{
 		id: "1",
 		title: "befree",
-		image: "./images/shops/befree.jpg",
+		image: "/images/shops/befree.jpg",
 		link: "befree",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -17,7 +17,7 @@ const shops = [
 	{
 		id: "2",
 		title: "Детский мир",
-		image: "./images/shops/detskij_mir.jpg",
+		image: "/images/shops/detskij_mir.jpg",
 		link: "detskij_mir",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -30,7 +30,7 @@ const shops = [
 	{
 		id: "3",
 		title: "OBI",
-		image: "./images/shops/obi.jpg",
+		image: "/images/shops/obi.jpg",
 		link: "obi",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -43,7 +43,7 @@ const shops = [
 	{
 		id: "4",
 		title: "Перекресток",
-		image: "./images/shops/perekrestok.jpg",
+		image: "/images/shops/perekrestok.jpg",
 		link: "perekrestok",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -56,7 +56,7 @@ const shops = [
 	{
 		id: "5",
 		title: "Спортмастер",
-		image: "./images/shops/novyj_logo_sportmaster.jpg",
+		image: "/images/shops/novyj_logo_sportmaster.jpg",
 		link: "sportsmaster",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -69,7 +69,7 @@ const shops = [
 	{
 		id: "6",
 		title: "Tom Tailor",
-		image: "./images/shops/tom_tailor.jpg",
+		image: "/images/shops/tom_tailor.jpg",
 		link: "tom_tailor",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -82,7 +82,7 @@ const shops = [
 	{
 		id: "7",
 		title: "Спортмастер2",
-		image: "./images/shops/novyj_logo_sportmaster.jpg",
+		image: "/images/shops/novyj_logo_sportmaster.jpg",
 		link: "sportsmaster2",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",
@@ -95,7 +95,7 @@ const shops = [
 	{
 		id: "8",
 		title: "OBI2",
-		image: "./images/shops/obi.jpg",
+		image: "/images/shops/obi.jpg",
 		link: "obi2",
 		schedule: "с 8:00 до 23:00",
 		phone: "8 800 200-95-55",

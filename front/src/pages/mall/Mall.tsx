@@ -1,14 +1,15 @@
 import {Route, Routes} from "react-router-dom";
+import {lazy} from "react";
 
-import Base from "./Base";
-import Home from "./Home";
-import Shops from "./Shops";
-import Discounts from "./Discounts";
-import Events from "./Events";
-import Map from "./Map";
-import Info from "./Info";
-import Shop from "./Shop";
-import Discount from "./Discount";
+const Base = lazy(() => import("./Base"));
+const Home = lazy(() => import("./Home"));
+const Shops = lazy(() => import("./Shops"));
+const Discounts = lazy(() => import("./Discounts"));
+const Events = lazy(() => import("./Events"));
+const Map = lazy(() => import("./Map"));
+const Info = lazy(() => import("./Info"));
+const Shop = lazy(() => import("./Shop"));
+const Discount = lazy(() => import("./Discount"));
 
 const Mall = () => {
 	return(
