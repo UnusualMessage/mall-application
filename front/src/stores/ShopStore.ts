@@ -4,7 +4,7 @@ import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
 import NewShop from "../api/interfaces/shop/NewShop";
 import Category from "../api/interfaces/category/Category";
-import Filterable from "../api/interfaces/Filterable";
+import Filterable from "../types/Filterable";
 
 import shops from "../data/shops";
 import shopCategories from "../data/shopCategories";

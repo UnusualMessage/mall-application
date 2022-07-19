@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";
 import NewDiscount from "../api/interfaces/discount/NewDiscount";
-import Filterable from "../api/interfaces/Filterable";
+import Filterable from "../types/Filterable";
 
 import discounts from "../data/discounts";
 

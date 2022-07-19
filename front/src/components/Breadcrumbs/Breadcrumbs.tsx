@@ -6,7 +6,7 @@ import css from "./breadcrumbs.module.scss";
 
 import Label from "../common/Label";
 import Inner from "../common/Inner";
-import Breadcrumb from "../../api/interfaces/Breadcrumb";
+import Breadcrumb from "../../types/Breadcrumb";
 
 const Breadcrumbs = ({ breadcrumbs }: Props) => {
 	if (breadcrumbs.length <= 1) {

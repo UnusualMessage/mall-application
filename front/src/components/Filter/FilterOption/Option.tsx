@@ -4,7 +4,7 @@ import css from "./option.module.scss";
 import label from "../../common/Label/label.module.scss";
 
 import Label from "../../common/Label";
-import Filterable from "../../../api/interfaces/Filterable";
+import Filterable from "../../../types/Filterable";
 
 const Option = ({ count, text, store }: Props) => {
 	let active = false;

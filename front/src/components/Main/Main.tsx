@@ -6,7 +6,7 @@ import text from "../common/Label/label.module.scss";
 import Title from "../common/Title";
 import Breadcrumbs from "../Breadcrumbs";
 
-import Breadcrumb from "../../api/interfaces/Breadcrumb";
+import Breadcrumb from "../../types/Breadcrumb";
 
 const Main = ({ breadcrumbs, children }: Props) => {
 	return(

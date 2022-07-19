@@ -2,7 +2,7 @@ import css from "./filter.module.scss";
 
 import Option from "./FilterOption/Option";
 
-import Filterable from "../../api/interfaces/Filterable";
+import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
 
 const Filter = ({ store, categories }: Props ) => {

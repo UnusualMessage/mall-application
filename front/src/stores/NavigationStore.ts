@@ -1,6 +1,6 @@
 import {makeAutoObservable} from "mobx";
 
-import Breadcrumb from "../api/interfaces/Breadcrumb";
+import Breadcrumb from "../types/Breadcrumb";
 import { routes } from "../data/routes";
 
 class NavigationStore {
