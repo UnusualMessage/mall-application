@@ -4,6 +4,7 @@ import Option from "./FilterOption/Option";
 
 import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
+import {observer} from "mobx-react-lite";
 
 const Filter = ({ store, categories }: Props ) => {
 	return(
@@ -22,4 +23,4 @@ interface Props {
 	categories: Category[]
 }
 
-export default Filter;
+export default observer(Filter);

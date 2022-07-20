@@ -3,20 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+
   "scripts": {
-    "build": "npx webpack --config config/webpack.entry.config.js --env mode=prod",
-    "start": "npx webpack serve --config config/webpack.entry.config.js --env mode=dev",
+    "build": "npx webpack --config config/webpack.entry.config.js --env state=prod",
+    "start": "npx webpack serve --config config/webpack.entry.config.js --env state=dev",
     "lint": "npx eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint . --ext .ts,.tsx --fix"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ],
+
   "devDependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",

@@ -1,0 +1,35 @@
+@use "../../utils/constants/colors" as *;
+
+.default {
+  text-decoration: none;
+}
+
+.hovered {
+  &:hover {
+	svg {
+	  fill: $hover;
+	  transition: 0.5s;
+	}
+
+	span {
+	  color: $hover;
+	  transition: 0.5s;
+	}
+  }
+}
+
+.underlined {
+  text-decoration: none;
+
+  line-height: 1.2;
+  color: $low;
+  border: 1px solid $border;
+  border-width: 0 0 1px;
+  transition: color 0.5s, border 0.5s;
+
+  &:hover {
+	color: $middle;
+	border: 1px solid $middle;
+	border-width: 0 0 1px;
+  }
+}

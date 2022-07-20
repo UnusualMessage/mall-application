@@ -1,10 +1,10 @@
 import {observer} from "mobx-react-lite";
 
 import css from "./option.module.scss";
-import label from "../../common/Label/label.module.scss";
+import label from "../../Label/label.module.scss";
 
-import Label from "../../common/Label";
 import Filterable from "../../../types/Filterable";
+import Label from "../../Label";
 
 const Option = ({ count, text, store }: Props) => {
 	let active = false;
@@ -21,18 +21,18 @@ const Option = ({ count, text, store }: Props) => {
 		store.setFilter(text);
 	};
 	
-	let classes: string;
+	let className: string;
 	
 	if (active) {
-		classes = `${css.wrapper} ${css.active}`;
+		className = `${css.wrapper} ${css.active}`;
 	} else {
-		classes = `${css.wrapper}`;
+		className = `${css.wrapper}`;
 	}
 	
 	return(
-		<div className={classes} onClick={active ? () => { return; } : onClick}>
-			<Label classes={`${css.count} ${label.bold}`} text={count}/>
-			<Label classes={`${css.name} ${label.mini}`} text={text}/>
+		<div className={className} onClick={active ? () => { return; } : onClick}>
+			<Label text={count} className={`${css.count} ${label.default} ${label.bold}`}/>
+			<Label text={text} className={`${css.name} ${label.mini}`}/>
 		</div>
 	);
 };

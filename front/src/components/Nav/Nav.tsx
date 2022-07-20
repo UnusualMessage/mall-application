@@ -1,6 +1,6 @@
 import css from "./nav.module.scss";
 
-import Link from "./Link";
+import NavLink from "./Link";
 
 import navs from "../../data/navs";
 
@@ -11,9 +11,9 @@ const Nav = () => {
                 {
                     navs.map(nav => {
                         return(
-                            <Link key={nav.title} title={nav.title} to={nav.to} viewBox={nav.viewBox}>
+                            <NavLink key={nav.title} title={nav.title} to={nav.to} viewBox={nav.viewBox}>
                                 {nav.icon}
-                            </Link>
+                            </NavLink>
                         );
                     })
                 }

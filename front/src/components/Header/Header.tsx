@@ -1,55 +1,47 @@
 import css from "./header.module.scss";
-import label from "../common/Label/label.module.scss";
-import icon from "../common/Icon/icon.module.scss";
-import outer from "../common/Outer/outer.module.scss";
+import label from "../Label/label.module.scss";
+import link from "../Link/link.module.scss";
 
-import Label from "../common/Label";
-import Icon from "../common/Icon";
-import Image from "../common/Image";
-import Outer from "../common/Outer";
+import Image from "../Image";
+import Icon from "../Icon";
+import Label from "../Label";
 
 import contacts from "../../data/contacts";
 import icons from "../../data/icons";
+import {OuterLink} from "../Link";
 
 const Header = () => {
 	return (
 		<header className={`${css.wrapper}`}>
 			<div className={`${css.inner}`}>
 				<div className={`${css.start}`}>
-					<Icon viewBox={"0 0 384.97 384.97"} classes={`${css.menu}`}>
-						{icons.menu}
-					</Icon>
-					
+					<Icon className={`${css.menu}`} viewBox={"0 0 384.97 384.97"} icon={icons.menu}/>
 					<Image classes={css.logo} source={"/Logo.png"} />
 				</div>
 				
 				<div className={`${css.info}`}>
-					<Label text={contacts.city} classes={`${label.bold}`}/>
-					<Label text={contacts.street} classes={`${label.mini}`}/>
+					<Label text={contacts.city} className={`${label.bold}`}/>
+					<Label text={contacts.street} className={`${label.mini}`}/>
 				</div>
 				
 				<div className={`${css.info}`}>
-					<Label text={contacts.schedule} classes={`${label.bold}`}/>
-					<Label text={"Время работы"} classes={`${label.mini}`}/>
+					<Label text={contacts.schedule} className={`${label.bold}`}/>
+					<Label text={"Время работы"} className={`${label.mini}`}/>
 				</div>
 				
 				<div className={`${css.info}`}>
-					<Label text={contacts.phone} classes={`${label.bold}`}/>
-					<Label text={"Контактный телефон"} classes={`${label.mini}`}/>
+					<Label text={contacts.phone} className={`${label.bold}`}/>
+					<Label text={"Контактный телефон"} className={`${label.mini}`}/>
 				</div>
 				
 				<div className={`${css.socials}`}>
-					<Outer classes={`${outer.hovered}`} to={"https://vk.com"}>
-						<Icon viewBox={"0 0 95.481 95.481"} classes={`${icon.icon}`}>
-							{icons.vk}
-						</Icon>
-					</Outer>
+					<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+						<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+					</OuterLink>
 					
-					<Outer classes={`${outer.hovered}`} to={"https://vk.com"}>
-						<Icon viewBox={"0 0 20 20"} classes={`${icon.icon}`}>
-							{icons.odnoklassniki}
-						</Icon>
-					</Outer>
+					<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+						<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.odnoklassniki}/>
+					</OuterLink>
 				</div>
 			</div>
 		</header>

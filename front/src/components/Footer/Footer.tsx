@@ -1,13 +1,11 @@
 import css from "./footer.module.scss";
-import label from "../common/Label/label.module.scss";
-import inner from "../common/Inner/inner.module.scss";
-import outer from "../common/Outer/outer.module.scss";
+import label from "../Label/label.module.scss";
+import link from "../Link/link.module.scss";
 
-import Image from "../common/Image";
-import Label from "../common/Label";
-import Inner from "../common/Inner";
-import Outer from "../common/Outer";
-import Icon from "../common/Icon";
+import Image from "../Image";
+import {InnerLink, OuterLink} from "../Link";
+import Label from "../Label";
+import Icon from "../Icon";
 
 import contacts from "../../data/contacts";
 import icons from "../../data/icons";
@@ -21,45 +19,41 @@ const Footer = () => {
                     <Image classes={`${css.logo}`} source={"/Logo.png"}/>
     
                     <div className={`${css.socials}`}>
-                        <Outer classes={`${outer.hovered}`} to={"https://vk.com"}>
-                            <Icon viewBox={"0 0 95.481 95.481"} classes={""}>
-                                {icons.vk}
-                            </Icon>
-                        </Outer>
-        
-                        <Outer classes={`${outer.hovered}`} to={"https://vk.com"}>
-                            <Icon viewBox={"0 0 20 20"} classes={""}>
-                                {icons.odnoklassniki}
-                            </Icon>
-                        </Outer>
+                        <OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+                            <Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+                        </OuterLink>
+    
+                        <OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+                            <Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.odnoklassniki}/>
+                        </OuterLink>
                     </div>
                     
-                    <Label text={"© 2022  ТЦ Веневский"} classes={`${label.mini}`}/>
+                    <Label text={"© 2022  ТЦ Веневский"} className={`${label.mini}`}/>
                 </div>
                 
                 <div className={`${css.contacts}`}>
                     <div className={`${css.info}`}>
-                        <Label text={contacts.city} classes={`${label.bold}`}/>
-                        <Label text={contacts.street} classes={`${label.mini}`}/>
+                        <Label text={contacts.city} className={`${label.bold}`}/>
+                        <Label text={contacts.street} className={`${label.mini}`}/>
                     </div>
     
                     <div className={`${css.info}`}>
-                        <Label text={contacts.schedule} classes={`${label.bold}`}/>
-                        <Label text={"Время работы"} classes={`${label.mini}`}/>
+                        <Label text={contacts.schedule} className={`${label.bold}`}/>
+                        <Label text={"Время работы"} className={`${label.mini}`}/>
                     </div>
     
                     <div className={`${css.info}`}>
-                        <Label text={contacts.phone} classes={`${label.bold}`}/>
-                        <Label text={"Контактный телефон"} classes={`${label.mini}`}/>
+                        <Label text={contacts.phone} className={`${label.bold}`}/>
+                        <Label text={"Контактный телефон"} className={`${label.mini}`}/>
                     </div>
                 </div>
                 
                 <div className={`${css.navs}`}>
                     {navs.map(nav => {
                         return(
-                            <Inner key={nav.title} classes={`${inner.underlined}`} to={nav.to}>
-                                <Label text={nav.title} classes={`${label.mini}`}/>
-                            </Inner>
+                            <InnerLink className={`${link.underlined}`} key={nav.title} to={nav.to}>
+                                <Label className={`${label.mini}`} text={nav.title}/>
+                            </InnerLink>
                         );
                     })}
                 </div>
