@@ -2,7 +2,9 @@
 @use "/src/utils/constants/sizes.scss" as *;
 @use "/src/utils/constants/colors.scss" as *;
 
-.home {
+.wrapper {
+  @include flexible(column, center, center);
+
   width: 100%;
-  margin-top: 50px;
+  gap: 50px
 }

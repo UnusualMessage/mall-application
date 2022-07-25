@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-
   "scripts": {
     "build": "npx webpack --config config/webpack.entry.config.js --env state=prod",
+    "build-dev": "npx webpack --config config/webpack.entry.config.js --env state=dev",
     "start": "npx webpack serve --config config/webpack.entry.config.js --env state=dev",
     "lint": "npx eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint . --ext .ts,.tsx --fix"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
-
   "devDependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
@@ -38,6 +36,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "better-react-carousel": "^1.1.1",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
     "react": "^18.2.0",

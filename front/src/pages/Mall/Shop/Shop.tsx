@@ -40,18 +40,18 @@ const Shop = () => {
 
 					<div className={`${css.socials}`}>
 						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.vk}/>
+							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
 						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.vk}/>
+							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
 						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.vk}/>
+							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.vk}/>
+							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 					</div>
 				</div>

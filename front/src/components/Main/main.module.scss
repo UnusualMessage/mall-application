@@ -17,7 +17,7 @@
 	width: $pre-big;
 
 	.title {
-	  border-bottom: 3px solid green;
+	  border-bottom: 3px solid $hover;
 	}
 
 	@media screen and (max-width: $pre-big) {

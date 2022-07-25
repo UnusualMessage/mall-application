@@ -1,11 +1,11 @@
 import React from "react";
+import {observer} from "mobx-react-lite";
 
 import css from "./main.module.scss";
 import label from "../Label/label.module.scss";
 
 import Breadcrumbs from "../Breadcrumbs";
 import Label from "../Label";
-
 import Breadcrumb from "../../types/Breadcrumb";
 
 const Main = ({ breadcrumbs, children }: Props) => {
@@ -28,4 +28,4 @@ interface Props {
 	children: React.ReactNode
 }
 
-export default Main;
+export default observer(Main);

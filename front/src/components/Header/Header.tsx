@@ -1,3 +1,5 @@
+import { observer } from "mobx-react-lite";
+
 import css from "./header.module.scss";
 import label from "../Label/label.module.scss";
 import link from "../Link/link.module.scss";
@@ -5,10 +7,10 @@ import link from "../Link/link.module.scss";
 import Image from "../Image";
 import Icon from "../Icon";
 import Label from "../Label";
+import {OuterLink} from "../Link";
 
 import contacts from "../../data/contacts";
 import icons from "../../data/icons";
-import {OuterLink} from "../Link";
 
 const Header = () => {
 	return (
@@ -48,4 +50,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default observer(Header);

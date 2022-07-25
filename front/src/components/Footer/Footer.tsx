@@ -1,3 +1,5 @@
+import {observer} from "mobx-react-lite";
+
 import css from "./footer.module.scss";
 import label from "../Label/label.module.scss";
 import link from "../Link/link.module.scss";
@@ -62,4 +64,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default observer(Footer);

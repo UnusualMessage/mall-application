@@ -5,6 +5,7 @@ module.exports = {
 	output: {
 		filename: '[name].js',
 		path: path.resolve(__dirname, '../build-dev'),
+		publicPath: "/"
 	},
 
 	mode: "development",
@@ -17,6 +18,10 @@ module.exports = {
 
 	devServer: {
 		port: 3000,
+
+		static: {
+			directory: path.resolve(__dirname, '../build-dev'),
+		},
 
 		proxy: {
 			target: "http://localhost:4548",
