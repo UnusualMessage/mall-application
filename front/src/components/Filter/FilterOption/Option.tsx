@@ -18,6 +18,7 @@ const Option = ({ count, text, store }: Props) => {
 	}
 	
 	const onClick = () => {
+		window.scroll({top: 0, left: 0, behavior: "smooth" });
 		store.setFilter(text);
 	};
 	
