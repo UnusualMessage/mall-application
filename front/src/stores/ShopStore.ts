@@ -34,6 +34,10 @@ class ShopStore implements Filterable {
 		return count;
 	};
 	
+	getCount = () => {
+		return this.shops.length;
+	};
+	
 	get = () => {
 		return toJS(this.shops);
 	};
