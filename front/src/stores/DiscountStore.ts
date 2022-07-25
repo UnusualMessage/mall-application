@@ -22,12 +22,26 @@ class DiscountStore implements Filterable {
 		makeAutoObservable(this);
 	}
 	
+	getCountByCategoryId = (id: string) => {
+		let count = 0;
+		
+		for (const discount of this.discounts) {
+			if (discount.categories.find(category => category.id === id)) {
+				++count;
+			}
+		}
+		
+		return count;
+	};
+	
 	get = () => {
 		if (this.filter === "Все") {
 			return this.discounts;
 		}
 		
-		return this.discounts.filter(discount => discount.category === this.filter);
+		return this.discounts.filter(discount => discount.categories.find(
+			category => category.title === this.filter
+		));
 	};
 	
 	setFilter = (filter: string) => {

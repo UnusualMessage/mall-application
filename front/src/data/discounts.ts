@@ -1,13 +1,16 @@
-import categories from "./shopCategories";
+import categories from "./categories";
+import Discount from "../api/interfaces/discount/Discount";
 
-const discounts = [
+const baseCategory = categories[0];
+
+const discounts: Discount[] = [
 	{
 		id: "1",
 		title: "Распродажа",
 		image: "/images/discounts/dm_knigi_1200_auto_jpg.jpg",
 		link: "dm_knigi",
 		route: "discounts/dm_knigi",
-		category: categories[1].title
+		categories: [baseCategory, categories[1]],
 	},
 	
 	{
@@ -16,7 +19,7 @@ const discounts = [
 		image: "/images/discounts/dm_malyshi_new_1200_auto_jpg.jpg",
 		link: "dm_malyshi",
 		route: "discounts/dm_malyshi",
-		category: categories[1].title
+		categories: [baseCategory, categories[1]],
 	},
 	
 	{
@@ -25,7 +28,7 @@ const discounts = [
 		image: "/images/discounts/el_dorado_dacha_1200_auto_jpg.jpg",
 		link: "el_dorado_dacha",
 		route: "discounts/el_dorado_dacha",
-		category: categories[8].title
+		categories: [baseCategory, categories[8]],
 	},
 	
 	{
@@ -34,7 +37,7 @@ const discounts = [
 		image: "/images/discounts/el_dorado_samokaty_1200_auto_jpg.jpg",
 		link: "el_dorado_samokaty",
 		route: "discounts/el_dorado_samokaty",
-		category: categories[8].title
+		categories: [baseCategory, categories[8]],
 	},
 ];
 

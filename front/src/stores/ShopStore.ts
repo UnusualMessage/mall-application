@@ -3,15 +3,12 @@ import {makeAutoObservable, runInAction, toJS} from "mobx";
 import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
 import NewShop from "../api/interfaces/shop/NewShop";
-import Category from "../api/interfaces/category/Category";
 import Filterable from "../types/Filterable";
 
 import shops from "../data/shops";
-import shopCategories from "../data/shopCategories";
 
 class ShopStore implements Filterable {
 	shops: Shop[] = [];
-	categories: Category[] = [];
 	
 	shopService: ShopService;
 	
@@ -20,27 +17,40 @@ class ShopStore implements Filterable {
 	
 	constructor() {
 		this.shops = shops;
-		this.categories = shopCategories;
 		this.shopService = new ShopService();
 		
 		makeAutoObservable(this);
 	}
+	
+	getCountByCategoryId = (id: string) => {
+		let count = 0;
+		
+		for (const shop of this.shops) {
+			if (shop.categories.find(shop => shop.id === id)) {
+				++count;
+			}
+		}
+		
+		return count;
+	};
+	
+	get = () => {
+		return toJS(this.shops);
+	};
 	
 	getFirstBy = (count: number) => {
 		const end = (count > this.shops.length) ? this.shops.length - 1 : count - 1;
 		return toJS(this.shops.slice(0, end));
 	};
 	
-	get = () => {
+	getFiltered = () => {
 		if (this.filter === "Все") {
 			return this.shops;
 		}
 		
-		return this.shops.filter(shop => shop.category === this.filter);
-	};
-	
-	getCategories = () => {
-		return this.categories;
+		return this.shops.filter(shop => shop.categories.find(
+			category => category.title === this.filter
+		));
 	};
 	
 	setFilter = (filter: string) => {

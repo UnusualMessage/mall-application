@@ -1,6 +1,9 @@
-import categories from "./shopCategories";
+import Shop from "../api/interfaces/shop/Shop";
+import categories from "./categories";
 
-const shops = [
+const baseCategory = categories[0];
+
+const shops: Shop[] = [
 	{
 		id: "1",
 		title: "befree",
@@ -11,7 +14,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[3].title,
+		categories: [baseCategory, categories[3]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -25,7 +28,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[1].title,
+		categories: [baseCategory, categories[1]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -39,7 +42,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[7].title,
+		categories: [baseCategory, categories[7]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -53,7 +56,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[6].title,
+		categories: [baseCategory, categories[6]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -67,7 +70,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[10].title,
+		categories: [baseCategory, categories[10]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -81,7 +84,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[3].title,
+		categories: [baseCategory, categories[3]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -95,7 +98,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[10].title,
+		categories: [baseCategory, categories[10]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 	
@@ -109,7 +112,7 @@ const shops = [
 		phone: "8 800 200-95-55",
 		floor: "1",
 		site: "www.perekrestok.ru",
-		category: categories[7].title,
+		categories: [baseCategory, categories[7]],
 		description: "«Перекрёсток» — федеральная розничная торговая сеть, одна из первых сетей городских супермаркетов. Супермаркет «Перекрёсток» в новой концепции — уже в тульском ТРЦ «Макси»!"
 	},
 ];

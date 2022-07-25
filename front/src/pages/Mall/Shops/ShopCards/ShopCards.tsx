@@ -14,7 +14,7 @@ const ShopCards = () => {
 			</div>
 			
 			<div className={`${css.list}`}>
-				{ShopStore.get().map(shop => {
+				{ShopStore.getFiltered().map(shop => {
 					return(
 						<ShopCard key={shop.id} image={shop.image} title={shop.title} link={shop.link}/>
 					);

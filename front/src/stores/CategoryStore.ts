@@ -2,26 +2,19 @@ import {makeAutoObservable} from "mobx";
 
 import Category from "../api/interfaces/category/Category";
 
-import shopCategories from "../data/shopCategories";
-import discountCategories from "../data/discountCategories";
+import categories from "../data/categories";
 
 class CategoryStore {
-	shopCategories: Category[];
-	discountCategories: Category[];
+	categories: Category[];
 	
 	constructor() {
-		this.shopCategories = shopCategories;
-		this.discountCategories = discountCategories;
+		this.categories = categories;
 		
 		makeAutoObservable(this);
 	}
 	
-	getShopCategories = () => {
-		return this.shopCategories;
-	};
-	
-	getDiscountCategories = () => {
-		return this.discountCategories;
+	getCategories = () => {
+		return this.categories;
 	};
 }
 
