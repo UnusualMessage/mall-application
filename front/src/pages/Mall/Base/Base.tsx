@@ -6,6 +6,7 @@ import Header from "../../../components/Header";
 import Nav from "../../../components/Nav";
 import Footer from "../../../components/Footer";
 import Main from "../../../components/Main";
+import Loader from "../../../components/Loader";
 
 import NavigationStore from "../../../stores/NavigationStore";
 
@@ -21,7 +22,7 @@ const Base = () => {
             <Header/>
             <Nav/>
             <Main breadcrumbs={NavigationStore.get()}>
-                <React.Suspense fallback={<>...</>}>
+                <React.Suspense fallback={<Loader/>}>
                     <Outlet/>
                 </React.Suspense>
             </Main>

@@ -12,7 +12,7 @@ import {OuterLink} from "../../../components/Link";
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 const Shop = () => {
 	const [textHidden, setTextHidden] = useState(true);
@@ -22,8 +22,13 @@ const Shop = () => {
 	
 	const shop = shops.find(shop => shop.link === shopId);
 	
+	useEffect(() => {
+		if (!shop) {
+			redirect(HomeRoute.route);
+		}
+	}, [shop]);
+	
 	if (!shop) {
-		redirect(HomeRoute.route);
 		return null;
 	}
 	
