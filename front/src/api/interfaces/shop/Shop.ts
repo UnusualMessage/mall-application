@@ -8,5 +8,6 @@ export default interface Shop {
 	schedule: string,
 	phone: string,
 	site: string,
-	link: string
+	link: string,
+	route: string
 }

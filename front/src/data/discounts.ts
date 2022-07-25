@@ -6,6 +6,7 @@ const discounts = [
 		title: "Распродажа",
 		image: "/images/discounts/dm_knigi_1200_auto_jpg.jpg",
 		link: "dm_knigi",
+		route: "discounts/dm_knigi",
 		category: categories[1].title
 	},
 	
@@ -14,6 +15,7 @@ const discounts = [
 		title: "Распродажа",
 		image: "/images/discounts/dm_malyshi_new_1200_auto_jpg.jpg",
 		link: "dm_malyshi",
+		route: "discounts/dm_malyshi",
 		category: categories[1].title
 	},
 	
@@ -22,6 +24,7 @@ const discounts = [
 		title: "Товары для дачи",
 		image: "/images/discounts/el_dorado_dacha_1200_auto_jpg.jpg",
 		link: "el_dorado_dacha",
+		route: "discounts/el_dorado_dacha",
 		category: categories[8].title
 	},
 	
@@ -30,6 +33,7 @@ const discounts = [
 		title: "Самокаты",
 		image: "/images/discounts/el_dorado_samokaty_1200_auto_jpg.jpg",
 		link: "el_dorado_samokaty",
+		route: "discounts/el_dorado_samokaty",
 		category: categories[8].title
 	},
 ];

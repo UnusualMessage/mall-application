@@ -1,44 +1,19 @@
+import {useMemo} from "react";
+
 import label from "/src/components/Label/label.module.scss";
 import css from "./home.module.scss";
 
 import PicturesCarousel from "../../../components/PicturesCarousel";
+import ShopStore from "../../../stores/ShopStore";
 
 const Home = () => {
-    const images = [
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-    
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-        
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-    
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-    
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-        
-        {
-            image: "/images/shops/befree.jpg",
-            link: "shops/befree"
-        },
-    ];
+    const shopImages = useMemo(() => {
+        return ShopStore.getFirstBy(10);
+    }, []);
     
     return(
         <div className={`${css.wrapper}`}>
-            <PicturesCarousel images={images}
+            <PicturesCarousel images={shopImages}
                               title={"Магазины"}
                               linkLabel={"Все отделы"}
                               to={"shops"}
@@ -47,7 +22,7 @@ const Home = () => {
                               cols={4}
             />
     
-            <PicturesCarousel images={images}
+            <PicturesCarousel images={shopImages}
                               title={"Акции"}
                               linkLabel={"Все акции"}
                               to={"discounts"}
@@ -56,7 +31,7 @@ const Home = () => {
                               cols={3}
             />
     
-            <PicturesCarousel images={images}
+            <PicturesCarousel images={shopImages}
                               title={"Новости"}
                               linkLabel={"Все новости"}
                               to={"events"}

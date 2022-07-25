@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import {makeAutoObservable, runInAction, toJS} from "mobx";
 
 import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
@@ -25,6 +25,11 @@ class ShopStore implements Filterable {
 		
 		makeAutoObservable(this);
 	}
+	
+	getFirstBy = (count: number) => {
+		const end = (count > this.shops.length) ? this.shops.length - 1 : count - 1;
+		return toJS(this.shops.slice(0, end));
+	};
 	
 	get = () => {
 		if (this.filter === "Все") {

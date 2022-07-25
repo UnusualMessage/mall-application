@@ -3,5 +3,6 @@ export default interface Discount {
 	title: string,
 	image: string,
 	link: string,
+	route: string,
 	category: string
 }

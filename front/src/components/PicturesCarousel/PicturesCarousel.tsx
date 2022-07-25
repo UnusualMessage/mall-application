@@ -7,6 +7,7 @@ import label from "/src/components/Label/label.module.scss";
 
 import {InnerLink} from "../Link";
 import Label from "../Label";
+import Image from "../Image";
 
 const PicturesCarousel: FC<Props> = ({ images,
 	                                     title,
@@ -30,8 +31,8 @@ const PicturesCarousel: FC<Props> = ({ images,
 					images.map((image: Image, index) => {
 						return(
 							<Carousel.Item key={index}>
-								<InnerLink className={""} to={image.link}>
-									<img className={`${css.item}`} src={image.image} alt={""}/>
+								<InnerLink className={""} to={image.route}>
+									<Image classes={`${css.item}`} source={image.image}/>
 								</InnerLink>
 							</Carousel.Item>
 						);
@@ -44,7 +45,7 @@ const PicturesCarousel: FC<Props> = ({ images,
 
 interface Image {
 	image: string,
-	link: string
+	route: string
 }
 
 interface Props {
