@@ -1,24 +1,45 @@
 @use "../../utils/constants/colors" as *;
 @use "../../utils/mixins/text" as *;
+@use "../../utils/constants/sizes" as *;
 
 .default {
   @include text(16px, $title, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 14px;
+  }
 }
 
 .mini {
   @include text(13px, $low, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 12px;
+  }
 }
 
 .big {
   @include text(18px, $title, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 16px;
+  }
 }
 
 .large {
   @include text(30px, $title, none, bold);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 24px;
+  }
 }
 
 .title {
   @include text(36px, $title, none, bold);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 26px;
+  }
 }
 
 .bold {
@@ -27,6 +48,10 @@
 
 .upper {
     text-transform: uppercase;
+}
+
+.white {
+  color: white;
 }
 
 .hovered {

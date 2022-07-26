@@ -18,6 +18,10 @@
 
 	.title {
 	  border-bottom: 3px solid $hover;
+
+	  @media screen and (max-width: $pre-medium) {
+		font-size: 26px;
+	  }
 	}
 
 	@media screen and (max-width: $pre-big) {
