@@ -2,6 +2,11 @@
 @use "/src/utils/constants/sizes.scss" as *;
 @use "/src/utils/constants/colors.scss" as *;
 
+.container {
+  @include flexible(column, center, center);
+  gap: 50px;
+}
+
 .wrapper {
   @include flexible(row, flex-start, center);
 

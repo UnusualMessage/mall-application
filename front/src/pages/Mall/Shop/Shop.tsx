@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import css from "./shop.module.scss";
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
+import styles from "/src/components/styles.module.scss";
 
 import Image from "../../../components/Image";
 import Icon from "../../../components/Icon";
@@ -12,7 +13,9 @@ import {OuterLink} from "../../../components/Link";
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
+import PicturesCarousel from "../../../components/PicturesCarousel";
+import DiscountStore from "../../../stores/DiscountStore";
 
 const Shop = () => {
 	const [textHidden, setTextHidden] = useState(true);
@@ -32,59 +35,78 @@ const Shop = () => {
 		return null;
 	}
 	
+	const images = useMemo(() => {
+		return DiscountStore.getDiscountsByShopId(shop.id);
+	}, [shop]);
+	
 	const onClick = useCallback(() => {
 		setTextHidden(!textHidden);
 	}, [textHidden]);
 	
 	return(
-		<div className={`${css.wrapper}`}>
-			<div className={`${css.info}`}>
-				<Image classes={`${css.image}`} source={shop.image}/>
-				
-				<div className={`${css.contacts}`}>
-					<Label text={`${shop.floor}-й этаж`} className={`${label.big}`}/>
-					<Label text={shop.schedule} className={`${label.big}`}/>
-					<Label text={shop.phone} className={`${label.big}`}/>
+		<div className={`${css.container}`}>
+			<div className={`${css.wrapper}`}>
+				<div className={`${css.info}`}>
+					<Image classes={`${css.image}`} source={shop.image}/>
 					
-					<OuterLink className={`${link.hovered}`} to={`https://${shop.site}`}>
-						<Label text={shop.site} className={`${label.big} ${label.hovered}`}/>
-					</OuterLink>
-
-					<div className={`${css.socials}`}>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+					<div className={`${css.contacts}`}>
+						<Label text={`${shop.floor}-й этаж`} className={`${label.big}`}/>
+						<Label text={shop.schedule} className={`${label.big}`}/>
+						<Label text={shop.phone} className={`${label.big}`}/>
+						
+						<OuterLink className={`${link.hovered}`} to={`https://${shop.site}`}>
+							<Label text={shop.site} className={`${label.big} ${label.hovered}`}/>
 						</OuterLink>
 						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
+						<div className={`${css.socials}`}>
+							<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+								<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							
+							<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+								<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							
+							<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+								<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
+								<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+						</div>
 					</div>
 				</div>
+				
+				<div className={`${css.description}`}>
+					<div className={`${css.text} ${textHidden ? css.hidden : ""}`}>
+						<Label text={shop.description} className={`${label.default}`}/>
+					</div>
+					
+					{
+						textHidden
+							? <Label className={`${label.default} ${link.underlined}`}
+							         text={"Читать дальше"}
+							         onClick={onClick}/>
+							
+							: <Label className={`${label.default} ${link.underlined}`}
+							         text={"Читать назад"}
+							         onClick={onClick}/>
+					}
+				</div>
+			
 			</div>
 			
-			<div className={`${css.description}`}>
-				<div className={`${css.text} ${textHidden ? css.hidden : ""}`}>
-					<Label text={shop.description} className={`${label.default}`}/>
-				</div>
-				
-				{
-					textHidden
-						? <Label className={`${label.default} ${link.underlined}`}
-						       text={"Читать дальше"}
-						       onClick={onClick}/>
-						
-						: <Label className={`${label.default} ${link.underlined}`}
-						         text={"Читать назад"}
-						         onClick={onClick}/>
-				}
-			</div>
+			{
+				images.length ?
+					<PicturesCarousel images={images}
+					                  title={"Акции магазина"}
+					                  linkLabel={"Все акции"}
+					                  borderColor={`${styles.greenBorder}`}
+					                  to={"/discounts"}
+					                  cols={4} rows={1}/>
+					:
+					<> </>
+			}
 			
 		</div>
 	);
