@@ -1,5 +1,6 @@
 import shops from "./shops";
 import discounts from "./discounts";
+import events from "./events";
 
 export const HomeRoute = {
 	name: "Главная",
@@ -70,3 +71,4 @@ export const routes = [
 
 shops.forEach(shop => routes.push({ name: shop.title, route: shop.link }));
 discounts.forEach(discount => routes.push({ name: discount.title, route: discount.link }));
+events.forEach(event => routes.push({name: event.title, route: event.link}));

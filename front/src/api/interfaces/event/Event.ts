@@ -1,5 +1,8 @@
 export default interface Event {
 	id: string,
 	title: string,
-	description: string
+	description: string,
+	image: string,
+	link: string,
+	route: string
 }
