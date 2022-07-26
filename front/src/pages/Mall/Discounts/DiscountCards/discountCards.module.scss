@@ -7,24 +7,35 @@
   position: relative;
   width: 80%;
   flex-wrap: wrap;
+  gap: 20px;
 
-  .border {
+  .pre {
+	@include flexible(row, center, flex-end);
+
 	width: 100%;
-	height: 200px;
-	border: 5px solid green;
-	position: absolute;
   }
 
   .list {
-	@include flexible(row, flex-start, space-around);
+	width: 100%;
 
-	margin-top: 10px;
-	background: white;
-	z-index: 1;
-	width: 95%;
-	flex-wrap: wrap;
-	row-gap: 50px;
-	padding: 10px;
+	.border {
+	  width: 100%;
+	  height: 200px;
+	  border: 5px solid $discount;
+	  position: absolute;
+	}
+
+	.items {
+	  @include flexible(row, flex-start, space-around);
+
+	  margin-top: 10px;
+	  background: white;
+	  z-index: 1;
+	  width: 95%;
+	  flex-wrap: wrap;
+	  row-gap: 50px;
+	  padding: 10px;
+	}
   }
 
   @media screen and (max-width: $pre-big) {

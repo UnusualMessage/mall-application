@@ -48,7 +48,7 @@
 
   @media screen and (min-width: $pre-big) {
 	&:hover {
-	  border: 2px solid green;
+	  border: 2px solid $discount;
 	  background: white;
 	  transform: scale(1.2);
 	  z-index: 10;
@@ -70,7 +70,7 @@
 
   @media screen and (max-width: $pre-big) {
 	&:hover {
-	  border: 2px solid green;
+	  border: 2px solid $discount;
 	  background: white;
 
 	  .title {

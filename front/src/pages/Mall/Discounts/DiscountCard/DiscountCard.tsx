@@ -5,11 +5,13 @@ import Image from "../../../../components/Image";
 import Label from "../../../../components/Label";
 import {InnerLink} from "../../../../components/Link";
 
-const DiscountCard = ({ image, title, link }: Props) => {
+import Discount from "../../../../api/interfaces/discount/Discount";
+
+const DiscountCard = ({ discount }: Props) => {
 	return(
-		<InnerLink className={`${css.wrapper}`} to={link}>
-			<Image classes={`${css.logo}`} source={image}/>
-			<Label text={title} className={`${css.title} ${label.default} ${label.bold}`}/>
+		<InnerLink className={`${css.wrapper}`} to={discount.link}>
+			<Image classes={`${css.logo}`} source={discount.image}/>
+			<Label text={discount.title} className={`${css.title} ${label.default} ${label.bold}`}/>
 			
 			<div className={`${css.more}`}>
 				<div className={`${css.info}`}>
@@ -24,9 +26,7 @@ const DiscountCard = ({ image, title, link }: Props) => {
 };
 
 interface Props {
-	image: string,
-	title: string,
-	link: string
+	discount: Discount
 }
 
 export default DiscountCard;

@@ -1,4 +1,4 @@
-import Category from "../category/Category";
+import Shop from "../shop/Shop";
 
 export default interface Discount {
 	id: string,
@@ -6,5 +6,6 @@ export default interface Discount {
 	image: string,
 	link: string,
 	route: string,
-	categories: Category[]
+	description: string,
+	shop: Shop
 }

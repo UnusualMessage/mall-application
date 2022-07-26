@@ -1,43 +1,47 @@
-import categories from "./categories";
+import shops from "./shops";
 import Discount from "../api/interfaces/discount/Discount";
 
-const baseCategory = categories[0];
+import transliterate from "../utils/transliterate";
 
 const discounts: Discount[] = [
 	{
 		id: "1",
-		title: "Распродажа",
-		image: "/images/discounts/dm_knigi_1200_auto_jpg.jpg",
-		link: "dm_knigi",
-		route: "discounts/dm_knigi",
-		categories: [baseCategory, categories[1]],
+		title: "Летний SALE в Tom Tailor: скидки до 50%",
+		image: "/images/discounts/tt_300_365_jpg.jpg",
+		description: "Летний SALE в Tom Tailor! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
+		link: transliterate("Летний SALE в Tom Tailor: скидки до 50%"),
+		route: `discounts/${transliterate("Летний SALE в Tom Tailor: скидки до 50%")}`,
+		shop: shops[5]
 	},
 	
 	{
 		id: "2",
-		title: "Распродажа",
-		image: "/images/discounts/dm_malyshi_new_1200_auto_jpg.jpg",
-		link: "dm_malyshi",
-		route: "discounts/dm_malyshi",
-		categories: [baseCategory, categories[1]],
+		title: "Летний SALE в Спортмастер: скидки до 50%",
+		image: "/images/discounts/sm_300_365_jpg.jpg",
+		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
+		link: transliterate("Летний SALE в Спортмастер: скидки до 50%"),
+		route: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
+		shop: shops[4]
 	},
 	
 	{
 		id: "3",
-		title: "Товары для дачи",
-		image: "/images/discounts/el_dorado_dacha_1200_auto_jpg.jpg",
-		link: "el_dorado_dacha",
-		route: "discounts/el_dorado_dacha",
-		categories: [baseCategory, categories[8]],
+		title: "Летний SALE в Спортмастер: скидки до 50%",
+		image: "/images/discounts/sm_krosy_300_365_jpg.jpg",
+		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
+		link: transliterate("Летний SALE в Спортмастер: скидки до 50%"),
+		route: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
+		shop: shops[4]
 	},
 	
 	{
 		id: "4",
-		title: "Самокаты",
-		image: "/images/discounts/el_dorado_samokaty_1200_auto_jpg.jpg",
-		link: "el_dorado_samokaty",
-		route: "discounts/el_dorado_samokaty",
-		categories: [baseCategory, categories[8]],
+		title: "Скидки до 50% на всё для отдыха у воды в «Спортмастере»",
+		image: "/images/discounts/sm_voda_300_365_jpg.jpg",
+		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
+		link: transliterate("Скидки до 50% на всё для отдыха у воды в «Спортмастере»"),
+		route: `discounts/${transliterate("Скидки до 50% на всё для отдыха у воды в «Спортмастере»")}`,
+		shop: shops[4]
 	},
 ];
 

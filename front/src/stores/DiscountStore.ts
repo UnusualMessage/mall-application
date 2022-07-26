@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction, toJS} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 
 import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";
@@ -26,7 +26,7 @@ class DiscountStore implements Filterable {
 		let count = 0;
 		
 		for (const discount of this.discounts) {
-			if (discount.categories.find(category => category.id === id)) {
+			if (discount.shop.categories.find(category => category.id === id)) {
 				++count;
 			}
 		}
@@ -35,13 +35,11 @@ class DiscountStore implements Filterable {
 	};
 	
 	get = () => {
-		if (this.filter === "Все") {
-			return this.discounts;
-		}
-		
-		return this.discounts.filter(discount => discount.categories.find(
-			category => category.title === this.filter
-		));
+		return this.discounts;
+	};
+	
+	getCount = () => {
+		return this.discounts.length;
 	};
 	
 	setFilter = (filter: string) => {
@@ -50,6 +48,20 @@ class DiscountStore implements Filterable {
 	
 	getFilter = () => {
 		return this.filter;
+	};
+	
+	getFiltered = () => {
+		if (this.filter === "Все") {
+			return this.discounts;
+		}
+		
+		return this.discounts.filter(discount => discount.shop.categories.find(
+			category => category.title === this.filter
+		));
+	};
+	
+	getDiscountsByShopId = (id: string) => {
+		return this.discounts.filter(discount => discount.shop.id === id);
 	};
 	
 	getDiscountsAsync = async () => {
