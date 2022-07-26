@@ -31,7 +31,7 @@ const PicturesCarousel: FC<Props> = ({ images,
 					images.map((image: Image, index) => {
 						return(
 							<Carousel.Item key={index}>
-								<InnerLink className={""} to={image.route}>
+								<InnerLink className={""} to={"/" + image.route}>
 									<Image classes={`${css.item}`} source={image.image}/>
 								</InnerLink>
 							</Carousel.Item>
