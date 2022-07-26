@@ -1,5 +1,6 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import {makeAutoObservable, runInAction, toJS} from "mobx";
 
+import events from "../data/events";
 import EventService from "../api/services/EventService";
 import Event from "../api/interfaces/event/Event";
 import NewEvent from "../api/interfaces/event/NewEvent";
@@ -13,6 +14,7 @@ class EventStore {
 	
 	constructor() {
 		this.eventService = new EventService();
+		this.events = events;
 		
 		makeAutoObservable(this);
 	}

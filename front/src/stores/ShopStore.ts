@@ -41,12 +41,7 @@ class ShopStore implements Filterable {
 	get = () => {
 		return toJS(this.shops);
 	};
-	
-	getFirstBy = (count: number) => {
-		const end = (count > this.shops.length) ? this.shops.length - 1 : count - 1;
-		return toJS(this.shops.slice(0, end));
-	};
-	
+
 	getFiltered = () => {
 		if (this.filter === "Все") {
 			return this.shops;

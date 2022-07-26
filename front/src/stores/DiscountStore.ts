@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import {makeAutoObservable, runInAction, toJS} from "mobx";
 
 import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";

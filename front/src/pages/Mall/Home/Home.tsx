@@ -5,10 +5,21 @@ import css from "./home.module.scss";
 
 import PicturesCarousel from "../../../components/PicturesCarousel";
 import ShopStore from "../../../stores/ShopStore";
+import EventStore from "../../../stores/EventStore";
+import DiscountStore from "../../../stores/DiscountStore";
+import getFirstBy from "../../../utils/getFirstBy";
 
 const Home = () => {
     const shopImages = useMemo(() => {
-        return ShopStore.getFirstBy(10);
+        return getFirstBy(10, ShopStore.get());
+    }, []);
+    
+    const discountImages = useMemo(() => {
+        return getFirstBy(10, DiscountStore.get());
+    }, []);
+    
+    const eventsImages = useMemo(() => {
+        return getFirstBy(6, EventStore.get());
     }, []);
     
     return(
@@ -22,7 +33,7 @@ const Home = () => {
                               cols={4}
             />
     
-            <PicturesCarousel images={shopImages}
+            <PicturesCarousel images={discountImages}
                               title={"Акции"}
                               linkLabel={"Все акции"}
                               to={"discounts"}
@@ -31,7 +42,7 @@ const Home = () => {
                               cols={3}
             />
     
-            <PicturesCarousel images={shopImages}
+            <PicturesCarousel images={eventsImages}
                               title={"Новости"}
                               linkLabel={"Все новости"}
                               to={"events"}
