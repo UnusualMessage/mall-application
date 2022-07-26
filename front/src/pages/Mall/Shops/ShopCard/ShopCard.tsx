@@ -4,29 +4,28 @@ import label from "/src/components/Label/label.module.scss";
 import Image from "../../../../components/Image";
 import Label from "../../../../components/Label";
 import {InnerLink} from "../../../../components/Link";
+import Shop from "../../../../api/interfaces/shop/Shop";
 
-const ShopCard = ({ image, title, link }: Props) => {
+const ShopCard = ({ shop }: Props) => {
 	return(
-		<InnerLink className={`${css.wrapper}`} to={link}>
-			<Image classes={`${css.logo}`} source={image}/>
-			<Label text={title} className={`${css.title} ${label.default} ${label.bold}`}/>
+		<InnerLink className={`${css.wrapper}`} to={shop.link}>
+			<Image classes={`${css.logo}`} source={shop.image}/>
+			<Label text={shop.title} className={`${css.title} ${label.default} ${label.bold}`}/>
 
 			<div className={`${css.more}`}>
 				<div className={`${css.info}`}>
-					<Label text={"8 800 200-95-55"} className={`${label.mini}`}/>
-					<Label text={"www.perekrestok.ru"} className={`${label.mini}`}/>
+					<Label text={shop.phone} className={`${label.mini}`}/>
+					<Label text={shop.site} className={`${label.mini}`}/>
 				</div>
 				
-				<Label text={"1-й этаж"} className={`${css.floor} ${label.mini}`}/>
+				<Label text={`${shop.floor}-й этаж`} className={`${css.floor} ${label.mini}`}/>
 			</div>
 		</InnerLink>
 	);
 };
 
 interface Props {
-	image: string,
-	title: string,
-	link: string
+	shop: Shop
 }
 
 export default ShopCard;

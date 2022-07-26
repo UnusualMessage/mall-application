@@ -7,9 +7,9 @@ import Option from "./FilterOption/Option";
 import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
 
-const Filter = ({ store, categories }: Props ) => {
+const Filter = ({ store, categories, className }: Props ) => {
 	return(
-		<div className={`${css.filter}`}>
+		<div className={`${css.filter} ${className}`}>
 			{categories.map(category => {
 				return(
 					<Option key={category.title}
@@ -23,7 +23,8 @@ const Filter = ({ store, categories }: Props ) => {
 
 interface Props {
 	store: Filterable,
-	categories: Category[]
+	categories: Category[],
+	className: string
 }
 
 export default observer(Filter);

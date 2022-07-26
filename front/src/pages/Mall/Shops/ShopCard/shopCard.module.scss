@@ -11,6 +11,7 @@
   padding: 10px;
   transition: all 0.3s ease-in-out;
   background: $back;
+  z-index: 10;
 
   .title {
 	transition: all 0.3s ease-in-out;
@@ -48,10 +49,10 @@
 
   @media screen and (min-width: $pre-big) {
 	&:hover {
-	  border: 2px solid red;
+	  border: 2px solid $shop;
 	  background: white;
 	  transform: scale(1.2);
-	  z-index: 10;
+	  z-index: 11;
 
 	  .title {
 		color: white;
@@ -69,7 +70,7 @@
   }
 
   @media screen and (max-width: $pre-big) {
-	&:hover {
+	&:active {
 	  border: 2px solid red;
 	  background: white;
 

@@ -6,4 +6,9 @@
   @include flexible(row, flex-start, flex-start);
 
   width: 100%;
+
+  .filter {
+    width: 20%;
+    margin-top: 80px;
+  }
 }

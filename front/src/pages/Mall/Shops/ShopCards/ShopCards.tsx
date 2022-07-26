@@ -4,9 +4,9 @@ import css from "./shopCards.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
 import ShopCard from "../ShopCard";
+import Label from "../../../../components/Label";
 
 import ShopStore from "../../../../stores/ShopStore";
-import Label from "../../../../components/Label";
 
 const ShopCards = () => {
 	const toRightForm = (count: number, text_forms: string[]) => {
@@ -38,7 +38,7 @@ const ShopCards = () => {
 				<div className={`${css.items}`}>
 					{ShopStore.getFiltered().map(shop => {
 						return(
-							<ShopCard key={shop.id} image={shop.image} title={shop.title} link={shop.link}/>
+							<ShopCard key={shop.id} shop={shop}/>
 						);
 					})}
 				</div>

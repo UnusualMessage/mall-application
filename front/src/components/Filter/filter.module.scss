@@ -5,9 +5,6 @@
 .filter {
   @include flexible(column, flex-start, center);
 
-  width: 20%;
-  margin-top: 50px;
-
   @media screen and (max-width: $pre-big) {
     display: none;
   }
