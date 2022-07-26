@@ -1,6 +1,8 @@
+import EventCards from "./EventCards";
+
 const Events = () => {
     return(
-        <></>
+        <EventCards/>
     );
 };
 

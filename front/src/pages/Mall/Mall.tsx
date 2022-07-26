@@ -1,5 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import {lazy} from "react";
+import Event from "./Event";
 
 const Base = lazy(() => import("./Base"));
 const Home = lazy(() => import("./Home"));
@@ -20,13 +21,11 @@ const Mall = () => {
 				<Route path="shops" element={<Shops />}/>
 				<Route path="shops/:shopId" element={<Shop />}/>
 				
-				
 				<Route path="discounts" element={<Discounts />}/>
 				<Route path="discounts/:discountId" element={<Discount />}/>
 				
-				
 				<Route path="events" element={<Events />}/>
-				
+				<Route path="events/:eventId" element={<Event />}/>
 				
 				<Route path="map" element={<Map />}/>
 				<Route path="info" element={<Info />}/>
