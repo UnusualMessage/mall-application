@@ -26,7 +26,7 @@ const PicturesCarousel: FC<Props> = ({ images,
 				</InnerLink>
 			</div>
 			
-			<Carousel mobileBreakpoint={576} cols={cols} rows={rows} gap={20} loop>
+			<Carousel mobileBreakpoint={576} cols={cols} rows={rows} gap={10} loop>
 				{
 					images.map((image: Image, index) => {
 						return(

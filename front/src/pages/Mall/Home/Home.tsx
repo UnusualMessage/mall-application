@@ -1,6 +1,6 @@
 import {useMemo} from "react";
 
-import label from "/src/components/Label/label.module.scss";
+import styles from "/src/components/styles.module.scss";
 import css from "./home.module.scss";
 
 import PicturesCarousel from "../../../components/PicturesCarousel";
@@ -17,7 +17,7 @@ const Home = () => {
                               title={"Магазины"}
                               linkLabel={"Все отделы"}
                               to={"shops"}
-                              borderColor={label.redBottom}
+                              borderColor={styles.redBorder}
                               rows={1}
                               cols={4}
             />
@@ -26,7 +26,7 @@ const Home = () => {
                               title={"Акции"}
                               linkLabel={"Все акции"}
                               to={"discounts"}
-                              borderColor={label.greenBottom}
+                              borderColor={styles.greenBorder}
                               rows={1}
                               cols={3}
             />
@@ -35,7 +35,7 @@ const Home = () => {
                               title={"Новости"}
                               linkLabel={"Все новости"}
                               to={"events"}
-                              borderColor={label.blueBottom}
+                              borderColor={styles.blueBorder}
                               rows={3}
                               cols={2}
             />

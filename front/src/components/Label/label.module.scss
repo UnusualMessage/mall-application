@@ -21,18 +21,6 @@
   @include text(36px, $title, none, bold);
 }
 
-.redBottom {
-  border-color: $shop;
-}
-
-.blueBottom {
-  border-color: $event;
-}
-
-.greenBottom {
-  border-color: $discount;
-}
-
 .bold {
     font-weight: bold;
 }
