@@ -13,13 +13,12 @@ import {OuterLink} from "../../../components/Link";
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo} from "react";
 import PicturesCarousel from "../../../components/PicturesCarousel";
 import DiscountStore from "../../../stores/DiscountStore";
+import Hider from "../../../components/Hider";
 
 const Shop = () => {
-	const [textHidden, setTextHidden] = useState(true);
-	
 	const { shopId } = useParams();
 	const redirect = useNavigate();
 	
@@ -38,10 +37,6 @@ const Shop = () => {
 	const images = useMemo(() => {
 		return DiscountStore.getDiscountsByShopId(shop.id);
 	}, [shop]);
-	
-	const onClick = useCallback(() => {
-		setTextHidden(!textHidden);
-	}, [textHidden]);
 	
 	return(
 		<div className={`${css.container}`}>
@@ -77,23 +72,9 @@ const Shop = () => {
 					</div>
 				</div>
 				
-				<div className={`${css.description}`}>
-					<div className={`${css.text} ${textHidden ? css.hidden : ""}`}>
-						<Label text={shop.description} className={`${label.default}`}/>
-					</div>
-					
-					{
-						textHidden
-							? <Label className={`${label.default} ${link.underlined}`}
-							         text={"Читать дальше"}
-							         onClick={onClick}/>
-							
-							: <Label className={`${label.default} ${link.underlined}`}
-							         text={"Читать назад"}
-							         onClick={onClick}/>
-					}
-				</div>
-			
+				<Hider className={`${css.description}`} defaultHeight={230}>
+					<Label text={shop.description} className={`${label.default}`}/>
+				</Hider>
 			</div>
 			
 			{

@@ -23,10 +23,8 @@
 
     .image {
       flex-basis: 250px;
-      max-width: 250px;
       padding: 5px;
-      border: 5px solid red;
-
+      border: 5px solid $shop;
     }
 
     .contacts {
@@ -45,45 +43,7 @@
   }
 
   .description {
-    @include flexible(column, center, center);
-
-    gap: 10px;
     flex-basis: 400px;
-    position: relative;
-
-    .text {
-      max-height: 500px;
-      overflow: hidden;
-      transition: max-height 1s ease-in-out;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 25px;
-        right: 0;
-        left: 0;
-        height: 0;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
-        pointer-events: none;
-        transition: height 0.5s ease-in-out;
-      }
-    }
-
-    .hidden {
-      max-height: 230px;
-
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 25px;
-        right: 0;
-        left: 0;
-        height: 100px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
-        pointer-events: none;
-        transition: all 0.5s ease-in-out;
-      }
-    }
   }
 
   @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
@@ -95,7 +55,6 @@
       gap: 10px;
 
       .image {
-        max-width: 100%;
         flex-basis: 100%;
         padding: 5px;
         border: 5px solid red;
@@ -127,7 +86,6 @@
       gap: 10px;
 
       .image {
-        max-width: 100%;
         flex-basis: 100%;
       }
 
