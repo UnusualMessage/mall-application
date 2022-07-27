@@ -39,8 +39,8 @@ const Shop = () => {
 	}, [shop]);
 	
 	return(
-		<div className={`${css.container}`}>
-			<div className={`${css.wrapper}`}>
+		<div className={`${css.wrapper}`}>
+			<div className={`${css.shop}`}>
 				<div className={`${css.info}`}>
 					<Image classes={`${css.image}`} source={shop.image}/>
 					
