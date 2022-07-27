@@ -1,0 +1,33 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  gap: 10px;
+  position: relative;
+
+  .content {
+    overflow: hidden;
+    transition: max-height 1s ease-in-out;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 25px;
+      right: 0;
+      left: 0;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
+      pointer-events: none;
+      transition: height 1s ease-in-out;
+    }
+  }
+
+  .hidden {
+    &::after {
+      height: 50px;
+    }
+  }
+}
