@@ -8,7 +8,7 @@ import link from "/src/components/Link/link.module.scss";
 
 import Image from "../../../components/Image";
 import Label from "../../../components/Label";
-import {OuterLink} from "../../../components/Link";
+import {InnerLink, OuterLink} from "../../../components/Link";
 import Icon from "../../../components/Icon";
 import Hider from "../../../components/Hider";
 
@@ -35,7 +35,9 @@ const Discount = () => {
 	return(
 		<div className={`${css.wrapper}`}>
 			<div className={`${css.info}`}>
-				<Image classes={`${css.image}`} source={discount.shop.image}/>
+				<InnerLink className={`${css.image}`} to={"/" + discount.shop.route}>
+					<Image classes={""} source={discount.shop.image}/>
+				</InnerLink>
 				
 				<div className={`${css.contacts}`}>
 					<Label text={`${discount.shop.floor}-й этаж`} className={`${label.big}`}/>

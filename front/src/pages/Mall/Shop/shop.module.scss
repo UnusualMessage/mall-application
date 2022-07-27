@@ -4,7 +4,7 @@
 
 .wrapper {
   @include flexible(column, center, center);
-  gap: 100px;
+  gap: 50px;
 
   .shop {
     @include flexible(row, flex-start, center);

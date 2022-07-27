@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect} from "react";
 
 import css from "./event.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -8,19 +8,18 @@ import link from "/src/components/Link/link.module.scss";
 import Image from "../../../components/Image";
 import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
-import {OuterLink} from "../../../components/Link";
+import {InnerLink, OuterLink} from "../../../components/Link";
 
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
 import events from "../../../data/events";
+import Hider from "../../../components/Hider";
 
 const Event = () => {
-	const [textHidden, setTextHidden] = useState(true);
-	
 	const { eventId } = useParams();
 	const redirect = useNavigate();
 	
-	const event = events.find(shop => shop.link === eventId);
+	const event = events.find(event => event.link === eventId);
 	
 	useEffect(() => {
 		if (!event) {
@@ -32,22 +31,20 @@ const Event = () => {
 		return null;
 	}
 	
-	const onClick = useCallback(() => {
-		setTextHidden(!textHidden);
-	}, [textHidden]);
-	
 	return(
 		<div className={`${css.wrapper}`}>
 			<div className={`${css.info}`}>
-				<Image classes={`${css.image}`} source={event.image}/>
+				<InnerLink className={`${css.image}`} to={"/" + event.shop.route}>
+					<Image classes={""} source={event.shop.image}/>
+				</InnerLink>
 				
 				<div className={`${css.contacts}`}>
-					<Label text={`${event.title}-й этаж`} className={`${label.big}`}/>
-					<Label text={event.title} className={`${label.big}`}/>
-					<Label text={event.title} className={`${label.big}`}/>
+					<Label text={`${event.shop.floor}-й этаж`} className={`${label.big}`}/>
+					<Label text={event.shop.schedule} className={`${label.big}`}/>
+					<Label text={event.shop.phone} className={`${label.big}`}/>
 					
-					<OuterLink className={`${link.hovered}`} to={`https://${event.title}`}>
-						<Label text={event.title} className={`${label.big} ${label.hovered}`}/>
+					<OuterLink className={`${link.hovered}`} to={`https://${event.shop.site}`}>
+						<Label text={event.shop.site} className={`${label.big} ${label.hovered}`}/>
 					</OuterLink>
 					
 					<div className={`${css.socials}`}>
@@ -69,23 +66,10 @@ const Event = () => {
 				</div>
 			</div>
 			
-			<div className={`${css.description}`}>
-				<div className={`${css.text} ${textHidden ? css.hidden : ""}`}>
-					<Label text={event.description} className={`${label.default}`}/>
-				</div>
-				
-				{
-					textHidden
-						? <Label className={`${label.default} ${link.underlined}`}
-						         text={"Читать дальше"}
-						         onClick={onClick}/>
-						
-						: <Label className={`${label.default} ${link.underlined}`}
-						         text={"Читать назад"}
-						         onClick={onClick}/>
-				}
-			</div>
-		
+			<Hider className={`${css.description}`} defaultHeight={230}>
+				<Image classes={""} source={event.image}/>
+				<Label text={event.description} className={`${label.default}`}/>
+			</Hider>
 		</div>
 	);
 };

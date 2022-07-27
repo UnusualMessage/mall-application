@@ -17,6 +17,7 @@ import shops from "../../../data/shops";
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
 import DiscountStore from "../../../stores/DiscountStore";
+import EventStore from "../../../stores/EventStore";
 
 const Shop = () => {
 	const { shopId } = useParams();
@@ -34,9 +35,13 @@ const Shop = () => {
 		return null;
 	}
 	
-	const images = useMemo(() => {
+	const discounts = useMemo(() => {
 		return DiscountStore.getDiscountsByShopId(shop.id);
-	}, [shop]);
+	}, [shop.id]);
+	
+	const events = useMemo(() => {
+		return EventStore.getEventsByShopId(shop.id);
+	}, [shop.id]);
 	
 	return(
 		<div className={`${css.wrapper}`}>
@@ -78,13 +83,25 @@ const Shop = () => {
 			</div>
 			
 			{
-				images.length ?
-					<PicturesCarousel images={images}
-					                  title={"Акции магазина"}
+				discounts.length ?
+					<PicturesCarousel images={discounts}
+					                  title={"Акции"}
 					                  linkLabel={"Все акции"}
 					                  borderColor={`${styles.greenBorder}`}
 					                  to={"/discounts"}
 					                  cols={4} rows={1}/>
+					:
+					<> </>
+			}
+			
+			{
+				events.length ?
+					<PicturesCarousel images={events}
+					                  title={"События"}
+					                  linkLabel={"Все события"}
+					                  borderColor={`${styles.blueBorder}`}
+					                  to={"/discounts"}
+					                  cols={3} rows={1}/>
 					:
 					<> </>
 			}

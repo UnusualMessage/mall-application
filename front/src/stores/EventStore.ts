@@ -23,6 +23,10 @@ class EventStore {
 		return this.events;
 	};
 	
+	getEventsByShopId = (id: string) => {
+		return this.events.filter(event => event.shop.id === id);
+	};
+	
 	getEventsAsync = async () => {
 		try {
 			const query = "";

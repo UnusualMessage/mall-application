@@ -1,5 +1,6 @@
 import Event from "../api/interfaces/event/Event";
 import transliterate from "../utils/transliterate";
+import shops from "./shops";
 
 const events: Event[] = [
 	{
@@ -9,6 +10,7 @@ const events: Event[] = [
 		image: "/images/events/glavnyj-imidzh-840h500-mm_840_500_jpg_2_100.jpg",
 		link: transliterate("Летний SALE в ТРЦ «Макси» начался!"),
 		route: `events/${transliterate("Летний SALE в ТРЦ «Макси» начался!")}`,
+		shop: shops[5]
 	},
 	
 	{
@@ -18,6 +20,7 @@ const events: Event[] = [
 		image: "/images/events/anons-840h500-rh_tula_840_500_jpg_2_100.jpg",
 		link: transliterate("Опрос для посетителей ТРЦ «Макси»"),
 		route: `events/${transliterate("Опрос для посетителей ТРЦ «Макси»")}`,
+		shop: shops[5]
 	},
 	
 	{
@@ -27,6 +30,7 @@ const events: Event[] = [
 		image: "/images/events/lajm_840h500-rh_840_500_jpg_2_100.jpg",
 		link: transliterate("Отдел женской одежды LIME открылся в ТРЦ «Макси»"),
 		route: `events/${transliterate("Отдел женской одежды LIME открылся в ТРЦ «Макси»")}`,
+		shop: shops[5]
 	},
 	
 	{
@@ -36,6 +40,7 @@ const events: Event[] = [
 		image: "/images/events/glavnyj-imidzh-840h500-mm_840_500_jpg_2_100 (1).jpg",
 		link: transliterate("Выгодное лето в OBI: скидки до 30%"),
 		route: `events/${transliterate("Выгодное лето в OBI: скидки до 30%")}`,
+		shop: shops[5]
 	},
 	
 	{
@@ -45,6 +50,7 @@ const events: Event[] = [
 		image: "/images/events/840h5001_840_500_jpg_2_100.jpg",
 		link: transliterate("Подарочные карты «Синема Парк»"),
 		route: `events/${transliterate("Подарочные карты «Синема Парк»")}`,
+		shop: shops[5]
 	},
 	
 	{
@@ -54,6 +60,7 @@ const events: Event[] = [
 		image: "/images/events/840h500_840_500_jpg_2_100.jpg",
 		link: transliterate("В «Синема Парк» по «Пушкинской карте»"),
 		route: `events/${transliterate("В «Синема Парк» по «Пушкинской карте»")}`,
+		shop: shops[5]
 	},
 ];
 
