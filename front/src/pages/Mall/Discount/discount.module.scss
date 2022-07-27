@@ -42,45 +42,7 @@
   .description {
 	@include flexible(column, center, center);
 
-	gap: 10px;
 	flex-basis: 400px;
-	position: relative;
-
-	.text {
-	  @include flexible(column, center, flex-start);
-	  gap: 20px;
-	  max-height: 500px;
-	  overflow: hidden;
-	  transition: max-height 1s ease-in-out;
-
-	  &::after {
-		content: "";
-		position: absolute;
-		bottom: 25px;
-		right: 0;
-		left: 0;
-		height: 0;
-		background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
-		pointer-events: none;
-		transition: height 0.5s ease-in-out;
-	  }
-	}
-
-	.hidden {
-	  max-height: 230px;
-
-	  &::after {
-		content: "";
-		position: absolute;
-		bottom: 25px;
-		right: 0;
-		left: 0;
-		height: 50px;
-		background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 100%);
-		pointer-events: none;
-		transition: all 0.5s ease-in-out;
-	  }
-	}
   }
 
   @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {

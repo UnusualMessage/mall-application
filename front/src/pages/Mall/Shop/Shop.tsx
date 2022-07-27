@@ -1,4 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
+import {useEffect, useMemo} from "react";
 
 import css from "./shop.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -9,14 +10,13 @@ import Image from "../../../components/Image";
 import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
 import {OuterLink} from "../../../components/Link";
+import PicturesCarousel from "../../../components/PicturesCarousel";
+import Hider from "../../../components/Hider";
 
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
 import {HomeRoute} from "../../../data/routes";
-import {useEffect, useMemo} from "react";
-import PicturesCarousel from "../../../components/PicturesCarousel";
 import DiscountStore from "../../../stores/DiscountStore";
-import Hider from "../../../components/Hider";
 
 const Shop = () => {
 	const { shopId } = useParams();

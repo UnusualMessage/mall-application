@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect} from "react";
 
 import css from "./discount.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -9,15 +9,14 @@ import link from "/src/components/Link/link.module.scss";
 import Image from "../../../components/Image";
 import Label from "../../../components/Label";
 import {OuterLink} from "../../../components/Link";
+import Icon from "../../../components/Icon";
+import Hider from "../../../components/Hider";
 
 import {HomeRoute} from "../../../data/routes";
 import discounts from "../../../data/discounts";
-import Icon from "../../../components/Icon";
 import icons from "../../../data/icons";
 
 const Discount = () => {
-	const [textHidden, setTextHidden] = useState(true);
-	
 	const { discountId } = useParams();
 	const redirect = useNavigate();
 	
@@ -32,10 +31,6 @@ const Discount = () => {
 	if (!discount) {
 		return null;
 	}
-	
-	const onClick = useCallback(() => {
-		setTextHidden(!textHidden);
-	}, [textHidden]);
 	
 	return(
 		<div className={`${css.wrapper}`}>
@@ -70,24 +65,10 @@ const Discount = () => {
 				</div>
 			</div>
 			
-			<div className={`${css.description}`}>
-				<div className={`${css.text} ${textHidden ? css.hidden : ""}`}>
-					<Image classes={`${css.image}`} source={discount.image}/>
-					<Label text={discount.description} className={`${label.default}`}/>
-				</div>
-				
-				{
-					textHidden
-						? <Label className={`${label.default} ${link.underlined}`}
-						         text={"Читать дальше"}
-						         onClick={onClick}/>
-						
-						: <Label className={`${label.default} ${link.underlined}`}
-						         text={"Читать назад"}
-						         onClick={onClick}/>
-				}
-			</div>
-		
+			<Hider className={`${css.description}`} defaultHeight={230}>
+				<Image classes={""} source={discount.image}/>
+				<Label text={discount.description} className={`${label.default}`}/>
+			</Hider>
 		</div>
 	);
 };

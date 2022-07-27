@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -24,7 +24,7 @@ const Hider = ({ children, defaultHeight, className }: Props) => {
 		}
 	}, [hider.hidden]);
 	
-	useResizeDetector({targetRef, onResize });
+	useResizeDetector({ targetRef, onResize, handleWidth: true, handleHeight: false });
 	
 	const onClick = useCallback(() => {
 		if (hider.hidden) {
