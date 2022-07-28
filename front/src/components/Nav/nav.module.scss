@@ -14,5 +14,18 @@
 	gap: 20px;
     width: $pre-big;
 	flex-wrap: wrap;
+
+	@media screen and (max-width: $medium) {
+	  display: none;
+	}
+  }
+
+  .burger {
+	@media screen and (max-width: $medium) {
+	  @include flexible(column, flex-start, flex-start);
+	}
   }
 }
+
+
+

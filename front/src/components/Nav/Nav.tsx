@@ -5,11 +5,20 @@ import css from "./nav.module.scss";
 import NavLink from "./Link";
 
 import navs from "../../data/navs";
+import InterfaceStore from "../../stores/InterfaceStore";
 
 const Nav = () => {
+    let menuStyle;
+    
+    if (InterfaceStore.isMenuActive()) {
+        menuStyle = `${css.inner} ${css.burger}`;
+    } else {
+        menuStyle = `${css.inner}`;
+    }
+    
     return(
         <nav className={`${css.wrapper}`}>
-            <div className={`${css.inner}`}>
+            <div className={menuStyle}>
                 {
                     navs.map(nav => {
                         return(
