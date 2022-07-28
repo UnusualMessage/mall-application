@@ -1,10 +1,11 @@
-const toRightForm = (count: number, text_forms: string[]) => {
-	count = Math.abs(count) % 100;
-	const n1 = count % 10;
-	if (count > 10 && count < 20) { return text_forms[2]; }
-	if (n1 > 1 && n1 < 5) { return text_forms[1]; }
-	if (n1 == 1) { return text_forms[0]; }
-	return text_forms[2];
+const toRightForm = (count: number, textForms: string[]) => {
+	const twoLast = Math.abs(count) % 100;
+	const last = count % 10;
+	
+	if (twoLast > 10 && twoLast < 20) { return textForms[2]; }
+	if (last > 1 && last < 5) { return textForms[1]; }
+	if (last === 1) { return textForms[0]; }
+	return textForms[2];
 };
 
 export default toRightForm;
