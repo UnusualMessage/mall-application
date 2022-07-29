@@ -1,6 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import {lazy} from "react";
 import Event from "./Event";
+import {discounts, events, home, info, map, shops} from "../../data/breadcrumbs";
 
 const Base = lazy(() => import("./Base"));
 const Home = lazy(() => import("./Home"));
@@ -18,17 +19,17 @@ const Mall = () => {
 			<Route path="*" element={<Base />}>
 				<Route path="*" element={<Home />}/>
 				
-				<Route path="shops" element={<Shops />}/>
-				<Route path="shops/:shopId" element={<Shop />}/>
+				<Route path={shops.route} element={<Shops />}/>
+				<Route path={`${shops.route}/:shopId`} element={<Shop />}/>
 				
-				<Route path="discounts" element={<Discounts />}/>
-				<Route path="discounts/:discountId" element={<Discount />}/>
+				<Route path={discounts.route} element={<Discounts />}/>
+				<Route path={`${discounts.route}/:discountId`} element={<Discount />}/>
 				
-				<Route path="events" element={<Events />}/>
-				<Route path="events/:eventId" element={<Event />}/>
+				<Route path={events.route} element={<Events />}/>
+				<Route path={`${events.route}/:eventId`} element={<Event />}/>
 				
-				<Route path="map" element={<Map />}/>
-				<Route path="info" element={<Info />}/>
+				<Route path={map.route} element={<Map />}/>
+				<Route path={info.route} element={<Info />}/>
 				
 			</Route>
 		</Routes>
