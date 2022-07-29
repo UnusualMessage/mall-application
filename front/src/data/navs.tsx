@@ -1,45 +1,45 @@
 import icons from "./icons";
-import {DiscountsRoute, EventsRoute, HomeRoute, InfoRoute, MapRoute, ShopsRoute} from "./routes";
+import {home, shops, discounts, events, map, info} from "./breadcrumbs";
 
 const navs = [
 	{
-		title: HomeRoute.name,
-		to: HomeRoute.route,
+		title: home.name,
+		to: home.route,
 		icon: icons.home,
 		viewBox: "0 0 176.532 176.532"
 	},
 	
 	{
-		title: ShopsRoute.name,
-		to: ShopsRoute.route,
+		title: shops.name,
+		to: shops.route,
 		icon: icons.shops,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: DiscountsRoute.name,
-		to: DiscountsRoute.route,
+		title: discounts.name,
+		to: discounts.route,
 		icon: icons.discounts,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: EventsRoute.name,
-		to: EventsRoute.route,
+		title: events.name,
+		to: events.route,
 		icon: icons.events,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: MapRoute.name,
-		to: MapRoute.route,
+		title: map.name,
+		to: map.route,
 		icon: icons.map,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: InfoRoute.name,
-		to: InfoRoute.route,
+		title: info.name,
+		to: info.route,
 		icon: icons.contacts,
 		viewBox: "0 0 24 24"
 	},

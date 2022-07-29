@@ -15,7 +15,7 @@ import Hider from "../../../components/Hider";
 
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
-import {HomeRoute} from "../../../data/routes";
+import {routes} from "../../../data/routes";
 import DiscountStore from "../../../stores/DiscountStore";
 import EventStore from "../../../stores/EventStore";
 
@@ -27,7 +27,7 @@ const Shop = () => {
 	
 	useEffect(() => {
 		if (!shop) {
-			redirect(HomeRoute.route);
+			redirect(routes[0].path);
 		}
 	}, [shop]);
 	

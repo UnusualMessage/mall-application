@@ -12,9 +12,9 @@ import {InnerLink, OuterLink} from "../../../components/Link";
 import Icon from "../../../components/Icon";
 import Hider from "../../../components/Hider";
 
-import {HomeRoute} from "../../../data/routes";
 import discounts from "../../../data/discounts";
 import icons from "../../../data/icons";
+import {routes} from "../../../data/routes";
 
 const Discount = () => {
 	const { discountId } = useParams();
@@ -24,7 +24,7 @@ const Discount = () => {
 	
 	useEffect(() => {
 		if (!discount) {
-			redirect(HomeRoute.route);
+			redirect(routes[0].path);
 		}
 	}, [discount]);
 	

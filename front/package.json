@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npx webpack --config config/webpack.entry.config.js --env state=prod",
     "build-dev": "npx webpack --config config/webpack.entry.config.js --env state=dev",
+
     "start": "npx webpack serve --config config/webpack.entry.config.js --env state=dev",
+
     "lint": "npx eslint . --ext .ts,.tsx",
     "lint:fix": "npx eslint . --ext .ts,.tsx --fix"
   },

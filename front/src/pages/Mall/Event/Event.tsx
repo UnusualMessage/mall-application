@@ -9,11 +9,11 @@ import Image from "../../../components/Image";
 import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
 import {InnerLink, OuterLink} from "../../../components/Link";
+import Hider from "../../../components/Hider";
 
 import icons from "../../../data/icons";
-import {HomeRoute} from "../../../data/routes";
 import events from "../../../data/events";
-import Hider from "../../../components/Hider";
+import {routes} from "../../../data/routes";
 
 const Event = () => {
 	const { eventId } = useParams();
@@ -23,7 +23,7 @@ const Event = () => {
 	
 	useEffect(() => {
 		if (!event) {
-			redirect(HomeRoute.route);
+			redirect(routes[0].path);
 		}
 	}, [event]);
 	

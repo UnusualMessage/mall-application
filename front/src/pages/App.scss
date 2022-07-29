@@ -1,16 +1,12 @@
 @use "../utils/constants/sizes" as *;
+@use "../utils/constants/colors" as *;
 
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
 *::selection {
-    background: black;
-    color: white;
-}
-
-*::-moz-selection {
-    background: black;
+    background: $hover;
     color: white;
 }
 
@@ -44,7 +40,4 @@ p, h1, h2, h3, h4, h5, h6 {
 #root {
     min-width: $mini;
     min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
 }

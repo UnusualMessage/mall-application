@@ -1,7 +1,8 @@
 import {makeAutoObservable} from "mobx";
 
 import Breadcrumb from "../types/Breadcrumb";
-import { routes } from "../data/routes";
+import { breadcrumbs } from "../data/breadcrumbs";
+import {routes} from "../data/routes";
 
 class NavigationStore {
 	breadcrumbs: Breadcrumb[] = [];
@@ -14,18 +15,22 @@ class NavigationStore {
 	
 	toStart = () => {
 		this.breadcrumbs = [{
-			name: routes[0].name,
-			route: routes[0].route
+			name: breadcrumbs[0].name,
+			route: breadcrumbs[0].route
 		}];
 	};
 	
 	toNext = (path: string) => {
 		this.toStart();
 		
+		if (!routes.find(route => path === route.path)) {
+			return;
+		}
+		
 		const currentRoutes: string[] = path.split("/").filter(route => route !== "");
 		
 		for (const currentRoute of currentRoutes) {
-			const route = routes.find(route => currentRoute === route.route);
+			const route = breadcrumbs.find(breadcrumb => currentRoute === breadcrumb.route);
 			
 			if (route) {
 				this.get().push({

@@ -1,74 +1,37 @@
-import shops from "./shops";
-import discounts from "./discounts";
-import events from "./events";
+import shopsData from "./shops";
+import discountsData from "./discounts";
+import eventsData from "./events";
 
-export const HomeRoute = {
-	name: "Главная",
-	route: "/"
-};
+import Route from "../types/Route";
 
-export const ShopsRoute = {
-	name: "Магазины",
-	route: "shops"
-};
+import {discounts, events, home, info, map, shops} from "./breadcrumbs";
 
-export const DiscountsRoute = {
-	name: "Акции и скидки",
-	route: "discounts"
-};
-
-export const EventsRoute = {
-	name: "События и новости",
-	route: "events"
-};
-
-export const MapRoute = {
-	name: "Карта ТЦ",
-	route: "map"
-};
-
-export const InfoRoute = {
-	name: "Информация",
-	route: "info"
-};
-
-export const routes = [
+export const routes: Route[] = [
 	{
-		name: HomeRoute.name,
-		route: HomeRoute.route
+		path: home.route,
 	},
 	
 	{
-		name: ShopsRoute.name,
-		route: ShopsRoute.route
+		path: "/" + shops.route,
 	},
 	
 	{
-		name: DiscountsRoute.name,
-		route: DiscountsRoute.route
+		path: "/" + discounts.route,
 	},
 	
 	{
-		name: EventsRoute.name,
-		route: EventsRoute.route
+		path: "/" + events.route,
 	},
 	
 	{
-		name: MapRoute.name,
-		route: MapRoute.route
+		path: "/" + map.route,
 	},
 	
 	{
-		name: InfoRoute.name,
-		route: InfoRoute.route
+		path: "/" + info.route,
 	},
-	
-	{
-		name: "",
-		route: ""
-	}
 ];
 
-shops.forEach(shop => routes.push({ name: shop.title, route: shop.link }));
-discounts.forEach(discount => routes.push({ name: discount.title, route: discount.link }));
-events.forEach(event => routes.push({name: event.title, route: event.link}));
+shopsData.forEach(shop => routes.push({ path: "/" + shop.route }));
+discountsData.forEach(discount => routes.push({ path: "/" + discount.route }));
+eventsData.forEach(event => routes.push({path: "/" + event.route}));
