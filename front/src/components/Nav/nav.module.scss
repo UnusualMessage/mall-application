@@ -7,23 +7,34 @@
 
   background: $back;
 
-  .inner {
-	@include flexible(row, flex-start, space-around);
+  @media screen and (max-width: $medium) {
+	width: 100%;
+	position: absolute;
+	left: -$pre-big;
+	z-index: 2;
 
-	padding: 20px;
-	gap: 20px;
-    width: $pre-big;
-	flex-wrap: wrap;
-
-	@media screen and (max-width: $medium) {
-	  display: none;
-	}
+	background-color: white;
+	transition: left 0.4s ease-in-out;
+	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
   }
 
-  .burger {
+  .inner {
+	@include flexible(row, flex-start, space-around);
+	flex-wrap: wrap;
+
+	width: $pre-big;
+	padding: 20px;
+	gap: 20px;
+
 	@media screen and (max-width: $medium) {
-	  @include flexible(column, flex-start, flex-start);
+	  @include flexible(column, flex-start, space-around);
 	}
+  }
+}
+
+.burger {
+  @media screen and (max-width: $medium) {
+	left: 0;
   }
 }
 

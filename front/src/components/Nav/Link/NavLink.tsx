@@ -13,8 +13,6 @@ import Icon from "../../Icon";
 import InterfaceStore from "../../../stores/InterfaceStore";
 
 const NavLink = ({children, title, to, viewBox}: Props) => {
-	const redirect = useNavigate();
-	
 	let linkStyle;
 	if (InterfaceStore.isMenuActive()) {
 		linkStyle = `${css.wrapper} ${css.burger}`;
@@ -23,7 +21,6 @@ const NavLink = ({children, title, to, viewBox}: Props) => {
 	}
 	
 	const onClick = () => {
-		redirect(to);
 		InterfaceStore.closeMenu();
 	};
 	

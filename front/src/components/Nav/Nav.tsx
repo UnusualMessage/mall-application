@@ -11,14 +11,14 @@ const Nav = () => {
     let menuStyle;
     
     if (InterfaceStore.isMenuActive()) {
-        menuStyle = `${css.inner} ${css.burger}`;
+        menuStyle = `${css.burger}`;
     } else {
-        menuStyle = `${css.inner}`;
+        menuStyle = "";
     }
     
     return(
-        <nav className={`${css.wrapper}`}>
-            <div className={menuStyle}>
+        <nav className={`${css.wrapper} ${menuStyle}`}>
+            <div className={`${css.inner}`}>
                 {
                     navs.map(nav => {
                         return(

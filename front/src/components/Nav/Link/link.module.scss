@@ -14,36 +14,26 @@
   }
 
   @media screen and (max-width: $medium) {
-    opacity: 0;
+    @include flexible(row, center, flex-start);
 
-    @for $i from 1 through 100 {
-      &:nth-child(#{$i}) {
-        animation: fadeInFromNone #{$i * .2}s ease-in-out;
-      }
-    }
+    padding-bottom: 5px;
+    width: 100%;
+
+    border-bottom: 1px solid $border;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
   }
 }
 
 .burger {
   @media screen and (max-width: $medium) {
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        transition: opacity #{0.2 * $i}s ease-in-out;
+      }
+    }
+
     opacity: 1;
-    @include flexible(row, center, center);
   }
 }
 
-@keyframes fadeInFromNone {
-  0% {
-    opacity: 0;
-    display: none;
-  }
-
-  1% {
-    opacity: 0;
-    @include flexible(row, center, center);
-  }
-
-  100% {
-    opacity: 1;
-    @include flexible(row, center, center);
-  }
-}
