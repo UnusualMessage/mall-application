@@ -19,6 +19,10 @@ class InterfaceStore {
 		this.menuActive = !this.menuActive;
 	};
 	
+	closeMenu = () => {
+		this.menuActive = false;
+	};
+	
 	isFilterActive = () => {
 		return this.filterActive;
 	};

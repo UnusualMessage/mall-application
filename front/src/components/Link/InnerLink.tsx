@@ -1,17 +1,17 @@
-import {Link} from "react-router-dom";
+import {Link, LinkProps} from "react-router-dom";
 import React from "react";
 
 import css from "./link.module.scss";
 
-const InnerLink = ({ className, children, to }: Props) => {
+const InnerLink = ({ className, children, to, ...props }: Props) => {
 	return (
-		<Link className={`${css.default} ${className}`} to={to}>
+		<Link className={`${css.default} ${className}`} to={to} {...props}>
 			{children}
 		</Link>
 	);
 };
 
-interface Props {
+interface Props extends LinkProps {
 	className: string,
 	children: React.ReactNode,
 	to: string
