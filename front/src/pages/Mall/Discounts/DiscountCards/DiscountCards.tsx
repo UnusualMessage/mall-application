@@ -4,10 +4,10 @@ import css from "./discountCards.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
 import Label from "../../../../components/Label";
+import DiscountCard from "../DiscountCard";
 
 import DiscountStore from "../../../../stores/DiscountStore";
 import toRightForm from "../../../../utils/toRightForm";
-import DiscountCard from "../DiscountCard";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 
 const DiscountCards = () => {
@@ -27,7 +27,7 @@ const DiscountCards = () => {
 			<div className={`${css.pre}`}>
 				<Label text={"Фильтр"} className={`${css.switcher} ${label.mini} ${label.upper}`} onClick={onFilterSwitch}/>
 				
-				<div>
+				<div className={`${css.container}`}>
 					<Label text={`${discountsCount}`} className={`${label.large}`}/>
 					<Label text={toRightForm(discountsCount, [" акция", " акции", " акций"])}
 					       className={`${label.default} ${label.big}`}/>

@@ -4,6 +4,7 @@ import label from "/src/components/Label/label.module.scss";
 import Image from "../../../../components/Image";
 import Label from "../../../../components/Label";
 import {InnerLink} from "../../../../components/Link";
+
 import Shop from "../../../../api/interfaces/shop/Shop";
 
 const ShopCard = ({ shop }: Props) => {

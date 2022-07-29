@@ -10,17 +10,10 @@ import Discount from "../../../../api/interfaces/discount/Discount";
 const DiscountCard = ({ discount }: Props) => {
 	return(
 		<InnerLink className={`${css.wrapper}`} to={discount.link}>
-			<Image classes={`${css.logo}`} source={discount.image}/>
-			<Label text={discount.title} className={`${css.title} ${label.default} ${label.bold}`}/>
-			
-			<div className={`${css.more}`}>
-				<div className={`${css.info}`}>
-					<Label text={"8 800 200-95-55"} className={`${label.mini}`}/>
-					<Label text={"www.perekrestok.ru"} className={`${label.mini}`}/>
-				</div>
-				
-				<Label text={"1-й этаж"} className={`${css.floor} ${label.mini}`}/>
+			<div className={`${css.info}`}>
+				<Label text={discount.title} className={`${label.default} ${label.white} ${label.bold} ${css.title}`}/>
 			</div>
+			<Image classes={`${css.logo}`} source={discount.image}/>
 		</InnerLink>
 	);
 };

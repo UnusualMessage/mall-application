@@ -4,97 +4,67 @@
 
 .wrapper {
   @include flexible(column, flex-start, center);
+  flex-basis: 30%;
+
+  gap: 15px;
+  position: relative;
+  z-index: 1;
 
   border: 2px solid white;
-  flex-basis: 28%;
-  gap: 10px;
-  padding: 10px;
-  transition: all 0.3s ease-in-out;
-  background: $back;
-
-  .title {
-	transition: all 0.3s ease-in-out;
-	padding: 5px;
-  }
-
-  .more {
-	@include flexible(row, center, space-between);
-
-	margin-top: 10px;
-	transition: all 0.3s ease-in-out;
-	width: 100%;
-
-	.info {
-	  @include flexible(column, flex-start, center);
-	}
-
-	.floor {
-	  border: 1px solid #252525;
-	  padding: 5px;
-	  transition: all 0.3s ease-in-out;
-	}
-  }
+  transition: border-color 0.5s, transform 0.5s ease-in-out;
 
   .logo {
-	min-width: 200px;
-	min-height: 200px;
+	width: 100%;
   }
 
-  .title {
+  .info {
+	@include flexible(column, center, center);
+
+	width: 100%;
+	min-height: 0;
+	z-index: 1;
+	padding: 10px;
+	bottom: 0;
+	position: absolute;
+
+	transition: min-height 0.5s ease-in-out;
+	background: #00000080;
+	text-align: center;
+
 	@media screen and (max-width: $pre-medium) {
-	  font-size: 20px
+	  display: none;
 	}
   }
 
   @media screen and (min-width: $pre-big) {
+	flex-basis: 30%;
+
 	&:hover {
 	  border: 2px solid $discount;
 	  background: white;
 	  transform: scale(1.2);
-	  z-index: 10;
 
-	  .title {
-		color: white;
-		background: $title;
-		padding: 5px;
-	  }
-
-	  .more {
-		.floor {
-		  color: white;
-		  background: $title;
-		}
+	  .info {
+		min-height: 100%;
 	  }
 	}
   }
 
-  @media screen and (max-width: $pre-big) {
-	&:hover {
+  @media screen and (max-width: $pre-big) and (min-width: $medium) {
+	flex-basis: 30%;
+  }
+
+  @media screen and (max-width: $pre-big) and (min-width: $pre-medium){
+	&:active {
 	  border: 2px solid $discount;
-	  background: white;
-
-	  .title {
-		color: white;
-		background: $title;
-		padding: 5px;
-	  }
-
-	  .more {
-		.floor {
-		  color: white;
-		  background: $title;
-		}
-	  }
 	}
-
-	flex-basis: 25%;
   }
 
-  @media screen and (max-width: $medium) {
+  @media screen and (max-width: $medium) and (min-width: $pre-medium) {
 	flex-basis: 40%;
   }
 
   @media screen and (max-width: $pre-medium) {
-	flex-basis: 80%;
+	flex-basis: 70%;
   }
 }
