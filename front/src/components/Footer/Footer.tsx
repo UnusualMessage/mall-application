@@ -13,6 +13,7 @@ import contacts from "../../data/contacts";
 import icons from "../../data/icons";
 import navs from "../../data/navs";
 import Contacts from "../Contacts";
+import Socials from "../Socials";
 
 const Footer = () => {
     return(
@@ -20,17 +21,7 @@ const Footer = () => {
             <div className={`${css.inner}`}>
                 <div className={`${css.start}`}>
                     <Image classes={`${css.logo}`} source={"/Logo.png"}/>
-    
-                    <div className={`${css.socials}`}>
-                        <OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-                            <Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
-                        </OuterLink>
-    
-                        <OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-                            <Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.odnoklassniki}/>
-                        </OuterLink>
-                    </div>
-                    
+                    <Socials/>
                     <Label text={"© 2022  ТЦ Веневский"} className={`${label.mini}`}/>
                 </div>
                 

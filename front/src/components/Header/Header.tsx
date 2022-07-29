@@ -1,18 +1,14 @@
 import { observer } from "mobx-react-lite";
 
 import css from "./header.module.scss";
-import label from "../Label/label.module.scss";
-import link from "../Link/link.module.scss";
 
 import Image from "../Image";
 import Icon from "../Icon";
-import Label from "../Label";
-import {OuterLink} from "../Link";
+import Contacts from "../Contacts";
+import Socials from "../Socials";
 
-import contacts from "../../data/contacts";
 import icons from "../../data/icons";
 import InterfaceStore from "../../stores/InterfaceStore";
-import Contacts from "../Contacts";
 
 const Header = () => {
 	const onMenuShow = () => {
@@ -27,17 +23,8 @@ const Header = () => {
 					<Image classes={css.logo} source={"/Logo.png"} />
 				</div>
 				
-				<Contacts/>
-				
-				<div className={`${css.socials}`}>
-					<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-						<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
-					</OuterLink>
-					
-					<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-						<Icon className={""} viewBox={"0 0 95.481 95.481"} icon={icons.odnoklassniki}/>
-					</OuterLink>
-				</div>
+				<Contacts className={css.info}/>
+				<Socials/>
 			</div>
 		</header>
 	);

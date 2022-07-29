@@ -27,12 +27,6 @@
         height: 60px;
       }
 
-      .socials {
-        @include flexible(row, center, center);
-
-        gap: 50px;
-      }
-
       @media screen and (max-width: $medium) {
         flex-basis: 100%;
       }

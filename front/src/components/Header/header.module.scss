@@ -37,14 +37,14 @@
 	  }
 	}
 
-	.contacts {
-	  @include flexible(row, center, space-between);
-	}
+	.info {
+	  @include flexible(column, flex-start, center);
 
-	.socials {
-	  @include flexible(row, center, center);
+	  gap: 5px;
 
-	  gap: 20px;
+	  @media screen and (max-width: $medium) {
+		display: none;
+	  }
 	}
 
 	@media screen and (max-width: $pre-big) {
