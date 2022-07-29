@@ -16,6 +16,10 @@
 
 	width: $pre-big;
 
+	@media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
+	  overflow-x: hidden;
+	}
+
 	.title {
 	  border-bottom: 3px solid $hover;
 

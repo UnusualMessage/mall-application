@@ -8,13 +8,25 @@ import Label from "../../../../components/Label";
 
 import ShopStore from "../../../../stores/ShopStore";
 import toRightForm from "../../../../utils/toRightForm";
+import InterfaceStore from "../../../../stores/InterfaceStore";
 
 const ShopCards = () => {
 	const shopsCount = ShopStore.getCount();
 	
+	const onFilterSwitch = () => {
+		InterfaceStore.switchFilter();
+	};
+	
+	let classes = `${css.wrapper}`;
+	if (InterfaceStore.isFilterActive()) {
+		classes += ` ${css.moved}`;
+	}
+	
 	return(
-		<div className={`${css.wrapper}`}>
+		<div className={classes}>
 			<div className={`${css.pre}`}>
+				<Label text={"Фильтр"} className={`${css.switcher} ${label.mini} ${label.upper}`} onClick={onFilterSwitch}/>
+				
 				<div>
 					<Label text={`${shopsCount}`} className={`${label.large}`}/>
 					<Label text={toRightForm(shopsCount, [" магазин", " магазина", " магазинов"])}

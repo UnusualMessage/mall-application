@@ -4,15 +4,38 @@
 
 .wrapper {
   @include flexible(column, center, flex-start);
-  position: relative;
-  width: 80%;
   flex-wrap: wrap;
+
+  position: relative;
+  left: 0;
+
+  width: 80%;
   gap: 20px;
+  z-index: 15;
 
   .pre {
-	@include flexible(row, center, flex-end);
+	@include flexible(row, center, space-between);
 
 	width: 100%;
+
+	@media screen and (min-width: $pre-big) {
+	  @include flexible(row, center, flex-end);
+	}
+
+	.switcher {
+	  padding: 5px;
+	  border: 2px solid $title;
+	  cursor: pointer;
+
+	  @media screen and (min-width: $pre-big) {
+		display: none;
+	  }
+
+	  &:active {
+		color: white;
+		background: $title;
+	  }
+	}
   }
 
   .list {
@@ -40,5 +63,16 @@
 
   @media screen and (max-width: $pre-big) {
 	width: 100%;
+  }
+
+  @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
+	transition: left 0.5s ease-in;
+  }
+}
+
+.moved {
+  @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
+	transition: left 0.5s ease-in;
+	left: $mini;
   }
 }

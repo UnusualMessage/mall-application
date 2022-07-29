@@ -6,10 +6,18 @@ import Option from "./FilterOption/Option";
 
 import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
+import InterfaceStore from "../../stores/InterfaceStore";
 
 const Filter = ({ store, categories, className }: Props ) => {
+	const isFilterActive = InterfaceStore.isFilterActive();
+	
+	let classes = `${css.wrapper} ${className}`;
+	if (isFilterActive) {
+		classes = `${css.wrapper} ${className} ${css.active}`;
+	}
+	
 	return(
-		<div className={`${css.filter} ${className}`}>
+		<div className={classes}>
 			{categories.map(category => {
 				return(
 					<Option key={category.title}

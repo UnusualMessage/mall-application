@@ -2,9 +2,11 @@ import {makeAutoObservable} from "mobx";
 
 class InterfaceStore {
 	menuActive: boolean;
+	filterActive: boolean;
 	
 	constructor() {
 		this.menuActive = false;
+		this.filterActive = false;
 		
 		makeAutoObservable(this);
 	}
@@ -15,6 +17,14 @@ class InterfaceStore {
 	
 	switchMenu = () => {
 		this.menuActive = !this.menuActive;
+	};
+	
+	isFilterActive = () => {
+		return this.filterActive;
+	};
+	
+	switchFilter = () => {
+		this.filterActive = !this.filterActive;
 	};
 }
 

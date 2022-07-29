@@ -3,8 +3,10 @@ import {observer} from "mobx-react-lite";
 import css from "./option.module.scss";
 import label from "../../Label/label.module.scss";
 
-import Filterable from "../../../types/Filterable";
 import Label from "../../Label";
+
+import Filterable from "../../../types/Filterable";
+import InterfaceStore from "../../../stores/InterfaceStore";
 
 const Option = ({ count, text, store }: Props) => {
 	let active = false;
@@ -18,8 +20,8 @@ const Option = ({ count, text, store }: Props) => {
 	}
 	
 	const onClick = () => {
-		window.scroll({top: 0, left: 0, behavior: "smooth" });
 		store.setFilter(text);
+		InterfaceStore.switchFilter();
 	};
 	
 	let className: string;
