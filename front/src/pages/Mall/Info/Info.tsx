@@ -1,13 +1,10 @@
 import {Map, Placemark, YMaps} from "react-yandex-maps";
+import {useState} from "react";
 
 import css from "./info.module.scss";
-import label from "/src/components/Label/label.module.scss";
 
-import Label from "../../../components/Label";
-
-import contacts from "../../../data/contacts";
 import Loader from "../../../components/Loader";
-import {useState} from "react";
+import Contacts from "../../../components/Contacts";
 
 const Info = () => {
 	const [loaded, setLoaded] = useState(false);
@@ -35,20 +32,7 @@ const Info = () => {
 			
 
 			<div className={`${css.about}`}>
-				<div className={`${css.info}`}>
-					<Label text={contacts.city} className={`${label.bold}`}/>
-					<Label text={contacts.street} className={`${label.mini}`}/>
-				</div>
-				
-				<div className={`${css.info}`}>
-					<Label text={contacts.schedule} className={`${label.bold}`}/>
-					<Label text={"Время работы"} className={`${label.mini}`}/>
-				</div>
-				
-				<div className={`${css.info}`}>
-					<Label text={contacts.phone} className={`${label.bold}`}/>
-					<Label text={"Контактный телефон"} className={`${label.mini}`}/>
-				</div>
+				<Contacts/>
 			</div>
 		</div>
 	);

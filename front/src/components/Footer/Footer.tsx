@@ -12,6 +12,7 @@ import Icon from "../Icon";
 import contacts from "../../data/contacts";
 import icons from "../../data/icons";
 import navs from "../../data/navs";
+import Contacts from "../Contacts";
 
 const Footer = () => {
     return(
@@ -33,21 +34,8 @@ const Footer = () => {
                     <Label text={"© 2022  ТЦ Веневский"} className={`${label.mini}`}/>
                 </div>
                 
-                <div className={`${css.contacts}`}>
-                    <div className={`${css.info}`}>
-                        <Label text={contacts.city} className={`${label.bold}`}/>
-                        <Label text={contacts.street} className={`${label.mini}`}/>
-                    </div>
-    
-                    <div className={`${css.info}`}>
-                        <Label text={contacts.schedule} className={`${label.bold}`}/>
-                        <Label text={"Время работы"} className={`${label.mini}`}/>
-                    </div>
-    
-                    <div className={`${css.info}`}>
-                        <Label text={contacts.phone} className={`${label.bold}`}/>
-                        <Label text={"Контактный телефон"} className={`${label.mini}`}/>
-                    </div>
+                <div className={css.contacts}>
+                    <Contacts/>
                 </div>
                 
                 <div className={`${css.navs}`}>

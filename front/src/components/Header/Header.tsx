@@ -12,6 +12,7 @@ import {OuterLink} from "../Link";
 import contacts from "../../data/contacts";
 import icons from "../../data/icons";
 import InterfaceStore from "../../stores/InterfaceStore";
+import Contacts from "../Contacts";
 
 const Header = () => {
 	const onMenuShow = () => {
@@ -26,20 +27,7 @@ const Header = () => {
 					<Image classes={css.logo} source={"/Logo.png"} />
 				</div>
 				
-				<div className={`${css.info}`}>
-					<Label text={contacts.city} className={`${label.bold}`}/>
-					<Label text={contacts.street} className={`${label.mini}`}/>
-				</div>
-				
-				<div className={`${css.info}`}>
-					<Label text={contacts.schedule} className={`${label.bold}`}/>
-					<Label text={"Время работы"} className={`${label.mini}`}/>
-				</div>
-				
-				<div className={`${css.info}`}>
-					<Label text={contacts.phone} className={`${label.bold}`}/>
-					<Label text={"Контактный телефон"} className={`${label.mini}`}/>
-				</div>
+				<Contacts/>
 				
 				<div className={`${css.socials}`}>
 					<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>

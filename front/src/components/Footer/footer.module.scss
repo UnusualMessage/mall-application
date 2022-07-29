@@ -42,10 +42,6 @@
       @include flexible(column, flex-start, center);
 
       gap: 10px;
-
-      .info {
-        @include flexible(column, flex-start, center);
-      }
     }
 
     .navs {

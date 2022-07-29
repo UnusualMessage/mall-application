@@ -37,14 +37,8 @@
 	  }
 	}
 
-	.info {
-	  @include flexible(column, flex-start, center);
-
-	  gap: 5px;
-
-	  @media screen and (max-width: $medium) {
-		display: none;
-	  }
+	.contacts {
+	  @include flexible(row, center, space-between);
 	}
 
 	.socials {
