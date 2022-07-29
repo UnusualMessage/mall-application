@@ -27,7 +27,7 @@ const ShopCards = () => {
 			<div className={`${css.pre}`}>
 				<Label text={"Фильтр"} className={`${css.switcher} ${label.mini} ${label.upper}`} onClick={onFilterSwitch}/>
 				
-				<div>
+				<div className={`${css.container}`}>
 					<Label text={`${shopsCount}`} className={`${label.large}`}/>
 					<Label text={toRightForm(shopsCount, [" магазин", " магазина", " магазинов"])}
 					       className={`${label.default} ${label.big}`}/>

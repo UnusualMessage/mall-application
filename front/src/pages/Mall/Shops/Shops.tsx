@@ -11,7 +11,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 const Shops = () => {
     return(
         <div className={`${css.wrapper}`}>
-            <Filter store={ShopStore} categories={CategoryStore.getCategories()} className={`${css.filter}`}/>
+            <Filter store={ShopStore} categories={CategoryStore.getCategories()}/>
             <ShopCards/>
         </div>
     );

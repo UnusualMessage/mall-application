@@ -8,12 +8,12 @@ import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
 import InterfaceStore from "../../stores/InterfaceStore";
 
-const Filter = ({ store, categories, className }: Props ) => {
+const Filter = ({ store, categories }: Props ) => {
 	const isFilterActive = InterfaceStore.isFilterActive();
 	
-	let classes = `${css.wrapper} ${className}`;
+	let classes = `${css.wrapper}`;
 	if (isFilterActive) {
-		classes = `${css.wrapper} ${className} ${css.active}`;
+		classes = `${css.wrapper} ${css.active}`;
 	}
 	
 	return(
@@ -32,7 +32,6 @@ const Filter = ({ store, categories, className }: Props ) => {
 interface Props {
 	store: Filterable,
 	categories: Category[],
-	className: string
 }
 
 export default observer(Filter);

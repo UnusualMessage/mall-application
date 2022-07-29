@@ -6,12 +6,18 @@
   @include flexible(column, center, flex-start);
   flex-wrap: wrap;
 
+  width: 80%;
   position: relative;
   left: 0;
-
-  width: 80%;
   gap: 20px;
-  z-index: 15;
+
+  @media screen and (max-width: $pre-big) {
+	width: 100%;
+  }
+
+  @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
+	transition: left 0.5s ease-in;
+  }
 
   .pre {
 	@include flexible(row, center, space-between);
@@ -24,6 +30,7 @@
 
 	.switcher {
 	  padding: 5px;
+
 	  border: 2px solid $title;
 	  cursor: pointer;
 
@@ -36,6 +43,12 @@
 		background: $title;
 	  }
 	}
+
+	.container {
+	  @include flexible(row, baseline, center);
+
+	  gap: 5px;
+	}
   }
 
   .list {
@@ -46,33 +59,26 @@
 	  height: 200px;
 	  border: 5px solid $shop;
 	  position: absolute;
+
+	  @media screen and (max-width: $pre-medium) {
+		border: 0;
+		border-top: 5px solid $shop;
+	  }
 	}
 
 	.items {
 	  @include flexible(row, flex-start, space-around);
-
-	  margin-top: 10px;
-	  background: white;
-	  z-index: 1;
-	  width: 95%;
 	  flex-wrap: wrap;
+
+	  width: 100%;
 	  row-gap: 50px;
 	  padding: 10px;
 	}
-  }
-
-  @media screen and (max-width: $pre-big) {
-	width: 100%;
-  }
-
-  @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
-	transition: left 0.5s ease-in;
   }
 }
 
 .moved {
   @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
-	transition: left 0.5s ease-in;
 	left: $mini;
   }
 }

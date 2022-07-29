@@ -7,18 +7,4 @@
 
   width: 100%;
   position: relative;
-
-  .filter {
-    width: 20%;
-    margin-top: 80px;
-
-    @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
-      width: $mini;
-    }
-
-    @media screen and (max-width: $pre-medium) {
-      margin-top: 50px;
-      width: 100%;
-    }
-  }
 }

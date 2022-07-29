@@ -4,21 +4,31 @@
 
 .wrapper {
   @include flexible(column, flex-start, center);
+
+  width: 20%;
+  margin-top: 80px;
+  z-index: 2;
+
   background: white;
 
   @media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
     @include flexible(column, flex-start, flex-start);
+
+    width: $mini;
     position: absolute;
     left: -$mini;
-    z-index: 15;
+
     transition: left 0.5s ease-in;
   }
 
   @media screen and (max-width: $pre-medium) {
     display: none;
-    position: absolute;
-    z-index: 16;
+
     width: 100%;
+    margin-top: 50px;
+    position: absolute;
+
+    box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -29,7 +39,5 @@
 
   @media screen and (max-width: $pre-medium) {
     @include flexible(column, flex-start, flex-start);
-
-    box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.5);
   }
 }

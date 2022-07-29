@@ -1,17 +1,17 @@
 import {Route, Routes} from "react-router-dom";
 import {lazy} from "react";
-import Event from "./Event";
-import {discounts, events, home, info, map, shops} from "../../data/breadcrumbs";
+import {discounts, events, info, map, shops} from "../../data/breadcrumbs";
 
 const Base = lazy(() => import("./Base"));
 const Home = lazy(() => import("./Home"));
 const Shops = lazy(() => import("./Shops"));
+const Shop = lazy(() => import("./Shop"));
 const Discounts = lazy(() => import("./Discounts"));
+const Discount = lazy(() => import("./Discount"));
 const Events = lazy(() => import("./Events"));
+const Event = lazy(() => import("./Event"));
 const Map = lazy(() => import("./Map"));
 const Info = lazy(() => import("./Info"));
-const Shop = lazy(() => import("./Shop"));
-const Discount = lazy(() => import("./Discount"));
 
 const Mall = () => {
 	return(
