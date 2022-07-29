@@ -4,10 +4,12 @@ import styles from "/src/components/styles.module.scss";
 import css from "./home.module.scss";
 
 import PicturesCarousel from "../../../components/PicturesCarousel";
+
 import ShopStore from "../../../stores/ShopStore";
 import EventStore from "../../../stores/EventStore";
 import DiscountStore from "../../../stores/DiscountStore";
 import getFirstBy from "../../../utils/getFirstBy";
+import {discounts, events, shops} from "../../../data/breadcrumbs";
 
 const Home = () => {
     const shopImages = useMemo(() => {
@@ -27,7 +29,7 @@ const Home = () => {
             <PicturesCarousel images={shopImages}
                               title={"Магазины"}
                               linkLabel={"Все отделы"}
-                              to={"shops"}
+                              to={shops.route}
                               borderColor={styles.redBorder}
                               rows={1}
                               cols={4}
@@ -36,7 +38,7 @@ const Home = () => {
             <PicturesCarousel images={discountImages}
                               title={"Акции"}
                               linkLabel={"Все акции"}
-                              to={"discounts"}
+                              to={discounts.route}
                               borderColor={styles.greenBorder}
                               rows={1}
                               cols={3}
@@ -45,7 +47,7 @@ const Home = () => {
             <PicturesCarousel images={eventsImages}
                               title={"Новости"}
                               linkLabel={"Все новости"}
-                              to={"events"}
+                              to={events.route}
                               borderColor={styles.blueBorder}
                               rows={3}
                               cols={2}
