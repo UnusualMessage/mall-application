@@ -1,6 +1,5 @@
 import React from "react";
 import {observer} from "mobx-react-lite";
-import {useNavigate} from "react-router-dom";
 
 import css from "./link.module.scss";
 import label from "../../Label/label.module.scss";

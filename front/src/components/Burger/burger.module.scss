@@ -5,8 +5,9 @@
 .wrapper {
   @include flexible(column, center, center);
 
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 35px;
+  overflow: hidden;
   position: relative;
   cursor: pointer;
 
@@ -14,10 +15,15 @@
 	width: 100%;
 	position: absolute;
 	height: 5px;
+	left: 0;
 
 	background: $middle;
 	border-radius: 9px;
-	transition: background-color 0.5s, top 0.5s, transform 0.5s ease-in-out;
+	transition:
+			left 0.6s,
+			background-color 0.5s,
+			top 0.5s, transform 0.5s
+			ease-in-out;
 
 	@for $i from 1 through 3 {
 	  &:nth-child(#{$i}) {
@@ -42,7 +48,8 @@
 	}
 
 	&:nth-child(2) {
-	  transform: rotate(135deg);
+	  transform: rotate(180deg);
+	  left: -50px;
 	}
 
 	&:nth-child(3) {
