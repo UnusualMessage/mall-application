@@ -34,6 +34,12 @@ class ShopStore implements Filterable {
 		return count;
 	};
 	
+	getByCategory = (id: string) => {
+		return this.shops.filter(shop => {
+			return shop.categories.find(category => category.id === id);
+		});
+	};
+	
 	getCount = () => {
 		return this.shops.length;
 	};

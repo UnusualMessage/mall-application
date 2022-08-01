@@ -3,10 +3,12 @@ import {makeAutoObservable} from "mobx";
 class InterfaceStore {
 	menuActive: boolean;
 	filterActive: boolean;
+	mapFilterActive: boolean;
 	
 	constructor() {
 		this.menuActive = false;
 		this.filterActive = false;
+		this.mapFilterActive = false;
 		
 		makeAutoObservable(this);
 	}
@@ -29,6 +31,14 @@ class InterfaceStore {
 	
 	switchFilter = () => {
 		this.filterActive = !this.filterActive;
+	};
+	
+	isMapFilterActive = () => {
+		return this.mapFilterActive;
+	};
+	
+	switchMapFilter = () => {
+		this.mapFilterActive = !this.mapFilterActive;
 	};
 }
 
