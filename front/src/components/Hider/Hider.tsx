@@ -1,44 +1,33 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useRef} from "react";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 import css from "./hider.module.scss";
 
 import Label from "../Label";
-import {useResizeDetector} from "react-resize-detector";
+
+import useElementHider from "../../hooks/useElementHider";
 
 const Hider = ({ children, defaultHeight, className }: Props) => {
-	const [hider, setHider] = useState({
-		maxHeight: defaultHeight.toString() + "px",
-		hidden: true
-	});
-	
 	const targetRef = useRef<HTMLDivElement>(null);
 	
-	const onResize = useCallback(() => {
-		if (!hider.hidden) {
-			setHider({
-				maxHeight: targetRef.current?.scrollHeight + "px",
-				hidden: hider.hidden
-			});
-		}
-	}, [hider.hidden]);
+	const [hider, setHider] = useElementHider<HTMLDivElement>({ targetRef, defaultHeight });
 	
-	useResizeDetector({ targetRef, onResize, handleWidth: true, handleHeight: false });
-	
-	const onClick = useCallback(() => {
+	const onClick = () => {
+		const hidden = !hider.hidden;
+		
 		if (hider.hidden) {
 			setHider({
-				maxHeight: targetRef.current?.scrollHeight + "px",
-				hidden: !hider.hidden
+				maxHeight: targetRef.current?.scrollHeight.toString() + "px",
+				hidden: hidden
 			});
 		} else {
 			setHider({
-				maxHeight: "230px",
-				hidden: !hider.hidden
+				maxHeight: defaultHeight.toString() + "px",
+				hidden: hidden
 			});
 		}
-	}, [hider]);
+	};
 	
 	let buttonText = "Показать";
 	if (!hider.hidden) {
