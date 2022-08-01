@@ -4,8 +4,8 @@ const map: Cell[] = [
 	{
 		id: "1",
 		path: <>
-			<path fill={"#ED1C24"} d="M360,10v440H20V100h60h10V10H360z"/>
-			<path fill={"#C1272D"} d="M20,450h340l-10,10H10l0-350l10-10L20,450z M90,10L80,20v80h10V10z"/>
+			<path fill={"#FF7800"} d="M360,10v440H20V100h60h10V10H360z"/>
+			<path fill={"#E66100"} d="M20,450h340l-10,10H10l0-350l10-10L20,450z M90,10L80,20v80h10V10z"/>
 		</>
 	},
 	
