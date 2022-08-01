@@ -1,0 +1,25 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/sizes" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, flex-start);
+  margin-top: 1px;
+  height: calc(100% - 4px);
+  width: 320px;
+  position: absolute;
+  z-index: 2;
+  left: -$mini - 5px;
+  top: 0;
+  overflow: auto;
+  padding: 10px;
+  gap: 10px;
+
+  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.5);
+  touch-action: none;
+  transition: left 0.5s ease-in-out;
+  background-color: white;
+}
+
+.active {
+  left: 1px;
+}
