@@ -10,6 +10,8 @@ class MapStore {
 	scaleInc: number;
 	scaleLimit: { upper: number, lower: number };
 	
+	floor: number;
+	
 	tooltipState: TooltipState;
 	
 	constructor() {
@@ -27,6 +29,8 @@ class MapStore {
 			top: 0,
 			visible: false
 		};
+		
+		this.floor = 1;
 		
 		makeAutoObservable(this);
 	}
@@ -57,6 +61,16 @@ class MapStore {
 	
 	getTooltip = () => {
 		return this.tooltipState;
+	};
+	
+	toFloor = (floor: number) => {
+		if (floor == 1 || floor == 2) {
+			this.floor = floor;
+		}
+	};
+	
+	getFloor = () => {
+		return this.floor;
 	};
 }
 

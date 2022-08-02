@@ -3,194 +3,297 @@ import Cell from "../api/interfaces/cell/Cell";
 const map: Cell[] = [
 	{
 		id: "1",
-		path: <>
-			<path fill={"#FF7800"} d="M360,10v440H20V100h60h10V10H360z"/>
-			<path fill={"#E66100"} d="M20,450h340l-10,10H10l0-350l10-10L20,450z M90,10L80,20v80h10V10z"/>
-		</>
+		path:
+			<>
+				<g>
+					<polygon fill="#FF7800" points="90,10 90,100 80,100 20,100 20,450 360,450 360,10 		"/>
+					<polygon fill="#E66100" points="20,100 10,110 10,460 350,460 360,450 20,450 		"/>
+					<polygon fill="#E66100" points="90,10 80,20 80,100 90,100 		"/>
+				</g>
+				<text transform="matrix(1 0 0 1 105 246)" fontSize="30.3447px" fill="#393939" fontFamily="ArialMT">ПЯТЕРОЧКА</text>
+			</>
 	},
 	
 	{
 		id: "2",
-		path: <>
-			<path fill={"#FF7800"} d="M510,10v125H375V10H510z"/>
-			<path fill={"#E66100"} d="M375,135l-10,10V20l10-10V135z M365,145h135l10-10H375L365,145z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M510,190v90H375v-90H510z"/>
+					<path fill="#E66100" d="M375,280l-10,10v-90l10-10V280z M365,290h135l10-10H375L365,290z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 405 246)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">АПТЕКА</text>
+			</>
 	},
 	
 	{
 		id: "3",
-		path: <>
-			<path fill={"#FF7800"} d="M510,190v90H375v-90H510z"/>
-			<path fill={"#E66100"} d="M375,280l-10,10v-90l10-10V280z M365,290h135l10-10H375L365,290z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M510,295v70H375v-70H510z"/>
+					<path fill="#E66100" d="M375,365h135l-10,10H365v-70l10-10V365z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 390.0001 341.0002)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">ВАРНИЦА</text>
+			</>
 	},
 	
 	{
 		id: "4",
-		path: <>
-			<path fill={"#FF7800"} d="M510,295v70H375v-70H510z"/>
-			<path fill={"#E66100"} d="M375,365h135l-10,10H365l0-70l10-10L375,365z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M510,380v70H375v-70H510z"/>
+					<path fill="#E66100" d="M375,450h135l-10,10H365v-70l10-10V450z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 400.0001 426.0002)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">MATRIX</text>
+			</>
 	},
 	
 	{
 		id: "5",
-		path: <>
-			<path fill={"#FF7800"} d="M510,380v70H375v-70H510z"/>
-			<path fill={"#E66100"} d="M375,450h135l-10,10H365v-70l10-10V450z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M645,10v125H525V10H645z"/>
+					<path fill="#E66100" d="M525,135h120l-10,10H515l0,0V20l10-10V135L525,135z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 535.0001 81)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">УЮТЕРРА</text>
+			</>
 	},
 	
 	{
 		id: "6",
-		path: <>
-			<path fill={"#FF7800"} d="M645,10v125H525V10H645z"/>
-			<path fill={"#E66100"} d="M525,135h120l-10,10H515l0,0l0-125l10-10L525,135L525,135z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M730,10v125h-70V10H730z"/>
+					<path fill="#E66100" d="M660,135h70l-10,10h-70l0,0V20l10-10V135L660,135z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 665 78)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
+			</>
 	},
 	
 	{
 		id: "7",
-		path: <>
-			<path fill={"#FF7800"} d="M730,10v125h-70V10H730z"/>
-			<path fill={"#E66100"} d="M660,135h70l-10,10h-70l0,0l0-125l10-10L660,135L660,135z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M815,10v125h-70V10H815z"/>
+					<path fill="#E66100" d="M745,135h70l-10,10h-70V20l10-10V135z"/>
+				</g>
+				<rect x="742" y="59.8" fill="none" width="75" height="30.2"/>
+				<text transform="matrix(1.0031 0 0 1 747.3564 70.959)"><tspan x="0" y="0" fontSize="13px" fill="#393939" fontFamily="ArialMT">КУРИНЫЙ </tspan><tspan x="17.2" y="15.6" fontSize="13px" fill="#393939" fontFamily="ArialMT">ДОМ</tspan></text>
+			</>
 	},
 	
 	{
 		id: "8",
-		path: <>
-			<path fill={"#FF7800"} d="M815,10v125h-70V10H815z"/>
-			<path fill={"#E66100"} d="M745,135h70l-10,10h-70l0-125l10-10L745,135z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M980,100v35H860v-35H980z"/>
+					<path fill="#E66100" d="M860,135h120l-10,10H850v-35l10-10V135z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 865 123)" fontSize="13.5665px" fill="#393939" fontFamily="ArialMT">УЗБЕКСКИЙ РАЙ</text>
+			</>
 	},
 	
 	{
 		id: "9",
-		path: <>
-			<path fill={"#FF7800"} d="M980,100v35H860v-35H980z"/>
-			<path fill={"#E66100"} d="M860,135h120l-10,10H850v-35l10-10V135z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M980,150v60h-80v-60H980z"/>
+					<path fill="#E66100" d="M900,210h80l-10,10h-80v-60l10-10V210z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 910 186)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МИЛЕДИ</text>
+			</>
 	},
 	
 	{
 		id: "10",
-		path: <>
-			<path fill={"#FF7800"} d="M695,470v90H595v-90H695z"/>
-			<path fill={"#E66100"} d="M595,560h100l-10,10H585v-90l10-10V560z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M980,225v55h-80v-55H980z"/>
+					<path fill="#E66100" d="M900,280h80l-10,10h-80v-55l10-10V280z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 905 258.6353)" fontSize="17.7361px" fill="#393939" fontFamily="ArialMT">КАПРИЗ</text>
+			</>
 	},
 	
 	{
 		id: "11",
-		path: <>
-			<path fill={"#FF7800"} d="M810,470v90H710v-90H810z"/>
-			<path fill={"#E66100"} d="M710,560h100l-10,10H700v-90l10-10V560z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M980,295v100h-80v-40h40h10v-60H980z"/>
+					<path fill="#E66100" d="M900,395h80l-10,10h-80v-40l10-10V395z M950,295l-10,10v50h10V295z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 902 381)" fontSize="13.1216px" fill="#393939" fontFamily="ArialMT">ОК ОПТИКА</text>
+			</>
 	},
 	
 	{
 		id: "12",
-		path: <>
-			<path fill={"#FF7800"} d="M625,190v45h-60v-45H625z"/>
-			<path fill={"#E66100"} d="M565,235h60l-10,10h-60v-45l10-10V235z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M810,470v90H710v-90H810z"/>
+					<path fill="#E66100" d="M710,560h100l-10,10H700v-90l10-10V560z"/>
+				</g>
+				<rect x="709.3" y="497.7" fill="none" width="99.9" height="34.1"/>
+				<text transform="matrix(1 0 0 1 712.9071 509.0533)"><tspan x="0" y="0" fontSize="13.268px" fill="#393939" fontFamily="ArialMT">КАНЦТОВАРЫ </tspan><tspan x="14.6" y="18" fontSize="13.268px" fill="#393939" fontFamily="ArialMT">ИГРУШКИ</tspan></text>
+			</>
 	},
 	
 	{
 		id: "13",
-		path: <>
-			<path fill={"#FF7800"} d="M700,190v45h-60v-45H700z"/>
-			<path fill={"#E66100"} d="M640,235h60l-10,10h-60v-45l10-10V235z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M695,470v90H595v-90H695z"/>
+					<path fill="#E66100" d="M595,560h100l-10,10H585v-90l10-10V560z"/>
+				</g>
+				<rect x="598" y="503.8" fill="none" width="92.7" height="23.9"/>
+				<text transform="matrix(1 0 0 1 599.4979 512.4405)"><tspan x="0" y="0" fontSize="10.0733px" fill="#393939" fontFamily="ArialMT">БРИЛЛИАНТОВАЯ </tspan><tspan x="32" y="12" fontSize="10.0733px" fill="#393939" fontFamily="ArialMT">РУКА</tspan></text>
+			</>
 	},
 	
 	{
 		id: "14",
-		path: <>
-			<path fill={"#FF7800"} d="M775,190v45h-60v-45H775z"/>
-			<path fill={"#E66100"} d="M715,235h60l-10,10h-60v-45l10-10V235z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M625,190v45h-60v-45H625z"/>
+					<path fill="#E66100" d="M565,235h60l-10,10h-60v-45l10-10V235z"/>
+				</g>
+				<rect x="566.4" y="204.6" fill="none" width="58" height="22.8"/>
+				<text transform="matrix(1 0 0 1 566.9596 212.1575)"><tspan x="0" y="0" fontSize="8.8271px" fill="#393939" fontFamily="ArialMT">ЗООТОВАРЫ </tspan><tspan x="6.9" y="11" fontSize="8.8271px" fill="#393939" fontFamily="ArialMT">ГАЛАНТЕРЕЯ</tspan></text>
+			</>
 	},
 	
 	{
 		id: "15",
-		path: <>
-			<path fill={"#FF7800"} d="M850,190v45h-60v-45H850z"/>
-			<path fill={"#E66100"} d="M790,235h60l-10,10h-60v-45l10-10V235z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M700,190v45h-60v-45H700z"/>
+					<path fill="#E66100" d="M640,235h60l-10,10h-60v-45l10-10V235z"/>
+				</g>
+				<rect x="633.5" y="203.2" fill="none" width="73.8" height="23.3"/>
+				<text transform="matrix(1 0 0 1 643.5839 210.8159)"><tspan x="0" y="0" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ДОМАШНИЙ </tspan><tspan x="3.6" y="11" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ТЕКСТИЛЬ</tspan></text>
+			</>
 	},
 	
 	{
 		id: "16",
-		path: <>
-			<path fill={"#FF7800"} d="M625,250v45h-60v-45H625z"/>
-			<path fill={"#E66100"} d="M565,295h60l-10,10h-60v-45l10-10V295z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M775,190v45h-60v-45H775z"/>
+					<path fill="#E66100" d="M715,235h60l-10,10h-60v-45l10-10V235z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 722.0812 218.8806)" fontSize="14.4549px" fill="#393939" fontFamily="ArialMT">DANDY</text>
+			</>
 	},
 	
 	{
 		id: "17",
-		path: <>
-			<path fill={"#FF7800"} d="M700,250v45h-60v-45H700z"/>
-			<path fill={"#E66100"} d="M640,295h60l-10,10h-60v-45l10-10V295z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M850,190v45h-60v-45H850z"/>
+					<path fill="#E66100" d="M790,235h60l-10,10h-60v-45l10-10V235z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 793.3152 219.1105)" fontSize="13.2843px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
+			</>
 	},
 	
 	{
 		id: "18",
-		path: <>
-			<path fill={"#FF7800"} d="M775,250v45h-60v-45H775z"/>
-			<path fill={"#E66100"} d="M715,295h60l-10,10h-60v-45l10-10V295z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M850,250v45h-60v-45H850z"/>
+					<path fill="#E66100" d="M790,295h60l-10,10h-60v-45l10-10V295z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 794.0811 277.0808)" fontSize="11.2173px" fill="#393939" fontFamily="ArialMT">МЕГАФОН</text>
+			</>
 	},
 	
 	{
 		id: "19",
-		path: <>
-			<path fill={"#FF7800"} d="M850,250v45h-60v-45H850z"/>
-			<path fill={"#E66100"} d="M790,295h60l-10,10h-60v-45l10-10V295z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M775,250v45h-60v-45H775z"/>
+					<path fill="#E66100" d="M715,295h60l-10,10h-60v-45l10-10V295z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 718 276)" fontSize="9.1197px" fill="#393939" fontFamily="ArialMT">СИМВОЛ.РФ</text>
+			</>
 	},
 	
 	{
 		id: "20",
-		path: <>
-			<path fill={"#FF7800"} d="M980,150v60h-80v-60H980z"/>
-			<path fill={"#E66100"} d="M900,210h80l-10,10h-80v-60l10-10V210z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M700,250v45h-60v-45H700z"/>
+					<path fill="#E66100" d="M640,295h60l-10,10h-60v-45l10-10V295z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 647.251 279.9765)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">МТС</text>
+			</>
 	},
 	
 	{
 		id: "21",
-		path: <>
-			<path fill={"#FF7800"} d="M980,225v55h-80v-55H980z"/>
-			<path fill={"#E66100"} d="M900,280h80l-10,10h-80v-55l10-10V280z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M625,250v45h-60v-45H625z"/>
+					<path fill="#E66100" d="M565,295h60l-10,10h-60v-45l10-10V295z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 569.0004 278.0002)" fontSize="11.2172px" fill="#393939" fontFamily="ArialMT">ЗОО МИР</text>
+			</>
 	},
 	
 	{
 		id: "22",
-		path: <>
-			<path fill={"#FF7800"} d="M935,295v45h-35v-45H935z"/>
-			<path fill={"#E66100"} d="M900,340h35l-10,10h-35v-45l10-10V340z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M670,345v50h-75v-50H670z"/>
+					<path fill="#E66100" d="M595,395h75l-10,10h-75v-50l10-10V395z"/>
+				</g>
+				<rect x="596.7" y="358.2" fill="none" width="73.3" height="27.8"/>
+				<text transform="matrix(1 0 0 1 599.0051 367.2489)"><tspan x="0" y="0" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">ВОСТОЧНЫЕ </tspan><tspan x="5" y="11" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">СЛАДОСТИ</tspan></text>
+			</>
 	},
 	
 	{
 		id: "23",
-		path: <>
-			<path fill={"#FF7800"} d="M980,295v100h-80v-40h40h10v-60H980z"/>
-			<path fill={"#E66100"} d="M900,395h80l-10,10h-80v-40l10-10V395z M950,295l-10,10v50h10V295z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
+					<path fill="#E66100" d="M450,135h60l-10,10h-60L450,135z M450,10l-10,10l0,125l10-10L450,10z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 460 85.9998)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">WC</text>
+			</>
 	},
 	
 	{
 		id: "24",
-		path: <>
-			<path fill={"#FF7800"} d="M670,345v50h-75v-50H670z"/>
-			<path fill={"#E66100"} d="M595,395h75l-10,10h-75v-50l10-10V395z"/>
-		</>
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M435,10v125h-60V10H435z"/>
+					<path fill="#E66100" d="M375,135h60l-10,10h-60L375,135z M375,10l-10,10l0,125l10-10L375,10z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 377 86)" fontSize="13.5533px" fill="#393939" fontFamily="ArialMT">ОХРАНА</text>
+			</>
 	},
 ];
 

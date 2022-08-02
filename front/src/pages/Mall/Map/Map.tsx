@@ -12,6 +12,7 @@ import Label from "../../../components/Label";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import MapStore from "../../../stores/MapStore";
 import useDragging from "../../../hooks/useDragging";
+import FloorSwitcher from "./FloorSwitcher/FloorSwitcher";
 
 const Map = () => {
 	const defaultMapState = {
@@ -40,11 +41,12 @@ const Map = () => {
 			
 			<div className={css.content}>
 				<Categories/>
+				<Scaler/>
+				<FloorSwitcher/>
+				
 				<div className={mapState.dragging ? `${css.dragger} ${css.dragging}` : `${css.dragger}`}
 				     ref={draggingRef}
 				>
-					<Scaler/>
-					
 					<div className={css.floor}
 					     style={{ left: mapState.left, top: mapState.top, transform: `scale(${MapStore.getScale()})` }}
 					     ref={mapRef}>

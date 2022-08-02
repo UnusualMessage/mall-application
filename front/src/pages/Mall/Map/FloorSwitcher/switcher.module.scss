@@ -1,0 +1,31 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, flex-start);
+
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+
+  touch-action: none;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  background: white;
+  border: 1px solid $low;
+
+  .item {
+    @include flexible(row, center, center);
+    padding: 0 10px;
+    height: 40px;
+
+    &:not(&:last-child) {
+      border-bottom: 1px solid $border;
+    }
+
+    &:hover {
+      background: $back;
+    }
+  }
+}

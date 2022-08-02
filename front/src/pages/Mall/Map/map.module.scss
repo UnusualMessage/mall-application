@@ -43,6 +43,10 @@
     overflow: hidden;
     touch-action: none;
 
+    @media screen and (max-width: $medium) {
+      height: 300px;
+    }
+
     .dragger {
       @include flexible(row, center, center);
       width: 100%;
@@ -53,10 +57,6 @@
 
       border: 1px solid $hover;
       touch-action: none;
-
-      @media screen and (max-width: $medium) {
-        height: 300px;
-      }
 
       .floor {
         flex-shrink: 0;
@@ -75,7 +75,9 @@
     }
 
     .dragging {
-      cursor: grab;
+      @media screen and (min-width: $pre-big) {
+        cursor: grab;
+      }
     }
   }
 }

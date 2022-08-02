@@ -4,7 +4,7 @@
 .wrapper {
   @include flexible(column, flex-start, flex-start);
   margin-top: 1px;
-  height: calc(100% - 4px);
+  height: calc(100% - 2px);
   width: 320px;
   position: absolute;
   z-index: 2;
@@ -14,10 +14,15 @@
   padding: 10px;
   gap: 10px;
 
-  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.5);
-  touch-action: none;
+  box-shadow: 2px 0 5px 0 rgba(0, 0, 0, 0.5);
   transition: left 0.5s ease-in-out;
   background-color: white;
+
+  @media screen and (max-width: $pre-medium) {
+    width: calc(100% - 2px);
+    left: calc(-100% - 5px);
+    box-shadow: 0 0 0;
+  }
 }
 
 .active {
