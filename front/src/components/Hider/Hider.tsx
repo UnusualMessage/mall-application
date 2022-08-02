@@ -1,4 +1,5 @@
-import React, {useRef} from "react";
+import React, {useCallback, useRef} from "react";
+import classNames from "classnames";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -13,7 +14,7 @@ const Hider = ({ children, defaultHeight, className }: Props) => {
 	
 	const [hider, setHider] = useElementHider<HTMLDivElement>({ targetRef, defaultHeight });
 	
-	const onClick = () => {
+	const onClick = useCallback(() => {
 		const hidden = !hider.hidden;
 		
 		if (hider.hidden) {
@@ -27,24 +28,19 @@ const Hider = ({ children, defaultHeight, className }: Props) => {
 				hidden: hidden
 			});
 		}
-	};
-	
-	let buttonText = "Показать";
-	if (!hider.hidden) {
-		buttonText = "Спрятать";
-	}
+	}, [hider.hidden, defaultHeight, targetRef]);
 	
 	return(
-		<div className={`${css.wrapper} ${className}`}>
-			<div className={`${css.content} ${hider.hidden ? css.hidden : ""}`}
+		<div className={classNames(css.wrapper, className)}>
+			<div className={classNames(css.content, { [css.hidden]: hider.hidden })}
 			     ref={targetRef}
 			     style={{maxHeight: hider.maxHeight}}>
 				
 				{children}
 			</div>
 			
-			<Label className={`${css.more} ${label.default} ${link.underlined}`}
-			       text={buttonText}
+			<Label className={classNames(css.more, label.default, link.underlined)}
+			       text={ hider.hidden ? "Показать" : "Спрятать"}
 			       onClick={onClick}/>
 		</div>
 	);

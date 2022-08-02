@@ -1,4 +1,5 @@
 import React, {memo} from "react";
+import classNames from "classnames";
 
 import css from "./tooltip.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -12,21 +13,21 @@ import Shop from "../../../../api/interfaces/shop/Shop";
 
 const Tooltip = ({ shop, position, visible }: Props) => {
 	
-	let classes = `${css.wrapper}`;
-	if (visible) {
-		classes = `${css.wrapper} ${css.visible}`;
-	}
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.visible]: visible
+	});
 	
 	return(
 		<div className={classes} style={{ left: position.left, top: position.top }}>
-			<div className={css.logo}>
+			<div className={classNames(css.logo)}>
 				<Image classes={""} source={shop.image}/>
 			</div>
 			
-			<div className={css.info}>
-				<Label text={shop.title} className={label.mini}/>
-				<InnerLink className={""} to={"/" + shop.route}>
-					<Label text={"к магазину..."} className={`${label.mini} ${link.underlined}`}/>
+			<div className={classNames(css.info)}>
+				<Label className={classNames(label.mini)} text={shop.title}/>
+				<InnerLink className={classNames()} to={"/" + shop.route}>
+					<Label className={classNames(label.mini, link.underlined)} text={"к магазину..."}/>
 				</InnerLink>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 import Carousel from "better-react-carousel";
-import {FC} from "react";
+import classNames from "classnames";
 
 import css from "./carousel.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -9,20 +9,14 @@ import {InnerLink} from "../Link";
 import Label from "../Label";
 import Image from "../Image";
 
-const PicturesCarousel: FC<Props> = ({ images,
-	                                     title,
-	                                     linkLabel,
-	                                     to,
-	                                     borderColor,
-	                                     rows,
-	                                     cols }) => {
+const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, cols }: Props) => {
 	return(
-		<div className={`${css.wrapper} ${borderColor}`}>
-			<div className={css.info}>
-				<Label text={title} className={`${css.title} ${label.large} ${borderColor}`}/>
+		<div className={classNames(css.wrapper, borderColor)}>
+			<div className={classNames(css.info)}>
+				<Label text={title} className={classNames(css.title, label.large, borderColor)}/>
 				
-				<InnerLink className={`${link.underlined}`} to={to}>
-					<Label text={linkLabel} className={`${label.mini}`}/>
+				<InnerLink className={classNames(link.underlined)} to={to}>
+					<Label className={classNames(label.mini)} text={linkLabel}/>
 				</InnerLink>
 			</div>
 			
@@ -31,8 +25,8 @@ const PicturesCarousel: FC<Props> = ({ images,
 					images.map((image: Image, index) => {
 						return(
 							<Carousel.Item key={index}>
-								<InnerLink className={""} to={"/" + image.route}>
-									<Image classes={`${css.item}`} source={image.image}/>
+								<InnerLink className={classNames()} to={"/" + image.route}>
+									<Image classes={classNames(css.item)} source={image.image}/>
 								</InnerLink>
 							</Carousel.Item>
 						);

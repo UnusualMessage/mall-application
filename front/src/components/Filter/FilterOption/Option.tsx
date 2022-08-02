@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./option.module.scss";
 import label from "../../Label/label.module.scss";
@@ -24,16 +25,13 @@ const Option = ({ count, text, store }: Props) => {
 		InterfaceStore.switchFilter();
 	};
 	
-	let className: string;
-	
-	if (active) {
-		className = `${css.wrapper} ${css.active}`;
-	} else {
-		className = `${css.wrapper}`;
-	}
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.active]: active
+	});
 	
 	return(
-		<div className={className} onClick={active ? () => { return; } : onClick}>
+		<div className={classes} onClick={active ? () => { return; } : onClick}>
 			<Label text={count} className={`${css.count} ${label.default} ${label.bold}`}/>
 			<Label text={text} className={`${css.name} ${label.mini}`}/>
 		</div>

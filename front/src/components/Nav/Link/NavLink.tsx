@@ -1,5 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./link.module.scss";
 import label from "../../Label/label.module.scss";
@@ -12,21 +13,20 @@ import Icon from "../../Icon";
 import InterfaceStore from "../../../stores/InterfaceStore";
 
 const NavLink = ({children, title, to, viewBox}: Props) => {
-	let linkStyle;
-	if (InterfaceStore.isMenuActive()) {
-		linkStyle = `${css.wrapper} ${css.burger}`;
-	} else {
-		linkStyle = `${css.wrapper}`;
-	}
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.burger]: InterfaceStore.isMenuActive(),
+		[link.hovered]: true
+	});
 	
 	const onClick = () => {
 		InterfaceStore.closeMenu();
 	};
 	
 	return(
-		<InnerLink className={`${linkStyle} ${link.hovered}`} to={to} onClick={onClick}>
-			<Icon className={""} viewBox={viewBox} icon={children}/>
-			<Label text={title} className={`${css.title} ${label.mini} ${label.upper} ${label.bold}`}/>
+		<InnerLink className={classes} to={to} onClick={onClick}>
+			<Icon className={classNames()} viewBox={viewBox} icon={children}/>
+			<Label text={title} className={classNames(css.title, label.mini, label.upper, label.bold)}/>
 		</InnerLink>
 	);
 };

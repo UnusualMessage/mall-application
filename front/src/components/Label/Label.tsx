@@ -1,8 +1,9 @@
 import {ButtonHTMLAttributes, DetailedHTMLProps, FC} from "react";
+import classNames from "classnames";
 
 const Label: FC<Props> = ({ text, className, ...props }: Props) => {
 	return (
-		<span className={`${className}`} {...props}>
+		<span className={classNames(className)} {...props}>
 			{text}
 		</span>
 	);

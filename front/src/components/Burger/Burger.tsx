@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./burger.module.scss";
 
@@ -9,10 +10,10 @@ const Burger = () => {
 		InterfaceStore.switchMenu();
 	};
 	
-	let classes = css.wrapper;
-	if (InterfaceStore.menuActive) {
-		classes = `${css.wrapper} ${css.open}`;
-	}
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.open]: InterfaceStore.menuActive
+	});
 	
 	return(
 		<div className={classes} onClick={onMenuSwitch}>

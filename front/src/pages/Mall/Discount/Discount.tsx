@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useEffect} from "react";
+import classNames from "classnames";
 
 import css from "./discount.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -33,43 +34,43 @@ const Discount = () => {
 	}
 	
 	return(
-		<div className={`${css.wrapper}`}>
-			<div className={`${css.info}`}>
-				<InnerLink className={`${css.image}`} to={"/" + discount.shop.route}>
-					<Image classes={""} source={discount.shop.image}/>
+		<div className={classNames(css.wrapper)}>
+			<div className={classNames(css.info)}>
+				<InnerLink className={classNames(css.image)} to={"/" + discount.shop.route}>
+					<Image classes={classNames()} source={discount.shop.image}/>
 				</InnerLink>
 				
-				<div className={`${css.contacts}`}>
-					<Label text={`${discount.shop.floor}-й этаж`} className={`${label.big}`}/>
-					<Label text={discount.shop.schedule} className={`${label.big}`}/>
-					<Label text={discount.shop.phone} className={`${label.big}`}/>
+				<div className={classNames(css.contacts)}>
+					<Label className={classNames(label.big)} text={`${discount.shop.floor}-й этаж`} />
+					<Label className={classNames(label.big)} text={discount.shop.schedule} />
+					<Label className={classNames(label.big)} text={discount.shop.phone} />
 					
-					<OuterLink className={`${link.hovered}`} to={`https://${discount.shop.site}`}>
-						<Label text={discount.shop.site} className={`${label.big} ${label.hovered}`}/>
+					<OuterLink className={classNames(link.hovered)} to={`https://${discount.shop.site}`}>
+						<Label className={classNames(label.big, label.hovered)} text={discount.shop.site} />
 					</OuterLink>
 					
-					<div className={`${css.socials}`}>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+					<div className={classNames(css.socials)}>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 					</div>
 				</div>
 			</div>
 			
-			<Hider className={`${css.description}`} defaultHeight={230}>
-				<Image classes={""} source={discount.image}/>
-				<Label text={discount.description} className={`${label.default}`}/>
+			<Hider className={classNames(css.description)} defaultHeight={230}>
+				<Image classes={classNames()} source={discount.image}/>
+				<Label className={classNames(label.default)} text={discount.description}/>
 			</Hider>
 		</div>
 	);

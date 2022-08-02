@@ -1,11 +1,12 @@
 import {Link, LinkProps} from "react-router-dom";
 import React from "react";
+import classNames from "classnames";
 
 import css from "./link.module.scss";
 
 const InnerLink = ({ className, children, to, ...props }: Props) => {
 	return (
-		<Link className={`${css.default} ${className}`} to={to} {...props}>
+		<Link className={classNames(css.default, className)} to={to} {...props}>
 			{children}
 		</Link>
 	);

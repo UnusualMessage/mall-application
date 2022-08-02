@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./nav.module.scss";
 
@@ -8,17 +9,14 @@ import navs from "../../data/navs";
 import InterfaceStore from "../../stores/InterfaceStore";
 
 const Nav = () => {
-    let menuStyle;
-    
-    if (InterfaceStore.isMenuActive()) {
-        menuStyle = `${css.burger}`;
-    } else {
-        menuStyle = "";
-    }
+    const classes = classNames({
+        [css.wrapper]: true,
+        [css.burger]: InterfaceStore.isMenuActive()
+    });
     
     return(
-        <nav className={`${css.wrapper} ${menuStyle}`}>
-            <div className={`${css.inner}`}>
+        <nav className={classes}>
+            <div className={classNames(css.inner)}>
                 {
                     navs.map(nav => {
                         return(

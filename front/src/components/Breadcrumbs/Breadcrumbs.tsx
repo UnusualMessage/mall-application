@@ -1,12 +1,14 @@
 import React from "react";
+import classNames from "classnames";
 
 import label from "../Label/label.module.scss";
 import link from "../Link/link.module.scss";
 import css from "./breadcrumbs.module.scss";
 
-import Breadcrumb from "../../types/Breadcrumb";
 import Label from "../Label";
 import {InnerLink} from "../Link";
+
+import Breadcrumb from "../../types/Breadcrumb";
 
 const Breadcrumbs = ({ breadcrumbs }: Props) => {
 	if (breadcrumbs.length <= 1) {
@@ -14,18 +16,18 @@ const Breadcrumbs = ({ breadcrumbs }: Props) => {
 	}
 	
 	return(
-		<div className={`${css.wrapper}`}>
+		<div className={classNames(css.wrapper)}>
 			{breadcrumbs.map(({ name, route }, key) => {
 					return(
 						key + 1 === breadcrumbs.length ? (
-							<Label key={key} text={name} className={`${label.mini} ${label.bold}`} />
+							<Label key={key} text={name} className={classNames(label.mini, label.bold)} />
 						) : (
 							<React.Fragment key={key}>
-								<InnerLink className={`${label.mini} ${link.underlined}`} to={route}>
+								<InnerLink className={classNames(label.mini, link.underlined)} to={route}>
 									{name}
 								</InnerLink>
 								
-								<Label text={"→"} className={`${label.mini}`} />
+								<Label text={"→"} className={classNames(label.mini)} />
 							</React.Fragment>
 						)
 					);

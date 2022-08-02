@@ -1,5 +1,6 @@
 import {Map, Placemark, YMaps} from "react-yandex-maps";
 import {useState} from "react";
+import classNames from "classnames";
 
 import css from "./info.module.scss";
 
@@ -16,7 +17,7 @@ const Info = () => {
 	const markerPosition = [54.35079996381128,38.261544220237724];
 	
 	return(
-		<div className={`${css.wrapper}`}>
+		<div className={classNames(css.wrapper)}>
 			<div style={{ width: "100%", height: "700px"}}>
 				{ loaded ? <></> : <Loader/>}
 				
@@ -31,7 +32,7 @@ const Info = () => {
 			</div>
 			
 
-			<div className={`${css.about}`}>
+			<div className={classNames(css.about)}>
 				<Contacts/>
 			</div>
 		</div>

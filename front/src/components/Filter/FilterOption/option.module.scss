@@ -6,10 +6,11 @@
   @include flexible(row, center, space-between);
 
   width: 100%;
-  border-left: 5px solid $border;
   padding: 10px 5px 10px 0;
   gap: 10px;
+
   cursor: pointer;
+  border-left: 5px solid $border;
 
   &:hover {
 	background: $back;

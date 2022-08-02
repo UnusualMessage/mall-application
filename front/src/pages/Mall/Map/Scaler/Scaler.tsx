@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./scaler.module.scss";
 
@@ -17,13 +18,13 @@ const Scaler = () => {
 	};
 	
 	return(
-		<div className={css.wrapper}>
-			<div className={css.item} onClick={zoomIn}>
-				<Icon className={""} viewBox={"0 0 20 20"} icon={icons.plus}/>
+		<div className={classNames(css.wrapper)}>
+			<div className={classNames(css.item)} onClick={zoomIn}>
+				<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.plus}/>
 			</div>
 			
-			<div className={css.item} onClick={zoomOut}>
-				<Icon className={""} viewBox={"0 0 20 20"} icon={icons.minus}/>
+			<div className={classNames(css.item)} onClick={zoomOut}>
+				<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.minus}/>
 			</div>
 		</div>
 	);

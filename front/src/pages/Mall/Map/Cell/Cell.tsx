@@ -1,10 +1,11 @@
 import React from "react";
+import classNames from "classnames";
 
 import css from "./cell.module.scss";
 
 const Cell = ({ children }: Props) => {
 	return(
-		<g className={css.wrapper}>
+		<g className={classNames(css.wrapper)}>
 			{children}
 		</g>
 	);

@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import css from "./eventCard.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
@@ -9,11 +11,11 @@ import Event from "../../../../api/interfaces/event/Event";
 
 const EventCard = ({ event }: Props) => {
 	return(
-		<InnerLink className={`${css.wrapper}`} to={event.link}>
-			<div className={`${css.info}`}>
-				<Label text={event.title} className={`${label.default} ${label.white} ${label.bold} ${css.title}`}/>
+		<InnerLink className={classNames(css.wrapper)} to={event.link}>
+			<div className={classNames(css.info)}>
+				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={event.title}/>
 			</div>
-			<Image classes={`${css.logo}`} source={event.image}/>
+			<Image classes={classNames(css.logo)} source={event.image}/>
 		</InnerLink>
 	);
 };

@@ -1,5 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {useMemo, useRef} from "react";
+import classNames from "classnames";
 
 import css from "./category.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -42,25 +43,25 @@ const Category = ({ category }: Props) => {
 		}
 	};
 	
-	let classes = `${css.icon}`;
-	if (!hider.hidden) {
-		classes = `${css.icon} ${css.active}`;
-	}
+	const classes = classNames({
+		[css.icon]: true,
+		[css.active]: !hider.hidden
+	});
  
 	return(
-		<div className={`${css.wrapper}`}>
-			<div className={`${css.header}`} onClick={onClick}>
-				<div className={`${css.title}`}>
-					<Label text={ShopStore.getCountByCategoryId(category.id).toString()} className={`${label.default} ${label.bold}`}/>
-					<Label text={category.title} className={`${label.default}`}/>
+		<div className={classNames(css.wrapper)}>
+			<div className={classNames(css.header)} onClick={onClick}>
+				<div className={classNames(css.title)}>
+					<Label className={classNames(label.default, label.bold)} text={ShopStore.getCountByCategoryId(category.id).toString()}/>
+					<Label className={classNames(label.default)} text={category.title}/>
 				</div>
 				
 				<div className={classes}>
-					<Icon className={""} viewBox={"0 0 512 512"} icon={icons.menu}/>
+					<Icon className={classNames()} viewBox={"0 0 512 512"} icon={icons.menu}/>
 				</div>
 			</div>
 			
-			<div className={css.list} ref={targetRef} style={{ maxHeight: hider.maxHeight }}>
+			<div className={classNames(css.list)} ref={targetRef} style={{ maxHeight: hider.maxHeight }}>
 				<Shops shops={shops}/>
 			</div>
 		</div>

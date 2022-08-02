@@ -1,10 +1,11 @@
-import React, {FC, SVGProps} from "react";
+import React, {SVGProps} from "react";
+import classNames from "classnames";
 
 import css from "./icon.module.scss";
 
-const Icon: FC<Props> = ({ className, viewBox, icon, ...props }: Props) => {
+const Icon = ({ className, viewBox, icon, ...props }: Props) => {
 	return(
-		<svg className={`${css.default} ${className}`} viewBox={viewBox} {...props}>
+		<svg className={classNames(css.default, className)} viewBox={viewBox} {...props}>
 			{icon}
 		</svg>
 	);

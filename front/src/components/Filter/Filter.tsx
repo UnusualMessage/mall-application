@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./filter.module.scss";
 
@@ -11,10 +12,10 @@ import InterfaceStore from "../../stores/InterfaceStore";
 const Filter = ({ store, categories }: Props ) => {
 	const isFilterActive = InterfaceStore.isFilterActive();
 	
-	let classes = `${css.wrapper}`;
-	if (isFilterActive) {
-		classes = `${css.wrapper} ${css.active}`;
-	}
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.active]: isFilterActive
+	});
 	
 	return(
 		<div className={classes}>

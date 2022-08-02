@@ -4,17 +4,16 @@
 
 .wrapper {
   @include flexible(row, flex-start, center);
+  flex-grow: 1;
 
   background: white;
-  flex-grow: 1;
 
   .inner {
 	@include flexible(column, flex-start, center);
 
+	width: $pre-big;
 	padding: 20px;
 	gap: 30px;
-
-	width: $pre-big;
 
 	@media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
 	  overflow-x: hidden;

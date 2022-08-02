@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./categories.module.scss";
 
@@ -9,11 +10,11 @@ import InterfaceStore from "../../../../stores/InterfaceStore";
 
 const Categories = () => {
 	const categories = CategoryStore.getCategories();
-	
-	let classes = `${css.wrapper}`;
-	if (InterfaceStore.isMapFilterActive()) {
-		classes = `${css.wrapper} ${css.active}`;
-	}
+
+	const classes = classNames({
+		[css.wrapper]: true,
+		[css.active]: InterfaceStore.isMapFilterActive()
+	});
 	
 	return(
 		<div className={classes}>

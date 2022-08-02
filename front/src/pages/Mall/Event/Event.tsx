@@ -1,5 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
+import classNames from "classnames";
 
 import css from "./event.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -32,43 +33,44 @@ const Event = () => {
 	}
 	
 	return(
-		<div className={`${css.wrapper}`}>
-			<div className={`${css.info}`}>
-				<InnerLink className={`${css.image}`} to={"/" + event.shop.route}>
-					<Image classes={""} source={event.shop.image}/>
+		<div className={classNames(css.wrapper)}>
+			<div className={classNames(css.info)}>
+				<InnerLink className={classNames(css.image)} to={"/" + event.shop.route}>
+					<Image classes={classNames()} source={event.shop.image}/>
 				</InnerLink>
 				
 				<div className={`${css.contacts}`}>
-					<Label text={`${event.shop.floor}-й этаж`} className={`${label.big}`}/>
-					<Label text={event.shop.schedule} className={`${label.big}`}/>
-					<Label text={event.shop.phone} className={`${label.big}`}/>
+					<Label className={classNames(label.big)} text={`${event.shop.floor}-й этаж`}/>
+					<Label className={classNames(label.big)} text={event.shop.schedule}/>
+					<Label className={classNames(label.big)} text={event.shop.phone}/>
 					
-					<OuterLink className={`${link.hovered}`} to={`https://${event.shop.site}`}>
-						<Label text={event.shop.site} className={`${label.big} ${label.hovered}`}/>
+					<OuterLink className={classNames(link.hovered)} to={`https://${event.shop.site}`}>
+						<Label className={classNames(label.big, label.hovered)} text={event.shop.site}/>
 					</OuterLink>
 					
-					<div className={`${css.socials}`}>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+					<div className={classNames(css.socials)}>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 						
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
-						<OuterLink className={`${link.hovered}`} to={"https://vk.com"}>
-							<Icon className={""} viewBox={"0 0 20 20"} icon={icons.vk}/>
+						
+						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
 						</OuterLink>
 					</div>
 				</div>
 			</div>
 			
-			<Hider className={`${css.description}`} defaultHeight={230}>
-				<Image classes={""} source={event.image}/>
-				<Label text={event.description} className={`${label.default}`}/>
+			<Hider className={classNames(css.description)} defaultHeight={230}>
+				<Image classes={classNames()} source={event.image}/>
+				<Label className={classNames(label.default)} text={event.description}/>
 			</Hider>
 		</div>
 	);

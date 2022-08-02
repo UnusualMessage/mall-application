@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import css from "./shops.module.scss";
 
@@ -10,7 +11,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 
 const Shops = () => {
     return(
-        <div className={`${css.wrapper}`}>
+        <div className={classNames(css.wrapper)}>
             <Filter store={ShopStore} categories={CategoryStore.getCategories()}/>
             <ShopCards/>
         </div>

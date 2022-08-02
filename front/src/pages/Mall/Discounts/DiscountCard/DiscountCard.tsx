@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import css from "./discountCard.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
@@ -9,11 +11,11 @@ import Discount from "../../../../api/interfaces/discount/Discount";
 
 const DiscountCard = ({ discount }: Props) => {
 	return(
-		<InnerLink className={`${css.wrapper}`} to={discount.link}>
-			<div className={`${css.info}`}>
-				<Label text={discount.title} className={`${label.default} ${label.white} ${label.bold} ${css.title}`}/>
+		<InnerLink className={classNames(css.wrapper)} to={discount.link}>
+			<div className={classNames(css.info)}>
+				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={discount.title}/>
 			</div>
-			<Image classes={`${css.logo}`} source={discount.image}/>
+			<Image classes={classNames(css.logo)} source={discount.image}/>
 		</InnerLink>
 	);
 };

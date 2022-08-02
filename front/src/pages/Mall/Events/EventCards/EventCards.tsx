@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import css from "./eventCards.module.scss";
 
 import EventCard from "../EventCard";
@@ -6,12 +8,12 @@ import EventStore from "../../../../stores/EventStore";
 
 const EventCards = () => {
 	return(
-		<div className={`${css.wrapper}`}>
-			<div className={`${css.border}`}>
+		<div className={classNames(css.wrapper)}>
+			<div className={classNames(css.border)}>
 			
 			</div>
 			
-			<div className={`${css.items}`}>
+			<div className={classNames(css.items)}>
 				{EventStore.get().map(event => {
 					return(
 						<EventCard key={event.id} event={event}/>

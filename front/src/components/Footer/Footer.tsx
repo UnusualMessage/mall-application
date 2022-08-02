@@ -1,39 +1,37 @@
-import {observer} from "mobx-react-lite";
+import { memo } from "react";
+import classNames from "classnames";
 
 import css from "./footer.module.scss";
 import label from "../Label/label.module.scss";
 import link from "../Link/link.module.scss";
 
 import Image from "../Image";
-import {InnerLink, OuterLink} from "../Link";
+import {InnerLink} from "../Link";
 import Label from "../Label";
-import Icon from "../Icon";
-
-import contacts from "../../data/contacts";
-import icons from "../../data/icons";
-import navs from "../../data/navs";
 import Contacts from "../Contacts";
 import Socials from "../Socials";
 
+import navs from "../../data/navs";
+
 const Footer = () => {
     return(
-        <footer className={`${css.wrapper}`}>
-            <div className={`${css.inner}`}>
-                <div className={`${css.start}`}>
-                    <Image classes={`${css.logo}`} source={"/Logo.png"}/>
+        <footer className={classNames(css.wrapper)}>
+            <div className={classNames(css.inner)}>
+                <div className={classNames(css.start)}>
+                    <Image classes={classNames(css.logo)} source={"/Logo.png"}/>
                     <Socials/>
-                    <Label text={"© 2022  ТЦ Веневский"} className={`${label.mini}`}/>
+                    <Label className={classNames(label.mini)} text={"© 2022  ТЦ Веневский"}/>
                 </div>
                 
-                <div className={css.contacts}>
+                <div className={classNames(css.contacts)}>
                     <Contacts/>
                 </div>
                 
-                <div className={`${css.navs}`}>
+                <div className={classNames(css.navs)}>
                     {navs.map(nav => {
                         return(
-                            <InnerLink className={`${link.underlined}`} key={nav.title} to={nav.to}>
-                                <Label className={`${label.mini}`} text={nav.title}/>
+                            <InnerLink className={classNames(link.underlined)} key={nav.title} to={nav.to}>
+                                <Label className={classNames(label.mini)} text={nav.title}/>
                             </InnerLink>
                         );
                     })}
@@ -43,4 +41,4 @@ const Footer = () => {
     );
 };
 
-export default observer(Footer);
+export default memo(Footer);

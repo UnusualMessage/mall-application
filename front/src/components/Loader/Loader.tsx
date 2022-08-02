@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import css from "./loader.module.scss";
 
 const Loader = () => {
@@ -10,7 +12,7 @@ const Loader = () => {
 			>
 				<path fill="#00000000" strokeWidth="0.07" d="M0 0H270.93V270.93H0z"></path>
 			</svg>
-			<div className={`${css.wrapper}`}/>
+			<div className={classNames(css.wrapper)}/>
 		</>
 	);
 };

@@ -1,4 +1,6 @@
 import {observer} from "mobx-react-lite";
+import {useState} from "react";
+import classNames from "classnames";
 
 import css from "./switcher.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -6,7 +8,6 @@ import label from "/src/components/Label/label.module.scss";
 import Label from "../../../../components/Label";
 
 import MapStore from "../../../../stores/MapStore";
-import {useState} from "react";
 
 const FloorSwitcher = () => {
 	const [switcher, setSwitcher] = useState(false);
@@ -29,19 +30,19 @@ const FloorSwitcher = () => {
 		<>
 			{
 				switcher ?
-					<div className={css.wrapper}>
+					<div className={classNames(css.wrapper)}>
 						<Label text={"1 Этаж"}
-						       className={`${label.mini} ${label.bold} ${css.item}`}
+						       className={classNames(css.item, label.mini, label.bold)}
 						       onClick={onFirstFloorSwitch}/>
 						
 						<Label text={"2 Этаж"}
-						       className={`${label.mini} ${label.bold} ${css.item}`}
+						       className={classNames(css.item, label.mini, label.bold)}
 						       onClick={onSecondFloorSwitch}/>
 					</div>
 					:
-					<div className={css.wrapper} onClick={onSwitcherShow}>
+					<div className={classNames(css.wrapper)} onClick={onSwitcherShow}>
 						<Label text={`${MapStore.getFloor()} Этаж`}
-						       className={`${label.mini} ${label.bold} ${css.item}`}/>
+						       className={classNames(css.item, label.mini, label.bold)}/>
 					</div>
 			}
 		</>
