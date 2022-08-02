@@ -1,17 +1,16 @@
-import {MouseEventHandler} from "react";
 import {observer} from "mobx-react-lite";
 
 import {Cell} from "./index";
 
 import MapStore from "../../../../stores/MapStore";
 
-const Cells = ({ onClick }: Props) => {
+const Cells = () => {
 	return(
 		<>
 			{
 				MapStore.get().map(cell => {
 					return(
-						<Cell key={cell.id} onClick={onClick}>
+						<Cell key={cell.id}>
 							{cell.path}
 						</Cell>
 					);
@@ -20,9 +19,5 @@ const Cells = ({ onClick }: Props) => {
 		</>
 	);
 };
-
-interface Props {
-	onClick: MouseEventHandler<SVGGElement>;
-}
 
 export default observer(Cells);

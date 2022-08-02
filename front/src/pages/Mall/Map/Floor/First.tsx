@@ -4,12 +4,12 @@ import css from "./floor.module.scss";
 
 import {Cells} from "../Cell";
 
-const First = ({ onClick }: Props) => {
+const First = () => {
 	return(
 		<svg className={css.wrapper} viewBox="0 0 992 576">
 			<path fill={"#dfdfdf"} d="M0,0v470h510v106h289.81C905.95,576,992,489.95,992,383.81V0H0z"/>
 			
-			<Cells onClick={onClick}/>
+			<Cells />
 			
 			<g>
 				<rect x="825" y="10" fill={"#9A9996"} width="85" height="10"/>
@@ -42,10 +42,5 @@ const First = ({ onClick }: Props) => {
 		</svg>
 	);
 };
-
-interface Props {
-	onClick: MouseEventHandler
-}
-
 
 export default First;

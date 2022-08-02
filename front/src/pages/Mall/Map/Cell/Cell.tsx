@@ -1,10 +1,10 @@
-import React, {MouseEventHandler} from "react";
+import React from "react";
 
 import css from "./cell.module.scss";
 
-const Cell = ({ children, onClick }: Props) => {
+const Cell = ({ children }: Props) => {
 	return(
-		<g className={css.wrapper} onClick={onClick}>
+		<g className={css.wrapper}>
 			{children}
 		</g>
 	);
@@ -12,7 +12,6 @@ const Cell = ({ children, onClick }: Props) => {
 
 interface Props {
 	children: React.ReactNode,
-	onClick: MouseEventHandler<SVGGElement>
 }
 
 

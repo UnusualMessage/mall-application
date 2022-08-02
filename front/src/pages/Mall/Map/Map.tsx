@@ -1,4 +1,4 @@
-import {MouseEventHandler, useCallback, useRef} from "react";
+import {useRef} from "react";
 import {observer} from "mobx-react-lite";
 
 import css from "./map.module.scss";
@@ -8,13 +8,10 @@ import {Categories} from "./Category";
 import {First} from "./Floor";
 import Scaler from "./Scaler";
 import Label from "../../../components/Label";
-import Tooltip from "../../../components/Tooltip/Tooltip";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import MapStore from "../../../stores/MapStore";
 import useDragging from "../../../hooks/useDragging";
-import useElementOffset from "../../../hooks/useElementOffset";
-import shops from "../../../data/shops";
 
 const Map = () => {
 	const defaultMapState = {
@@ -31,19 +28,6 @@ const Map = () => {
 		targetRef: draggingRef, defaultState: defaultMapState
 	});
 	
-	const [mapOffset] = useElementOffset({ targetRef: mapRef });
-	
-	const onClick: MouseEventHandler<SVGGElement> = useCallback((e) => {
-		const x = e.clientX - mapOffset.x;
-		const y = e.clientY - mapOffset.y;
-		
-		MapStore.setTooltip({
-			left: x,
-			top: y - 15,
-			visible: true
-		});
-	}, [mapOffset]);
-	
 	const onFilterSwitch = () => {
 		InterfaceStore.switchMapFilter();
 	};
@@ -51,7 +35,7 @@ const Map = () => {
 	return(
 		<div className={css.wrapper}>
 			<div className={css.toolbox}>
-				<Label text={"Фильтр"} className={`${css.switcher} ${label.mini} ${label.upper}`} onClick={onFilterSwitch}/>
+				<Label text={"Магазины"} className={`${css.switcher} ${label.mini} ${label.upper}`} onClick={onFilterSwitch}/>
 			</div>
 			
 			<div className={css.content}>
@@ -61,13 +45,11 @@ const Map = () => {
 				>
 					<Scaler/>
 					
-					<Tooltip shop={shops[0]} position={MapStore.getTooltip()} visible={MapStore.getTooltip().visible}/>
-					
 					<div className={css.floor}
 					     style={{ left: mapState.left, top: mapState.top, transform: `scale(${MapStore.getScale()})` }}
 					     ref={mapRef}>
 						
-						<First onClick={onClick}/>
+						<First />
 					</div>
 				</div>
 			</div>

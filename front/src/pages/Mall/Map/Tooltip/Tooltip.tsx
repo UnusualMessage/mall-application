@@ -4,11 +4,11 @@ import css from "./tooltip.module.scss";
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
-import Label from "../Label";
-import {InnerLink} from "../Link";
-import Image from "../Image";
+import Label from "../../../../components/Label";
+import {InnerLink} from "../../../../components/Link";
+import Image from "../../../../components/Image";
 
-import Shop from "../../api/interfaces/shop/Shop";
+import Shop from "../../../../api/interfaces/shop/Shop";
 
 const Tooltip = ({ shop, position, visible }: Props) => {
 	
