@@ -1,7 +1,9 @@
+@use "/src/utils/constants/colors" as *;
+
 .wrapper {
   &:hover {
 	path {
-	  fill: #484848;
+	  fill: $hover;
 	}
   }
 }

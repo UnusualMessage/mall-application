@@ -15,11 +15,13 @@
   background-color: white;
   user-select: none;
   pointer-events: none;
+  opacity: 0;
+  animation: fade 0.3s;
 
   &:after {
 	content: '';
 	position: absolute;
-	left: 25%;
+	left: 45%;
 	top: 100%;
 	z-index: 2;
 
@@ -48,4 +50,22 @@
 	flex-basis: 65%;
 	pointer-events: visible;
   }
+}
+
+@keyframes fade {
+  0% {
+	opacity: 0;
+  }
+
+  99% {
+	opacity: 0;
+  }
+
+  100% {
+	opacity: 1;
+  }
+}
+
+.visible {
+  opacity: 1;
 }

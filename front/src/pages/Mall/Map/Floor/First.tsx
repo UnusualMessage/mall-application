@@ -7,7 +7,7 @@ import {Cells} from "../Cell";
 const First = ({ onClick }: Props) => {
 	return(
 		<svg className={css.wrapper} viewBox="0 0 992 576">
-			<path className="st0" d="M0,0v470h510v106h289.81C905.95,576,992,489.95,992,383.81V0H0z"/>
+			<path fill={"#dfdfdf"} d="M0,0v470h510v106h289.81C905.95,576,992,489.95,992,383.81V0H0z"/>
 			
 			<Cells onClick={onClick}/>
 			

@@ -10,6 +10,8 @@ class MapStore {
 	scaleInc: number;
 	scaleLimit: { upper: number, lower: number };
 	
+	tooltipState: TooltipState;
+	
 	constructor() {
 		this.map = map;
 		
@@ -18,6 +20,12 @@ class MapStore {
 		this.scaleLimit = {
 			upper: 2,
 			lower: 0.3
+		};
+		
+		this.tooltipState = {
+			left: 0,
+			top: 0,
+			visible: false
 		};
 		
 		makeAutoObservable(this);
@@ -42,6 +50,20 @@ class MapStore {
 	getScale = () => {
 		return this.scale;
 	};
+	
+	setTooltip = (state: TooltipState) => {
+		this.tooltipState = state;
+	};
+	
+	getTooltip = () => {
+		return this.tooltipState;
+	};
+}
+
+interface TooltipState {
+	left: number,
+	top: number,
+	visible: boolean
 }
 
 export default new MapStore();

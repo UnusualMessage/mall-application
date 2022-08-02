@@ -10,9 +10,15 @@ import Image from "../Image";
 
 import Shop from "../../api/interfaces/shop/Shop";
 
-const Tooltip = ({ shop, position }: Props) => {
+const Tooltip = ({ shop, position, visible }: Props) => {
+	
+	let classes = `${css.wrapper}`;
+	if (visible) {
+		classes = `${css.wrapper} ${css.visible}`;
+	}
+	
 	return(
-		<div className={css.wrapper} style={{ left: position.left, top: position.top }}>
+		<div className={classes} style={{ left: position.left, top: position.top }}>
 			<div className={css.logo}>
 				<Image classes={""} source={shop.image}/>
 			</div>
@@ -35,6 +41,7 @@ interface Position {
 interface Props {
 	shop: Shop,
 	position: Position,
+	visible: boolean
 }
 
 export default memo(Tooltip);
