@@ -57,6 +57,48 @@ const icons = {
 	plus:
 		<>
 			<path d="M16 10c0 .553-.048 1-.601 1H11v4.399c0 .552-.447.601-1 .601-.553 0-1-.049-1-.601V11H4.601C4.049 11 4 10.553 4 10c0-.553.049-1 .601-1H9V4.601C9 4.048 9.447 4 10 4c.553 0 1 .048 1 .601V9h4.399c.553 0 .601.447.601 1z"/>
+		</>,
+	
+	bold:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z" />
+		</>,
+	
+	italic:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4h-8z" />
+		</>,
+	
+	underlined:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z" />
+		</>,
+	
+	center:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z" />
+		</>,
+	
+	left:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z" />
+		</>,
+	
+	right:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z" />
+		</>,
+	
+	justify:
+		<>
+			<path d="M0 0h24v24H0V0z" fill="none" />
+			<path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z" />
 		</>
 	
 };

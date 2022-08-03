@@ -46,8 +46,28 @@
     font-weight: bold;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .upper {
     text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.justify {
+  text-align: justify;
 }
 
 .white {

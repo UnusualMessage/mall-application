@@ -1,0 +1,10 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  width: 320px;
+  padding: 10px;
+
+  background: $back;
+  border: 1px solid $hover;
+}
