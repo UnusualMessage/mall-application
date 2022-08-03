@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class Contacts : Entity
+public class Contacts : Entity, IUpdatable<Contacts>
 {
     public string? Phone { get; set; }
     public string? Schedule { get; set; }
@@ -10,7 +10,7 @@ public class Contacts : Entity
 
     public ICollection<Social>? Socials = new List<Social>();
 
-    public void Set(Contacts contacts)
+    public void Update(Contacts contacts)
     {
         Phone = contacts.Phone;
         Schedule = contacts.Schedule;

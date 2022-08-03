@@ -17,7 +17,7 @@ public class ShopRepository : Repository<Shop>, IShopRepository
     {
         var selected = await ApplicationContext.Set<Shop>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 

@@ -17,7 +17,7 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
     {
         var selected = await ApplicationContext.Set<Discount>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 

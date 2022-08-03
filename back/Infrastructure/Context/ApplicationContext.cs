@@ -9,6 +9,7 @@ namespace Infrastructure.Context;
 public class ApplicationContext : DbContext
 {
     public DbSet<Contacts>? Contacts { get; set; }
+    public DbSet<Social>? Socials { get; set; }
 
     public DbSet<Shop>? Shops { get; set; }
     public DbSet<Event>? Events { get; set; }
@@ -37,6 +38,5 @@ public class ApplicationContext : DbContext
 
         modelBuilder.ApplyConfiguration(new ContactsConfiguration());
         modelBuilder.ApplyConfiguration(new SocialsConfiguration());
-        modelBuilder.ApplyConfiguration(new PhotosConfiguration());
     }
 }

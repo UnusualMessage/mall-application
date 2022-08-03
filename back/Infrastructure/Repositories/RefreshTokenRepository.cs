@@ -17,7 +17,7 @@ public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRep
     {
         var selected = await ApplicationContext.Set<RefreshToken>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 

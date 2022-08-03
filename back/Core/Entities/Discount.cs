@@ -2,20 +2,22 @@
 
 namespace Core.Entities;
 
-public class Discount : Entity
+public class Discount : Entity, IUpdatable<Discount>
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public int Duration { get; set; }
+    public string? LogoPath { get; set; }
+    public string? Link { get; set; }
 
     public Guid? ShopId { get; set; }
     public Shop? Shop { get; set; }
 
-    public void Set(Discount discount)
+    public void Update(Discount discount)
     {
         Title = discount.Title;
         Description = discount.Description;
-        Duration = discount.Duration;
+        LogoPath = discount.LogoPath;
+        Link = discount.Link;
         ShopId = discount.ShopId;
     }
 }

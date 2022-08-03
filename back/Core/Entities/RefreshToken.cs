@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class RefreshToken : Entity
+public class RefreshToken : Entity, IUpdatable<RefreshToken>
 {
     public string? Token { get; set; }
     public DateTime Expires { get; set; }
@@ -17,7 +17,7 @@ public class RefreshToken : Entity
     public User? User { get; set; }
     public Guid? UserId { get; set; }
 
-    public void Set(RefreshToken token)
+    public void Update(RefreshToken token)
     {
         Token = token.Token;
         Expires = token.Expires;

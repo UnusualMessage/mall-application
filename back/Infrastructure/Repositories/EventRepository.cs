@@ -17,7 +17,7 @@ public class EventRepository : Repository<Event>, IEventRepository
     {
         var selected = await ApplicationContext.Set<Event>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 

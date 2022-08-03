@@ -17,7 +17,7 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         var selected = await ApplicationContext.Set<Category>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 

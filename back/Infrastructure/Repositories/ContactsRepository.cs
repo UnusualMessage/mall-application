@@ -17,7 +17,7 @@ public class ContactsRepository : Repository<Contacts>, IContactsRepository
     {
         var selected = await ApplicationContext.Set<Contacts>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+        selected?.Update(entity);
 
         await ApplicationContext.SaveChangesAsync();
 
