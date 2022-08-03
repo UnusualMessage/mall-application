@@ -13,7 +13,7 @@ public class UpdateDiscount : IRequest<DiscountResponse>
     
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public int Duration { get; set; }
-
+    public string? LogoPath { get; set; }
+    public string? Link { get; set; }
     public Guid? ShopId { get; set; }
 }

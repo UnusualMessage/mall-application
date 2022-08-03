@@ -28,6 +28,7 @@ public class GetSievedShopsHandler : IRequestHandler<GetSievedShops, IEnumerable
 
         MapperConfiguration configuration = new(cfg => {
             cfg.AddProfile(new ShopProfile());
+            cfg.AddProfile(new CategoryProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<ShopResponse>(configuration);

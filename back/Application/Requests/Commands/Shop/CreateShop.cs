@@ -15,16 +15,24 @@ public class CreateShop : IRequest<ShopResponse>
     public string? Description { get; set; }
     
     [Required]
-    public short Floor { get; set; }
+    public string? Schedule { get; set; }
     
+    [Required]
+    public string? Phone { get; set; }
+    
+    [Required]
     public string? Site { get; set; }
     
     [Required]
-    public bool Opened { get; set; }
+    public string? Link { get; set; }
     
     [Required]
-    public string? PhotoPath { get; set; }
+    public short Floor { get; set; }
     
     [Required]
-    public Guid? CategoryId { get; set; }
+    public string? LogoPath { get; set; }
+
+    [Required] 
+    public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();
+
 }

@@ -13,6 +13,11 @@ public class ShopRepository : Repository<Shop>, IShopRepository
     {
     }
 
+    public override async Task<IEnumerable<Shop>> GetAllAsync()
+    {
+        return await ApplicationContext.Set<Shop>().Include(e => e.Categories).ToListAsync();
+    }
+
     public override async Task<Shop> UpdateAsync(Shop entity)
     {
         var selected = await ApplicationContext.Set<Shop>().FirstOrDefaultAsync(e => e.Id == entity.Id);
