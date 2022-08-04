@@ -4,10 +4,11 @@ import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";
 import NewDiscount from "../api/interfaces/discount/NewDiscount";
 import Filterable from "../types/Filterable";
+import Store from "../types/Store";
 
 import discounts from "../data/discounts";
 
-class DiscountStore implements Filterable {
+class DiscountStore implements Filterable, Store {
 	discounts: Discount[] = [];
 	
 	discountService: DiscountService;

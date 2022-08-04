@@ -4,8 +4,9 @@ import events from "../data/events";
 import EventService from "../api/services/EventService";
 import Event from "../api/interfaces/event/Event";
 import NewEvent from "../api/interfaces/event/NewEvent";
+import Store from "../types/Store";
 
-class EventStore {
+class EventStore implements Store {
 	events: Event[] = [];
 	
 	eventService: EventService;

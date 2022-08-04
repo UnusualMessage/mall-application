@@ -4,10 +4,11 @@ import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
 import NewShop from "../api/interfaces/shop/NewShop";
 import Filterable from "../types/Filterable";
+import Store from "../types/Store";
 
 import shops from "../data/shops";
 
-class ShopStore implements Filterable {
+class ShopStore implements Filterable, Store {
 	shops: Shop[] = [];
 	
 	shopService: ShopService;

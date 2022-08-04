@@ -1,13 +1,16 @@
 import {Route, Routes} from "react-router-dom";
 import {lazy} from "react";
 
+const Items = lazy(() => import("./Items"));
 const Base = lazy(() => import("./Base"));
-const Shops = lazy(() => import("./Shops"));
 const Shop = lazy(() => import("./Shop"));
-const Events = lazy(() => import("./Events"));
 const Event = lazy(() => import("./Event"));
-const Discounts = lazy(() => import("./Discounts"));
 const Discount = lazy(() => import("./Discount"));
+
+import {discounts, events, shops} from "../../data/breadcrumbs";
+import ShopStore from "../../stores/ShopStore";
+import EventStore from "../../stores/EventStore";
+import DiscountStore from "../../stores/DiscountStore";
 
 const Admin = () => {
     return(
@@ -15,14 +18,14 @@ const Admin = () => {
             <Route path="*" element={<Base />}>
                 <Route path="*" element={<></>} />
                 
-                <Route path="shops" element={<Shops/>} />
-                <Route path="shops:id" element={<Shop/>} />
+                <Route path={shops.route} element={<Items store={ShopStore}/>} />
+                <Route path={`${shops.route}:id`} element={<Shop/>} />
                 
-                <Route path="events" element={<Events/>} />
-                <Route path="events:id" element={<Event/>} />
+                <Route path={events.route} element={<Items store={EventStore}/>} />
+                <Route path={`${events.route}:id`} element={<Event/>} />
                 
-                <Route path="discounts" element={<Discounts/>} />
-                <Route path="discounts:id" element={<Discount/>} />
+                <Route path={discounts.route} element={<Items store={DiscountStore}/>} />
+                <Route path={`${discounts.route}:id`} element={<Discount/>} />
             </Route>
         </Routes>
     );
