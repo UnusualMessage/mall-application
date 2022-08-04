@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import React from "react";
+import React, {ChangeEventHandler, memo} from "react";
 
 import labelStyles from "/src/components/Label/label.module.scss";
 import css from "./input.module.scss";
 
-const Input = ({ label, placeholder, value }: Props) => {
+const Input = ({ label, placeholder, value, onChange }: Props) => {
 	return (
 		<div className={classNames(css.wrapper)}>
 			<label className={classNames(labelStyles.mini, labelStyles.bold, css.label)}>{label}</label>
@@ -12,6 +12,7 @@ const Input = ({ label, placeholder, value }: Props) => {
 				   type={"text"}
 			       placeholder={placeholder}
 			       value={value}
+			       onChange={onChange}
 			/>
 		</div>
 	);
@@ -19,8 +20,9 @@ const Input = ({ label, placeholder, value }: Props) => {
 
 interface Props {
 	label: string,
-	value: string,
 	placeholder: string,
+	value: string,
+	onChange: ChangeEventHandler<HTMLInputElement>
 }
 
-export default Input;
+export default memo(Input);

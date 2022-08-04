@@ -6,6 +6,13 @@
   @include flexible(column, center, center);
   gap: 50px;
 
+  .buttons {
+    @include flexible(row, center, space-around);
+
+    width: 100%;
+    gap: 50px;
+  }
+
   .shop {
     @include flexible(row, flex-start, center);
 

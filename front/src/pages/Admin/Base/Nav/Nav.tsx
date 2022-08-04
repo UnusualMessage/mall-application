@@ -34,6 +34,11 @@ const Nav = () => {
 					<Icon className={classNames()} viewBox={"0 0 24 24"} icon={icons.events}/>
 					<Label text={"События и новости"} className={classNames(css.title, label.mini, label.upper, label.bold)}/>
 				</InnerLink>
+				
+				<InnerLink className={classNames(css.link, link.hovered)} to={"info"}>
+					<Icon className={classNames()} viewBox={"0 0 24 24"} icon={icons.contacts}/>
+					<Label text={"Контакты"} className={classNames(css.title, label.mini, label.upper, label.bold)}/>
+				</InnerLink>
 			</div>
 		</nav>
 	);

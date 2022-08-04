@@ -1,48 +1,58 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {FormEventHandler, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./shop.module.scss";
 import label from "/src/components/Label/label.module.scss";
-import link from "/src/components/Link/link.module.scss";
 
 import Image from "../../../components/Image";
-import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
-import {OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
-
-import shops from "../../../data/shops";
-import icons from "../../../data/icons";
 import Input from "../../../components/Input";
+
+import ShopInterface from "../../../api/interfaces/shop/Shop";
+import shops from "../../../data/shops";
+import useInput from "../../../hooks/useInput";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
+	const [shop, setShop] = useState<ShopInterface>();
 	
-	const shop = shops.find(shop => shop.link === id);
+	const floor = useInput("");
+	const schedule = useInput("");
+	const phone = useInput("");
+	const site = useInput("");
 	
 	useEffect(() => {
+		const shop = shops.find(shop => shop.link === id);
+		
 		if (!shop) {
 			redirect("");
 		}
-	}, [shop]);
+		
+		setShop(shop);
+	}, [id]);
 	
 	if (!shop) {
 		return null;
 	}
+	
+	const onSubmit: FormEventHandler = (e) => {
+		e.preventDefault();
+	};
 
 	return(
-		<div className={classNames(css.wrapper)}>
+		<form className={classNames(css.wrapper)} onSubmit={onSubmit}>
 			<div className={classNames(css.shop)}>
 				<div className={classNames(css.info)}>
 					<Image classes={classNames(css.image)} source={shop.image}/>
 					
 					<div className={`${css.contacts}`}>
-						<Input label={"Этаж"} value={shop.floor} placeholder={"Введите номер этажа"}/>
-						<Input label={"Время"} value={shop.schedule} placeholder={"Введите время работы"}/>
-						<Input label={"Телефон"} value={shop.phone} placeholder={"Введите номер телефона"}/>
-						<Input label={"Сайт"} value={shop.site} placeholder={"Введите адрес сайта"}/>
+						<Input label={"Этаж"} placeholder={"Введите номер этажа"} {...floor}/>
+						<Input label={"Время"} placeholder={"Введите время работы"} {...schedule}/>
+						<Input label={"Телефон"} placeholder={"Введите номер телефона"} {...phone}/>
+						<Input label={"Сайт"} placeholder={"Введите адрес сайта"} {...site}/>
 					</div>
 				</div>
 				
@@ -50,7 +60,17 @@ const Shop = () => {
 					<Label className={classNames(label.default)} text={shop.description}/>
 				</Hider>
 			</div>
-		</div>
+			
+			<div className={classNames(css.buttons)}>
+				<button type={"submit"}>
+					Изменить
+				</button>
+				
+				<button type={"submit"}>
+					Удалить
+				</button>
+			</div>
+		</form>
 	);
 };
 
