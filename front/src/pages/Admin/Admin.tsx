@@ -18,9 +18,7 @@ const Admin = () => {
         <React.Suspense fallback={<Loader/>}>
             <Routes>
                 <Route path="*" element={<Base />}>
-                    <Route path="*" element={<>Home</>} />
-            
-                    <Route path={shops.route} element={<Items store={ShopStore}/>} />
+z                    <Route path={shops.route} element={<Items store={ShopStore}/>} />
                     <Route path={`${shops.route}/:id`} element={<Shop/>} />
             
                     <Route path={events.route} element={<Items store={EventStore}/>} />

@@ -16,7 +16,7 @@ const Nav = () => {
 	return (
 		<nav className={classNames(css.wrapper)}>
 			<div className={classNames(css.inner)}>
-				<InnerLink className={classNames()} to={""}>
+				<InnerLink className={classNames()} to={"/"}>
 					<Image classes={classNames(css.logo)} source={"/Logo.png"} />
 				</InnerLink>
 				

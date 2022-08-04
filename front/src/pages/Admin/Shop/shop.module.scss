@@ -30,14 +30,7 @@
         @include flexible(column, center, flex-start);
 
         flex-basis: 200px;
-        gap: 10px;
-
-        .socials {
-          @include flexible(row, flex-start, space-around);
-
-          width: 100%;
-          gap: 5px;
-        }
+        gap: 20px;
       }
     }
 
@@ -49,7 +42,7 @@
       gap: 10px;
 
       .info {
-        flex-basis: 40%;
+        flex-basis: 50%;
         gap: 10px;
 
         .image {
@@ -78,7 +71,7 @@
         }
 
         .contacts {
-          flex-basis: 50%;
+          flex-basis: 100%;
         }
       }
 

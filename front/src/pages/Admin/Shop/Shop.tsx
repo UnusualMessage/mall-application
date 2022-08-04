@@ -14,6 +14,7 @@ import Hider from "../../../components/Hider";
 
 import shops from "../../../data/shops";
 import icons from "../../../data/icons";
+import Input from "../../../components/Input";
 
 const Shop = () => {
 	const { id } = useParams();
@@ -38,31 +39,10 @@ const Shop = () => {
 					<Image classes={classNames(css.image)} source={shop.image}/>
 					
 					<div className={`${css.contacts}`}>
-						<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
-						<Label className={classNames(label.big)} text={shop.schedule}/>
-						<Label className={classNames(label.big)} text={shop.phone}/>
-						
-						<OuterLink className={classNames(link.hovered)} to={`https://${shop.site}`}>
-							<Label className={classNames(label.big, label.hovered)} text={shop.site}/>
-						</OuterLink>
-						
-						<div className={classNames(css.socials)}>
-							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-							</OuterLink>
-							
-							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-							</OuterLink>
-							
-							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-							</OuterLink>
-							
-							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-							</OuterLink>
-						</div>
+						<Input label={"Этаж"} value={shop.floor} placeholder={"Введите номер этажа"}/>
+						<Input label={"Время"} value={shop.schedule} placeholder={"Введите время работы"}/>
+						<Input label={"Телефон"} value={shop.phone} placeholder={"Введите номер телефона"}/>
+						<Input label={"Сайт"} value={shop.site} placeholder={"Введите адрес сайта"}/>
 					</div>
 				</div>
 				

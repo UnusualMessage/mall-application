@@ -1,0 +1,31 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, flex-start);
+
+  gap: 2px;
+  width: 100%;
+
+  .label {
+    &::after {
+      content: ":";
+    }
+  }
+
+  .input {
+	padding: 3px;
+
+    border: 2px solid $low;
+    transition: border 0.3s ease-in-out;
+    outline: none;
+
+    &:hover {
+      border: 2px solid $hover;
+    }
+
+    &:focus {
+      border: 2px solid $hover;
+    }
+  }
+}
