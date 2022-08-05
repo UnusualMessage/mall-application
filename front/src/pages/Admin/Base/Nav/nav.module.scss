@@ -8,7 +8,7 @@
   background: $back;
 
   .inner {
-	@include flexible(row, center, space-around);
+	@include flexible(row, flex-start, space-around);
 	flex-wrap: wrap;
 
 	padding: 20px;
@@ -23,7 +23,9 @@
 	.link {
 	  @include flexible(column, center, center);
 
+	  text-align: center;
 	  gap: 5px;
+	  width: 100px;
 	}
   }
 }

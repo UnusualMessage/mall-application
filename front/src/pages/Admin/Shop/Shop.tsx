@@ -1,26 +1,27 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {FormEventHandler, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
+import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import css from "./shop.module.scss";
 
 import Image from "../../../components/Image";
 import Input from "../../../components/Input";
+import TextEditor from "../../../components/TextEditor";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import shops from "../../../data/shops";
-import useInput from "../../../hooks/useInput";
-import TextEditor from "../../../components/TextEditor";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	const [shop, setShop] = useState<ShopInterface>();
 	
-	const floor = useInput("");
-	const schedule = useInput("");
-	const phone = useInput("");
-	const site = useInput("");
+	const { register, handleSubmit } = useForm();
+	
+	const onSubmit: SubmitHandler<FieldValues> = useCallback((data) => {
+		console.log(data);
+	}, []);
 	
 	useEffect(() => {
 		const shop = shops.find(shop => shop.link === id);
@@ -36,26 +37,41 @@ const Shop = () => {
 		return null;
 	}
 	
-	const onSubmit: FormEventHandler = (e) => {
-		e.preventDefault();
-	};
-
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={onSubmit}>
-			<div className={classNames(css.shop)}>
-				<div className={classNames(css.info)}>
-					<Image classes={classNames(css.image)} source={shop.image}/>
-					
-					<div className={`${css.contacts}`}>
-						<Input label={"Этаж"} placeholder={"Введите номер этажа"} {...floor}/>
-						<Input label={"Время"} placeholder={"Введите время работы"} {...schedule}/>
-						<Input label={"Телефон"} placeholder={"Введите номер телефона"} {...phone}/>
-						<Input label={"Сайт"} placeholder={"Введите адрес сайта"} {...site}/>
-					</div>
-				</div>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+			<Image classes={classNames(css.image)} source={shop.image}/>
+			
+			<div className={`${css.contacts}`}>
+				<Input label={"Этаж"}
+				       placeholder={"Введите номер этажа"}
+				       defaultValue={shop.floor}
+				       register={register}
+				       name={"floor"}
+				/>
 				
-				<TextEditor className={css.description}/>
+				<Input label={"Время"}
+				       placeholder={"Введите время работы"}
+				       defaultValue={shop.schedule}
+				       register={register}
+				       name={"schedule"}
+				/>
+				
+				<Input label={"Телефон"}
+				       placeholder={"Введите номер телефона"}
+				       defaultValue={shop.phone}
+				       register={register}
+				       name={"phone"}
+				/>
+				
+				<Input label={"Сайт"}
+				       placeholder={"Введите адрес сайта"}
+				       defaultValue={shop.site}
+				       register={register}
+				       name={"site"}
+				/>
 			</div>
+			
+			<TextEditor className={css.description}/>
 			
 			<div className={classNames(css.buttons)}>
 				<button type={"submit"}>

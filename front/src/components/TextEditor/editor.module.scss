@@ -3,8 +3,12 @@
 
 .wrapper {
   width: 320px;
-  padding: 10px;
 
   background: $back;
-  border: 1px solid $hover;
+  border: 2px solid $low;
+  transition: border 0.3s ease-in-out;
+
+  .content {
+    padding: 5px 10px 5px 10px;
+  }
 }

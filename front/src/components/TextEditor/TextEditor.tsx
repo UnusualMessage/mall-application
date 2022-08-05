@@ -1,7 +1,7 @@
 import {createEditor, Descendant} from "slate";
 import {Slate, Editable, withReact, ReactEditor, RenderLeafProps, RenderElementProps} from "slate-react";
 import {withHistory} from "slate-history";
-import {useCallback, useState} from "react";
+import {memo, useCallback, useState} from "react";
 import classNames from "classnames";
 
 import css from "./editor.module.scss";
@@ -50,6 +50,7 @@ const TextEditor = ({ className }: Props) => {
 				<Editable placeholder={"Введите текст"}
 				          renderLeaf={renderText}
 				          renderElement={renderElement}
+				          className={classNames(css.content)}
 				/>
 			</Slate>
 		</div>
@@ -61,4 +62,4 @@ interface Props {
 	className: string
 }
 
-export default TextEditor;
+export default memo(TextEditor);
