@@ -1,15 +1,16 @@
 import {createEditor, Descendant} from "slate";
 import {Slate, Editable, withReact, ReactEditor, RenderLeafProps, RenderElementProps} from "slate-react";
 import {withHistory} from "slate-history";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import classNames from "classnames";
 
 import css from "./editor.module.scss";
+
 import Text from "./Text";
 import Element from "./Element";
 import Toolbar from "./Toolbar/Toolbar";
 
-const TextEditor = () => {
+const TextEditor = ({ className }: Props) => {
 	const [editor] = useState(() => withReact(withHistory(createEditor() as ReactEditor)));
 	
 	const renderText = useCallback((props: RenderLeafProps) => {
@@ -22,7 +23,7 @@ const TextEditor = () => {
 	
 	const renderElement = useCallback((props: RenderElementProps) => {
 		return (
-			<Element {...props.element}>
+			<Element {...props}>
 				{props.children}
 			</Element>
 		);
@@ -30,7 +31,7 @@ const TextEditor = () => {
 	
 	const initialValue: Descendant[] = [
 		{
-			type: "p",
+			type: "paragraph",
 			align: "left",
 			children: [
 				{
@@ -43,7 +44,7 @@ const TextEditor = () => {
 	];
 	
 	return (
-		<div className={classNames(css.wrapper)}>
+		<div className={classNames(css.wrapper, className)}>
 			<Slate editor={editor} value={initialValue}>
 				<Toolbar/>
 				<Editable placeholder={"Введите текст"}
@@ -55,5 +56,9 @@ const TextEditor = () => {
 		
 	);
 };
+
+interface Props {
+	className: string
+}
 
 export default TextEditor;

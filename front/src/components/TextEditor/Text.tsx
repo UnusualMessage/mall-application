@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React from "react";
-import {Text as TextInterface} from "slate";
+import {RenderLeafProps} from "slate-react";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
-const Text = ({ children, leaf }: Props) => {
+const Text = ({ children, leaf, attributes }: RenderLeafProps) => {
 	const classes = classNames({
 		[label.mini]: true,
 		[label.bold]: leaf.bold,
@@ -14,15 +14,10 @@ const Text = ({ children, leaf }: Props) => {
 	});
 	
 	return (
-		<span className={classes}>
+		<span className={classes} {...attributes}>
 			{children}
 		</span>
 	);
 };
-
-interface Props {
-	children: React.ReactNode
-	leaf: TextInterface
-}
 
 export default Text;

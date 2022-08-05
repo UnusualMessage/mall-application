@@ -3,16 +3,14 @@ import {FormEventHandler, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./shop.module.scss";
-import label from "/src/components/Label/label.module.scss";
 
 import Image from "../../../components/Image";
-import Label from "../../../components/Label";
-import Hider from "../../../components/Hider";
 import Input from "../../../components/Input";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import shops from "../../../data/shops";
 import useInput from "../../../hooks/useInput";
+import TextEditor from "../../../components/TextEditor";
 
 const Shop = () => {
 	const { id } = useParams();
@@ -56,9 +54,7 @@ const Shop = () => {
 					</div>
 				</div>
 				
-				<Hider className={classNames(css.description)} defaultHeight={230}>
-					<Label className={classNames(label.default)} text={shop.description}/>
-				</Hider>
+				<TextEditor className={css.description}/>
 			</div>
 			
 			<div className={classNames(css.buttons)}>

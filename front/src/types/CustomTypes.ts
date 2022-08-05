@@ -1,10 +1,15 @@
-import {BaseEditor, Node} from "slate";
+import {Descendant} from "slate";
 import {ReactEditor} from "slate-react";
 import {HistoryEditor} from "slate-history";
 
-type Align = "center" | "left" | "right" | "justify";
+type Align = "center" | "left" | "right";
+type Type = "paragraph" | "ol-list" | "ul-list" | "heading-one" | "heading-two";
 
-interface CustomElement { type: string, align?: Align, children: Node[] }
+interface CustomElement {
+	type: Type,
+	align?: Align,
+	children: Descendant[]
+}
 
 interface CustomText {
 	text: string,
@@ -15,8 +20,8 @@ interface CustomText {
 
 declare module "slate" {
 	interface CustomTypes {
-		Editor: BaseEditor & ReactEditor & HistoryEditor
+		Editor: ReactEditor & HistoryEditor
 		Element: CustomElement
-		Text: CustomText | Record<string, boolean | string>
+		Text: CustomText
 	}
 }

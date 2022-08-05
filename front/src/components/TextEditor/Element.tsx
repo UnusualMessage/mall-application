@@ -1,49 +1,49 @@
 import React from "react";
 import classNames from "classnames";
+import {RenderElementProps} from "slate-react";
 
 import label from "/src/components/Label/label.module.scss";
 
-const Element = ({ children, type, align }: ElementProps) => {
+const Element = ({ children, element, attributes }: RenderElementProps) => {
+	const align = element.align;
 	let classes = "";
+	
 	if (align) {
 		classes = classNames(label[align]);
 	}
 	
-	switch (type) {
-		case "p":
+	switch (element.type) {
+		case "ul-list":
 			return (
-				<p className={classNames(classes)}>
+				<ul className={classNames(classes)} {...attributes}>
 					{children}
-				</p>
+				</ul>
+			);
+		case "ol-list":
+			return (
+				<ol className={classNames(classes)} {...attributes}>
+					{children}
+				</ol>
+			);
+		case "heading-one":
+			return (
+				<h1 className={classNames(classes)} {...attributes}>
+					{children}
+				</h1>
+			);
+		case "heading-two":
+			return (
+				<h2 className={classNames(classes)} {...attributes}>
+					{children}
+				</h2>
 			);
 		default:
 			return (
-				<DefaultElement>
+				<p className={classNames(classes)} {...attributes}>
 					{children}
-				</DefaultElement>
+				</p>
 			);
 	}
 };
-
-const DefaultElement = ({ children }: DefaultElementProps) => {
-	return (
-		<p>
-			{children}
-		</p>
-	);
-};
-
-interface DefaultElementProps {
-	children: React.ReactNode
-}
-
-interface ElementProps {
-	children: React.ReactNode,
-	type: string,
-	align?: Align
-}
-
-type Align = "center" | "left" | "right" | "justify";
-
 
 export default Element;
