@@ -8,12 +8,14 @@
   width: 100%;
 
   .label {
+    cursor: pointer;
+
     &::after {
       content: ":";
     }
   }
 
-  .input {
+  .input[type=text] {
 	padding: 3px;
 
     border: 2px solid $low;

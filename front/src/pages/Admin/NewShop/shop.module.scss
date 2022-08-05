@@ -1,0 +1,35 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  width: 100%;
+  gap: 20px;
+
+  .image {
+	width: $mini - 40px;
+	padding: 10px;
+
+	border: 5px solid $hover;
+  }
+
+  .contacts {
+	@include flexible(column, center, center);
+
+	width: 100%;
+	gap: 10px;
+  }
+
+  .description {
+	width: 100%;
+  }
+
+  .buttons {
+	@include flexible(row, center, center);
+
+	width: 100%;
+	gap: 50px;
+  }
+}

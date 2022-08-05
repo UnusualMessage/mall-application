@@ -7,26 +7,33 @@ const Shop = lazy(() => import("./Shop"));
 const Event = lazy(() => import("./Event"));
 const Discount = lazy(() => import("./Discount"));
 const Info = lazy(() => import("./Info"));
+const NewEvent = lazy(() => import("./NewEvent"));
+const NewDiscount = lazy(() => import("./NewDiscount"));
+const NewShop = lazy(() => import("./NewShop"));
+
+import Loader from "../../components/Loader";
 
 import {discounts, events, info, shops} from "../../data/breadcrumbs";
 import ShopStore from "../../stores/ShopStore";
 import EventStore from "../../stores/EventStore";
 import DiscountStore from "../../stores/DiscountStore";
-import Loader from "../../components/Loader";
 
 const Admin = () => {
     return(
         <React.Suspense fallback={<Loader/>}>
             <Routes>
                 <Route path="*" element={<Base />}>
-                    <Route path={shops.route} element={<Items store={ShopStore}/>} />
+                    <Route path={shops.route} element={<Items store={ShopStore} />} />
                     <Route path={`${shops.route}/:id`} element={<Shop/>} />
-            
-                    <Route path={events.route} element={<Items store={EventStore}/>} />
+                    <Route path={`${shops.route}/new`} element={<NewShop/>} />
+                    
+                    <Route path={events.route} element={<Items store={EventStore} />} />
                     <Route path={`${events.route}/:id`} element={<Event/>} />
-            
-                    <Route path={discounts.route} element={<Items store={DiscountStore}/>} />
+                    <Route path={`${events.route}/new`} element={<NewEvent/>} />
+                    
+                    <Route path={discounts.route} element={<Items store={DiscountStore} />} />
                     <Route path={`${discounts.route}/:id`} element={<Discount/>} />
+                    <Route path={`${discounts.route}/new`} element={<NewDiscount/>} />
                     
                     <Route path={info.route} element={<Info/>} />
                 </Route>

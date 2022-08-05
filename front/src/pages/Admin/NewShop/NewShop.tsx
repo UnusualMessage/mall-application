@@ -1,51 +1,46 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
+import {ChangeEventHandler, useCallback, useState} from "react";
 import classNames from "classnames";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
-import css from "./shop.module.scss";
+import css from "../shop.module.scss";
 
 import Image from "../../../components/Image";
 import Input from "../../../components/Input";
 import TextEditor from "../../../components/TextEditor";
 
-import ShopInterface from "../../../api/interfaces/shop/Shop";
-import shops from "../../../data/shops";
-
-const Shop = () => {
-	const { id } = useParams();
-	const redirect = useNavigate();
-	const [shop, setShop] = useState<ShopInterface>();
-	
+const NewShop = () => {
 	const { register, handleSubmit } = useForm();
+	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	
 	const onSubmit: SubmitHandler<FieldValues> = useCallback((data) => {
 		console.log(data);
 	}, []);
 	
-	useEffect(() => {
-		const shop = shops.find(shop => shop.link === id);
-		
-		if (!shop) {
-			redirect("");
+	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+		if (e.target.files?.length) {
+			const file = e.target.files[0];
+			setImagePreview(file);
 		}
-		
-		setShop(shop);
-	}, [id]);
-	
-	if (!shop) {
-		return null;
-	}
+	};
 	
 	return(
 		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
-			<Image classes={classNames(css.image)} source={shop.image}/>
+			<Image classes={classNames(css.image)} source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
+			
+			<Input label={"Лого"}
+			       type={"file"}
+			       placeholder={"Введите название магазина"}
+			       defaultValue={""}
+			       register={register}
+			       name={"image"}
+			       onChange={handleImage}
+			/>
 			
 			<div className={`${css.contacts}`}>
 				<Input label={"Название"}
 				       type={"text"}
 				       placeholder={"Введите название магазина"}
-				       defaultValue={shop.title}
+				       defaultValue={""}
 				       register={register}
 				       name={"name"}
 				/>
@@ -53,7 +48,7 @@ const Shop = () => {
 				<Input label={"Этаж"}
 				       type={"text"}
 				       placeholder={"Введите номер этажа"}
-				       defaultValue={shop.floor}
+				       defaultValue={""}
 				       register={register}
 				       name={"floor"}
 				/>
@@ -61,7 +56,7 @@ const Shop = () => {
 				<Input label={"Время"}
 				       type={"text"}
 				       placeholder={"Введите время работы"}
-				       defaultValue={shop.schedule}
+				       defaultValue={""}
 				       register={register}
 				       name={"schedule"}
 				/>
@@ -69,7 +64,7 @@ const Shop = () => {
 				<Input label={"Телефон"}
 				       type={"text"}
 				       placeholder={"Введите номер телефона"}
-				       defaultValue={shop.phone}
+				       defaultValue={""}
 				       register={register}
 				       name={"phone"}
 				/>
@@ -77,7 +72,7 @@ const Shop = () => {
 				<Input label={"Сайт"}
 				       type={"text"}
 				       placeholder={"Введите адрес сайта"}
-				       defaultValue={shop.site}
+				       defaultValue={""}
 				       register={register}
 				       name={"site"}
 				/>
@@ -87,15 +82,11 @@ const Shop = () => {
 			
 			<div className={classNames(css.buttons)}>
 				<button type={"submit"}>
-					Изменить
-				</button>
-				
-				<button type={"submit"}>
-					Удалить
+					Добавить
 				</button>
 			</div>
 		</form>
 	);
 };
 
-export default Shop;
+export default NewShop;

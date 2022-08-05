@@ -1,5 +1,5 @@
 import {createEditor, Descendant} from "slate";
-import {Slate, Editable, withReact, ReactEditor, RenderLeafProps, RenderElementProps} from "slate-react";
+import {Editable, ReactEditor, RenderElementProps, RenderLeafProps, Slate, withReact} from "slate-react";
 import {withHistory} from "slate-history";
 import {memo, useCallback, useState} from "react";
 import classNames from "classnames";
@@ -10,7 +10,16 @@ import Text from "./Text";
 import Element from "./Element";
 import Toolbar from "./Toolbar/Toolbar";
 
-const TextEditor = ({ className }: Props) => {
+const serialize = (value: Descendant[]) => {
+	return JSON.stringify(value);
+	
+};
+
+const deserialize = (value: string) => {
+	return JSON.parse(value);
+};
+
+const TextEditor = ({ className, readonly, defaultValue }: Props) => {
 	const [editor] = useState(() => withReact(withHistory(createEditor() as ReactEditor)));
 	
 	const renderText = useCallback((props: RenderLeafProps) => {
@@ -29,28 +38,18 @@ const TextEditor = ({ className }: Props) => {
 		);
 	}, []);
 	
-	const initialValue: Descendant[] = [
-		{
-			type: "paragraph",
-			align: "left",
-			children: [
-				{
-					text: "Hello, world",
-					bold: true,
-					italic: true
-				}
-			]
-		},
-	];
+	const initialValue: Descendant[] = deserialize(defaultValue);
 	
 	return (
 		<div className={classNames(css.wrapper, className)}>
 			<Slate editor={editor} value={initialValue}>
-				<Toolbar/>
+				{ readonly ? <></> : <Toolbar/> }
+				
 				<Editable placeholder={"Введите текст"}
 				          renderLeaf={renderText}
 				          renderElement={renderElement}
 				          className={classNames(css.content)}
+				          readOnly={readonly}
 				/>
 			</Slate>
 		</div>
@@ -59,7 +58,9 @@ const TextEditor = ({ className }: Props) => {
 };
 
 interface Props {
-	className: string
+	className: string,
+	readonly: boolean,
+	defaultValue: string
 }
 
 export default memo(TextEditor);
