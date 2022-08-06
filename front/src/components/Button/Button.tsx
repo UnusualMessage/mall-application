@@ -3,14 +3,14 @@ import classNames from "classnames";
 
 import css from "./button.module.scss";
 
-const Button = ({ text, disabled, ...props }: Props) => {
+const Button = ({ text, disabled, submit, ...props }: Props) => {
 	const classes = classNames({
 		[css.wrapper]: true,
 		[css.disabled]: disabled
 	});
 	
 	return (
-		<button type={"submit"} className={classes} {...props}
+		<button type={submit ? "submit" : "button"} className={classes} {...props}
 		        onClick={disabled ? (e) => { e.preventDefault(); } : props.onClick}>
 			{text}
 		</button>
@@ -20,6 +20,7 @@ const Button = ({ text, disabled, ...props }: Props) => {
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
 	text: string,
 	disabled: boolean
+	submit?: boolean
 }
 
 export default Button;

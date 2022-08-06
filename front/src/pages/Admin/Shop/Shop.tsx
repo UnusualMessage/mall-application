@@ -1,7 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import css from "./shop.module.scss";
 
@@ -29,12 +28,6 @@ const Shop = () => {
 		InterfaceStore.setLoading(false);
 	}, []);
 	
-	const { register, handleSubmit } = useForm();
-	
-	const onSubmit: SubmitHandler<FieldValues> = useCallback((data) => {
-		console.log(data);
-	}, []);
-	
 	useEffect(() => {
 		const shop = shops.find(shop => shop.link === id);
 		
@@ -50,7 +43,7 @@ const Shop = () => {
 	}
 	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} >
 			<Image classes={classNames(css.image)} source={shop.image}/>
 			
 			<div className={`${css.contacts}`}>
@@ -58,7 +51,6 @@ const Shop = () => {
 				       type={"text"}
 				       placeholder={"Введите название магазина"}
 				       defaultValue={shop.title}
-				       register={register}
 				       name={"name"}
 				/>
 				
@@ -66,7 +58,6 @@ const Shop = () => {
 				       type={"text"}
 				       placeholder={"Введите номер этажа"}
 				       defaultValue={shop.floor}
-				       register={register}
 				       name={"floor"}
 				/>
 				
@@ -74,7 +65,6 @@ const Shop = () => {
 				       type={"text"}
 				       placeholder={"Введите время работы"}
 				       defaultValue={shop.schedule}
-				       register={register}
 				       name={"schedule"}
 				/>
 				
@@ -82,7 +72,6 @@ const Shop = () => {
 				       type={"text"}
 				       placeholder={"Введите номер телефона"}
 				       defaultValue={shop.phone}
-				       register={register}
 				       name={"phone"}
 				/>
 				
@@ -90,7 +79,6 @@ const Shop = () => {
 				       type={"text"}
 				       placeholder={"Введите адрес сайта"}
 				       defaultValue={shop.site}
-				       register={register}
 				       name={"site"}
 				/>
 			</div>
@@ -99,7 +87,7 @@ const Shop = () => {
 			            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
 			
 			<div className={classNames(css.buttons)}>
-				<button type={"submit"}>
+				<button type={"submit"} >
 					Изменить
 				</button>
 				

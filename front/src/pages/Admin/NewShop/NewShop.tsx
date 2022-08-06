@@ -1,6 +1,5 @@
-import {ChangeEventHandler, useCallback, useState} from "react";
+import {ChangeEventHandler, useState} from "react";
 import classNames from "classnames";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import css from "./shop.module.scss";
 
@@ -9,12 +8,8 @@ import Input from "../../../components/Input";
 import TextEditor from "../../../components/TextEditor";
 
 const NewShop = () => {
-	const { register, handleSubmit } = useForm();
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
-	
-	const onSubmit: SubmitHandler<FieldValues> = useCallback((data) => {
-		console.log(data);
-	}, []);
+
 	
 	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
 		if (e.target.files?.length) {
@@ -24,14 +19,13 @@ const NewShop = () => {
 	};
 	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} >
 			<Image classes={classNames(css.image)} source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
 			
 			<Input label={"Лого"}
 			       type={"file"}
 			       placeholder={"Введите название магазина"}
 			       defaultValue={""}
-			       register={register}
 			       name={"image"}
 			       onChange={handleImage}
 			/>
@@ -41,7 +35,6 @@ const NewShop = () => {
 				       type={"text"}
 				       placeholder={"Введите название магазина"}
 				       defaultValue={""}
-				       register={register}
 				       name={"name"}
 				/>
 				
@@ -49,7 +42,6 @@ const NewShop = () => {
 				       type={"text"}
 				       placeholder={"Введите номер этажа"}
 				       defaultValue={""}
-				       register={register}
 				       name={"floor"}
 				/>
 				
@@ -57,7 +49,6 @@ const NewShop = () => {
 				       type={"text"}
 				       placeholder={"Введите время работы"}
 				       defaultValue={""}
-				       register={register}
 				       name={"schedule"}
 				/>
 				
@@ -65,7 +56,6 @@ const NewShop = () => {
 				       type={"text"}
 				       placeholder={"Введите номер телефона"}
 				       defaultValue={""}
-				       register={register}
 				       name={"phone"}
 				/>
 				
@@ -73,7 +63,6 @@ const NewShop = () => {
 				       type={"text"}
 				       placeholder={"Введите адрес сайта"}
 				       defaultValue={""}
-				       register={register}
 				       name={"site"}
 				/>
 			</div>

@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {MouseEventHandler, useCallback, useEffect, useState} from "react";
+import {FormEventHandler, MouseEventHandler, useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./discount.module.scss";
@@ -54,7 +54,7 @@ const Discount = () => {
 		}
 	};
 	
-	const handleUpdate: MouseEventHandler = async (e) => {
+	const handleUpdate: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 		
 		if (id) {
@@ -87,7 +87,7 @@ const Discount = () => {
 				?
 				<Loader/>
 				:
-				<form className={classNames(css.wrapper)}>
+				<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
 					<select className={css.selection}>
 					</select>
 					
@@ -95,7 +95,7 @@ const Discount = () => {
 					            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
 					
 					<div className={classNames(css.buttons)}>
-						<Button text={"Изменить"} disabled={buttonsDisabled} onClick={handleUpdate}/>
+						<Button text={"Изменить"} disabled={buttonsDisabled} submit/>
 						<Button text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
 					</div>
 				</form>

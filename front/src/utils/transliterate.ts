@@ -13,11 +13,7 @@ const transliterate = (word: string) => {
 	
 	let answer = "";
 	for (const char of word) {
-		if (converter[char] === undefined){
-			answer += char;
-		} else {
-			answer += converter[char];
-		}
+		answer += (converter[char]) ? converter[char] : char;
 	}
 	
 	answer = answer.replace(/[^-0-9a-z]/g, "-");
