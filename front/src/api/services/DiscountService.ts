@@ -78,7 +78,7 @@ class DiscountService {
 		}
 	};
 	
-	delete = async (discount: DeleteDiscount): Promise<Discount> => {
+	delete = async (model: DeleteDiscount): Promise<Discount> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
@@ -87,7 +87,7 @@ class DiscountService {
 		};
 		
 		try {
-			const request = new Request(webApiUrl + "/" + discount.id, options);
+			const request = new Request(webApiUrl + "/" + model.id, options);
 			const response = await fetch(request);
 			
 			return response.json();

@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {MouseEventHandler, useEffect, useState} from "react";
+import {MouseEventHandler, useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./discount.module.scss";
@@ -22,6 +22,16 @@ const Discount = () => {
 	
 	const discount = discounts.find(discount => discount.link === id);
 	
+	const lockInterface = useCallback(() => {
+		setButtonsDisabled(true);
+		InterfaceStore.setLoading(true);
+	}, []);
+	
+	const unlockInterface = useCallback(() => {
+		setButtonsDisabled(false);
+		InterfaceStore.setLoading(false);
+	}, []);
+	
 	useEffect(() => {
 		if (!discount) {
 			redirect("");
@@ -31,16 +41,6 @@ const Discount = () => {
 	if (!discount) {
 		return null;
 	}
-	
-	const lockInterface = () => {
-		setButtonsDisabled(true);
-		InterfaceStore.setLoading(true);
-	};
-	
-	const unlockInterface = () => {
-		setButtonsDisabled(false);
-		InterfaceStore.setLoading(false);
-	};
 	
 	const handleDelete: MouseEventHandler = async (e) => {
 		e.preventDefault();

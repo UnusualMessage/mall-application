@@ -1,5 +1,7 @@
 import Event from "../interfaces/event/Event";
-import NewEvent from "../interfaces/event/NewEvent";
+import CreateEvent from "../interfaces/event/CreateEvent";
+import UpdateEvent from "../interfaces/event/UpdateEvent";
+import DeleteDiscount from "../interfaces/discount/DeleteDiscount";
 
 const webApiUrl = "https://localhost:44333/api/events/";
 
@@ -9,12 +11,24 @@ class EventService {
 		const options = {
 			method: "GET",
 		};
-		const request = new Request(webApiUrl + "?" + urlParams, options);
-		const response = await fetch(request);
-		return response.json();
+		
+		try {
+			const request = new Request(webApiUrl + "?" + urlParams, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	post = async (model: NewEvent): Promise<Event> => {
+	post = async (model: CreateEvent): Promise<Event> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
@@ -23,12 +37,23 @@ class EventService {
 			body: JSON.stringify(model)
 		};
 		
-		const request = new Request(webApiUrl, options);
-		const response = await fetch(request);
-		return response.json();
+		try {
+			const request = new Request(webApiUrl, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	put = async (model: Event): Promise<Event> => {
+	put = async (model: UpdateEvent): Promise<Event> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
@@ -37,21 +62,44 @@ class EventService {
 			body: JSON.stringify(model)
 		};
 		
-		const request = new Request(webApiUrl, options);
-		const response = await fetch(request);
-		return response.json();
+		try {
+			const request = new Request(webApiUrl, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	delete = async (id: string): Promise<Event> => {
+	delete = async (model: DeleteDiscount): Promise<Event> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
 			method: "DELETE",
 			headers
 		};
-		const request = new Request(webApiUrl + "/" + id, options);
-		const response = await fetch(request);
-		return response.json();
+		
+		try {
+			const request = new Request(webApiUrl + "/" + model.id, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 }
 

@@ -1,21 +1,27 @@
-import {makeAutoObservable, runInAction, toJS} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 
 import events from "../data/events";
-import EventService from "../api/services/EventService";
-import Event from "../api/interfaces/event/Event";
-import NewEvent from "../api/interfaces/event/NewEvent";
 import Store from "../types/Store";
+import UpdateEvent from "../api/interfaces/event/UpdateEvent";
+import DeleteEvent from "../api/interfaces/event/DeleteEvent";
+import CreateEvent from "../api/interfaces/event/CreateEvent";
+import Event from "../api/interfaces/event/Event";
+import EventService from "../api/services/EventService";
 
 class EventStore implements Store {
 	events: Event[] = [];
 	
 	eventService: EventService;
 	
-	status = "";
+	error: string;
+	successful: boolean;
 	
 	constructor() {
 		this.eventService = new EventService();
 		this.events = events;
+		
+		this.error = "";
+		this.successful = true;
 		
 		makeAutoObservable(this);
 	}
@@ -28,6 +34,12 @@ class EventStore implements Store {
 		return this.events.filter(event => event.shop.id === id);
 	};
 	
+	invokeError = (error: string) => {
+		this.error = error;
+		this.successful = false;
+		console.error(this.error);
+	};
+	
 	getEventsAsync = async () => {
 		try {
 			const query = "";
@@ -38,13 +50,11 @@ class EventStore implements Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	createEventAsync = async (newEvent: NewEvent) => {
+	createEventAsync = async (newEvent: CreateEvent) => {
 		try {
 			const data = await this.eventService.post(newEvent);
 			
@@ -53,13 +63,11 @@ class EventStore implements Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	updateEventAsync = async (event: Event) => {
+	updateEventAsync = async (event: UpdateEvent) => {
 		try {
 			const data = await this.eventService.put(event);
 			
@@ -68,24 +76,20 @@ class EventStore implements Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	deleteEventAsync = async (id: string) => {
+	deleteEventAsync = async (event: DeleteEvent) => {
 		try {
-			const data = await this.eventService.delete(id);
+			const data = await this.eventService.delete(event);
 			
 			runInAction(() => {
 				this.events = this.events.filter(event => event.id !== data.id);
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 }

@@ -1,25 +1,35 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {MouseEventHandler, useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./event.module.scss";
-import label from "/src/components/Label/label.module.scss";
-import link from "/src/components/Link/link.module.scss";
 
-import Image from "../../../components/Image";
-import Icon from "../../../components/Icon";
-import Label from "../../../components/Label";
-import {InnerLink, OuterLink} from "../../../components/Link";
-import Hider from "../../../components/Hider";
+import Loader from "../../../components/Loader";
+import Button from "../../../components/Button";
+import TextEditor from "../../../components/TextEditor/TextEditor";
 
-import icons from "../../../data/icons";
 import events from "../../../data/events";
+import InterfaceStore from "../../../stores/InterfaceStore";
+import transliterate from "../../../utils/transliterate";
+import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
+import EventStore from "../../../stores/EventStore";
 
 const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
+	const [buttonsDisabled, setButtonsDisabled] = useState(false);
 	
 	const event = events.find(event => event.link === id);
+	
+	const lockInterface = useCallback(() => {
+		setButtonsDisabled(true);
+		InterfaceStore.setLoading(true);
+	}, []);
+	
+	const unlockInterface = useCallback(() => {
+		setButtonsDisabled(false);
+		InterfaceStore.setLoading(false);
+	}, []);
 	
 	useEffect(() => {
 		if (!event) {
@@ -31,47 +41,65 @@ const Event = () => {
 		return null;
 	}
 	
-	return(
-		<div className={classNames(css.wrapper)}>
-			<div className={classNames(css.info)}>
-				<InnerLink className={classNames(css.image)} to={"/" + event.shop.route}>
-					<Image classes={classNames()} source={event.shop.image}/>
-				</InnerLink>
-				
-				<div className={`${css.contacts}`}>
-					<Label className={classNames(label.big)} text={`${event.shop.floor}-й этаж`}/>
-					<Label className={classNames(label.big)} text={event.shop.schedule}/>
-					<Label className={classNames(label.big)} text={event.shop.phone}/>
-					
-					<OuterLink className={classNames(link.hovered)} to={`https://${event.shop.site}`}>
-						<Label className={classNames(label.big, label.hovered)} text={event.shop.site}/>
-					</OuterLink>
-					
-					<div className={classNames(css.socials)}>
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-					</div>
-				</div>
-			</div>
+	const handleDelete: MouseEventHandler = async (e) => {
+		e.preventDefault();
+		
+		lockInterface();
+		await EventStore.deleteEventAsync({ id: event.id });
+		unlockInterface();
+		
+		if (EventStore.successful) {
+			redirect("../");
+		}
+	};
+	
+	const handleUpdate: MouseEventHandler = async (e) => {
+		e.preventDefault();
+		
+		if (id) {
+			const transliteratedTitle = transliterate(event.title);
 			
-			<Hider className={classNames(css.description)} defaultHeight={230}>
-				<Image classes={classNames()} source={event.image}/>
-				<Label className={classNames(label.default)} text={event.description}/>
-			</Hider>
-		</div>
+			const updateDiscount: UpdateDiscount = {
+				id: id,
+				title: event.title,
+				image: event.title,
+				description: event.description,
+				route: `events/${transliteratedTitle}`,
+				link: transliteratedTitle,
+				shopId: event.shop.id
+			};
+			
+			lockInterface();
+			await EventStore.updateEventAsync(updateDiscount);
+			unlockInterface();
+			
+			if (EventStore.successful) {
+				redirect("../");
+			}
+		}
+	};
+	
+	return(
+		<>
+			{
+				InterfaceStore.isLoading()
+					?
+					<Loader/>
+					:
+					<form className={classNames(css.wrapper)}>
+						<select className={css.selection}>
+						</select>
+						
+						<TextEditor className={css.description} readonly={false}
+						            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
+						
+						<div className={classNames(css.buttons)}>
+							<Button text={"Изменить"} disabled={buttonsDisabled} onClick={handleUpdate}/>
+							<Button text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
+						</div>
+					</form>
+			}
+		</>
 	);
 };
 
