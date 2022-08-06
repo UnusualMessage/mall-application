@@ -1,24 +1,32 @@
 import {makeAutoObservable, runInAction, toJS} from "mobx";
 
-import Shop from "../api/interfaces/shop/Shop";
-import ShopService from "../api/services/ShopService";
-import NewShop from "../api/interfaces/shop/NewShop";
 import Filterable from "../types/Filterable";
 import Store from "../types/Store";
-
 import shops from "../data/shops";
+import UpdateShop from "../api/interfaces/shop/UpdateShop";
+import DeleteShop from "../api/interfaces/shop/DeleteShop";
+import CreateShop from "../api/interfaces/shop/CreateShop";
+import Shop from "../api/interfaces/shop/Shop";
+import ShopService from "../api/services/ShopService";
 
 class ShopStore implements Filterable, Store {
 	shops: Shop[] = [];
 	
 	shopService: ShopService;
 	
-	status = "";
-	filter = "Все";
+	error: string;
+	successful: boolean;
+	
+	filter: string;
 	
 	constructor() {
 		this.shops = shops;
 		this.shopService = new ShopService();
+		
+		this.error = "";
+		this.successful = true;
+		
+		this.filter = "Все";
 		
 		makeAutoObservable(this);
 	}
@@ -67,6 +75,12 @@ class ShopStore implements Filterable, Store {
 		return this.filter;
 	};
 	
+	invokeError = (error: string) => {
+		this.error = error;
+		this.successful = false;
+		console.error(this.error);
+	};
+	
 	getShopsAsync = async () => {
 		try {
 			const query = "";
@@ -77,13 +91,11 @@ class ShopStore implements Filterable, Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	createShopAsync = async (newShop: NewShop) => {
+	createShopAsync = async (newShop: CreateShop) => {
 		try {
 			const data = await this.shopService.post(newShop);
 			
@@ -92,39 +104,33 @@ class ShopStore implements Filterable, Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	updateShopAsync = async (shop: Shop) => {
+	updateShopAsync = async (shop: UpdateShop) => {
 		try {
 			const data = await this.shopService.put(shop);
 			
 			runInAction(() => {
-				this.shops = this.shops.map(element => element.id === data.id ? data : element);
+				this.shops = this.shops.map(shop => shop.id === data.id ? data : shop);
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	deleteShopAsync = async (id: string) => {
+	deleteShopAsync = async (shop: DeleteShop) => {
 		try {
-			const data = await this.shopService.delete(id);
+			const data = await this.shopService.delete(shop);
 			
 			runInAction(() => {
 				this.shops = this.shops.filter(shop => shop.id !== data.id);
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 }

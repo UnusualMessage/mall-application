@@ -11,11 +11,23 @@ import TextEditor from "../../../components/TextEditor";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import shops from "../../../data/shops";
+import InterfaceStore from "../../../stores/InterfaceStore";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	const [shop, setShop] = useState<ShopInterface>();
+	const [buttonsDisabled, setButtonsDisabled] = useState(false);
+	
+	const lockInterface = useCallback(() => {
+		setButtonsDisabled(true);
+		InterfaceStore.setLoading(true);
+	}, []);
+	
+	const unlockInterface = useCallback(() => {
+		setButtonsDisabled(false);
+		InterfaceStore.setLoading(false);
+	}, []);
 	
 	const { register, handleSubmit } = useForm();
 	
