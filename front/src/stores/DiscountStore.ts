@@ -2,23 +2,32 @@ import {makeAutoObservable, runInAction} from "mobx";
 
 import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";
-import NewDiscount from "../api/interfaces/discount/NewDiscount";
+import CreateDiscount from "../api/interfaces/discount/CreateDiscount";
 import Filterable from "../types/Filterable";
 import Store from "../types/Store";
 
 import discounts from "../data/discounts";
+import UpdateDiscount from "../api/interfaces/discount/UpdateDiscount";
+import DeleteDiscount from "../api/interfaces/discount/DeleteDiscount";
 
 class DiscountStore implements Filterable, Store {
 	discounts: Discount[] = [];
 	
 	discountService: DiscountService;
 	
-	status = "";
-	filter = "Все";
+	error: string;
+	successful: boolean;
+	
+	filter: string;
 	
 	constructor() {
 		this.discounts = discounts;
 		this.discountService = new DiscountService();
+		
+		this.error = "";
+		this.successful = true;
+		
+		this.filter = "Все";
 		
 		makeAutoObservable(this);
 	}
@@ -65,6 +74,12 @@ class DiscountStore implements Filterable, Store {
 		return this.discounts.filter(discount => discount.shop.id === id);
 	};
 	
+	invokeError = (error: string) => {
+		this.error = error;
+		this.successful = false;
+		console.error(this.error);
+	};
+	
 	getDiscountsAsync = async () => {
 		try {
 			const query = "";
@@ -75,13 +90,11 @@ class DiscountStore implements Filterable, Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	createDiscountAsync = async (newDiscount: NewDiscount) => {
+	createDiscountAsync = async (newDiscount: CreateDiscount) => {
 		try {
 			const data = await this.discountService.post(newDiscount);
 			
@@ -90,13 +103,11 @@ class DiscountStore implements Filterable, Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	updateDiscountAsync = async (discount: Discount) => {
+	updateDiscountAsync = async (discount: UpdateDiscount) => {
 		try {
 			const data = await this.discountService.put(discount);
 			
@@ -105,24 +116,20 @@ class DiscountStore implements Filterable, Store {
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 	
-	deleteDiscountAsync = async (id: string) => {
+	deleteDiscountAsync = async (discount: DeleteDiscount) => {
 		try {
-			const data = await this.discountService.delete(id);
+			const data = await this.discountService.delete(discount);
 			
 			runInAction(() => {
 				this.discounts = this.discounts.filter(discount => discount.id !== data.id);
 			});
 			
 		} catch(error) {
-			runInAction(() => {
-				this.status = "error";
-			});
+			this.invokeError("Request Error");
 		}
 	};
 }

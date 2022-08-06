@@ -1,5 +1,7 @@
 import Discount from "../interfaces/discount/Discount";
-import NewDiscount from "../interfaces/discount/NewDiscount";
+import CreateDiscount from "../interfaces/discount/CreateDiscount";
+import UpdateDiscount from "../interfaces/discount/UpdateDiscount";
+import DeleteDiscount from "../interfaces/discount/DeleteDiscount";
 
 const webApiUrl = "https://localhost:44333/api/discounts/";
 
@@ -9,12 +11,24 @@ class DiscountService {
 		const options = {
 			method: "GET",
 		};
-		const request = new Request(webApiUrl + "?" + urlParams, options);
-		const response = await fetch(request);
-		return response.json();
+		
+		try {
+			const request = new Request(webApiUrl + "?" + urlParams, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	post = async (model: NewDiscount): Promise<Discount> => {
+	post = async (model: CreateDiscount): Promise<Discount> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
@@ -23,12 +37,23 @@ class DiscountService {
 			body: JSON.stringify(model)
 		};
 		
-		const request = new Request(webApiUrl, options);
-		const response = await fetch(request);
-		return response.json();
+		try {
+			const request = new Request(webApiUrl, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	put = async (model: Discount): Promise<Discount> => {
+	put = async (model: UpdateDiscount): Promise<Discount> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
@@ -37,21 +62,44 @@ class DiscountService {
 			body: JSON.stringify(model)
 		};
 		
-		const request = new Request(webApiUrl, options);
-		const response = await fetch(request);
-		return response.json();
+		try {
+			const request = new Request(webApiUrl, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 	
-	delete = async (id: string): Promise<Discount> => {
+	delete = async (discount: DeleteDiscount): Promise<Discount> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		const options = {
 			method: "DELETE",
 			headers
 		};
-		const request = new Request(webApiUrl + "/" + id, options);
-		const response = await fetch(request);
-		return response.json();
+		
+		try {
+			const request = new Request(webApiUrl + "/" + discount.id, options);
+			const response = await fetch(request);
+			
+			return response.json();
+		} catch (error) {
+			return new Promise((resolve, reject) => {
+				if (error instanceof Error) {
+					reject(error.message);
+				} else {
+					reject("Internal Error");
+				}
+			});
+		}
 	};
 }
 

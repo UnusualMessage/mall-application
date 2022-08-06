@@ -9,7 +9,7 @@ import CategoryStore from "../../../../stores/CategoryStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 
 const Categories = () => {
-	const categories = CategoryStore.getCategories();
+	const categories = CategoryStore.get();
 
 	const classes = classNames({
 		[css.wrapper]: true,

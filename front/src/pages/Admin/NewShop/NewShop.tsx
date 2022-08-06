@@ -2,7 +2,7 @@ import {ChangeEventHandler, useCallback, useState} from "react";
 import classNames from "classnames";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
-import css from "../shop.module.scss";
+import css from "./shop.module.scss";
 
 import Image from "../../../components/Image";
 import Input from "../../../components/Input";

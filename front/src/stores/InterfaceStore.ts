@@ -4,14 +4,24 @@ class InterfaceStore {
 	menuActive: boolean;
 	filterActive: boolean;
 	mapFilterActive: boolean;
+	loading: boolean;
 	
 	constructor() {
 		this.menuActive = false;
 		this.filterActive = false;
 		this.mapFilterActive = false;
+		this.loading = false;
 		
 		makeAutoObservable(this);
 	}
+	
+	setLoading = (loading: boolean) => {
+		this.loading = loading;
+	};
+	
+	isLoading = () => {
+		return this.loading;
+	};
 	
 	isMenuActive = () => {
 		return this.menuActive;

@@ -13,7 +13,7 @@ class CategoryStore {
 		makeAutoObservable(this);
 	}
 	
-	getCategories = () => {
+	get = () => {
 		return this.categories;
 	};
 }

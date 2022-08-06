@@ -12,7 +12,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 const Discounts = () => {
     return(
         <div className={classNames(css.wrapper)}>
-            <Filter store={DiscountStore} categories={CategoryStore.getCategories()}/>
+            <Filter store={DiscountStore} categories={CategoryStore.get()}/>
             <DiscountCards/>
         </div>
 

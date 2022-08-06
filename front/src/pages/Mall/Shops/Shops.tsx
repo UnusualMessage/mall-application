@@ -12,7 +12,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 const Shops = () => {
     return(
         <div className={classNames(css.wrapper)}>
-            <Filter store={ShopStore} categories={CategoryStore.getCategories()}/>
+            <Filter store={ShopStore} categories={CategoryStore.get()}/>
             <ShopCards/>
         </div>
     );

@@ -83,7 +83,8 @@ const Shop = () => {
 				/>
 			</div>
 			
-			<TextEditor className={css.description} readonly={false} defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
+			<TextEditor className={css.description} readonly={false}
+			            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
 			
 			<div className={classNames(css.buttons)}>
 				<button type={"submit"}>

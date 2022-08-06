@@ -1,7 +1,7 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
 
-import css from "../discount.module.scss";
+import css from "./discount.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
 import Label from "../../../components/Label";
