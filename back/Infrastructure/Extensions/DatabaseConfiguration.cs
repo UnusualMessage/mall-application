@@ -20,6 +20,7 @@ public static class DatabaseConfiguration
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IContactsRepository, ContactsRepository>();
+        services.AddScoped<IRouteRepository, RouteRepository>();
         
         services.AddScoped<IShopRepository, ShopRepository>();
         services.AddScoped<IEventRepository, EventRepository>();

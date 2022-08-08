@@ -13,6 +13,9 @@ public class Shop : Entity, IUpdatable<Shop>
     public short Floor { get; set; }
     public string? Image { get; set; }
 
+    public Guid? RouteId { get; set; }
+    public Route Route { get; set; }
+
     public ICollection<Category>? Categories { get; set; } = new List<Category>();
     public ICollection<Discount>? Discounts { get; set; } = new List<Discount>();
     public ICollection<Event>? Events { get; set; } = new List<Event>();
@@ -27,5 +30,6 @@ public class Shop : Entity, IUpdatable<Shop>
         Link = shop.Link;
         Floor = shop.Floor;
         Image = shop.Image;
+        RouteId = shop.RouteId;
     }
 }

@@ -26,6 +26,9 @@ public class CreateShop : IRequest<ShopResponse>
     
     [Required]
     public string? Link { get; set; }
+    
+    [Required]
+    public string? Route { get; set; }
 
     [Required]
     public short Floor { get; set; }

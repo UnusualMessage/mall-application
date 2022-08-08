@@ -15,14 +15,16 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
     private readonly ICategoryRepository _categoryRepository;
     private readonly IMapper _mapper;
     private readonly IFileService _fileService;
+    private readonly IRouteRepository _routeRepository;
 
     public CreateShopHandler(IShopRepository repository, ICategoryRepository categoryRepository, IMapper mapper, 
-        IFileService fileService)
+        IFileService fileService, IRouteRepository routeRepository)
     {
         _categoryRepository = categoryRepository;
         _shopRepository = repository;
         _mapper = mapper;
         _fileService = fileService;
+        _routeRepository = routeRepository;
     }
     
     public async Task<ShopResponse> Handle(CreateShop request, CancellationToken cancellationToken)
@@ -43,6 +45,19 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
         var newShop = _mapper.Map<Shop>(request);
         newShop.Categories = categories;
         newShop.Image = await _fileService.UploadFile(request.Image, request.Destination!);
+        
+        var route = await _routeRepository.AddAsync(new Route()
+            {
+                Path = request.Route
+            }
+        );
+
+        if (route is null)
+        {
+            return null;
+        }
+
+        newShop.Id = route.Id;
         
         return _mapper.Map<ShopResponse>(await _shopRepository.AddAsync(newShop));
     }

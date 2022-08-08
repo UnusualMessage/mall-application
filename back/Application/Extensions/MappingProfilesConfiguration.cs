@@ -15,5 +15,6 @@ public static class MappingProfilesConfiguration
         services.AddAutoMapper(typeof(DiscountProfile));
 
         services.AddAutoMapper(typeof(ContactsProfile));
+        services.AddAutoMapper(typeof(RouteProfile));
     }
 }
