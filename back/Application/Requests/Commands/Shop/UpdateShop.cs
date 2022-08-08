@@ -17,6 +17,7 @@ public class UpdateShop : IRequest<ShopResponse>
     public string? Phone { get; set; }
     public string? Site { get; set; }
     public string? Link { get; set; }
+    public string? RouteName { get; set; }
     public short? Floor { get; set; }
     public string? Destination { get; set; }
     public IFormFile? Image { get; set; }

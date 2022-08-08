@@ -10,7 +10,10 @@ public class ShopProfile : Profile
 {
     public ShopProfile()
     {
-        CreateMap<Shop, ShopResponse>();
+        CreateMap<Shop, ShopResponse>()
+            .ForMember(dest => dest.RouteName, 
+                opt => opt.MapFrom(src => src.Route.Path));
+        
         CreateMap<CreateShop, Shop>();
         CreateMap<UpdateShop, Shop>();
     }

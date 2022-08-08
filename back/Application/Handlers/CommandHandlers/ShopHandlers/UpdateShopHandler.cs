@@ -24,6 +24,12 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse>
 
     public async Task<ShopResponse> Handle(UpdateShop request, CancellationToken cancellationToken)
     {
+        var shopToBeUpdated = await _shopRepository.GetByIdAsync(request.Id);
+        shopToBeUpdated?.Route.Update(new Route()
+        {
+            Path = request.RouteName
+        });
+
         var newShop = _mapper.Map<Shop>(request);
         newShop.Image = await _fileService.UploadFile(request.Image, request.Description!);
         

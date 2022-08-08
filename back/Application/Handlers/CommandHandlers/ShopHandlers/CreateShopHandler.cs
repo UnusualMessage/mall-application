@@ -48,7 +48,7 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
         
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.Route
+                Path = request.RouteName
             }
         );
 
@@ -57,7 +57,7 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
             return null;
         }
 
-        newShop.Id = route.Id;
+        newShop.RouteId = route.Id;
         
         return _mapper.Map<ShopResponse>(await _shopRepository.AddAsync(newShop));
     }
