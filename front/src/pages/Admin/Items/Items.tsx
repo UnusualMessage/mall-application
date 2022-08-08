@@ -1,15 +1,20 @@
 import {observer} from "mobx-react-lite";
 
+import label from "/src/components/Label/label.module.scss";
+import link from "/src/components/Link/link.module.scss";
+
 import ItemBar from "./ItemBar";
 import {InnerLink} from "../../../components/Link";
+import Label from "../../../components/Label";
 
 import Store from "../../../types/Store";
+import classNames from "classnames";
 
 const Items = ({ store }: Props) => {
 	return (
 		<>
 			<InnerLink className={""} to={"new"}>
-				<span>Добавить статью</span>
+				<Label className={classNames(label.big, link.underlined)} text={"Добавить статью"}/>
 			</InnerLink>
 			{
 				store.get().map(shop => {

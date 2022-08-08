@@ -10,6 +10,8 @@ const Info = lazy(() => import("./Info"));
 const NewEvent = lazy(() => import("./NewEvent"));
 const NewDiscount = lazy(() => import("./NewDiscount"));
 const NewShop = lazy(() => import("./NewShop"));
+const Categories = lazy(() => import("./Categories"));
+const Category = lazy(() => import("./Category"));
 
 import Loader from "../../components/Loader";
 
@@ -17,6 +19,7 @@ import {discounts, events, info, shops} from "../../data/breadcrumbs";
 import ShopStore from "../../stores/ShopStore";
 import EventStore from "../../stores/EventStore";
 import DiscountStore from "../../stores/DiscountStore";
+import NewCategory from "./NewCategory";
 
 const Admin = () => {
     return(
@@ -34,6 +37,10 @@ const Admin = () => {
                     <Route path={discounts.route} element={<Items store={DiscountStore} />} />
                     <Route path={`${discounts.route}/:id`} element={<Discount/>} />
                     <Route path={`${discounts.route}/new`} element={<NewDiscount/>} />
+                    
+                    <Route path={"categories"} element={<Categories/>} />
+                    <Route path={"categories/:id"} element={<Category/>} />
+                    <Route path={"categories/new"} element={<NewCategory/>} />
                     
                     <Route path={info.route} element={<Info/>} />
                 </Route>

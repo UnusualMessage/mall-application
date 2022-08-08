@@ -1,18 +1,20 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {MouseEventHandler, useCallback, useEffect, useState} from "react";
+import {FormEventHandler, MouseEventHandler, useCallback, useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./event.module.scss";
 
 import Loader from "../../../components/Loader";
 import Button from "../../../components/Button";
-import TextEditor from "../../../components/TextEditor/TextEditor";
 
 import events from "../../../data/events";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
 import EventStore from "../../../stores/EventStore";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
+import shops from "../../../data/shops";
 
 const Event = () => {
 	const { id } = useParams();
@@ -53,7 +55,7 @@ const Event = () => {
 		}
 	};
 	
-	const handleUpdate: MouseEventHandler = async (e) => {
+	const handleUpdate: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 		
 		if (id) {
@@ -86,15 +88,25 @@ const Event = () => {
 					?
 					<Loader/>
 					:
-					<form className={classNames(css.wrapper)}>
-						<select className={css.selection}>
-						</select>
+					<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
+						<Input label={"Название"}
+						       type={"text"}
+						       placeholder={"Введите заголовок статьи"}
+						       defaultValue={event.title}
+						       name={"title"}
+						/>
 						
-						<TextEditor className={css.description} readonly={false}
-						            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
+						<Select values={shops} label={"Выберите магазин"}/>
+						
+						<Input label={"Текст статьи"}
+						       type={"text"}
+						       placeholder={"Введите текст статьи"}
+						       defaultValue={event.description}
+						       name={"description"}
+						/>
 						
 						<div className={classNames(css.buttons)}>
-							<Button text={"Изменить"} disabled={buttonsDisabled} onClick={handleUpdate}/>
+							<Button text={"Изменить"} disabled={buttonsDisabled} submit/>
 							<Button text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
 						</div>
 					</form>

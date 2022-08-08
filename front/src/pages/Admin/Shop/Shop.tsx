@@ -156,8 +156,8 @@ const Shop = () => {
 						</div>
 						
 						<div className={classNames(css.buttons)}>
-							<Button type={"submit"} text={"Изменить"} disabled={buttonsDisabled}/>
-							<Button type={"button"} text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
+							<Button text={"Изменить"} disabled={buttonsDisabled} submit/>
+							<Button text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
 						</div>
 					</form>
 			}

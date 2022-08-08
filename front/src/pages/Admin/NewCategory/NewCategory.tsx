@@ -1,18 +1,16 @@
-import {observer} from "mobx-react-lite";
+import {useNavigate} from "react-router-dom";
+import {FormEventHandler, useCallback, useState} from "react";
 import classNames from "classnames";
 
-import css from "./discount.module.scss";
+import css from "../NewDiscount/discount.module.scss";
 
-import InterfaceStore from "../../../stores/InterfaceStore";
 import Loader from "../../../components/Loader";
 import Input from "../../../components/Input";
-import Select from "../../../components/Select";
-import shops from "../../../data/shops";
 import Button from "../../../components/Button";
-import {FormEventHandler, useCallback,useState} from "react";
-import {useNavigate} from "react-router-dom";
 
-const NewDiscount = () => {
+import InterfaceStore from "../../../stores/InterfaceStore";
+
+const NewCategory = () => {
 	const redirect = useNavigate();
 	const [buttonsDisabled, setButtonsDisabled] = useState(false);
 	
@@ -38,20 +36,11 @@ const NewDiscount = () => {
 					<Loader/>
 					:
 					<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
-						<Input label={"Название"}
+						<Input label={"Название категории"}
 						       type={"text"}
-						       placeholder={"Введите заголовок статьи"}
+						       placeholder={"Введите название категории"}
 						       defaultValue={""}
 						       name={"title"}
-						/>
-						
-						<Select values={shops} label={"Выберите магазин"}/>
-						
-						<Input label={"Текст статьи"}
-						       type={"text"}
-						       placeholder={"Введите текст статьи"}
-						       defaultValue={""}
-						       name={"description"}
 						/>
 						
 						<div className={classNames(css.buttons)}>
@@ -63,4 +52,4 @@ const NewDiscount = () => {
 	);
 };
 
-export default observer(NewDiscount);
+export default NewCategory;

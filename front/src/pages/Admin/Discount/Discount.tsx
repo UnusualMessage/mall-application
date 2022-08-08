@@ -6,7 +6,6 @@ import classNames from "classnames";
 import css from "./discount.module.scss";
 
 import Loader from "../../../components/Loader";
-import TextEditor from "../../../components/TextEditor/TextEditor";
 import Button from "../../../components/Button";
 
 import discounts from "../../../data/discounts";
@@ -14,6 +13,9 @@ import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
 import transliterate from "../../../utils/transliterate";
+import Select from "../../../components/Select";
+import shops from "../../../data/shops";
+import Input from "../../../components/Input";
 
 const Discount = () => {
 	const { id } = useParams();
@@ -88,11 +90,21 @@ const Discount = () => {
 				<Loader/>
 				:
 				<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
-					<select className={css.selection}>
-					</select>
+					<Input label={"Название"}
+					       type={"text"}
+					       placeholder={"Введите заголовок статьи"}
+					       defaultValue={discount.title}
+					       name={"title"}
+					/>
 					
-					<TextEditor className={css.description} readonly={false}
-					            defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
+					<Select values={shops} label={"Выберите магазин"}/>
+					
+					<Input label={"Текст статьи"}
+					       type={"text"}
+					       placeholder={"Введите текст статьи"}
+					       defaultValue={discount.description}
+					       name={"description"}
+					/>
 					
 					<div className={classNames(css.buttons)}>
 						<Button text={"Изменить"} disabled={buttonsDisabled} submit/>
