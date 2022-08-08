@@ -15,15 +15,11 @@
     border: 5px solid $hover;
   }
 
-  .contacts {
+  .info {
     @include flexible(column, center, center);
 
     width: 100%;
     gap: 10px;
-  }
-
-  .description {
-    width: 100%;
   }
 
   .buttons {

@@ -1,8 +1,6 @@
 import {ChangeEvent, ChangeEventHandler, FormEventHandler, useEffect, useState} from "react";
 
 const useForm = ({ form }: Props) => {
-	const [fields, setFields] = useState(form);
-	
 	useEffect(() => {
 		const fieldsArray = Object.entries(form).map(item => {
 			const name = item[0];
@@ -24,14 +22,16 @@ const useForm = ({ form }: Props) => {
 			};
 		}, {});
 		
-		setFields(fields);
-	}, []);
+		setInputs(fields);
+	}, [form]);
+	
+	const [inputs, setInputs] = useState(form);
 	
 	const handleChange = (e: ChangeEvent<HTMLInputElement>, name: Name) => {
-		const field = fields[name];
+		const field = inputs[name];
 		field.value = e.target.value;
 		
-		setFields((prevState) => {
+		setInputs((prevState) => {
 			return { ...prevState, ...{[name]: field} };
 		});
 	};
@@ -40,7 +40,7 @@ const useForm = ({ form }: Props) => {
 		const submit: FormEventHandler<HTMLFormElement> = (e) => {
 			e.preventDefault();
 			
-			const values = Object.entries(fields).reduce((prev, current) => {
+			const values = Object.entries(inputs).reduce((prev, current) => {
 				const name = current[0];
 				const field = current[1];
 				
@@ -56,7 +56,7 @@ const useForm = ({ form }: Props) => {
 		return submit;
 	};
 	
-	return { fields, handleSubmit };
+	return { inputs, handleSubmit };
 };
 
 interface Props {

@@ -59,8 +59,8 @@ const TextEditor = ({ className, readonly, defaultValue }: Props) => {
 
 interface Props {
 	className: string,
-	readonly: boolean,
-	defaultValue: string
+	readonly?: boolean,
+	defaultValue: string,
 }
 
 export default memo(TextEditor);
