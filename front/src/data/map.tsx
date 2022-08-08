@@ -299,12 +299,12 @@ const map: Cell[] = [
 		path:
 			<>
 				<g>
-					<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
-					<path fill="#E66100" d="M450,135h60l-10,10h-60L450,135z M450,10l-10,10l0,125l10-10L450,10z"/>
+					<path fill="#FF7800" d="M510,450H20V290h490V450z"/>
+					<path fill="#E66100" d="M10,300l10-10l0,160l-10,10L10,300z M10,460h490l10-10H20L10,460z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 463 85.9998)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">WC</text>
+				<text transform="matrix(1 0 0 1 210 380.7617)" fill="#393939" fontFamily='ArialMT' fontSize="31.5322px">ЭЛЕКС</text>
 			</>,
-		floor: 1
+		floor: 2
 	},
 	
 	{
@@ -312,13 +312,72 @@ const map: Cell[] = [
 		path:
 			<>
 				<g>
-					<path fill="#FF7800" d="M435,10v125h-60V10H435z"/>
-					<path fill="#E66100" d="M375,135h60l-10,10h-60L375,135z M375,10l-10,10l0,125l10-10L375,10z"/>
+					<path fill="#FF7800" d="M850,371v99H700v106h99.8C906,576,992,490,992,383.8V371H850z"/>
+					<path fill="#E66100" d="M840,381l10-10l0,99l-10,10V381z"/>
+					<path fill="#FF7800" d="M850,480h-11v-10h11V480z"/>
+					<path fill="#E66100" d="M690,480l10-10l0,106l-10,10L690,480z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 377 86)" fontSize="13.5533px" fill="#393939" fontFamily="ArialMT">ОХРАНА</text>
+				<text transform="matrix(1 0 0 1 815.0372 520.8243)" fill="#393939" fontFamily='ArialMT' fontSize="31.5322px">DNS</text>
 			</>,
-		floor: 1
+		floor: 2
 	},
+	
+	{
+		id: "25",
+		path:
+			<>
+				<g>
+					<path fill="#E66100" d="M665,285H10l10-10h655L665,285z M10,165l10-10l0-55l-10,10L10,165z M10,285l10-10v-65l-10,10V285z M150,155
+			H20l-10,10h130L150,155z M140,210h10v-55h-10V210z"/>
+					<path fill="#FF7800" d="M800,75H470V10h330V75z M675,75H470v25h205V75z M20,100v55h130v55H20v65h655V100H20z"/>
+					<path fill="#E66100" d="M460,20l10-10l0,90l-10,10L460,20z M800,75H675l-10,10h125L800,75z"/>
+					<path fill="#FF7800" d="M470,100h-10v10h10V100z M675,85h-10V75h10V85z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 339.6118 200.9834)" fill="#393939" fontFamily='ArialMT' fontSize="36.9147px">ХОРОШИЙ</text>
+			</>,
+		floor: 2
+	},
+	
+	{
+		id: "26",
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M690,91h110v185H690V91z"/>
+					<path fill="#E66100" d="M790,286H680l10-10h110L790,286z M680,101l10-10l0,185l-10,10L680,101z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 714.5898 201.4863)" fill="#393939" fontFamily='ArialMT' fontSize="24.7146px">KARI</text>
+			</>,
+		floor: 2
+	},
+	
+	{
+		id: "27",
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M850,156h135v200H850V156z"/>
+					<path fill="#E66100" d="M840,166l10-10v200l-10,10V166z M840,366h135l10-10H850L840,366z"/>
+				</g>
+				<text transform="matrix(1 0 0 1 859.6113 270.5215)" fill="#393939" fontFamily='ArialMT' fontSize="25.1774px">FIXPRICE</text>
+			</>,
+		floor: 2
+	},
+	
+	{
+		id: "28",
+		path:
+			<>
+				<g>
+					<path fill="#FF7800" d="M685,561h-90v-91h90V561z"/>
+					<path fill="#E66100" d="M585,480l10-10v91l-10,10V480z M585,571h90l10-10h-90L585,571z"/>
+				</g>
+				<rect x="598" y="507.4" fill="none" width="85.5" height="28.6"/>
+				<text transform="matrix(1 0 0 1 599.8887 515.1011)"><tspan x="0" y="0" fill="#393939" fontFamily='ArialMT' fontSize="9px">КОСМЕТИЧЕСКИЙ </tspan><tspan x="24.5" y="10.8" fill="#393939" fontFamily='ArialMT' fontSize="9px">САЛОН</tspan></text>
+			</>,
+		floor: 2
+	},
+	
 ];
 
 export default map;

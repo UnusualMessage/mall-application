@@ -12,6 +12,18 @@ const First = () => {
 			<Cells floor={1}/>
 			
 			<g>
+				<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
+				<path fill="#E66100" d="M450,135h60l-10,10h-60L450,135z M450,10l-10,10l0,125l10-10L450,10z"/>
+			</g>
+			<text transform="matrix(1 0 0 1 463 85.9998)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT" fontWeight={"bold"}>WC</text>
+			
+			<g>
+				<path fill="#FF7800" d="M435,10v125h-60V10H435z"/>
+				<path fill="#E66100" d="M375,135h60l-10,10h-60L375,135z M375,10l-10,10l0,125l10-10L375,10z"/>
+			</g>
+			<text transform="matrix(1 0 0 1 377 86)" fontSize="13.5533px" fill="#393939" fontFamily="ArialMT" fontWeight={"bold"}>ОХРАНА</text>
+			
+			<g>
 				<rect x="825" y="10" fill={"#9A9996"} width="85" height="10"/>
 				<polygon fill={"#77767B"} points="825,10 820,15 820,25 905,25 910,20 825,20 	"/>
 			</g>

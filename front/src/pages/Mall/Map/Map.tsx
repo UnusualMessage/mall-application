@@ -14,6 +14,7 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import MapStore from "../../../stores/MapStore";
 import useDragging from "../../../hooks/useDragging";
 import FloorSwitcher from "./FloorSwitcher/FloorSwitcher";
+import Second from "./Floor/Second";
 
 const Map = () => {
 	const defaultMapState = {
@@ -59,7 +60,9 @@ const Map = () => {
 					     style={{ left: mapState.left, top: mapState.top, transform: `scale(${MapStore.getScale()})` }}
 					     ref={mapRef}>
 						
-						<First />
+						{
+							MapStore.getFloor() === 1 ? <First/> : <Second/>
+						}
 					</div>
 				</div>
 			</div>
