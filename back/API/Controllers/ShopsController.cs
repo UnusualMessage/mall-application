@@ -14,10 +14,12 @@ namespace API.Controllers;
 public class ShopsController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ShopsController(IMediator mediator)
+    public ShopsController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
     {
         _mediator = mediator;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     [AllowAnonymous]
@@ -30,6 +32,8 @@ public class ShopsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CreateShop request)
     {
+        request.Destination = _webHostEnvironment.WebRootPath;
+        
         return Ok(await _mediator.Send(request));
     }
 
@@ -42,6 +46,8 @@ public class ShopsController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Put([FromForm] UpdateShop request)
     {
+        request.Destination = _webHostEnvironment.WebRootPath;
+        
         return Ok(await _mediator.Send(request));
     }
 }

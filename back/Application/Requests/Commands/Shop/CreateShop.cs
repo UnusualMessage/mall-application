@@ -3,13 +3,14 @@
 using Application.Responses;
 
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Requests.Commands.Shop;
 
 public class CreateShop : IRequest<ShopResponse>
 {
     [Required]
-    public string? Name { get; set; }
+    public string? Title { get; set; }
     
     [Required]
     public string? Description { get; set; }
@@ -25,12 +26,14 @@ public class CreateShop : IRequest<ShopResponse>
     
     [Required]
     public string? Link { get; set; }
-    
+
     [Required]
     public short Floor { get; set; }
     
     [Required]
-    public string? LogoPath { get; set; }
+    public IFormFile? Image { get; set; }
+    
+    public string? Destination { get; set; }
 
     [Required] 
     public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();

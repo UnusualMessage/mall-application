@@ -27,7 +27,7 @@ public class FileService : IFileService
         await using FileStream fileStream = new(fullPath, FileMode.Create);
         await file.CopyToAsync(fileStream);
 
-        return file.FileName;
+        return Path.Combine(_storageSettings.Value.ContentFolderName!, file.FileName);
     }
 
     public void DeleteFile(string fullPath)

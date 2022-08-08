@@ -60,4 +60,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\static\js\runtime.85482fcbbb2c0582feab.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\content" />
+    </ItemGroup>
+
 </Project>
