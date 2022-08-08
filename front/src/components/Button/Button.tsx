@@ -19,7 +19,7 @@ const Button = ({ text, disabled, submit, ...props }: Props) => {
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
 	text: string,
-	disabled: boolean
+	disabled?: boolean
 	submit?: boolean
 }
 

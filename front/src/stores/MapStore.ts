@@ -39,6 +39,10 @@ class MapStore {
 		return this.map;
 	};
 	
+	getSchemaByFloor = (floor: number) => {
+		return this.map.filter(cell => cell.floor === floor);
+	};
+	
 	zoomIn = () => {
 		const newScale = this.scale + this.scaleInc;
 		

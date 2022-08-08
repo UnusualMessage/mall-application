@@ -4,11 +4,11 @@ import {Cell} from "./index";
 
 import MapStore from "../../../../stores/MapStore";
 
-const Cells = () => {
+const Cells = ({ floor }: Props) => {
 	return(
 		<>
 			{
-				MapStore.get().map(cell => {
+				MapStore.getSchemaByFloor(floor).map(cell => {
 					return(
 						<Cell key={cell.id}>
 							{cell.path}
@@ -19,5 +19,9 @@ const Cells = () => {
 		</>
 	);
 };
+
+interface Props {
+	floor: number
+}
 
 export default observer(Cells);

@@ -11,7 +11,8 @@ const map: Cell[] = [
 					<polygon fill="#E66100" points="90,10 80,20 80,100 90,100 		"/>
 				</g>
 				<text transform="matrix(1 0 0 1 105 246)" fontSize="30.3447px" fill="#393939" fontFamily="ArialMT">ПЯТЕРОЧКА</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -22,8 +23,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M510,190v90H375v-90H510z"/>
 					<path fill="#E66100" d="M375,280l-10,10v-90l10-10V280z M365,290h135l10-10H375L365,290z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 405 246)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">АПТЕКА</text>
-			</>
+				<text transform="matrix(1 0 0 1 400 246)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">АПТЕКА</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -35,7 +37,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M375,365h135l-10,10H365v-70l10-10V365z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 390.0001 341.0002)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">ВАРНИЦА</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -46,8 +49,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M510,380v70H375v-70H510z"/>
 					<path fill="#E66100" d="M375,450h135l-10,10H365v-70l10-10V450z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 400.0001 426.0002)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">MATRIX</text>
-			</>
+				<text transform="matrix(1 0 0 1 405 426)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">MATRIX</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -59,7 +63,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M525,135h120l-10,10H515l0,0V20l10-10V135L525,135z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 535.0001 81)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">УЮТЕРРА</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -70,8 +75,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M730,10v125h-70V10H730z"/>
 					<path fill="#E66100" d="M660,135h70l-10,10h-70l0,0V20l10-10V135L660,135z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 665 78)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
-			</>
+				<text transform="matrix(1 0 0 1 662 78)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -84,7 +90,8 @@ const map: Cell[] = [
 				</g>
 				<rect x="742" y="59.8" fill="none" width="75" height="30.2"/>
 				<text transform="matrix(1.0031 0 0 1 747.3564 70.959)"><tspan x="0" y="0" fontSize="13px" fill="#393939" fontFamily="ArialMT">КУРИНЫЙ </tspan><tspan x="17.2" y="15.6" fontSize="13px" fill="#393939" fontFamily="ArialMT">ДОМ</tspan></text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -95,8 +102,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M980,100v35H860v-35H980z"/>
 					<path fill="#E66100" d="M860,135h120l-10,10H850v-35l10-10V135z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 865 123)" fontSize="13.5665px" fill="#393939" fontFamily="ArialMT">УЗБЕКСКИЙ РАЙ</text>
-			</>
+				<text transform="matrix(1 0 0 1 864 123)" fontSize="13.5665px" fill="#393939" fontFamily="ArialMT">УЗБЕКСКИЙ РАЙ</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -107,8 +115,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M980,150v60h-80v-60H980z"/>
 					<path fill="#E66100" d="M900,210h80l-10,10h-80v-60l10-10V210z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 910 186)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МИЛЕДИ</text>
-			</>
+				<text transform="matrix(1 0 0 1 907 186)" fontSize="14.8668px" fill="#393939" fontFamily="ArialMT">МИЛЕДИ</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -120,7 +129,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M900,280h80l-10,10h-80v-55l10-10V280z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 905 258.6353)" fontSize="17.7361px" fill="#393939" fontFamily="ArialMT">КАПРИЗ</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -132,7 +142,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M900,395h80l-10,10h-80v-40l10-10V395z M950,295l-10,10v50h10V295z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 902 381)" fontSize="13.1216px" fill="#393939" fontFamily="ArialMT">ОК ОПТИКА</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -145,7 +156,8 @@ const map: Cell[] = [
 				</g>
 				<rect x="709.3" y="497.7" fill="none" width="99.9" height="34.1"/>
 				<text transform="matrix(1 0 0 1 712.9071 509.0533)"><tspan x="0" y="0" fontSize="13.268px" fill="#393939" fontFamily="ArialMT">КАНЦТОВАРЫ </tspan><tspan x="14.6" y="18" fontSize="13.268px" fill="#393939" fontFamily="ArialMT">ИГРУШКИ</tspan></text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -158,7 +170,8 @@ const map: Cell[] = [
 				</g>
 				<rect x="598" y="503.8" fill="none" width="92.7" height="23.9"/>
 				<text transform="matrix(1 0 0 1 599.4979 512.4405)"><tspan x="0" y="0" fontSize="10.0733px" fill="#393939" fontFamily="ArialMT">БРИЛЛИАНТОВАЯ </tspan><tspan x="32" y="12" fontSize="10.0733px" fill="#393939" fontFamily="ArialMT">РУКА</tspan></text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -170,8 +183,9 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M565,235h60l-10,10h-60v-45l10-10V235z"/>
 				</g>
 				<rect x="566.4" y="204.6" fill="none" width="58" height="22.8"/>
-				<text transform="matrix(1 0 0 1 566.9596 212.1575)"><tspan x="0" y="0" fontSize="8.8271px" fill="#393939" fontFamily="ArialMT">ЗООТОВАРЫ </tspan><tspan x="6.9" y="11" fontSize="8.8271px" fill="#393939" fontFamily="ArialMT">ГАЛАНТЕРЕЯ</tspan></text>
-			</>
+				<text transform="matrix(1 0 0 1 566 212.1575)"><tspan x="0" y="0" fontSize="8.5271px" fill="#393939" fontFamily="ArialMT">ЗООТОВАРЫ </tspan><tspan x="0" y="11" fontSize="8.5271px" fill="#393939" fontFamily="ArialMT">ГАЛАНТЕРЕЯ</tspan></text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -183,8 +197,9 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M640,235h60l-10,10h-60v-45l10-10V235z"/>
 				</g>
 				<rect x="633.5" y="203.2" fill="none" width="73.8" height="23.3"/>
-				<text transform="matrix(1 0 0 1 643.5839 210.8159)"><tspan x="0" y="0" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ДОМАШНИЙ </tspan><tspan x="3.6" y="11" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ТЕКСТИЛЬ</tspan></text>
-			</>
+				<text transform="matrix(1 0 0 1 642 210.8159)"><tspan x="0" y="0" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ДОМАШНИЙ </tspan><tspan x="3.6" y="11" fontSize="8.8931px" fill="#393939" fontFamily="ArialMT">ТЕКСТИЛЬ</tspan></text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -195,8 +210,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M775,190v45h-60v-45H775z"/>
 					<path fill="#E66100" d="M715,235h60l-10,10h-60v-45l10-10V235z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 722.0812 218.8806)" fontSize="14.4549px" fill="#393939" fontFamily="ArialMT">DANDY</text>
-			</>
+				<text transform="matrix(1 0 0 1 720 218.8806)" fontSize="14.4549px" fill="#393939" fontFamily="ArialMT">DANDY</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -207,8 +223,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M850,190v45h-60v-45H850z"/>
 					<path fill="#E66100" d="M790,235h60l-10,10h-60v-45l10-10V235z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 793.3152 219.1105)" fontSize="13.2843px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
-			</>
+				<text transform="matrix(1 0 0 1 792 219.1105)" fontSize="13.2843px" fill="#393939" fontFamily="ArialMT">МЕБЕЛЬ</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -219,8 +236,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M850,250v45h-60v-45H850z"/>
 					<path fill="#E66100" d="M790,295h60l-10,10h-60v-45l10-10V295z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 794.0811 277.0808)" fontSize="11.2173px" fill="#393939" fontFamily="ArialMT">МЕГАФОН</text>
-			</>
+				<text transform="matrix(1 0 0 1 792 277.0808)" fontSize="11.2173px" fill="#393939" fontFamily="ArialMT">МЕГАФОН</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -231,8 +249,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M775,250v45h-60v-45H775z"/>
 					<path fill="#E66100" d="M715,295h60l-10,10h-60v-45l10-10V295z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 718 276)" fontSize="9.1197px" fill="#393939" fontFamily="ArialMT">СИМВОЛ.РФ</text>
-			</>
+				<text transform="matrix(1 0 0 1 716 276)" fontSize="9.1197px" fill="#393939" fontFamily="ArialMT">СИМВОЛ.РФ</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -244,7 +263,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M640,295h60l-10,10h-60v-45l10-10V295z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 647.251 279.9765)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">МТС</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -256,7 +276,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M565,295h60l-10,10h-60v-45l10-10V295z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 569.0004 278.0002)" fontSize="11.2172px" fill="#393939" fontFamily="ArialMT">ЗОО МИР</text>
-			</>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -268,8 +289,9 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M595,395h75l-10,10h-75v-50l10-10V395z"/>
 				</g>
 				<rect x="596.7" y="358.2" fill="none" width="73.3" height="27.8"/>
-				<text transform="matrix(1 0 0 1 599.0051 367.2489)"><tspan x="0" y="0" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">ВОСТОЧНЫЕ </tspan><tspan x="5" y="11" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">СЛАДОСТИ</tspan></text>
-			</>
+				<text transform="matrix(1 0 0 1 597 367.2489)"><tspan x="0" y="0" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">ВОСТОЧНЫЕ </tspan><tspan x="5" y="11" fontSize="10.5695px" fill="#393939" fontFamily="ArialMT">СЛАДОСТИ</tspan></text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -280,8 +302,9 @@ const map: Cell[] = [
 					<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
 					<path fill="#E66100" d="M450,135h60l-10,10h-60L450,135z M450,10l-10,10l0,125l10-10L450,10z"/>
 				</g>
-				<text transform="matrix(1 0 0 1 460 85.9998)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">WC</text>
-			</>
+				<text transform="matrix(1 0 0 1 463 85.9998)" fontSize="20.492px" fill="#393939" fontFamily="ArialMT">WC</text>
+			</>,
+		floor: 1
 	},
 	
 	{
@@ -293,7 +316,8 @@ const map: Cell[] = [
 					<path fill="#E66100" d="M375,135h60l-10,10h-60L375,135z M375,10l-10,10l0,125l10-10L375,10z"/>
 				</g>
 				<text transform="matrix(1 0 0 1 377 86)" fontSize="13.5533px" fill="#393939" fontFamily="ArialMT">ОХРАНА</text>
-			</>
+			</>,
+		floor: 1
 	},
 ];
 
