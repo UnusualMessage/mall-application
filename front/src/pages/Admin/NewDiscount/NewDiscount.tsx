@@ -45,7 +45,7 @@ const NewDiscount = () => {
 						       name={"title"}
 						/>
 						
-						<Select values={shops} label={"Выберите магазин"}/>
+						<Select values={shops} label={"Выберите магазин"} defaultValue={"1"}/>
 						
 						<Input label={"Текст статьи"}
 						       type={"text"}

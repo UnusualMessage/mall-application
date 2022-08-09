@@ -78,7 +78,7 @@ const Shop = () => {
 		console.log(newShop);
 		
 		lockInterface();
-		await ShopStore.updateShopAsync(newShop);
+		await ShopStore.updateAsync(newShop);
 		unlockInterface();
 	};
 	
@@ -86,10 +86,10 @@ const Shop = () => {
 		e.preventDefault();
 		
 		lockInterface();
-		await ShopStore.deleteShopAsync({ id: shop.id });
+		await ShopStore.deleteAsync({ id: shop.id });
 		unlockInterface();
 		
-		if (ShopStore.successful) {
+		if (ShopStore.isRequestSuccessful()) {
 			redirect("../");
 		}
 	};

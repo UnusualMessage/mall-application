@@ -7,7 +7,7 @@ import ItemBar from "./ItemBar";
 import {InnerLink} from "../../../components/Link";
 import Label from "../../../components/Label";
 
-import Store from "../../../types/Store";
+import Store from "../../../stores/Store";
 import classNames from "classnames";
 
 const Items = ({ store }: Props) => {

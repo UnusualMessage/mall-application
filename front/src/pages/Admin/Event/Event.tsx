@@ -47,10 +47,10 @@ const Event = () => {
 		e.preventDefault();
 		
 		lockInterface();
-		await EventStore.deleteEventAsync({ id: event.id });
+		await EventStore.deleteAsync({ id: event.id });
 		unlockInterface();
 		
-		if (EventStore.successful) {
+		if (EventStore.isRequestSuccessful()) {
 			redirect("../");
 		}
 	};
@@ -72,10 +72,10 @@ const Event = () => {
 			};
 			
 			lockInterface();
-			await EventStore.updateEventAsync(updateDiscount);
+			await EventStore.updateAsync(updateDiscount);
 			unlockInterface();
 			
-			if (EventStore.successful) {
+			if (EventStore.isRequestSuccessful()) {
 				redirect("../");
 			}
 		}
@@ -96,7 +96,7 @@ const Event = () => {
 						       name={"title"}
 						/>
 						
-						<Select values={shops} label={"Выберите магазин"}/>
+						<Select values={shops} label={"Выберите магазин"} defaultValue={event.shop.id}/>
 						
 						<Input label={"Текст статьи"}
 						       type={"text"}

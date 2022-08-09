@@ -63,7 +63,7 @@ const NewShop = () => {
 		console.log(newShop);
 		
 		lockInterface();
-		await ShopStore.createShopAsync(newShop);
+		await ShopStore.createAsync(newShop);
 		unlockInterface();
 	};
 	

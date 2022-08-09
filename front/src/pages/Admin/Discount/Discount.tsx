@@ -48,10 +48,10 @@ const Discount = () => {
 		e.preventDefault();
 		
 		lockInterface();
-		await DiscountStore.deleteDiscountAsync({ id: discount.id });
+		await DiscountStore.deleteAsync({ id: discount.id });
 		unlockInterface();
 		
-		if (DiscountStore.successful) {
+		if (DiscountStore.isRequestSuccessful()) {
 			redirect("../");
 		}
 	};
@@ -73,10 +73,10 @@ const Discount = () => {
 			};
 			
 			lockInterface();
-			await DiscountStore.updateDiscountAsync(updateDiscount);
+			await DiscountStore.updateAsync(updateDiscount);
 			unlockInterface();
 			
-			if (DiscountStore.successful) {
+			if (DiscountStore.isRequestSuccessful()) {
 				redirect("../");
 			}
 		}
@@ -97,7 +97,7 @@ const Discount = () => {
 					       name={"title"}
 					/>
 					
-					<Select values={shops} label={"Выберите магазин"}/>
+					<Select values={shops} label={"Выберите магазин"} defaultValue={discount.shop.id}/>
 					
 					<Input label={"Текст статьи"}
 					       type={"text"}
