@@ -1,21 +1,15 @@
-import {makeAutoObservable} from "mobx";
-
+import categories from "../data/categories";
+import Store from "./Store";
+import CreateCategory from "../api/interfaces/category/CreateCategory";
+import UpdateCategory from "../api/interfaces/category/UpdateCategory";
+import DeleteCategory from "../api/interfaces/category/DeleteCategory";
+import CategoryService from "../api/services/CategoryService";
 import Category from "../api/interfaces/category/Category";
 
-import categories from "../data/categories";
-
-class CategoryStore {
-	categories: Category[];
-	
+class CategoryStore extends Store<Category, CreateCategory, UpdateCategory, DeleteCategory> {
 	constructor() {
-		this.categories = categories;
-		
-		makeAutoObservable(this);
+		super(new CategoryService(), categories);
 	}
-	
-	get = () => {
-		return this.categories;
-	};
 }
 
 export default new CategoryStore();
