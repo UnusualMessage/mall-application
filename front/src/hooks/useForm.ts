@@ -40,7 +40,7 @@ const useForm = ({ form }: Props) => {
 		const submit: FormEventHandler<HTMLFormElement> = (e) => {
 			e.preventDefault();
 			
-			const values = Object.entries(inputs).reduce((prev, current) => {
+			const values: Values = Object.entries(inputs).reduce((prev, current) => {
 				const name = current[0];
 				const field = current[1];
 				
@@ -63,18 +63,21 @@ interface Props {
 	form: Form
 }
 
-type SubmitCallback = (values: Record<Name, string>) => void;
+type SubmitCallback = (values: Values) => void;
 
 type SubmitHandler = (callback: SubmitCallback) => FormEventHandler<HTMLFormElement>;
 
-type Name = string;
-
 type Form = Record<Name, Field>;
+export type Values = Record<Name, Value>;
+
+type Name = string;
+type Value = string;
 
 interface Field {
 	type: string,
 	value?: string,
 	onChange?: ChangeEventHandler
 }
+
 
 export default useForm;

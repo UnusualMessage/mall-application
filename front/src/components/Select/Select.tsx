@@ -4,14 +4,16 @@ import classNames from "classnames";
 import css from "./select.module.scss";
 import labelStyles from "/src/components/Label/label.module.scss";
 
-const Select = ({ values, onChange, label }: Props) => {
+const Select = ({ values, onChange, label, defaultValue }: Props) => {
 	return (
 	<div className={classNames(css.wrapper)}>
 		<label className={classNames(labelStyles.mini, labelStyles.bold, css.label)}>
 			{label}
 		</label>
 		
-		<select className={classNames(css.select, labelStyles.mini, label.bold)} onChange={onChange}>
+		<select className={classNames(css.select, labelStyles.mini, label.bold)}
+		        onChange={onChange}
+		        defaultValue={defaultValue}>
 			{
 				values.map(value => {
 					return (
@@ -34,7 +36,8 @@ interface Value {
 interface Props {
 	values: Value[],
 	onChange?: ChangeEventHandler<HTMLSelectElement>,
-	label: string
+	label: string,
+	defaultValue: string
 }
 
 export default Select;

@@ -12,6 +12,7 @@ const NewDiscount = lazy(() => import("./NewDiscount"));
 const NewShop = lazy(() => import("./NewShop"));
 const Categories = lazy(() => import("./Categories"));
 const Category = lazy(() => import("./Category"));
+const NewCategory = lazy(() => import("./NewCategory"));
 
 import Loader from "../../components/Loader";
 
@@ -19,7 +20,6 @@ import {discounts, events, info, shops} from "../../data/breadcrumbs";
 import ShopStore from "../../stores/ShopStore";
 import EventStore from "../../stores/EventStore";
 import DiscountStore from "../../stores/DiscountStore";
-import NewCategory from "./NewCategory";
 
 const Admin = () => {
     return(

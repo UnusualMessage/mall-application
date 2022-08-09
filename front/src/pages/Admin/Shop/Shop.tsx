@@ -14,17 +14,19 @@ import Loader from "../../../components/Loader";
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import shops from "../../../data/shops";
 import InterfaceStore from "../../../stores/InterfaceStore";
-import categories from "../../../data/categories";
-import useForm from "../../../hooks/useForm";
+import categoriesData from "../../../data/categories";
+import useForm, {Values} from "../../../hooks/useForm";
 import ShopStore from "../../../stores/ShopStore";
 import getShopForm from "../../../utils/getShopForm";
+import transliterate from "../../../utils/transliterate";
+import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
 	const [shop, setShop] = useState<ShopInterface>();
-	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [imagePreview, setImagePreview] = useState<File>();
 	const [buttonsDisabled, setButtonsDisabled] = useState(false);
 	
 	const form = useMemo(() => {
@@ -32,7 +34,7 @@ const Shop = () => {
 	}, [shop]);
 	
 	const { inputs, handleSubmit } = useForm({ form: form });
-	const { title, floor, schedule, phone, site, category } = inputs;
+	const { title, floor, schedule, phone, site, categories } = inputs;
 	
 	const lockInterface = useCallback(() => {
 		setButtonsDisabled(true);
@@ -58,10 +60,25 @@ const Shop = () => {
 		return null;
 	}
 	
-	const onSubmit = (values: Record<string, string>) => {
-		console.log(values);
+	const onSubmit = async (values: Values) => {
+		const transliteratedTitle = transliterate(values.title);
+		const newShop: UpdateShop = {
+			id: shop.id,
+			title: values.title,
+			description: values.description,
+			floor: values.floor,
+			schedule: values.schedule,
+			phone: values.phone,
+			categories: [values.categories],
+			image: imagePreview,
+			link: transliteratedTitle,
+			route: `/routes/${transliteratedTitle}`
+		};
+		
+		console.log(newShop);
+		
 		lockInterface();
-		// ShopStore.createShopAsync();
+		await ShopStore.updateShopAsync(newShop);
 		unlockInterface();
 	};
 	
@@ -144,7 +161,10 @@ const Shop = () => {
 							       onChange={site.onChange}
 							/>
 							
-							<Select values={categories} onChange={category.onChange} label={"Выбор категории"}/>
+							<Select values={categoriesData}
+							        onChange={categories.onChange}
+							        label={"Выбор категории"}
+							        defaultValue={shop.categories[1].id}/>
 							
 							<Input label={"Текст статьи"}
 							       type={"text"}

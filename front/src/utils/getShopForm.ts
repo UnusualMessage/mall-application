@@ -1,6 +1,15 @@
 import Shop from "../api/interfaces/shop/Shop";
 
-const getShopForm = (shop?: Shop) => {
+interface InitialValue {
+	type: string,
+	value?: string
+}
+
+type Name = string;
+
+type Returns = Record<Name, InitialValue>;
+
+const getShopForm = (shop?: Shop): Returns => {
 	return {
 		title: {
 			type: "text",
@@ -27,10 +36,15 @@ const getShopForm = (shop?: Shop) => {
 			value: shop?.site
 		},
 		
-		category: {
+		categories: {
 			type: "text",
-			value: shop?.categories[1].title
+			value: shop?.categories[1].id
 		},
+		
+		description: {
+			type: "text",
+			value: shop?.description
+		}
 	};
 };
 

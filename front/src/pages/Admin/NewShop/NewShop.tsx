@@ -1,14 +1,42 @@
-import {ChangeEventHandler, useState} from "react";
+import {ChangeEventHandler, useCallback, useMemo, useState} from "react";
 import classNames from "classnames";
 
 import css from "./shop.module.scss";
 
 import Image from "../../../components/Image";
 import Input from "../../../components/Input";
-import TextEditor from "../../../components/TextEditor";
+import Button from "../../../components/Button";
+import Select from "../../../components/Select";
+
+import categoriesData from "../../../data/categories";
+import getShopForm from "../../../utils/getShopForm";
+import useForm, {Values} from "../../../hooks/useForm";
+import InterfaceStore from "../../../stores/InterfaceStore";
+import transliterate from "../../../utils/transliterate";
+import CreateShop from "../../../api/interfaces/shop/CreateShop";
+import ShopStore from "../../../stores/ShopStore";
+import LoadingOverlay from "../../../components/LoadingOverlay";
 
 const NewShop = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [locked, setLocked] = useState(false);
+	
+	const form = useMemo(() => {
+		return getShopForm();
+	}, []);
+	
+	const { inputs, handleSubmit } = useForm({ form: form });
+	const { title, floor, schedule, phone, site, categories } = inputs;
+	
+	const lockInterface = useCallback(() => {
+		setLocked(true);
+		InterfaceStore.setLoading(true);
+	}, []);
+	
+	const unlockInterface = useCallback(() => {
+		setLocked(false);
+		InterfaceStore.setLoading(false);
+	}, []);
 
 	
 	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -18,24 +46,51 @@ const NewShop = () => {
 		}
 	};
 	
+	const onSubmit = async (values: Values) => {
+		const transliteratedTitle = transliterate(values.title);
+		const newShop: CreateShop = {
+			title: values.title,
+			description: values.description,
+			floor: values.floor,
+			schedule: values.schedule,
+			phone: values.phone,
+			categories: [values.categories],
+			image: imagePreview,
+			link: transliteratedTitle,
+			route: `/routes/${transliteratedTitle}`
+		};
+		
+		console.log(newShop);
+		
+		lockInterface();
+		await ShopStore.createShopAsync(newShop);
+		unlockInterface();
+	};
+	
 	return(
-		<form className={classNames(css.wrapper)} >
-			<Image classes={classNames(css.image)} source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+			{
+				locked ? <LoadingOverlay/> : <></>
+			}
 			
-			<Input label={"Лого"}
-			       type={"file"}
-			       placeholder={"Введите название магазина"}
-			       defaultValue={""}
-			       name={"image"}
-			       onChange={handleImage}
-			/>
+			<Image classes={classNames(css.image)}
+			       source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
 			
-			<div className={`${css.contacts}`}>
+			<div className={`${css.info}`}>
+				<Input label={"Лого"}
+				       type={"file"}
+				       placeholder={"Выберите логотип магазина"}
+				       defaultValue={""}
+				       name={"image"}
+				       onChange={handleImage}
+				/>
+				
 				<Input label={"Название"}
 				       type={"text"}
 				       placeholder={"Введите название магазина"}
 				       defaultValue={""}
-				       name={"name"}
+				       name={"title"}
+				       onChange={title.onChange}
 				/>
 				
 				<Input label={"Этаж"}
@@ -43,6 +98,7 @@ const NewShop = () => {
 				       placeholder={"Введите номер этажа"}
 				       defaultValue={""}
 				       name={"floor"}
+				       onChange={floor.onChange}
 				/>
 				
 				<Input label={"Время"}
@@ -50,6 +106,7 @@ const NewShop = () => {
 				       placeholder={"Введите время работы"}
 				       defaultValue={""}
 				       name={"schedule"}
+				       onChange={schedule.onChange}
 				/>
 				
 				<Input label={"Телефон"}
@@ -57,6 +114,7 @@ const NewShop = () => {
 				       placeholder={"Введите номер телефона"}
 				       defaultValue={""}
 				       name={"phone"}
+				       onChange={phone.onChange}
 				/>
 				
 				<Input label={"Сайт"}
@@ -64,15 +122,25 @@ const NewShop = () => {
 				       placeholder={"Введите адрес сайта"}
 				       defaultValue={""}
 				       name={"site"}
+				       onChange={site.onChange}
+				/>
+				
+				<Select values={categoriesData}
+				        onChange={categories.onChange}
+				        label={"Выбор категории"}
+				        defaultValue={"1"}/>
+				
+				<Input label={"Текст статьи"}
+				       type={"text"}
+				       placeholder={"Введите текст статьи"}
+				       defaultValue={""}
+				       name={"description"}
+				       onChange={site.onChange}
 				/>
 			</div>
 			
-			<TextEditor className={css.description} readonly={false} defaultValue={"[{\"type\":\"paragraph\",\"align\":\"left\",\"children\":[{\"text\":\"Hello, world\",\"bold\":true,\"italic\":true}]}]"}/>
-			
 			<div className={classNames(css.buttons)}>
-				<button type={"submit"}>
-					Добавить
-				</button>
+				<Button text={"Добавить"} submit disabled={locked}/>
 			</div>
 		</form>
 	);
