@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 import label from "/src/components/Label/label.module.scss";
-import css from "./bar.module.scss";
+import css from "../../Items/ItemBar/bar.module.scss";
 
 import Label from "../../../../components/Label";
 import {InnerLink} from "../../../../components/Link";

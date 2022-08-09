@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react";
-import MapStore from "../stores/MapStore";
 
 const useDragging = ({ targetRef, defaultState }: Props): Response => {
 	const [mapPosition, setMapPosition] = useState(defaultState);
@@ -10,11 +9,6 @@ const useDragging = ({ targetRef, defaultState }: Props): Response => {
 	});
 	
 	const onStart = useCallback(() => {
-		MapStore.setTooltip({
-			...MapStore.getTooltip(),
-			visible: false
-		});
-		
 		if (!mapPosition.dragging) {
 			setMapPosition({
 				...mapPosition,
@@ -48,11 +42,6 @@ const useDragging = ({ targetRef, defaultState }: Props): Response => {
 	}, [mapPosition]);
 	
 	const onTouchStart = useCallback((e: TouchEvent) => {
-		MapStore.setTooltip({
-			...MapStore.getTooltip(),
-			visible: false
-		});
-		
 		if (!mapPosition.dragging) {
 			setPrev({
 				x: e.touches[0].clientX,

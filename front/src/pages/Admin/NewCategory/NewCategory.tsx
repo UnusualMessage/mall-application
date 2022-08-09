@@ -1,55 +1,58 @@
-import {useNavigate} from "react-router-dom";
-import {FormEventHandler, useCallback, useState} from "react";
+import {useMemo} from "react";
 import classNames from "classnames";
+import {observer} from "mobx-react-lite";
 
-import css from "../NewDiscount/discount.module.scss";
+import css from "../article.module.scss";
 
-import Loader from "../../../components/Loader";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
+import LoadingOverlay from "../../../components/LoadingOverlay";
+import useForm, {Values} from "../../../hooks/useForm";
+import getCategoryForm from "../../../utils/getCategoryForm";
+import CategoryStore from "../../../stores/CategoryStore";
+import CreateCategory from "../../../api/interfaces/category/CreateCategory";
 
 const NewCategory = () => {
-	const redirect = useNavigate();
-	const [buttonsDisabled, setButtonsDisabled] = useState(false);
+	const isLoading = InterfaceStore.isLoading();
 	
-	const lockInterface = useCallback(() => {
-		setButtonsDisabled(true);
+	const form = useMemo(() => {
+		return getCategoryForm();
+	}, []);
+	
+	const { inputs, handleSubmit } = useForm({ form: form });
+	const { title } = inputs;
+	
+	const onSubmit = async (values: Values) => {
+		const newCategory: CreateCategory = {
+			title: values.title,
+		};
+		
 		InterfaceStore.setLoading(true);
-	}, []);
-	
-	const unlockInterface = useCallback(() => {
-		setButtonsDisabled(false);
+		await CategoryStore.createAsync(newCategory);
 		InterfaceStore.setLoading(false);
-	}, []);
-	
-	const handleUpdate: FormEventHandler<HTMLFormElement> = async (e) => {
-		e.preventDefault();
 	};
 	
 	return(
-		<>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
 			{
-				InterfaceStore.isLoading()
-					?
-					<Loader/>
-					:
-					<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
-						<Input label={"Название категории"}
-						       type={"text"}
-						       placeholder={"Введите название категории"}
-						       defaultValue={""}
-						       name={"title"}
-						/>
-						
-						<div className={classNames(css.buttons)}>
-							<Button text={"Добавить"} disabled={buttonsDisabled} submit/>
-						</div>
-					</form>
+				InterfaceStore.isLoading() ? <LoadingOverlay/> : <></>
 			}
-		</>
+			
+			<Input label={"Название категории"}
+			       type={"text"}
+			       placeholder={"Введите название категории"}
+			       defaultValue={""}
+			       name={"title"}
+			       onChange={title.onChange}
+			/>
+			
+			<div className={classNames(css.buttons)}>
+				<Button text={"Добавить"} disabled={isLoading} submit/>
+			</div>
+		</form>
 	);
 };
 
-export default NewCategory;
+export default observer(NewCategory);

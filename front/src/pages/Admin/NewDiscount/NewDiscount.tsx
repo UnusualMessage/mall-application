@@ -1,65 +1,107 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
+import {ChangeEventHandler, useMemo, useState} from "react";
 
-import css from "./discount.module.scss";
+import css from "../article.module.scss";
 
-import InterfaceStore from "../../../stores/InterfaceStore";
-import Loader from "../../../components/Loader";
+import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import Select from "../../../components/Select";
+import LoadingOverlay from "../../../components/LoadingOverlay";
+import Image from "../../../components/Image";
+
 import shops from "../../../data/shops";
-import Button from "../../../components/Button";
-import {FormEventHandler, useCallback,useState} from "react";
-import {useNavigate} from "react-router-dom";
+import getDiscountForm from "../../../utils/getDiscountForm";
+import useForm, {Values} from "../../../hooks/useForm";
+import InterfaceStore from "../../../stores/InterfaceStore";
+import DiscountStore from "../../../stores/DiscountStore";
+import transliterate from "../../../utils/transliterate";
+import CreateDiscount from "../../../api/interfaces/discount/CreateDiscount";
 
 const NewDiscount = () => {
-	const redirect = useNavigate();
-	const [buttonsDisabled, setButtonsDisabled] = useState(false);
+	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	
-	const lockInterface = useCallback(() => {
-		setButtonsDisabled(true);
+	const isLoading = InterfaceStore.isLoading();
+	
+	const form = useMemo(() => {
+		return getDiscountForm();
+	}, []);
+	
+	const { inputs, handleSubmit } = useForm({ form: form });
+	const { title, description, shop } = inputs;
+
+	const onSubmit = async (values: Values) => {
+		if (imagePreview === undefined) {
+			return;
+		}
+		
+		const transliteratedTitle = transliterate(values.title);
+		const newDiscount: CreateDiscount = {
+			title: values.title,
+			description: values.description,
+			image: imagePreview,
+			link: transliteratedTitle,
+			route: `/events/${transliteratedTitle}`,
+			shopId: values.shop
+		};
+		
 		InterfaceStore.setLoading(true);
-	}, []);
-	
-	const unlockInterface = useCallback(() => {
-		setButtonsDisabled(false);
+		await DiscountStore.createAsync(newDiscount);
 		InterfaceStore.setLoading(false);
-	}, []);
+	};
 	
-	const handleUpdate: FormEventHandler<HTMLFormElement> = async (e) => {
-		e.preventDefault();
+	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+		if (e.target.files?.length) {
+			const file = e.target.files[0];
+			setImagePreview(file);
+		}
 	};
 	
 	return(
-		<>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
 			{
-				InterfaceStore.isLoading()
-					?
-					<Loader/>
-					:
-					<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
-						<Input label={"Название"}
-						       type={"text"}
-						       placeholder={"Введите заголовок статьи"}
-						       defaultValue={""}
-						       name={"title"}
-						/>
-						
-						<Select values={shops} label={"Выберите магазин"} defaultValue={"1"}/>
-						
-						<Input label={"Текст статьи"}
-						       type={"text"}
-						       placeholder={"Введите текст статьи"}
-						       defaultValue={""}
-						       name={"description"}
-						/>
-						
-						<div className={classNames(css.buttons)}>
-							<Button text={"Добавить"} disabled={buttonsDisabled} submit/>
-						</div>
-					</form>
+				isLoading ? <LoadingOverlay/> : <></>
 			}
-		</>
+			
+			<Image classes={classNames(css.image)}
+			       source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
+			
+			<div className={css.info}>
+				<Input label={"Изображение"}
+				       type={"file"}
+				       placeholder={"Выберите главное изображение"}
+				       defaultValue={""}
+				       name={"image"}
+				       onChange={handleImage}
+				/>
+				
+				<Input label={"Название"}
+				       type={"text"}
+				       placeholder={"Введите заголовок статьи"}
+				       defaultValue={""}
+				       name={"title"}
+				       onChange={title.onChange}
+				/>
+				
+				<Select values={shops}
+				        label={"Выберите магазин"}
+				        defaultValue={"1"}
+				        onChange={shop.onChange}
+				/>
+				
+				<Input label={"Текст статьи"}
+				       type={"text"}
+				       placeholder={"Введите текст статьи"}
+				       defaultValue={""}
+				       name={"description"}
+				       onChange={description.onChange}
+				/>
+			</div>
+			
+			<div className={classNames(css.buttons)}>
+				<Button text={"Добавить"} disabled={isLoading} submit/>
+			</div>
+		</form>
 	);
 };
 

@@ -13,7 +13,7 @@ const Categories = () => {
 	return (
 		<>
 			<InnerLink className={""} to={"new"}>
-				<Label className={classNames(label.big, link.underlined)} text={"Добавить статью"}/>
+				<Label className={classNames(label.big, link.underlined)} text={"Добавить категорию"}/>
 			</InnerLink>
 			{
 				CategoryStore.get().map(category => {

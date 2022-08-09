@@ -26,15 +26,15 @@ const Admin = () => {
         <React.Suspense fallback={<Loader/>}>
             <Routes>
                 <Route path="*" element={<Base />}>
-                    <Route path={shops.route} element={<Items store={ShopStore} />} />
+                    <Route path={shops.route} element={<Items items={ShopStore.get()} />} />
                     <Route path={`${shops.route}/:id`} element={<Shop/>} />
                     <Route path={`${shops.route}/new`} element={<NewShop/>} />
                     
-                    <Route path={events.route} element={<Items store={EventStore} />} />
+                    <Route path={events.route} element={<Items items={EventStore.get()} />} />
                     <Route path={`${events.route}/:id`} element={<Event/>} />
                     <Route path={`${events.route}/new`} element={<NewEvent/>} />
                     
-                    <Route path={discounts.route} element={<Items store={DiscountStore} />} />
+                    <Route path={discounts.route} element={<Items items={DiscountStore.get()} />} />
                     <Route path={`${discounts.route}/:id`} element={<Discount/>} />
                     <Route path={`${discounts.route}/new`} element={<NewDiscount/>} />
                     

@@ -5,7 +5,7 @@ import { breadcrumbs } from "../data/breadcrumbs";
 import {routes} from "../data/routes";
 
 class NavigationStore {
-	breadcrumbs: Breadcrumb[] = [];
+	private breadcrumbs: Breadcrumb[] = [];
 	
 	constructor() {
 		this.toStart();
@@ -13,14 +13,18 @@ class NavigationStore {
 		makeAutoObservable(this);
 	}
 	
-	toStart = () => {
+	public get = () => {
+		return this.breadcrumbs;
+	};
+	
+	public toStart = () => {
 		this.breadcrumbs = [{
 			name: breadcrumbs[0].name,
 			route: breadcrumbs[0].route
 		}];
 	};
 	
-	toNext = (path: string) => {
+	public toNext = (path: string) => {
 		this.toStart();
 		
 		if (!routes.find(route => path === route.path)) {
@@ -41,10 +45,6 @@ class NavigationStore {
 				this.toStart();
 			}
 		}
-	};
-
-	get = () => {
-		return this.breadcrumbs;
 	};
 }
 

@@ -1,37 +1,41 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {FormEventHandler, MouseEventHandler, useCallback, useEffect, useState} from "react";
+import {ChangeEventHandler, MouseEventHandler, useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
+import {observer} from "mobx-react-lite";
 
-import css from "./event.module.scss";
+import css from "../article.module.scss";
 
-import Loader from "../../../components/Loader";
 import Button from "../../../components/Button";
+import Image from "../../../components/Image";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
+import LoadingOverlay from "../../../components/LoadingOverlay";
 
 import events from "../../../data/events";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
-import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
 import EventStore from "../../../stores/EventStore";
-import Input from "../../../components/Input";
-import Select from "../../../components/Select";
 import shops from "../../../data/shops";
+import useForm, {Values} from "../../../hooks/useForm";
+import CreateEvent from "../../../api/interfaces/event/CreateEvent";
+import getEventForm from "../../../utils/getEventForm";
 
 const Event = () => {
+	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const [buttonsDisabled, setButtonsDisabled] = useState(false);
+	
+	const isLoading = InterfaceStore.isLoading();
 	
 	const event = events.find(event => event.link === id);
 	
-	const lockInterface = useCallback(() => {
-		setButtonsDisabled(true);
-		InterfaceStore.setLoading(true);
-	}, []);
+	const form = useMemo(() => {
+		return getEventForm(event);
+	}, [event]);
 	
-	const unlockInterface = useCallback(() => {
-		setButtonsDisabled(false);
-		InterfaceStore.setLoading(false);
-	}, []);
+	const { inputs, handleSubmit } = useForm({ form: form });
+	const { title, description, shop } = inputs;
 	
 	useEffect(() => {
 		if (!event) {
@@ -46,73 +50,89 @@ const Event = () => {
 	const handleDelete: MouseEventHandler = async (e) => {
 		e.preventDefault();
 		
-		lockInterface();
+		InterfaceStore.setLoading(true);
 		await EventStore.deleteAsync({ id: event.id });
-		unlockInterface();
+		InterfaceStore.setLoading(false);
 		
 		if (EventStore.isRequestSuccessful()) {
 			redirect("../");
 		}
 	};
 	
-	const handleUpdate: FormEventHandler<HTMLFormElement> = async (e) => {
-		e.preventDefault();
+	const onSubmit = async (values: Values) => {
+		if (imagePreview === undefined) {
+			return;
+		}
 		
-		if (id) {
-			const transliteratedTitle = transliterate(event.title);
-			
-			const updateDiscount: UpdateDiscount = {
-				id: id,
-				title: event.title,
-				image: event.title,
-				description: event.description,
-				route: `events/${transliteratedTitle}`,
-				link: transliteratedTitle,
-				shopId: event.shop.id
-			};
-			
-			lockInterface();
-			await EventStore.updateAsync(updateDiscount);
-			unlockInterface();
-			
-			if (EventStore.isRequestSuccessful()) {
-				redirect("../");
-			}
+		const transliteratedTitle = transliterate(values.title);
+		const newEvent: CreateEvent = {
+			title: values.title,
+			description: values.description,
+			image: imagePreview,
+			link: transliteratedTitle,
+			route: `/events/${transliteratedTitle}`,
+			shopId: values.shop
+		};
+		
+		InterfaceStore.setLoading(true);
+		await EventStore.createAsync(newEvent);
+		InterfaceStore.setLoading(false);
+	};
+	
+	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
+		if (e.target.files?.length) {
+			const file = e.target.files[0];
+			setImagePreview(file);
 		}
 	};
 	
 	return(
-		<>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
 			{
-				InterfaceStore.isLoading()
-					?
-					<Loader/>
-					:
-					<form className={classNames(css.wrapper)} onSubmit={handleUpdate}>
-						<Input label={"Название"}
-						       type={"text"}
-						       placeholder={"Введите заголовок статьи"}
-						       defaultValue={event.title}
-						       name={"title"}
-						/>
-						
-						<Select values={shops} label={"Выберите магазин"} defaultValue={event.shop.id}/>
-						
-						<Input label={"Текст статьи"}
-						       type={"text"}
-						       placeholder={"Введите текст статьи"}
-						       defaultValue={event.description}
-						       name={"description"}
-						/>
-						
-						<div className={classNames(css.buttons)}>
-							<Button text={"Изменить"} disabled={buttonsDisabled} submit/>
-							<Button text={"Удалить"} disabled={buttonsDisabled} onClick={handleDelete}/>
-						</div>
-					</form>
+				isLoading ? <LoadingOverlay/> : <></>
 			}
-		</>
+			
+			<Image classes={classNames(css.image)}
+			       source={imagePreview ? URL.createObjectURL(imagePreview) : event.image}/>
+			
+			<div className={css.info}>
+				<Input label={"Изображение"}
+				       type={"file"}
+				       placeholder={"Выберите главное изображение"}
+				       defaultValue={""}
+				       name={"image"}
+				       onChange={handleImage}
+				/>
+				
+				<Input label={"Название"}
+				       type={"text"}
+				       placeholder={"Введите заголовок статьи"}
+				       defaultValue={event.title}
+				       name={"title"}
+				       onChange={title.onChange}
+				/>
+				
+				<Select values={shops}
+				        label={"Выберите магазин"}
+				        defaultValue={event.shop.id}
+				        onChange={shop.onChange}
+				/>
+				
+				<Input label={"Текст статьи"}
+				       type={"text"}
+				       placeholder={"Введите текст статьи"}
+				       defaultValue={event.description}
+				       name={"description"}
+				       onChange={description.onChange}
+				/>
+			</div>
+			
+			<div className={classNames(css.buttons)}>
+				<Button text={"Изменить"} disabled={isLoading} submit/>
+				<Button text={"Удалить"} disabled={isLoading} onClick={handleDelete}/>
+			</div>
+		</form>
 	);
 };
 
-export default Event;
+export default observer(Event);

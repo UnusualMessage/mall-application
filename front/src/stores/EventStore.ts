@@ -1,16 +1,16 @@
-import {action, makeObservable} from "mobx";
+import {makeObservable} from "mobx";
 
 import Store, {storeProps} from "./Store";
-import Discount from "../api/interfaces/discount/Discount";
-import CreateDiscount from "../api/interfaces/discount/CreateDiscount";
-import UpdateDiscount from "../api/interfaces/discount/UpdateDiscount";
-import DeleteDiscount from "../api/interfaces/discount/DeleteDiscount";
-import DiscountService from "../api/services/DiscountService";
+import Event from "../api/interfaces/event/Event";
 import events from "../data/events";
+import CreateEvent from "../api/interfaces/event/CreateEvent";
+import DeleteEvent from "../api/interfaces/event/DeleteEvent";
+import UpdateEvent from "../api/interfaces/event/UpdateEvent";
+import EventService from "../api/services/EventService";
 
-class EventStore extends Store<Discount, CreateDiscount, UpdateDiscount, DeleteDiscount> {
+class EventStore extends Store<Event, CreateEvent, UpdateEvent, DeleteEvent> {
 	constructor() {
-		super(new DiscountService(), events);
+		super(new EventService(), events);
 		
 		makeObservable(this, {
 			...storeProps,

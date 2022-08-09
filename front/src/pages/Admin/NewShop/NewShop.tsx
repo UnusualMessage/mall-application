@@ -1,12 +1,14 @@
-import {ChangeEventHandler, useCallback, useMemo, useState} from "react";
+import {ChangeEventHandler, useMemo, useState} from "react";
 import classNames from "classnames";
+import {observer} from "mobx-react-lite";
 
-import css from "./shop.module.scss";
+import css from "../article.module.scss";
 
 import Image from "../../../components/Image";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import Select from "../../../components/Select";
+import LoadingOverlay from "../../../components/LoadingOverlay";
 
 import categoriesData from "../../../data/categories";
 import getShopForm from "../../../utils/getShopForm";
@@ -15,11 +17,10 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
 import ShopStore from "../../../stores/ShopStore";
-import LoadingOverlay from "../../../components/LoadingOverlay";
 
 const NewShop = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
-	const [locked, setLocked] = useState(false);
+	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
 		return getShopForm();
@@ -27,17 +28,6 @@ const NewShop = () => {
 	
 	const { inputs, handleSubmit } = useForm({ form: form });
 	const { title, floor, schedule, phone, site, categories } = inputs;
-	
-	const lockInterface = useCallback(() => {
-		setLocked(true);
-		InterfaceStore.setLoading(true);
-	}, []);
-	
-	const unlockInterface = useCallback(() => {
-		setLocked(false);
-		InterfaceStore.setLoading(false);
-	}, []);
-
 	
 	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
 		if (e.target.files?.length) {
@@ -57,20 +47,18 @@ const NewShop = () => {
 			categories: [values.categories],
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/routes/${transliteratedTitle}`
+			route: `/shops/${transliteratedTitle}`
 		};
 		
-		console.log(newShop);
-		
-		lockInterface();
+		InterfaceStore.setLoading(true);
 		await ShopStore.createAsync(newShop);
-		unlockInterface();
+		InterfaceStore.setLoading(false);
 	};
 	
 	return(
 		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
 			{
-				locked ? <LoadingOverlay/> : <></>
+				isLoading ? <LoadingOverlay/> : <></>
 			}
 			
 			<Image classes={classNames(css.image)}
@@ -140,10 +128,10 @@ const NewShop = () => {
 			</div>
 			
 			<div className={classNames(css.buttons)}>
-				<Button text={"Добавить"} submit disabled={locked}/>
+				<Button text={"Добавить"} submit disabled={isLoading}/>
 			</div>
 		</form>
 	);
 };
 
-export default NewShop;
+export default observer(NewShop);

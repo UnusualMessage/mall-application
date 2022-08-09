@@ -4,15 +4,13 @@ import map from "../data/map";
 import Cell from "../api/interfaces/cell/Cell";
 
 class MapStore {
-	map: Cell[];
+	private readonly map: Cell[];
 	
-	scale: number;
-	scaleInc: number;
-	scaleLimit: { upper: number, lower: number };
+	private scale: number;
+	private readonly scaleInc: number;
+	private readonly scaleLimit: { upper: number, lower: number };
 	
-	floor: number;
-	
-	tooltipState: TooltipState;
+	private floor: number;
 	
 	constructor() {
 		this.map = map;
@@ -24,64 +22,44 @@ class MapStore {
 			lower: 0.3
 		};
 		
-		this.tooltipState = {
-			left: 0,
-			top: 0,
-			visible: false
-		};
-		
 		this.floor = 1;
 		
 		makeAutoObservable(this);
 	}
 	
-	get = () => {
+	public get = () => {
 		return this.map;
 	};
 	
-	getSchemaByFloor = (floor: number) => {
+	public getSchemaByFloor = (floor: number) => {
 		return this.map.filter(cell => cell.floor === floor);
 	};
 	
-	zoomIn = () => {
+	public getScale = () => {
+		return this.scale;
+	};
+	
+	public getFloor = () => {
+		return this.floor;
+	};
+	
+	public zoomIn = () => {
 		const newScale = this.scale + this.scaleInc;
 		
 		this.scale = (newScale <= this.scaleLimit.upper) ? newScale : this.scale;
 	};
 	
-	zoomOut = () => {
+	public zoomOut = () => {
 		const newScale = this.scale - this.scaleInc;
 		
 		this.scale = (newScale >= this.scaleLimit.lower) ? newScale : this.scale;
 	};
 	
-	getScale = () => {
-		return this.scale;
-	};
-	
-	setTooltip = (state: TooltipState) => {
-		this.tooltipState = state;
-	};
-	
-	getTooltip = () => {
-		return this.tooltipState;
-	};
-	
-	toFloor = (floor: number) => {
+	public toFloor = (floor: number) => {
 		if (floor == 1 || floor == 2) {
 			this.floor = floor;
 		}
 	};
-	
-	getFloor = () => {
-		return this.floor;
-	};
-}
-
-interface TooltipState {
-	left: number,
-	top: number,
-	visible: boolean
 }
 
 export default new MapStore();

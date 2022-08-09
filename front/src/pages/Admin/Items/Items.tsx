@@ -1,4 +1,5 @@
 import {observer} from "mobx-react-lite";
+import classNames from "classnames";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -7,19 +8,20 @@ import ItemBar from "./ItemBar";
 import {InnerLink} from "../../../components/Link";
 import Label from "../../../components/Label";
 
-import Store from "../../../stores/Store";
-import classNames from "classnames";
+import Shop from "../../../api/interfaces/shop/Shop";
+import Discount from "../../../api/interfaces/discount/Discount";
+import Event from "../../../api/interfaces/event/Event";
 
-const Items = ({ store }: Props) => {
+const Items = ({ items }: Props) => {
 	return (
 		<>
 			<InnerLink className={""} to={"new"}>
 				<Label className={classNames(label.big, link.underlined)} text={"Добавить статью"}/>
 			</InnerLink>
 			{
-				store.get().map(shop => {
+				items.map(item => {
 					return (
-						<ItemBar title={shop.title} image={shop.image} to={shop.link} key={shop.id}/>
+						<ItemBar title={item.title} image={item.image} to={item.link} key={item.id}/>
 					);
 				})
 			}
@@ -28,7 +30,7 @@ const Items = ({ store }: Props) => {
 };
 
 interface Props {
-	store: Store,
+	items: Discount[] | Shop[] | Event[],
 }
 
 export default observer(Items);
