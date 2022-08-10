@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {ChangeEventHandler, MouseEventHandler, useEffect, useMemo, useState} from "react";
+import {MouseEventHandler, useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
@@ -7,21 +7,20 @@ import css from "../article.module.scss";
 
 import Button from "../../../components/Button";
 import Image from "../../../components/Image";
-import Input from "../../../components/Input";
-import Select from "../../../components/Select";
+import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
 import events from "../../../data/events";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import EventStore from "../../../stores/EventStore";
-import shops from "../../../data/shops";
 import useForm, {Values} from "../../../hooks/useForm";
-import CreateEvent from "../../../api/interfaces/event/CreateEvent";
 import getEventForm from "../../../utils/getEventForm";
+import shops from "../../../data/shops";
+import UpdateEvent from "../../../api/interfaces/event/UpdateEvent";
 
 const Event = () => {
-	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [imagePreview, setImagePreview] = useState<File>();
 	
 	const { id } = useParams();
 	const redirect = useNavigate();
@@ -47,9 +46,7 @@ const Event = () => {
 		return null;
 	}
 	
-	const handleDelete: MouseEventHandler = async (e) => {
-		e.preventDefault();
-		
+	const handleDelete: MouseEventHandler = async () => {
 		InterfaceStore.setLoading(true);
 		await EventStore.deleteAsync({ id: event.id });
 		InterfaceStore.setLoading(false);
@@ -59,13 +56,14 @@ const Event = () => {
 		}
 	};
 	
-	const onSubmit = async (values: Values) => {
+	const handleUpdate = async (values: Values) => {
 		if (imagePreview === undefined) {
 			return;
 		}
 		
 		const transliteratedTitle = transliterate(values.title);
-		const newEvent: CreateEvent = {
+		const newEvent: UpdateEvent = {
+			id: event.id,
 			title: values.title,
 			description: values.description,
 			image: imagePreview,
@@ -79,15 +77,8 @@ const Event = () => {
 		InterfaceStore.setLoading(false);
 	};
 	
-	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-		if (e.target.files?.length) {
-			const file = e.target.files[0];
-			setImagePreview(file);
-		}
-	};
-	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(handleUpdate)}>
 			{
 				isLoading ? <LoadingOverlay/> : <></>
 			}
@@ -96,35 +87,10 @@ const Event = () => {
 			       source={imagePreview ? URL.createObjectURL(imagePreview) : event.image}/>
 			
 			<div className={css.info}>
-				<Input label={"Изображение"}
-				       type={"file"}
-				       placeholder={"Выберите главное изображение"}
-				       defaultValue={""}
-				       name={"image"}
-				       onChange={handleImage}
-				/>
-				
-				<Input label={"Название"}
-				       type={"text"}
-				       placeholder={"Введите заголовок статьи"}
-				       defaultValue={event.title}
-				       name={"title"}
-				       onChange={title.onChange}
-				/>
-				
-				<Select values={shops}
-				        label={"Выберите магазин"}
-				        defaultValue={event.shop.id}
-				        onChange={shop.onChange}
-				/>
-				
-				<Input label={"Текст статьи"}
-				       type={"text"}
-				       placeholder={"Введите текст статьи"}
-				       defaultValue={event.description}
-				       name={"description"}
-				       onChange={description.onChange}
-				/>
+				<ImageInput {...form.image.options} setImage={setImagePreview}/>
+				<TextInput {...form.title.options} defaultValue={event.title} onChange={title.onChange} />
+				<SelectInput {...form.shop.options} defaultValue={event.shop.id} onChange={shop.onChange} values={shops}/>
+				<TextInput {...form.description.options} defaultValue={event.description} onChange={description.onChange} />
 			</div>
 			
 			<div className={classNames(css.buttons)}>

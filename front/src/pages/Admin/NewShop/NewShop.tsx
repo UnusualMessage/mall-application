@@ -1,13 +1,12 @@
-import {ChangeEventHandler, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
 import css from "../article.module.scss";
 
 import Image from "../../../components/Image";
-import Input from "../../../components/Input";
+import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import Button from "../../../components/Button";
-import Select from "../../../components/Select";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
 import categoriesData from "../../../data/categories";
@@ -27,16 +26,9 @@ const NewShop = () => {
 	}, []);
 	
 	const { inputs, handleSubmit } = useForm({ form: form });
-	const { title, floor, schedule, phone, site, categories } = inputs;
+	const { title, floor, schedule, phone, site, categories, description } = inputs;
 	
-	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-		if (e.target.files?.length) {
-			const file = e.target.files[0];
-			setImagePreview(file);
-		}
-	};
-	
-	const onSubmit = async (values: Values) => {
+	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
 		const newShop: CreateShop = {
 			title: values.title,
@@ -56,7 +48,7 @@ const NewShop = () => {
 	};
 	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(handleCreate)}>
 			{
 				isLoading ? <LoadingOverlay/> : <></>
 			}
@@ -65,66 +57,14 @@ const NewShop = () => {
 			       source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
 			
 			<div className={`${css.info}`}>
-				<Input label={"Лого"}
-				       type={"file"}
-				       placeholder={"Выберите логотип магазина"}
-				       defaultValue={""}
-				       name={"image"}
-				       onChange={handleImage}
-				/>
-				
-				<Input label={"Название"}
-				       type={"text"}
-				       placeholder={"Введите название магазина"}
-				       defaultValue={""}
-				       name={"title"}
-				       onChange={title.onChange}
-				/>
-				
-				<Input label={"Этаж"}
-				       type={"text"}
-				       placeholder={"Введите номер этажа"}
-				       defaultValue={""}
-				       name={"floor"}
-				       onChange={floor.onChange}
-				/>
-				
-				<Input label={"Время"}
-				       type={"text"}
-				       placeholder={"Введите время работы"}
-				       defaultValue={""}
-				       name={"schedule"}
-				       onChange={schedule.onChange}
-				/>
-				
-				<Input label={"Телефон"}
-				       type={"text"}
-				       placeholder={"Введите номер телефона"}
-				       defaultValue={""}
-				       name={"phone"}
-				       onChange={phone.onChange}
-				/>
-				
-				<Input label={"Сайт"}
-				       type={"text"}
-				       placeholder={"Введите адрес сайта"}
-				       defaultValue={""}
-				       name={"site"}
-				       onChange={site.onChange}
-				/>
-				
-				<Select values={categoriesData}
-				        onChange={categories.onChange}
-				        label={"Выбор категории"}
-				        defaultValue={"1"}/>
-				
-				<Input label={"Текст статьи"}
-				       type={"text"}
-				       placeholder={"Введите текст статьи"}
-				       defaultValue={""}
-				       name={"description"}
-				       onChange={site.onChange}
-				/>
+				<ImageInput {...form.image.options} setImage={setImagePreview}/>
+				<TextInput {...form.title.options} onChange={title.onChange} />
+				<TextInput {...form.floor.options} onChange={floor.onChange} />
+				<TextInput {...form.schedule.options} onChange={schedule.onChange} />
+				<TextInput {...form.phone.options} onChange={phone.onChange} />
+				<TextInput {...form.site.options}onChange={site.onChange} />
+				<SelectInput {...form.categories.options} onChange={categories.onChange} values={categoriesData}/>
+				<TextInput {...form.description.options} onChange={description.onChange} />
 			</div>
 			
 			<div className={classNames(css.buttons)}>

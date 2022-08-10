@@ -1,12 +1,11 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
-import {ChangeEventHandler, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 
 import css from "../article.module.scss";
 
 import Button from "../../../components/Button";
-import Input from "../../../components/Input";
-import Select from "../../../components/Select";
+import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 import Image from "../../../components/Image";
 
@@ -30,7 +29,7 @@ const NewDiscount = () => {
 	const { inputs, handleSubmit } = useForm({ form: form });
 	const { title, description, shop } = inputs;
 
-	const onSubmit = async (values: Values) => {
+	const handleCreate = async (values: Values) => {
 		if (imagePreview === undefined) {
 			return;
 		}
@@ -41,7 +40,7 @@ const NewDiscount = () => {
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/events/${transliteratedTitle}`,
+			route: `/discounts/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		
@@ -50,15 +49,8 @@ const NewDiscount = () => {
 		InterfaceStore.setLoading(false);
 	};
 	
-	const handleImage: ChangeEventHandler<HTMLInputElement> = (e) => {
-		if (e.target.files?.length) {
-			const file = e.target.files[0];
-			setImagePreview(file);
-		}
-	};
-	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(handleCreate)}>
 			{
 				isLoading ? <LoadingOverlay/> : <></>
 			}
@@ -67,35 +59,12 @@ const NewDiscount = () => {
 			       source={imagePreview ? URL.createObjectURL(imagePreview) : ""}/>
 			
 			<div className={css.info}>
-				<Input label={"Изображение"}
-				       type={"file"}
-				       placeholder={"Выберите главное изображение"}
-				       defaultValue={""}
-				       name={"image"}
-				       onChange={handleImage}
+				<ImageInput {...form.image.options} setImage={setImagePreview}/>
+				<TextInput {...form.title.options} onChange={title.onChange} />
+				<SelectInput {...form.shop.options} onChange={shop.onChange}
+				             values={shops}
 				/>
-				
-				<Input label={"Название"}
-				       type={"text"}
-				       placeholder={"Введите заголовок статьи"}
-				       defaultValue={""}
-				       name={"title"}
-				       onChange={title.onChange}
-				/>
-				
-				<Select values={shops}
-				        label={"Выберите магазин"}
-				        defaultValue={"1"}
-				        onChange={shop.onChange}
-				/>
-				
-				<Input label={"Текст статьи"}
-				       type={"text"}
-				       placeholder={"Введите текст статьи"}
-				       defaultValue={""}
-				       name={"description"}
-				       onChange={description.onChange}
-				/>
+				<TextInput {...form.description.options} onChange={description.onChange} />
 			</div>
 			
 			<div className={classNames(css.buttons)}>

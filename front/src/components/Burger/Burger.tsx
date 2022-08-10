@@ -12,7 +12,7 @@ const Burger = () => {
 	
 	const classes = classNames({
 		[css.wrapper]: true,
-		[css.open]: InterfaceStore.menuActive
+		[css.open]: InterfaceStore.isMenuActive()
 	});
 	
 	return(

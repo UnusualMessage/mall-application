@@ -1,33 +1,29 @@
-import {ChangeEvent, ChangeEventHandler, FormEventHandler, useEffect, useState} from "react";
+import {ChangeEvent, ChangeEventHandler, FormEventHandler, useState} from "react";
 
-const useForm = ({ form }: Props) => {
-	useEffect(() => {
-		const fieldsArray = Object.entries(form).map(item => {
-			const name = item[0];
-			const field = item[1];
-			
-			return {
-				[name]: {
-					...field,
-					value: field.value ?? "",
-					onChange: (e: ChangeEvent<HTMLInputElement>) => handleChange(e, name)
-				}
-			};
-		});
+const useForm = ({ form = {} }: Props) => {
+	const fieldsArray: Form[] = Object.entries(form).map(item => {
+		const name = item[0];
+		const field = item[1];
 		
-		const fields = fieldsArray.reduce((prev, current) => {
-			return {
-				...prev,
-				...current
-			};
-		}, {});
-		
-		setInputs(fields);
-	}, [form]);
+		return {
+			[name]: {
+				...field,
+				value: field.value ?? "",
+				onChange: (e: ChangeEvent<HTMLInputElement>) => handleChange(e, name)
+			}
+		};
+	});
 	
-	const [inputs, setInputs] = useState(form);
+	const fields: Form = fieldsArray.reduce((prev, current) => {
+		return {
+			...prev,
+			...current
+		};
+	}, {});
 	
-	const handleChange = (e: ChangeEvent<HTMLInputElement>, name: Name) => {
+	const [inputs, setInputs] = useState<Form>(fields);
+	
+	const handleChange =(e: ChangeEvent<HTMLInputElement>, name: Name) => {
 		const field = inputs[name];
 		field.value = e.target.value;
 		
@@ -44,10 +40,7 @@ const useForm = ({ form }: Props) => {
 				const name = current[0];
 				const field = current[1];
 				
-				return {
-					...prev,
-				    ...{ [name]: field.value }
-				};
+				return field.exclude ? { ...prev } : { ...prev, ...{ [name]: field.value } };
 			}, {});
 			
 			callback(values);
@@ -60,7 +53,7 @@ const useForm = ({ form }: Props) => {
 };
 
 interface Props {
-	form: Form
+	form: InputForm
 }
 
 type SubmitCallback = (values: Values) => void;
@@ -73,10 +66,25 @@ export type Values = Record<Name, Value>;
 type Name = string;
 type Value = string;
 
-interface Field {
-	type: string,
+export interface Options {
+	label: string,
+	placeholder: string,
+	name: string
+}
+
+type InputForm = Record<Name, InputField>;
+
+interface InputField {
 	value?: string,
-	onChange?: ChangeEventHandler
+	options: Options,
+	exclude?: boolean
+}
+
+interface Field {
+	value?: string,
+	onChange: ChangeEventHandler
+	options: Options,
+	exclude?: boolean
 }
 
 

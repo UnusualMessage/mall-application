@@ -6,7 +6,7 @@ import {observer} from "mobx-react-lite";
 import css from "../article.module.scss";
 
 import Button from "../../../components/Button";
-import Input from "../../../components/Input";
+import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import categories from "../../../data/categories";
@@ -51,7 +51,7 @@ const Category = () => {
 		InterfaceStore.setLoading(false);
 	};
 	
-	const onSubmit = async (values: Values) => {
+	const handleUpdate = async (values: Values) => {
 		const newCategory: UpdateCategory = {
 			id: category.id,
 			title: values.title,
@@ -63,18 +63,12 @@ const Category = () => {
 	};
 	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(handleUpdate)}>
 			{
 				isLoading ? <LoadingOverlay/> : <></>
 			}
 			
-			<Input label={"Название категории"}
-			       type={"text"}
-			       placeholder={"Введите название категории"}
-			       defaultValue={category.title}
-			       name={"title"}
-			       onChange={title.onChange}
-			/>
+			<TextInput {...form.title.options} onChange={title.onChange} />
 			
 			<div className={classNames(css.buttons)}>
 				<Button text={"Изменить"} disabled={isLoading} submit/>

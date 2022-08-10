@@ -4,7 +4,7 @@ import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
 import Label from "../../../components/Label";
-import CategoryBar from "./CategoryBar/CategoryBar";
+import CategoryBar from "./CategoryBar";
 import {InnerLink} from "../../../components/Link";
 
 import CategoryStore from "../../../stores/CategoryStore";

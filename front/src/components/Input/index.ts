@@ -1,2 +1,5 @@
-import Input from "./Input";
-export default Input;
+import TextInput from "./TextInput";
+import SelectInput from "./SelectInput";
+import ImageInput from "./ImageInput";
+
+export { TextInput, SelectInput, ImageInput };

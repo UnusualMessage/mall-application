@@ -1,8 +1,10 @@
 import Shop from "../api/interfaces/shop/Shop";
+import {Options} from "../hooks/useForm";
 
 interface InitialValue {
-	type: string,
-	value?: string
+	value?: string,
+	options: Options,
+	exclude?: boolean
 }
 
 type Name = string;
@@ -11,39 +13,77 @@ type Returns = Record<Name, InitialValue>;
 
 const getShopForm = (shop?: Shop): Returns => {
 	return {
+		image: {
+			value: shop?.image,
+			options: {
+				name: "image",
+				placeholder: "Выберите логотип магазина",
+				label: "Логотип"
+			},
+			exclude: true
+		},
+		
 		title: {
-			type: "text",
-			value: shop?.title
+			value: shop?.title,
+			options: {
+				name: "title",
+				placeholder: "Введите название магазина",
+				label: "Название"
+			}
 		},
 		
 		floor: {
-			type: "text",
-			value: shop?.floor
+			value: shop?.floor,
+			options: {
+				name: "floor",
+				placeholder: "Введите номер этажа",
+				label: "Этаж"
+			}
 		},
 		
 		schedule: {
-			type: "text",
-			value: shop?.schedule
+			value: shop?.schedule,
+			options: {
+				name: "schedule",
+				placeholder: "Введите время работы",
+				label: "Время работы"
+			}
 		},
 		
 		phone: {
-			type: "text",
-			value: shop?.phone
+			value: shop?.phone,
+			options: {
+				name: "phone",
+				placeholder: "Введите номер телефона",
+				label: "Телефон"
+			}
 		},
 		
 		site: {
-			type: "text",
-			value: shop?.site
+			value: shop?.site,
+			options: {
+				name: "site",
+				placeholder: "Введите адрес сайта",
+				label: "Сайт"
+			}
 		},
 		
 		categories: {
-			type: "text",
-			value: shop?.categories[1].id
+			value: shop?.categories[1].id,
+			options: {
+				name: "categories",
+				placeholder: "Выберите категорию",
+				label: "Категория"
+			}
 		},
 		
 		description: {
-			type: "text",
-			value: shop?.description
+			value: shop?.description,
+			options: {
+				name: "description",
+				placeholder: "Введите текст статьи",
+				label: "Текст статьи"
+			}
 		}
 	};
 };

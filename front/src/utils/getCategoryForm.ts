@@ -1,8 +1,10 @@
 import Category from "../api/interfaces/category/Category";
+import {Options} from "../hooks/useForm";
 
 interface InitialValue {
-	type: string,
-	value?: string
+	value?: string,
+	options: Options,
+	exclude?: boolean
 }
 
 type Name = string;
@@ -12,8 +14,12 @@ type Returns = Record<Name, InitialValue>;
 const getCategoryForm = (category?: Category): Returns => {
 	return {
 		title: {
-			type: "text",
-			value: category?.title
+			value: category?.title,
+			options: {
+				name: "title",
+				placeholder: "Введите название категории",
+				label: "Название"
+			}
 		},
 	};
 };

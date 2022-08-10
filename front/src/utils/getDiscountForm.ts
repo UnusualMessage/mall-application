@@ -1,8 +1,10 @@
+import {Options} from "../hooks/useForm";
 import Discount from "../api/interfaces/discount/Discount";
 
 interface InitialValue {
-	type: string,
-	value?: string
+	value?: string,
+	options: Options,
+	exclude?: boolean
 }
 
 type Name = string;
@@ -11,19 +13,41 @@ type Returns = Record<Name, InitialValue>;
 
 const getDiscountForm = (discount?: Discount): Returns => {
 	return {
+		image: {
+			value: discount?.image,
+			options: {
+				name: "image",
+				placeholder: "Выберите заглавное изображение",
+				label: "Изображение"
+			},
+			exclude: true
+		},
+		
 		title: {
-			type: "text",
-			value: discount?.title
+			value: discount?.title,
+			options: {
+				name: "title",
+				placeholder: "Введите заголовок статьи",
+				label: "Заголовок"
+			}
 		},
 		
 		description: {
-			type: "text",
-			value: discount?.description
+			value: discount?.description,
+			options: {
+				name: "description",
+				placeholder: "Введите текст статьи",
+				label: "Текст статьи"
+			}
 		},
 		
 		shop: {
-			type: "text",
-			value: discount?.shop.id
+			value: discount?.shop.id,
+			options: {
+				name: "shop",
+				placeholder: "Выберите магазин",
+				label: "Магазин"
+			}
 		},
 	};
 };

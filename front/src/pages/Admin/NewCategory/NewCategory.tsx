@@ -4,7 +4,7 @@ import {observer} from "mobx-react-lite";
 
 import css from "../article.module.scss";
 
-import Input from "../../../components/Input";
+import {TextInput} from "../../../components/Input";
 import Button from "../../../components/Button";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -24,7 +24,7 @@ const NewCategory = () => {
 	const { inputs, handleSubmit } = useForm({ form: form });
 	const { title } = inputs;
 	
-	const onSubmit = async (values: Values) => {
+	const handleCreate = async (values: Values) => {
 		const newCategory: CreateCategory = {
 			title: values.title,
 		};
@@ -35,18 +35,12 @@ const NewCategory = () => {
 	};
 	
 	return(
-		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(onSubmit)}>
+		<form className={classNames(css.wrapper)} onSubmit={handleSubmit(handleCreate)}>
 			{
 				InterfaceStore.isLoading() ? <LoadingOverlay/> : <></>
 			}
 			
-			<Input label={"Название категории"}
-			       type={"text"}
-			       placeholder={"Введите название категории"}
-			       defaultValue={""}
-			       name={"title"}
-			       onChange={title.onChange}
-			/>
+			<TextInput {...form.title.options} onChange={title.onChange} />
 			
 			<div className={classNames(css.buttons)}>
 				<Button text={"Добавить"} disabled={isLoading} submit/>
