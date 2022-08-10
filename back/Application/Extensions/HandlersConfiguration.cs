@@ -15,5 +15,6 @@ public static class HandlersConfiguration
         services.AddDiscountHandlers();
         services.AddUserHandlers();
         services.AddRouteHandlers();
+        services.AddBreadcrumbHandlers();
     }
 }

@@ -10,7 +10,10 @@ public class EventProfile : Profile
 {
     public EventProfile()
     {
-        CreateMap<Event, EventResponse>();
+        CreateMap<Event, EventResponse>()
+            .ForMember(dest => dest.RoutePath, opt => opt.MapFrom(src => src.Route.Path))
+            .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.Breadcrumb.Link));
+        
         CreateMap<CreateEvent, Event>();
         CreateMap<UpdateEvent, Event>();
     }

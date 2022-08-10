@@ -18,6 +18,7 @@ public class ShopRepository : Repository<Shop>, IShopRepository
         return await ApplicationContext.Set<Shop>()
             .Include(e => e.Route)
             .Include(e => e.Categories)
+            .Include(e => e.Breadcrumb)
             .FirstOrDefaultAsync(shop => shop.Id == id);
     }
 
@@ -25,7 +26,9 @@ public class ShopRepository : Repository<Shop>, IShopRepository
     {
         return await ApplicationContext.Set<Shop>()
             .Include(e => e.Route)
-            .Include(e => e.Categories).ToListAsync();
+            .Include(e => e.Breadcrumb)
+            .Include(e => e.Categories)
+            .ToListAsync();
     }
 
     public override async Task<Shop> UpdateAsync(Shop entity)

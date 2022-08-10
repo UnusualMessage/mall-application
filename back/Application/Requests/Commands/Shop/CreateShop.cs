@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 using Application.Responses;
 
 using MediatR;
@@ -14,21 +14,12 @@ public class CreateShop : IRequest<ShopResponse>
     
     [Required]
     public string? Description { get; set; }
-    
-    [Required]
-    public string? Schedule { get; set; }
-    
-    [Required]
-    public string? Phone { get; set; }
-    
-    [Required]
-    public string? Site { get; set; }
-    
+
     [Required]
     public string? Link { get; set; }
     
     [Required]
-    public string? RouteName { get; set; }
+    public string? RoutePath { get; set; }
 
     [Required]
     public short Floor { get; set; }
@@ -36,9 +27,15 @@ public class CreateShop : IRequest<ShopResponse>
     [Required]
     public IFormFile? Image { get; set; }
     
-    public string? Destination { get; set; }
-
     [Required] 
     public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();
-
+    
+    public string? Schedule { get; set; }
+    
+    public string? Phone { get; set; }
+    
+    public string? Site { get; set; }
+    
+    [JsonIgnore]
+    public string? Destination { get; set; }
 }

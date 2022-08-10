@@ -13,18 +13,20 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
 {
     private readonly IShopRepository _shopRepository;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IRouteRepository _routeRepository;
+    private readonly IBreadcrumbRepository _breadcrumbRepository;
     private readonly IMapper _mapper;
     private readonly IFileService _fileService;
-    private readonly IRouteRepository _routeRepository;
 
     public CreateShopHandler(IShopRepository repository, ICategoryRepository categoryRepository, IMapper mapper, 
-        IFileService fileService, IRouteRepository routeRepository)
+        IFileService fileService, IRouteRepository routeRepository, IBreadcrumbRepository breadcrumbRepository)
     {
         _categoryRepository = categoryRepository;
         _shopRepository = repository;
         _mapper = mapper;
         _fileService = fileService;
         _routeRepository = routeRepository;
+        _breadcrumbRepository = breadcrumbRepository;
     }
     
     public async Task<ShopResponse> Handle(CreateShop request, CancellationToken cancellationToken)
@@ -44,20 +46,28 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
 
         var newShop = _mapper.Map<Shop>(request);
         newShop.Categories = categories;
-        newShop.Image = await _fileService.UploadFile(request.Image, request.Destination!);
+        newShop.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
         
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.RouteName
+                Path = request.RoutePath
             }
         );
 
-        if (route is null)
+        var breadcrumb = await _breadcrumbRepository.AddAsync(new Breadcrumb()
+            {
+                Name = request.Title,
+                Link = request.Link
+            }
+        );
+        
+        if (route is null || breadcrumb is null)
         {
             return null;
         }
 
         newShop.RouteId = route.Id;
+        newShop.BreadcrumbId = breadcrumb.Id;
         
         return _mapper.Map<ShopResponse>(await _shopRepository.AddAsync(newShop));
     }

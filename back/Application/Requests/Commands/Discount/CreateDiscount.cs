@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 using Application.Responses;
 
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Requests.Commands.Discount;
 
@@ -15,11 +16,17 @@ public class CreateDiscount : IRequest<DiscountResponse>
     public string? Description { get; set; }
     
     [Required]
-    public string? LogoPath { get; set; }
+    public IFormFile? Image { get; set; }
     
     [Required]
     public string? Link { get; set; }
+    
+    [Required]
+    public string? RoutePath { get; set; }
 
     [Required]
     public Guid? ShopId { get; set; }
+    
+    [JsonIgnore]
+    public string? Destination { get; set; }
 }

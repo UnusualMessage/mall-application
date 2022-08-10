@@ -14,10 +14,12 @@ namespace API.Controllers;
 public class EventsController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public EventsController(IMediator mediator)
+    public EventsController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
     {
         _mediator = mediator;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     [AllowAnonymous]
@@ -30,6 +32,8 @@ public class EventsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CreateEvent request)
     {
+        request.Destination = _webHostEnvironment.WebRootPath;
+        
         return Ok(await _mediator.Send(request));
     }
 
@@ -42,6 +46,8 @@ public class EventsController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Put([FromForm] UpdateEvent request)
     {
+        request.Destination = _webHostEnvironment.WebRootPath;
+        
         return Ok(await _mediator.Send(request));
     }
 }

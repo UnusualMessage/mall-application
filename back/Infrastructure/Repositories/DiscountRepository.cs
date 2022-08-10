@@ -12,6 +12,22 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
     public DiscountRepository(ApplicationContext applicationContext) : base(applicationContext)
     {
     }
+    
+    public override async Task<Discount?> GetByIdAsync(Guid id)
+    {
+        return await ApplicationContext.Set<Discount>()
+            .Include(e => e.Route)
+            .Include(e => e.Breadcrumb)
+            .FirstOrDefaultAsync(e => e.Id == id);
+    }
+
+    public override async Task<IEnumerable<Discount>> GetAllAsync()
+    {
+        return await ApplicationContext.Set<Discount>()
+            .Include(e => e.Route)
+            .Include(e => e.Breadcrumb)
+            .ToListAsync();
+    }
 
     public override async Task<Discount> UpdateAsync(Discount entity)
     {

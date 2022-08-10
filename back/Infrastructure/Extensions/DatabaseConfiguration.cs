@@ -21,6 +21,7 @@ public static class DatabaseConfiguration
     {
         services.AddScoped<IContactsRepository, ContactsRepository>();
         services.AddScoped<IRouteRepository, RouteRepository>();
+        services.AddScoped<IBreadcrumbRepository, BreadcrumbRepository>();
         
         services.AddScoped<IShopRepository, ShopRepository>();
         services.AddScoped<IEventRepository, EventRepository>();

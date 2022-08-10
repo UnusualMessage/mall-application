@@ -11,6 +11,7 @@ public class ApplicationContext : DbContext
     public DbSet<Contacts>? Contacts { get; set; }
     public DbSet<Social>? Socials { get; set; }
     public DbSet<Route>? Routes { get; set; }
+    public DbSet<Breadcrumb>? Breadcrumbs { get; set; }
 
     public DbSet<Shop>? Shops { get; set; }
     public DbSet<Event>? Events { get; set; }
@@ -23,7 +24,7 @@ public class ApplicationContext : DbContext
 
     public ApplicationContext(DbContextOptions options) : base(options)
     {
-            
+        
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,5 +41,6 @@ public class ApplicationContext : DbContext
         modelBuilder.ApplyConfiguration(new ContactsConfiguration());
         modelBuilder.ApplyConfiguration(new SocialsConfiguration());
         modelBuilder.ApplyConfiguration(new RoutesConfiguration());
+        modelBuilder.ApplyConfiguration(new BreadcrumbConfiguration());
     }
 }

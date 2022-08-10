@@ -9,9 +9,11 @@ public class ShopResponse : Response
     public string? Schedule { get; set; }
     public string? Phone { get; set; }
     public string? Site { get; set; }
-    public string? Link { get; set; }
-    public string? RouteName { get; set; }
     public short Floor { get; set; }
-    public string? Image { get; set; }
+    public string? LogoPath { get; set; }
+    
+    public string? Link { get; set; }
+    public string? RoutePath { get; set; }
+    
     public ICollection<CategoryResponse>? Categories { get; set; }
 }

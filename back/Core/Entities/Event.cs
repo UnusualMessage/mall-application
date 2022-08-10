@@ -7,7 +7,12 @@ public class Event : Entity, IUpdatable<Event>
     public string? Title { get; set; }
     public string? Description { get; set; }
     public string? LogoPath { get; set; }
-    public string? Link { get; set; }
+    
+    public Guid? RouteId { get; set; }
+    public Route? Route { get; set; }
+    
+    public Guid? BreadcrumbId { get; set; }
+    public Breadcrumb? Breadcrumb { get; set; }
     
     public Guid? ShopId { get; set; }
     public Shop? Shop { get; set; }
@@ -17,7 +22,9 @@ public class Event : Entity, IUpdatable<Event>
         Title = entity.Title;
         Description = entity.Description;
         LogoPath = entity.LogoPath;
-        Link = entity.Link;
+
+        BreadcrumbId = entity.BreadcrumbId;
+        RouteId = entity.RouteId;
         ShopId = entity.ShopId;
     }
 }

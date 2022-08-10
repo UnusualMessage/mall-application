@@ -12,6 +12,22 @@ public class EventRepository : Repository<Event>, IEventRepository
     public EventRepository(ApplicationContext applicationContext) : base(applicationContext)
     {
     }
+    
+    public override async Task<Event?> GetByIdAsync(Guid id)
+    {
+        return await ApplicationContext.Set<Event>()
+            .Include(e => e.Route)
+            .Include(e => e.Breadcrumb)
+            .FirstOrDefaultAsync(e => e.Id == id);
+    }
+
+    public override async Task<IEnumerable<Event>> GetAllAsync()
+    {
+        return await ApplicationContext.Set<Event>()
+            .Include(e => e.Route)
+            .Include(e => e.Breadcrumb)
+            .ToListAsync();
+    }
 
     public override async Task<Event> UpdateAsync(Event entity)
     {

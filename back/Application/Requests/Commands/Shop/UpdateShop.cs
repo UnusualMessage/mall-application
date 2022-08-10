@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Application.Responses;
 
 using MediatR;
@@ -17,9 +18,12 @@ public class UpdateShop : IRequest<ShopResponse>
     public string? Phone { get; set; }
     public string? Site { get; set; }
     public string? Link { get; set; }
-    public string? RouteName { get; set; }
+    public string? RoutePath { get; set; }
     public short? Floor { get; set; }
-    public string? Destination { get; set; }
+    
     public IFormFile? Image { get; set; }
-    public ICollection<Core.Entities.Category>? Categories { get; set; } 
+    public ICollection<Guid>? CategoryIds { get; set; } 
+
+    [JsonIgnore]
+    public string? Destination { get; set; }
 }
