@@ -1,0 +1,42 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(row, center, center);
+
+  background: $back;
+
+  @media screen and (max-width: $medium) {
+	width: 100%;
+	position: absolute;
+	left: -$pre-big;
+	z-index: 11;
+
+	background-color: white;
+	transition: left 0.4s ease-in-out;
+	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .inner {
+	@include flexible(row, flex-start, space-around);
+	flex-wrap: wrap;
+
+	width: $pre-big;
+	padding: 20px;
+	gap: 20px;
+
+	@media screen and (max-width: $medium) {
+	  @include flexible(column, flex-start, space-around);
+	}
+  }
+}
+
+.burger {
+  @media screen and (max-width: $medium) {
+	left: 0;
+  }
+}
+
+
+

@@ -1,0 +1,47 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  width: 100%;
+  padding: 10px;
+
+  border-width: 4px;
+  border-style: solid;
+
+  .info {
+    @include flexible(row, center, space-between);
+    width: 100%;
+    padding: 10px;
+
+    .title {
+      line-height: 1.2;
+      border-style: solid;
+      border-width: 0;
+      border-bottom-width: 2px;
+      
+      @media screen and (max-width: $pre-medium) {
+        font-size: 22px;
+      }
+    }
+  }
+
+  .item {
+    width: 100%;
+
+    border: 3px solid white;
+    transition: 0.3s ease-in-out;
+    
+    &:hover {
+      border: 3px solid $hover
+    }
+  }
+
+  @media screen and (max-width: $pre-medium) {
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+  }
+}

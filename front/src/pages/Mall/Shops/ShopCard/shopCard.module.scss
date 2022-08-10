@@ -1,0 +1,98 @@
+@use "../../../../utils/mixins/flex" as *;
+@use "../../../../utils/constants/sizes" as *;
+@use "../../../../utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, center);
+  flex-basis: 30%;
+
+  gap: 15px;
+  padding: 10px;
+  z-index: 1;
+
+  border: 2px solid $back;
+  transition: border-color 0.3s, transform 0.3s ease-in-out;
+  background: $back;
+
+  .logo {
+	width: 100%;
+	min-width: 200px;
+  }
+
+  .title {
+	padding: 5px;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	transition: background 0.3s, color 0.3s ease-in-out;
+  }
+
+  .more {
+	@include flexible(row, center, space-between);
+
+	width: 100%;
+
+	.info {
+	  @include flexible(column, flex-start, center);
+	}
+
+	.floor {
+	  border: 1px solid $title;
+	  padding: 5px;
+	  transition: background 0.3s, color 0.3s ease-in-out;
+	}
+  }
+
+  @media screen and (min-width: $pre-big) {
+	&:hover {
+	  z-index: 2;
+
+	  border: 2px solid $shop;
+	  background: white;
+	  transform: scale(1.2);
+
+	  .title {
+		color: white;
+		background: $title;
+	  }
+
+	  .more {
+		.floor {
+		  color: white;
+		  background: $title;
+		}
+	  }
+	}
+  }
+
+  @media screen and (max-width: $pre-big) {
+	flex-basis: 30%;
+
+	&:active {
+	  border: 2px solid $shop;
+	  background: white;
+
+	  .title {
+		color: white;
+		background: $title;
+	  }
+
+	  .more {
+		.floor {
+		  color: white;
+		  background: $title;
+		}
+	  }
+	}
+  }
+
+  @media screen and (max-width: $medium) and (min-width: $pre-medium) {
+	flex-basis: 40%;
+  }
+
+  @media screen and (max-width: $pre-medium) {
+	flex-basis: 70%;
+  }
+}

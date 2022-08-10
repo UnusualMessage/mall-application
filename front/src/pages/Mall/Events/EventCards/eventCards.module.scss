@@ -1,0 +1,33 @@
+@use "../../../../utils/mixins/flex" as *;
+@use "../../../../utils/constants/sizes" as *;
+@use "../../../../utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, center, flex-start);
+
+  width: 100%;
+  position: relative;
+  gap: 20px;
+
+  .border {
+	width: 100%;
+	height: 200px;
+	position: absolute;
+
+	border: 5px solid $event;
+
+	@media screen and (max-width: $pre-medium) {
+	  border: 0;
+	  border-top: 5px solid $event;
+	}
+  }
+
+  .items {
+	@include flexible(row, flex-start, space-around);
+	flex-wrap: wrap;
+
+	width: 100%;
+	row-gap: 20px;
+	padding: 20px;
+  }
+}

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 viewBox="0 0 992 576" style="enable-background:new 0 0 992 576;" xml:space="preserve">
+<path fill="#CECDCD" d="M0,0v470h510v106h289.8C906,576,992,490,992,383.8V0H0z"/>
+<g>
+	<path fill="#FF7800" d="M75,10v75H20V10H75z"/>
+	<path fill="E66100" d="M20,85h55L65,95H10V20l10-10V85z"/>
+	<path fill="#252525" d="M68,50v10H58H48H38H28V35h10v5h10v5h10v5H68z"/>
+</g>
+<g>
+	<path fill="#FF7800" d="M980,10v75h-55V10H980z"/>
+	<path fill="E66100" d="M925,85h55l-10,10h-55V20l10-10V85z"/>
+	<path fill="#252525" d="M972,50v10h-10h-10h-10h-10V35h10v5h10v5h10v5H972z"/>
+</g>
+<g>
+	<rect x="825" y="10" fill="#9A9996" width="85" height="10"/>
+	<polygon fill="#77767B" points="825,10 820,15 820,25 905,25 910,20 825,20 	"/>
+</g>
+<g>
+	<path fill="#FF7800" d="M580,470v90h-55v-90l0,0H580z"/>
+	<path fill="E66100" d="M525,560h55l-10,10h-55l0,0v-90l10-10V560z"/>
+	<path fill="#252525" d="M572,517v10h-10h-10h-10h-10v-25h10v5h10v5h10v5H572z"/>
+</g>
+<g>
+	<path fill="#FF7800" d="M625,190v45h-60v-45H625z"/>
+	<path fill="E66100" d="M565,235h60l-10,10h-60v-45l10-10V235z"/>
+</g>
+<g>
+	<path fill="#FF7800" d="M935,295v45h-35v-45H935z"/>
+	<path fill="E66100" d="M900,340h35l-10,10h-35v-45l10-10V340z"/>
+</g>
+<g>
+	<path fill="#FF7800" d="M800,345v50H685v-50H800z"/>
+	<path fill="E66100" d="M685,395h115l-10,10H675v-50l10-10V395z"/>
+	<path fill="#252525" d="M760,370v10h-10h-10h-10h-10v-25h10v5h10v5h10v5H760z"/>
+</g>
+<g>
+	<g>
+		<polygon fill="#FF7800" points="90,10 90,100 80,100 20,100 20,450 360,450 360,10 		"/>
+		<polygon fill="E66100" points="20,100 10,110 10,460 350,460 360,450 20,450 		"/>
+		<polygon fill="E66100" points="90,10 80,20 80,100 90,100 		"/>
+	</g>
+	<text transform="matrix(1 0 0 1 105 246)" font-size="30.3447px" fill="#393939" font-family="ArialMT">ПЯТЕРОЧКА</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M510,190v90H375v-90H510z"/>
+		<path fill="E66100" d="M375,280l-10,10v-90l10-10V280z M365,290h135l10-10H375L365,290z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 405 246)" font-size="20.492px" fill="#393939" font-family="ArialMT">АПТЕКА</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M510,295v70H375v-70H510z"/>
+		<path fill="E66100" d="M375,365h135l-10,10H365v-70l10-10V365z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 390.0001 341.0002)" font-size="20.492px" fill="#393939" font-family="ArialMT">ВАРНИЦА</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M510,380v70H375v-70H510z"/>
+		<path fill="E66100" d="M375,450h135l-10,10H365v-70l10-10V450z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 400.0001 426.0002)" font-size="20.492px" fill="#393939" font-family="ArialMT">MATRIX</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M645,10v125H525V10H645z"/>
+		<path fill="E66100" d="M525,135h120l-10,10H515l0,0V20l10-10V135L525,135z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 535.0001 81)" font-size="20.492px" fill="#393939" font-family="ArialMT">УЮТЕРРА</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M730,10v125h-70V10H730z"/>
+		<path fill="E66100" d="M660,135h70l-10,10h-70l0,0V20l10-10V135L660,135z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 665 78)" font-size="14.8668px" fill="#393939" font-family="ArialMT">МЕБЕЛЬ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M815,10v125h-70V10H815z"/>
+		<path fill="E66100" d="M745,135h70l-10,10h-70V20l10-10V135z"/>
+	</g>
+	<rect x="742" y="59.8" fill="none" width="75" height="30.2"/>
+	<text transform="matrix(1.0031 0 0 1 747.3564 70.959)"><tspan x="0" y="0" font-size="13px" fill="#393939" font-family="ArialMT">КУРИНЫЙ </tspan><tspan x="17.2" y="15.6" font-size="13px" fill="#393939" font-family="ArialMT">ДОМ</tspan></text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M980,100v35H860v-35H980z"/>
+		<path fill="E66100" d="M860,135h120l-10,10H850v-35l10-10V135z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 865 123)" font-size="13.5665px" fill="#393939" font-family="ArialMT">УЗБЕКСКИЙ РАЙ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M980,150v60h-80v-60H980z"/>
+		<path fill="E66100" d="M900,210h80l-10,10h-80v-60l10-10V210z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 910 186)" font-size="14.8668px" fill="#393939" font-family="ArialMT">МИЛЕДИ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M980,225v55h-80v-55H980z"/>
+		<path fill="E66100" d="M900,280h80l-10,10h-80v-55l10-10V280z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 905 258.6353)" font-size="17.7361px" fill="#393939" font-family="ArialMT">КАПРИЗ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M980,295v100h-80v-40h40h10v-60H980z"/>
+		<path fill="E66100" d="M900,395h80l-10,10h-80v-40l10-10V395z M950,295l-10,10v50h10V295z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 902 381)" font-size="13.1216px" fill="#393939" font-family="ArialMT">ОК ОПТИКА</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M810,470v90H710v-90H810z"/>
+		<path fill="E66100" d="M710,560h100l-10,10H700v-90l10-10V560z"/>
+	</g>
+	<rect x="709.3" y="497.7" fill="none" width="99.9" height="34.1"/>
+	<text transform="matrix(1 0 0 1 712.9071 509.0533)"><tspan x="0" y="0" font-size="13.268px" fill="#393939" font-family="ArialMT">КАНЦТОВАРЫ </tspan><tspan x="14.6" y="18" font-size="13.268px" fill="#393939" font-family="ArialMT">ИГРУШКИ</tspan></text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M695,470v90H595v-90H695z"/>
+		<path fill="E66100" d="M595,560h100l-10,10H585v-90l10-10V560z"/>
+	</g>
+	<rect x="598" y="503.8" fill="none" width="92.7" height="23.9"/>
+	<text transform="matrix(1 0 0 1 599.4979 512.4405)"><tspan x="0" y="0" font-size="10.0733px" fill="#393939" font-family="ArialMT">БРИЛЛИАНТОВАЯ </tspan><tspan x="32" y="12" font-size="10.0733px" fill="#393939" font-family="ArialMT">РУКА</tspan></text>
+</g>
+<rect x="566.4" y="204.6" fill="none" width="58" height="22.8"/>
+<text transform="matrix(1 0 0 1 566.9596 212.1575)"><tspan x="0" y="0" font-size="8.8271px" fill="#393939" font-family="ArialMT">ЗООТОВАРЫ </tspan><tspan x="6.9" y="11" font-size="8.8271px" fill="#393939" font-family="ArialMT">ГАЛАНТЕРЕЯ</tspan></text>
+<g>
+	<g>
+		<path fill="#FF7800" d="M700,190v45h-60v-45H700z"/>
+		<path fill="E66100" d="M640,235h60l-10,10h-60v-45l10-10V235z"/>
+	</g>
+	<rect x="633.5" y="203.2" fill="none" width="73.8" height="23.3"/>
+	<text transform="matrix(1 0 0 1 643.5839 210.8159)"><tspan x="0" y="0" font-size="8.8931px" fill="#393939" font-family="ArialMT">ДОМАШНИЙ </tspan><tspan x="3.6" y="11" font-size="8.8931px" fill="#393939" font-family="ArialMT">ТЕКСТИЛЬ</tspan></text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M775,190v45h-60v-45H775z"/>
+		<path fill="E66100" d="M715,235h60l-10,10h-60v-45l10-10V235z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 722.0812 218.8806)" font-size="14.4549px" fill="#393939" font-family="ArialMT">DANDY</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M850,190v45h-60v-45H850z"/>
+		<path fill="E66100" d="M790,235h60l-10,10h-60v-45l10-10V235z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 793.3152 219.1105)" font-size="13.2843px" fill="#393939" font-family="ArialMT">МЕБЕЛЬ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M850,250v45h-60v-45H850z"/>
+		<path fill="E66100" d="M790,295h60l-10,10h-60v-45l10-10V295z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 794.0811 277.0808)" font-size="11.2173px" fill="#393939" font-family="ArialMT">МЕГАФОН</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M775,250v45h-60v-45H775z"/>
+		<path fill="E66100" d="M715,295h60l-10,10h-60v-45l10-10V295z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 718 276)" font-size="9.1197px" fill="#393939" font-family="ArialMT">СИМВОЛ.РФ</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M700,250v45h-60v-45H700z"/>
+		<path fill="E66100" d="M640,295h60l-10,10h-60v-45l10-10V295z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 647.251 279.9765)" font-size="20.492px" fill="#393939" font-family="ArialMT">МТС</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M625,250v45h-60v-45H625z"/>
+		<path fill="E66100" d="M565,295h60l-10,10h-60v-45l10-10V295z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 569.0004 278.0002)" font-size="11.2172px" fill="#393939" font-family="ArialMT">ЗОО МИР</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M670,345v50h-75v-50H670z"/>
+		<path fill="E66100" d="M595,395h75l-10,10h-75v-50l10-10V395z"/>
+	</g>
+	<rect x="596.7" y="358.2" fill="none" width="73.3" height="27.8"/>
+	<text transform="matrix(1 0 0 1 599.0051 367.2489)"><tspan x="0" y="0" font-size="10.5695px" fill="#393939" font-family="ArialMT">ВОСТОЧНЫЕ </tspan><tspan x="5" y="11" font-size="10.5695px" fill="#393939" font-family="ArialMT">СЛАДОСТИ</tspan></text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
+		<path fill="E66100" d="M450,135h60l-10,10h-60L450,135z M450,10l-10,10l0,125l10-10L450,10z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 460 85.9998)" font-size="20.492px" fill="#393939" font-family="ArialMT">WC</text>
+</g>
+<g>
+	<g>
+		<path fill="#FF7800" d="M435,10v125h-60V10H435z"/>
+		<path fill="E66100" d="M375,135h60l-10,10h-60L375,135z M375,10l-10,10l0,125l10-10L375,10z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 377 86)" font-size="13.5533px" fill="#393939" font-family="ArialMT">ОХРАНА</text>
+</g>
+</svg>

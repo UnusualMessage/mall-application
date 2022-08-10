@@ -1,0 +1,54 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/sizes" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, flex-start);
+
+  width: 100%;
+
+  .header {
+    @include flexible(row, flex-start, space-between);
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+
+    background-color: $back;
+
+    .title {
+      @include flexible(row, flex-start, flex-start);
+      gap: 10px;
+    }
+
+    .icon {
+      width: 25px;
+      height: 25px;
+      transform: rotate(-90deg);
+      transition: transform 0.5s ease-in-out;
+
+      svg {
+        path {
+          transition: fill 0.5s ease-in-out;
+        }
+      }
+    }
+
+    .active {
+      transform: rotate(0deg);
+
+      svg {
+        path {
+          fill: $hover;
+        }
+      }
+    }
+  }
+
+  .list {
+    @include flexible(column, flex-start, flex-start);
+    overflow: hidden;
+    width: 100%;
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out;
+  }
+}

@@ -1,0 +1,14 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  width: 320px;
+
+  background: $back;
+  border: 2px solid $low;
+  transition: border 0.3s ease-in-out;
+
+  .content {
+    padding: 5px 10px 5px 10px;
+  }
+}

@@ -1,0 +1,18 @@
+@use "../utils/constants/colors" as *;
+@use "../utils/constants/sizes" as *;
+
+.redBorder {
+  border-color: $shop;
+}
+
+.blueBorder {
+  border-color: $event;
+}
+
+.greenBorder {
+  border-color: $discount;
+}
+
+.hidden {
+  display: none;
+}

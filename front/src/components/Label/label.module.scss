@@ -1,0 +1,83 @@
+@use "../../utils/constants/colors" as *;
+@use "../../utils/mixins/text" as *;
+@use "../../utils/constants/sizes" as *;
+
+.default {
+  @include text(16px, $title, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 14px;
+  }
+}
+
+.mini {
+  @include text(13px, $low, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 12px;
+  }
+}
+
+.big {
+  @include text(18px, $title, none, normal);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 16px;
+  }
+}
+
+.large {
+  @include text(30px, $title, none, bold);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 24px;
+  }
+}
+
+.title {
+  @include text(36px, $title, none, bold);
+
+  @media screen and (max-width: $pre-medium) {
+    font-size: 26px;
+  }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.white {
+  color: white;
+}
+
+.hovered {
+  &:hover {
+       color: orange;
+       transition: 0.5s;
+       cursor: pointer;
+  }
+}

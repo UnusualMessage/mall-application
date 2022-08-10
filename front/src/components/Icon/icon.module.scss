@@ -1,0 +1,11 @@
+@use "../../utils/constants/colors" as *;
+
+.default {
+  width: 30px;
+  height: 30px;
+  fill: $middle;
+}
+
+.active {
+  fill: $hover;
+}

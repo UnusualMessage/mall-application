@@ -1,0 +1,33 @@
+@use "../../../utils/mixins/flex" as *;
+@use "../../../utils/constants/sizes" as *;
+@use "../../../utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(row, center, space-between);
+
+  width: 100%;
+  padding: 10px 5px 10px 0;
+  gap: 10px;
+
+  cursor: pointer;
+  border-left: 5px solid $border;
+
+  &:hover {
+	background: $back;
+	border-left: 5px solid $hover;
+  }
+
+  .count {
+	text-align: end;
+	flex-basis: 40px;
+  }
+
+  .name {
+	flex-basis: 100%;
+  }
+}
+
+.active {
+  background: $back;
+  border-left: 5px solid $hover;
+}

@@ -1,0 +1,47 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(row, center, center);
+
+  background: $back;
+  margin-top: 20px;
+
+  .inner {
+    @include flexible(row, flex-start, space-around);
+
+    padding: 20px;
+    gap: 20px;
+
+    flex-wrap: wrap;
+    width: $pre-big;
+
+    .start {
+      @include flexible(column, center, center);
+
+      gap: 20px;
+
+      .logo {
+        width: 250px;
+        height: 60px;
+      }
+
+      @media screen and (max-width: $medium) {
+        flex-basis: 100%;
+      }
+    }
+
+    .contacts {
+      @include flexible(column, flex-start, center);
+
+      gap: 10px;
+    }
+
+    .navs {
+      @include flexible(column, flex-start, center);
+
+      gap: 10px;
+    }
+  }
+}

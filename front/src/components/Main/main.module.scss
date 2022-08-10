@@ -1,0 +1,34 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(row, flex-start, center);
+  flex-grow: 1;
+
+  background: white;
+
+  .inner {
+	@include flexible(column, flex-start, center);
+
+	width: $pre-big;
+	padding: 20px;
+	gap: 30px;
+
+	@media screen and (max-width: $pre-big) and (min-width: $pre-medium) {
+	  overflow-x: hidden;
+	}
+
+	.title {
+	  border-bottom: 3px solid $hover;
+
+	  @media screen and (max-width: $pre-medium) {
+		font-size: 26px;
+	  }
+	}
+
+	@media screen and (max-width: $pre-big) {
+	  width: 100%;
+	}
+  }
+}

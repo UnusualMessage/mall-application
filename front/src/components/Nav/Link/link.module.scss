@@ -1,0 +1,39 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  gap: 10px;
+  flex-basis: 10%;
+  text-align: center;
+
+  @media screen and (max-width: $pre-big) and (min-width: $medium) {
+	flex-basis: 21%;
+  }
+
+  @media screen and (max-width: $medium) {
+    @include flexible(row, center, flex-start);
+
+    padding-bottom: 5px;
+    width: 100%;
+
+    border-bottom: 1px solid $border;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+}
+
+.burger {
+  @media screen and (max-width: $medium) {
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        transition: opacity #{0.2 * $i}s ease-in-out;
+      }
+    }
+
+    opacity: 1;
+  }
+}
+

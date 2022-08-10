@@ -1,0 +1,12 @@
+@use "/src/utils/mixins/flex" as *;
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(row, center, space-between);
+
+  width: 100%;
+  padding: 10px;
+  gap: 10px;
+
+  border-bottom: 2px solid $low;
+}

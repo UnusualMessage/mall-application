@@ -1,0 +1,46 @@
+{
+  "parser": "@typescript-eslint/parser",
+
+  "env": {
+    "es6": true
+  },
+
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  },
+
+  "ignorePatterns": ["**/*.css", "**/*.scss", "**/*.sass"],
+
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/strict"
+  ],
+
+  "rules": {
+    "quotes": "off",
+    "semi": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "react/react-in-jsx-scope": "off",
+
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/quotes": ["error", "double"],
+    "@typescript-eslint/type-annotation-spacing": ["error", {
+      "before": false,
+      "after": true,
+      "overrides": {
+        "arrow": {
+          "before": true,
+          "after": true
+        }
+      }
+    }]
+  },
+
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  }
+}

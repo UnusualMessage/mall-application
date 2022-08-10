@@ -1,0 +1,71 @@
+@use "../../../../utils/mixins/flex" as *;
+@use "../../../../utils/constants/sizes" as *;
+
+.wrapper {
+  @include flexible(row, center, space-between);
+  position: absolute;
+  padding: 10px;
+  z-index: 2;
+  width: 200px;
+  gap: 20px;
+
+  transition: left 0.3s, top 0.3s ease-in-out;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  background-color: white;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  animation: fade 0.3s;
+
+  &:after {
+	content: '';
+	position: absolute;
+	left: 45%;
+	top: 100%;
+	z-index: 2;
+
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid white;
+
+	@media screen and (max-width: $medium) {
+	  border-left: 7px solid transparent;
+	  border-right: 7px solid transparent;
+	  border-top: 7px solid white;
+	}
+  }
+
+  @media screen and (max-width: $medium) {
+	padding: 5px;
+	width: 150px;
+  }
+
+  .logo {
+	flex-basis: 30%;
+  }
+
+  .info {
+	@include flexible(column, flex-start, flex-start);
+	flex-basis: 65%;
+	pointer-events: visible;
+  }
+}
+
+@keyframes fade {
+  0% {
+	opacity: 0;
+  }
+
+  99% {
+	opacity: 0;
+  }
+
+  100% {
+	opacity: 1;
+  }
+}
+
+.visible {
+  opacity: 1;
+}

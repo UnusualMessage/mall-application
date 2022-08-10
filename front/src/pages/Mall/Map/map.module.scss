@@ -1,0 +1,83 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  width: 100%;
+  margin-top: 50px;
+  gap: 10px;
+
+  .toolbox {
+    @include flexible(row, center, space-between);
+
+    width: 100%;
+
+    .switcher {
+      padding: 5px;
+
+      border: 2px solid $title;
+      cursor: pointer;
+
+      @media screen and (min-width: $pre-big) {
+        &:hover {
+          color: white;
+          background: $title;
+        }
+      }
+
+      @media screen and (max-width: $pre-big) {
+        &:active {
+          color: white;
+          background: $title;
+        }
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    height: 576px;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+
+    @media screen and (max-width: $medium) {
+      height: 300px;
+    }
+
+    .dragger {
+      @include flexible(row, center, center);
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background-color: $back;
+      overflow: hidden;
+
+      border: 1px solid $hover;
+      touch-action: none;
+
+      .floor {
+        flex-shrink: 0;
+        flex-grow: 0;
+        width: 80%;
+        position: relative;
+        touch-action: none;
+
+        transition: transform 0.3s ease-in-out;
+
+        @media screen and (max-width: $pre-big) {
+          transform: scale(0.3);
+          width: $medium - 40px;
+        }
+      }
+    }
+
+    .dragging {
+      @media screen and (min-width: $pre-big) {
+        cursor: grab;
+      }
+    }
+  }
+}

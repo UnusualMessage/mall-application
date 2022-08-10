@@ -1,0 +1,21 @@
+@use "/src/utils/constants/colors" as *;
+
+.wrapper {
+  cursor: pointer;
+
+  text {
+	cursor: pointer;
+	user-select: none;
+	font-weight: bold;
+  }
+
+  &:hover {
+	path {
+	  fill: $hover;
+	}
+
+	polygon {
+	  fill: $hover;
+	}
+  }
+}

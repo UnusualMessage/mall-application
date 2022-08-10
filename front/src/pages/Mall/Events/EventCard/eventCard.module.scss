@@ -1,0 +1,61 @@
+@use "../../../../utils/mixins/flex" as *;
+@use "../../../../utils/constants/sizes" as *;
+@use "../../../../utils/constants/colors" as *;
+
+.wrapper {
+  @include flexible(column, flex-start, center);
+  flex-basis: 45%;
+
+  position: relative;
+  gap: 10px;
+  z-index: 1;
+
+  border: 2px solid white;
+  transition: all 0.3s ease-in-out;
+  background: $back;
+
+  .info {
+	@include flexible(column, center, center);
+
+	width: 100%;
+	min-height: 0;
+	z-index: 1;
+	bottom: 0;
+	position: absolute;
+	padding: 10px;
+
+	transition: min-height 0.5s ease-in-out;
+	background: #00000080;
+	text-align: center;
+
+	@media screen and (max-width: $pre-medium) {
+	  display: none;
+	}
+  }
+
+  .logo {
+	width: 100%;
+  }
+
+  @media screen and (min-width: $pre-big) {
+	&:hover {
+	  border: 2px solid $event;
+	  background: white;
+	  transform: scale(1.2);
+	  z-index: 2;
+
+	  .info {
+		min-height: 100%;
+	  }
+	}
+  }
+
+  @media screen and (max-width: $pre-big) {
+	&:active {
+	  border: 2px solid $event;
+	  background: white;
+	}
+
+	flex-basis: 80%;
+  }
+}

@@ -1,0 +1,7 @@
+@use "/src/utils/mixins/flex" as *;
+
+.wrapper {
+  @include flexible(row, center, center);
+
+  gap: 10px;
+}
