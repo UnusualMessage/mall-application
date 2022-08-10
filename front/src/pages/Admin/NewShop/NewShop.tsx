@@ -29,17 +29,21 @@ const NewShop = () => {
 	const { title, floor, schedule, phone, site, categories, description } = inputs;
 	
 	const handleCreate = async (values: Values) => {
+		if (!imagePreview) {
+			return;
+		}
+		
 		const transliteratedTitle = transliterate(values.title);
 		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
-			floor: values.floor,
+			floor: Number(values.floor),
 			schedule: values.schedule,
 			phone: values.phone,
-			categories: [values.categories],
+			categoryIds: ["58ffb128-1704-496d-98cb-5802160e86ce"],
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/shops/${transliteratedTitle}`
+			routeName: `/shops/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);

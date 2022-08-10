@@ -6,7 +6,7 @@ import DeleteEvent from "../interfaces/event/DeleteEvent";
 
 class EventService extends Service<Event, CreateEvent, UpdateEvent, DeleteEvent>{
 	constructor() {
-		super("https://localhost:44333/api/events/");
+		super("https://localhost:44328/api/events/");
 	}
 }
 

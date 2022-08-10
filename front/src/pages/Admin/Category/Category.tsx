@@ -9,7 +9,6 @@ import Button from "../../../components/Button";
 import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import categories from "../../../data/categories";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 import useForm, {Values} from "../../../hooks/useForm";
 import getCategoryForm from "../../../utils/getCategoryForm";
@@ -21,7 +20,7 @@ const Category = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const category = categories.find(category => category.id === id);
+	const category = CategoryStore.get().find(category => category.id === id);
 	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
@@ -68,7 +67,7 @@ const Category = () => {
 				isLoading ? <LoadingOverlay/> : <></>
 			}
 			
-			<TextInput {...form.title.options} onChange={title.onChange} />
+			<TextInput {...form.title.options} defaultValue={category.title} onChange={title.onChange} />
 			
 			<div className={classNames(css.buttons)}>
 				<Button text={"Изменить"} disabled={isLoading} submit/>

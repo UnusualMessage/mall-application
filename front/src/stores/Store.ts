@@ -1,4 +1,4 @@
-import {action, computed, observable, runInAction} from "mobx";
+import {action, observable, runInAction} from "mobx";
 import Service from "../api/services/Service";
 
 interface Request {

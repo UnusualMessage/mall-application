@@ -3,7 +3,7 @@ interface DeleteRequest {
 }
 
 class Service<T, CreateT, UpdateT, DeleteT extends DeleteRequest> {
-	private readonly webApiUrl: string;
+	protected readonly webApiUrl: string;
 	
 	constructor(webApiUrl: string) {
 		this.webApiUrl = webApiUrl;

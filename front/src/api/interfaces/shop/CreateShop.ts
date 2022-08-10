@@ -1,12 +1,15 @@
-export default interface CreateShop {
-	image?: File,
-	categories: string[],
-	floor: string,
+export default interface CreateShop extends Record<Key, Value> {
+	image: File,
+	categoryIds: string[],
+	floor: number,
 	title: string,
 	description: string,
 	schedule?: string,
 	phone?: string,
 	site?: string,
 	link: string,
-	route: string
+	routeName: string
 }
+
+type Key = string;
+type Value = string | string[] | File | number | undefined;

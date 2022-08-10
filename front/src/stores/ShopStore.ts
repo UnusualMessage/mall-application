@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable, runInAction} from "mobx";
 
 import Filterable from "../types/Filterable";
 import Store, {storeProps} from "./Store";
@@ -22,6 +22,7 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 			filter: observable,
 			
 			setFilter: action,
+			getAsync: action
 		});
 	}
 	
@@ -59,6 +60,21 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 	
 	public setFilter = (filter: string) => {
 		this.filter = filter;
+	};
+	
+	public createAsync = async (newData: CreateShop) => {
+		const service = this.service as ShopService;
+		
+		try {
+			const data = await service.post(newData);
+			
+			runInAction(() => {
+				this.data.push(data);
+			});
+			
+		} catch(error) {
+			this.invokeError("Request Error");
+		}
 	};
 }
 
