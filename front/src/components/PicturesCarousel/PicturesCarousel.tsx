@@ -25,7 +25,7 @@ const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, col
 					images.map((image: Image, index) => {
 						return(
 							<Carousel.Item key={index}>
-								<InnerLink className={classNames()} to={"/" + image.route}>
+								<InnerLink className={classNames()} to={image.routePath}>
 									<Image classes={classNames(css.item)} source={image.image}/>
 								</InnerLink>
 							</Carousel.Item>
@@ -39,7 +39,7 @@ const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, col
 
 interface Image {
 	image: string,
-	route: string
+	routePath: string
 }
 
 interface Props {

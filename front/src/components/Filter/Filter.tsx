@@ -17,11 +17,17 @@ const Filter = ({ store, categories }: Props ) => {
 		[css.active]: isFilterActive
 	});
 	
+	const categoriesWithAll = [...categories];
+	categoriesWithAll.unshift(...[{
+		id: "1",
+		title: "Все"
+	}]);
+	
 	return(
 		<div className={classes}>
-			{categories.map(category => {
+			{categoriesWithAll.map(category => {
 				return(
-					<Option key={category.title}
+					<Option key={category.id}
 					        count={store.getCountByCategoryId(category.id).toString()}
 					        text={category.title} store={store}/>
 				);

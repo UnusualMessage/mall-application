@@ -8,7 +8,7 @@ import label from "../Label/label.module.scss";
 import Breadcrumbs from "../Breadcrumbs";
 import Label from "../Label";
 
-import Breadcrumb from "../../types/Breadcrumb";
+import Breadcrumb from "../../api/interfaces/breadcrumb/Breadcrumb";
 
 const Main = ({ breadcrumbs, children }: Props) => {
 	return(
