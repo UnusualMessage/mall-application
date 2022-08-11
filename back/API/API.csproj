@@ -19,46 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\dm_knigi_1200_auto_jpg.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\dm_malyshi_new_1200_auto_jpg.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\el_dorado_dacha_1200_auto_jpg.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\el_dorado_samokaty_1200_auto_jpg.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\zenden_1200_auto_jpg.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\befree.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\detskij_mir.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\novyj_logo_sportmaster.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\obi.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\perekrestok.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\images\shops\tom_tailor.jpg" />
-      <_ContentIncludedByDefault Remove="wwwroot\index.html" />
-      <_ContentIncludedByDefault Remove="wwwroot\Logo.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\manifest.json" />
-      <_ContentIncludedByDefault Remove="wwwroot\robots.txt" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.2184e8b4314269f98d0d.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.a24a83fc01b14728e2d6.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.ad40777e978834c94f4c.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.b3d6e8c7c0fc649696d8.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.bee63626fef18313bab4.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.cbdeb20c07b7c70b0186.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\css\style.d4ba07f786de2715a0cd.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\107.b4f80d2fc480b51541d4.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\16.755ad672968b17ad6864.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\166.3c178a256936c5c7b6a6.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\222.346b6c54335841d19c16.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\297.1ed0ae28e287b5b0c463.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\534.859bd164adeb03061ee0.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\630.82855f91a169b0cab62a.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\694.93f83fb30e9759c7c730.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\702.985c663dae24dbc15aa5.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\766.6ea2c002c22ecc2d3927.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\844.5ec7b141da44537cbf3d.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\942.1319f5e8d4685fbb47da.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\main.591c204460241cad3d88.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\modules.361365964d4fae218944.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\modules.361365964d4fae218944.js.LICENSE.txt" />
-      <_ContentIncludedByDefault Remove="wwwroot\static\js\runtime.85482fcbbb2c0582feab.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\content\12619-skaly-vodoem-mestnost-poberezhe-rok-1920x1080.jpg" />
+      <Folder Include="wwwroot" />
     </ItemGroup>
 
 </Project>

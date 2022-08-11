@@ -2,3 +2,4 @@
 */bin
 *.DotSettings.user
 .idea
+API/wwwroot
