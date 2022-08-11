@@ -1,4 +1,4 @@
-import {action, observable, runInAction} from "mobx";
+import {action, observable, runInAction, toJS} from "mobx";
 import Service from "../api/services/Service";
 
 interface Request {
@@ -43,7 +43,7 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 	};
 	
 	public get() {
-		return this.data;
+		return toJS(this.data);
 	}
 	
 	public getCount() {
@@ -54,18 +54,18 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 		return this.successful;
 	}
 	
-	public getAsync = async () => {
+	public getAsync = async (query: string) => {
 		try {
-			const query = "";
 			const data = await this.service.get(query);
 			
 			runInAction(() => {
 				this.data = data;
 			});
-			
 		} catch(error) {
 			this.invokeError("Request Error");
 		}
+		
+		return this.data;
 	};
 	
 	public createAsync = async (newData: CreateT) => {

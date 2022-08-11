@@ -1,14 +1,23 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 
-import Breadcrumb from "../types/Breadcrumb";
-import { breadcrumbs } from "../data/breadcrumbs";
-import {routes} from "../data/routes";
+import Breadcrumb from "../api/interfaces/breadcrumb/Breadcrumb";
+import BreadcrumbService from "../api/services/BreadcrumbService";
+import RouteService from "../api/services/RouteService";
+import Route from "../api/interfaces/route/Route";
 
 class NavigationStore {
 	private breadcrumbs: Breadcrumb[] = [];
 	
+	private totalBreadcrumbs: Breadcrumb[] = [];
+	private totalRoutes: Route[] = [];
+	
+	private breadcrumbService: BreadcrumbService;
+	private routeService: RouteService;
+	
 	constructor() {
 		this.toStart();
+		this.breadcrumbService = new BreadcrumbService("https://localhost:44328/api/breadcrumbs/");
+		this.routeService = new RouteService("https://localhost:44328/api/routes/");
 		
 		makeAutoObservable(this);
 	}
@@ -19,31 +28,46 @@ class NavigationStore {
 	
 	public toStart = () => {
 		this.breadcrumbs = [{
-			name: breadcrumbs[0].name,
-			route: breadcrumbs[0].route
+			name: "Главная",
+			link: "/"
 		}];
 	};
 	
 	public toNext = (path: string) => {
 		this.toStart();
 		
-		if (!routes.find(route => path === route.path)) {
+		if (!this.totalRoutes.find(route => path === route.path)) {
 			return;
 		}
 		
 		const currentRoutes: string[] = path.split("/").filter(route => route !== "");
 		
 		for (const currentRoute of currentRoutes) {
-			const route = breadcrumbs.find(breadcrumb => currentRoute === breadcrumb.route);
+			const route = this.totalBreadcrumbs.find(breadcrumb => currentRoute === breadcrumb.link);
 			
 			if (route) {
-				this.get().push({
+				this.breadcrumbs.push({
 					name: route.name,
-					route: currentRoute
+					link: currentRoute
 				});
 			} else {
 				this.toStart();
 			}
+		}
+	};
+	
+	public getAsync = async (query: string) => {
+		try {
+			const breadcrumbs = await this.breadcrumbService.get(query);
+			const routes = await this.routeService.get(query);
+			
+			runInAction(() => {
+				this.totalBreadcrumbs = breadcrumbs;
+				this.totalRoutes = routes;
+			});
+			
+		} catch(error) {
+		
 		}
 	};
 }

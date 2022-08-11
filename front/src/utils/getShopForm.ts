@@ -68,10 +68,10 @@ const getShopForm = (shop?: Shop): Returns => {
 			}
 		},
 		
-		categories: {
-			value: shop?.categories[1].id,
+		category: {
+			value: shop?.categories[0].id,
 			options: {
-				name: "categories",
+				name: "category",
 				placeholder: "Выберите категорию",
 				label: "Категория"
 			}

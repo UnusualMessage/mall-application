@@ -7,13 +7,12 @@ import DeleteShop from "../api/interfaces/shop/DeleteShop";
 import CreateShop from "../api/interfaces/shop/CreateShop";
 import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
-import shops from "../data/shops";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implements Filterable {
 	filter: string;
 	
 	constructor() {
-		super(new ShopService(), shops);
+		super(new ShopService(), []);
 		
 		this.filter = "Все";
 		
@@ -27,6 +26,10 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 	}
 	
 	public getCountByCategoryId = (id: string) => {
+		if (id === "1") {
+			return this.data.length;
+		}
+		
 		let count = 0;
 		
 		for (const shop of this.data) {
