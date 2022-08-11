@@ -11,5 +11,5 @@ export default interface Shop {
 	phone: string,
 	site: string,
 	link: string,
-	route: string
+	routePath: string
 }

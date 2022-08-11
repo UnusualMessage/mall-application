@@ -3,6 +3,6 @@ export default interface CreateEvent {
 	description: string,
 	image: File,
 	link: string,
-	route: string,
+	routePath: string,
 	shopId: string
 }

@@ -9,5 +9,5 @@ export default interface UpdateShop {
 	phone?: string,
 	site?: string,
 	link?: string,
-	route?: string
+	routePath?: string
 }

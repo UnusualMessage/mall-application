@@ -8,7 +8,7 @@ export default interface CreateShop extends Record<Key, Value> {
 	phone?: string,
 	site?: string,
 	link: string,
-	routeName: string
+	routePath: string
 }
 
 type Key = string;

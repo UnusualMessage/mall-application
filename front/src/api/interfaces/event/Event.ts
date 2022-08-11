@@ -6,6 +6,6 @@ export default interface Event {
 	description: string,
 	image: string,
 	link: string,
-	route: string,
+	routePath: string,
 	shop: Shop
 }

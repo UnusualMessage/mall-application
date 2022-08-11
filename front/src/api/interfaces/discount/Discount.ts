@@ -5,7 +5,7 @@ export default interface Discount {
 	title: string,
 	image: string,
 	link: string,
-	route: string,
+	routePath: string,
 	description: string,
 	shop: Shop
 }
