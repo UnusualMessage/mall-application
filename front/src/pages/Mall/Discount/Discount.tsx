@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./discount.module.scss";
@@ -13,21 +13,29 @@ import {InnerLink, OuterLink} from "../../../components/Link";
 import Icon from "../../../components/Icon";
 import Hider from "../../../components/Hider";
 
-import discounts from "../../../data/discounts";
+import DiscountInterface from "../../../api/interfaces/discount/Discount";
 import icons from "../../../data/icons";
-import {routes} from "../../../data/routes";
+import DiscountStore from "../../../stores/DiscountStore";
 
 const Discount = () => {
-	const { discountId } = useParams();
+	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const discount = discounts.find(discount => discount.link === discountId);
+	const [discount, setDiscount] = useState<DiscountInterface>();
 	
 	useEffect(() => {
-		if (!discount) {
-			redirect(routes[0].path);
-		}
-	}, [discount]);
+		const getDiscount = async () => {
+			const discounts = await DiscountStore.getAsync(`Filters=Id==${id}`);
+			
+			if (discounts.length !== 0) {
+				setDiscount(discounts[0]);
+			} else {
+				redirect("/");
+			}
+		};
+		
+		void getDiscount();
+	}, [id]);
 	
 	if (!discount) {
 		return null;
@@ -36,7 +44,7 @@ const Discount = () => {
 	return(
 		<div className={classNames(css.wrapper)}>
 			<div className={classNames(css.info)}>
-				<InnerLink className={classNames(css.image)} to={"/" + discount.shop.route}>
+				<InnerLink className={classNames(css.image)} to={discount.shop.routePath}>
 					<Image classes={classNames()} source={discount.shop.image}/>
 				</InnerLink>
 				

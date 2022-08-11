@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import {memo} from "react";
 
 import css from "./shopCard.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -11,7 +12,7 @@ import Shop from "../../../../api/interfaces/shop/Shop";
 
 const ShopCard = ({ shop }: Props) => {
 	return(
-		<InnerLink className={classNames(css.wrapper)} to={shop.link}>
+		<InnerLink className={classNames(css.wrapper)} to={shop.routePath}>
 			<Image classes={classNames(css.logo)} source={shop.image}/>
 			<Label className={classNames(css.title, label.default, label.bold)} text={shop.title}/>
 
@@ -31,4 +32,4 @@ interface Props {
 	shop: Shop
 }
 
-export default ShopCard;
+export default memo(ShopCard);

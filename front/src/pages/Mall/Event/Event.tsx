@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import classNames from "classnames";
 
 import css from "./event.module.scss";
@@ -13,20 +13,28 @@ import {InnerLink, OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
 
 import icons from "../../../data/icons";
-import events from "../../../data/events";
-import {routes} from "../../../data/routes";
+import EventInterface from "../../../api/interfaces/event/Event";
+import EventStore from "../../../stores/EventStore";
 
 const Event = () => {
-	const { eventId } = useParams();
+	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const event = events.find(event => event.link === eventId);
+	const [event, setEvent] = useState<EventInterface>();
 	
 	useEffect(() => {
-		if (!event) {
-			redirect(routes[0].path);
-		}
-	}, [event]);
+		const getEvent = async () => {
+			const events = await EventStore.getAsync(`Filters=Id==${id}`);
+			
+			if (events.length !== 0) {
+				setEvent(events[0]);
+			} else {
+				redirect("/");
+			}
+		};
+		
+		void getEvent();
+	}, [id]);
 	
 	if (!event) {
 		return null;
@@ -35,7 +43,7 @@ const Event = () => {
 	return(
 		<div className={classNames(css.wrapper)}>
 			<div className={classNames(css.info)}>
-				<InnerLink className={classNames(css.image)} to={"/" + event.shop.route}>
+				<InnerLink className={classNames(css.image)} to={event.shop.routePath}>
 					<Image classes={classNames()} source={event.shop.image}/>
 				</InnerLink>
 				

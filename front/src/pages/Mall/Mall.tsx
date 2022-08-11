@@ -1,4 +1,4 @@
-import { Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import React, {lazy} from "react";
 
 import Loader from "../../components/Loader";
@@ -14,8 +14,6 @@ const Event = lazy(() => import("./Event"));
 const Map = lazy(() => import("./Map"));
 const Info = lazy(() => import("./Info"));
 
-import {discounts, events, info, map, shops} from "../../data/breadcrumbs";
-
 const Mall = () => {
 	return(
 		<React.Suspense fallback={<Loader/>}>
@@ -23,17 +21,17 @@ const Mall = () => {
 				<Route path="*" element={<Base />}>
 					<Route path="*" element={<Home />}/>
 					
-					<Route path={shops.route} element={<Shops />}/>
-					<Route path={`${shops.route}/:shopId`} element={<Shop />}/>
+					<Route path="shops" element={<Shops />}/>
+					<Route path={"shops/:title/:id"} element={<Shop />}/>
 					
-					<Route path={discounts.route} element={<Discounts />}/>
-					<Route path={`${discounts.route}/:discountId`} element={<Discount />}/>
+					<Route path={"discounts"} element={<Discounts />}/>
+					<Route path={"discounts/:title/:id"} element={<Discount />}/>
 					
-					<Route path={events.route} element={<Events />}/>
-					<Route path={`${events.route}/:eventId`} element={<Event />}/>
+					<Route path={"events"} element={<Events />}/>
+					<Route path={"events/:title/:id"} element={<Event />}/>
 					
-					<Route path={map.route} element={<Map />}/>
-					<Route path={info.route} element={<Info />}/>
+					<Route path={"map"} element={<Map />}/>
+					<Route path={"info"} element={<Info />}/>
 				
 				</Route>
 			</Routes>

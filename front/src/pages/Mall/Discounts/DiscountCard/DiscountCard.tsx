@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import {memo} from "react";
 
 import css from "./discountCard.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -24,4 +25,4 @@ interface Props {
 	discount: Discount
 }
 
-export default DiscountCard;
+export default memo(DiscountCard);

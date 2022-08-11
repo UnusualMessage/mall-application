@@ -11,7 +11,7 @@ import Shop from "../../../../api/interfaces/shop/Shop";
 
 const Shop = ({ shop }: Props) => {
 	return(
-		<InnerLink className={classNames()} to={"/" + shop.route} key={shop.id}>
+		<InnerLink className={classNames()} to={shop.routePath} key={shop.id}>
 			<Label text={shop.title} className={classNames(label.mini, link.underlined)}/>
 		</InnerLink>
 	);

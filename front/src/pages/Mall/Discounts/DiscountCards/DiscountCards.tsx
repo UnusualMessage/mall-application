@@ -1,5 +1,6 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
+import {useEffect, useState} from "react";
 
 import css from "./discountCards.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -10,9 +11,23 @@ import DiscountCard from "../DiscountCard";
 import DiscountStore from "../../../../stores/DiscountStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 import toRightForm from "../../../../utils/toRightForm";
+import Discount from "../../../../api/interfaces/discount/Discount";
 
 const DiscountCards = () => {
-	const discountsCount = DiscountStore.getCount();
+	const [discounts, setDiscounts] = useState<Discount[]>();
+	
+	useEffect(() => {
+		const getDiscounts = async () => {
+			const discounts = await DiscountStore.getAsync("");
+			setDiscounts(discounts);
+		};
+		
+		void getDiscounts();
+	}, []);
+	
+	if (!discounts) {
+		return null;
+	}
 	
 	const onFilterSwitch = () => {
 		InterfaceStore.switchFilter();
@@ -29,8 +44,8 @@ const DiscountCards = () => {
 				<Label text={"Фильтр"} className={classNames(css.switcher, label.mini, label.upper)} onClick={onFilterSwitch}/>
 				
 				<div className={classNames(css.container)}>
-					<Label className={classNames(label.large)} text={`${discountsCount}`}/>
-					<Label text={toRightForm(discountsCount, [" акция", " акции", " акций"])}
+					<Label className={classNames(label.large)} text={`${discounts.length}`}/>
+					<Label text={toRightForm(discounts.length, [" акция", " акции", " акций"])}
 					       className={classNames(label.default, label.big)}/>
 				</div>
 			</div>
