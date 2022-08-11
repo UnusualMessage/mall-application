@@ -58,10 +58,7 @@
       <_ContentIncludedByDefault Remove="wwwroot\static\js\modules.361365964d4fae218944.js" />
       <_ContentIncludedByDefault Remove="wwwroot\static\js\modules.361365964d4fae218944.js.LICENSE.txt" />
       <_ContentIncludedByDefault Remove="wwwroot\static\js\runtime.85482fcbbb2c0582feab.js" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\content" />
+      <_ContentIncludedByDefault Remove="wwwroot\content\12619-skaly-vodoem-mestnost-poberezhe-rok-1920x1080.jpg" />
     </ItemGroup>
 
 </Project>
