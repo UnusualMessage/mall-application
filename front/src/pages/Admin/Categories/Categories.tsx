@@ -17,10 +17,12 @@ const Categories = () => {
 	const [categories, setCategories] = useState<Category[]>([]);
 	
 	useEffect(() => {
-		runInAction(async () => {
-			await CategoryStore.getAsync();
-			setCategories(CategoryStore.get());
-		});
+		const getCategories = async () => {
+			const categories = await CategoryStore.getAsync("");
+			setCategories(categories);
+		};
+		
+		void getCategories();
 	}, []);
 	
 	return (

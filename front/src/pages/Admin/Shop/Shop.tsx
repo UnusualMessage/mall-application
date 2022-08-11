@@ -11,20 +11,21 @@ import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
-import shops from "../../../data/shops";
 import InterfaceStore from "../../../stores/InterfaceStore";
-import categoriesData from "../../../data/categories";
 import useForm, {Values} from "../../../hooks/useForm";
 import ShopStore from "../../../stores/ShopStore";
 import getShopForm from "../../../utils/getShopForm";
 import transliterate from "../../../utils/transliterate";
 import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
+import Category from "../../../api/interfaces/category/Category";
+import CategoryStore from "../../../stores/CategoryStore";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
 	const [shop, setShop] = useState<ShopInterface>();
+	const [categories, setCategories] = useState<Category[]>([]);
 	const [imagePreview, setImagePreview] = useState<File>();
 	
 	const isLoading = InterfaceStore.isLoading();
@@ -34,16 +35,22 @@ const Shop = () => {
 	}, [shop]);
 	
 	const { inputs, handleSubmit } = useForm({ form: form });
-	const { title, floor, schedule, phone, site, categories, description } = inputs;
+	const { title, floor, schedule, phone, site, category, description } = inputs;
 	
 	useEffect(() => {
-		const shop = shops.find(shop => shop.link === id);
+		const getShop = async () => {
+			const shops = await ShopStore.getAsync(`Filters=Id==${id}`);
+			const categories = await CategoryStore.getAsync("");
+			
+			if (shops.length !== 0) {
+				setShop(shops[0]);
+				setCategories(categories);
+			} else {
+				redirect("../");
+			}
+		};
 		
-		if (!shop) {
-			redirect("../");
-		}
-		
-		setShop(shop);
+		void getShop();
 	}, [id]);
 	
 	if (!shop) {
@@ -61,11 +68,12 @@ const Shop = () => {
 			description: values.description,
 			floor: values.floor,
 			schedule: values.schedule,
+			site: values.site,
 			phone: values.phone,
 			categories: [values.categories],
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/shops/${transliteratedTitle}`
+			routePath: `/shops/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);
@@ -104,10 +112,10 @@ const Shop = () => {
 				<TextInput {...form.phone.options} defaultValue={shop.phone} onChange={phone.onChange} />
 				<TextInput {...form.site.options} defaultValue={shop.site} onChange={site.onChange} />
 				
-				<SelectInput {...form.categories.options}
-				             defaultValue={shop.categories[1].id}
-				             onChange={categories.onChange}
-				             values={categoriesData}
+				<SelectInput {...form.category.options}
+				             defaultValue={shop.categories[0].id}
+				             onChange={category.onChange}
+				             values={categories}
 				/>
 				
 				<TextInput {...form.description.options} defaultValue={shop.description} onChange={description.onChange} />

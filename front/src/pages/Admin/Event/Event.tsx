@@ -10,7 +10,6 @@ import Image from "../../../components/Image";
 import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
-import events from "../../../data/events";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import EventStore from "../../../stores/EventStore";
@@ -18,16 +17,16 @@ import useForm, {Values} from "../../../hooks/useForm";
 import getEventForm from "../../../utils/getEventForm";
 import shops from "../../../data/shops";
 import UpdateEvent from "../../../api/interfaces/event/UpdateEvent";
+import EventInterface from "../../../api/interfaces/event/Event";
 
 const Event = () => {
-	const [imagePreview, setImagePreview] = useState<File>();
-	
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const isLoading = InterfaceStore.isLoading();
+	const [event, setEvent] = useState<EventInterface>();
+	const [imagePreview, setImagePreview] = useState<File>();
 	
-	const event = events.find(event => event.link === id);
+	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
 		return getEventForm(event);
@@ -37,9 +36,17 @@ const Event = () => {
 	const { title, description, shop } = inputs;
 	
 	useEffect(() => {
-		if (!event) {
-			redirect("");
-		}
+		const getEvent = async () => {
+			const events = await EventStore.getAsync(`Filters=Id==${id}`);
+			
+			if (events.length !== 0) {
+				setEvent(events[0]);
+			} else {
+				redirect("../");
+			}
+		};
+		
+		void getEvent();
 	}, [event]);
 	
 	if (!event) {
@@ -68,12 +75,12 @@ const Event = () => {
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/events/${transliteratedTitle}`,
+			routePath: `/events/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		
 		InterfaceStore.setLoading(true);
-		await EventStore.createAsync(newEvent);
+		await EventStore.updateAsync(newEvent);
 		InterfaceStore.setLoading(false);
 	};
 	

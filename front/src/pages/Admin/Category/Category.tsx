@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {MouseEventHandler, useEffect, useMemo} from "react";
+import {MouseEventHandler, useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
@@ -15,12 +15,14 @@ import getCategoryForm from "../../../utils/getCategoryForm";
 import UpdateCategory from "../../../api/interfaces/category/UpdateCategory";
 import CategoryStore from "../../../stores/CategoryStore";
 import DeleteCategory from "../../../api/interfaces/category/DeleteCategory";
+import CategoryInterface from "../../../api/interfaces/category/Category";
 
 const Category = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const category = CategoryStore.get().find(category => category.id === id);
+	const [category, setCategory] = useState<CategoryInterface>();
+	
 	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
@@ -31,9 +33,16 @@ const Category = () => {
 	const { title } = inputs;
 	
 	useEffect(() => {
-		if (!category) {
-			redirect("");
-		}
+		const getCategory = async () => {
+			const categories = await CategoryStore.getAsync(`Filters=Id==${id}`);
+			if (categories.length !== 0) {
+				setCategory(categories[0]);
+			} else {
+				redirect("../");
+			}
+		};
+		
+		void getCategory();
 	}, [category]);
 	
 	if (!category) {

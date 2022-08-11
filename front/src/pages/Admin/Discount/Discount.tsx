@@ -10,7 +10,6 @@ import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import Image from "../../../components/Image";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
-import discounts from "../../../data/discounts";
 import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -18,16 +17,16 @@ import shops from "../../../data/shops";
 import getDiscountForm from "../../../utils/getDiscountForm";
 import useForm, {Values} from "../../../hooks/useForm";
 import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
+import DiscountInterface from "../../../api/interfaces/discount/Discount";
 
 const Discount = () => {
-	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
-	
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const isLoading = InterfaceStore.isLoading();
+	const [discount, setDiscount] = useState<DiscountInterface>();
+	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	
-	const discount = discounts.find(discount => discount.link === id);
+	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
 		return getDiscountForm(discount);
@@ -37,9 +36,17 @@ const Discount = () => {
 	const { title, description, shop } = inputs;
 	
 	useEffect(() => {
-		if (!discount) {
-			redirect("");
-		}
+		const getDiscount = async () => {
+			const discounts = await DiscountStore.getAsync(`Filters=Id==${id}`);
+			
+			if (discounts.length !== 0) {
+				setDiscount(discounts[0]);
+			} else {
+				redirect("../");
+			}
+		};
+		
+		void getDiscount();
 	}, [discount]);
 	
 	if (!discount) {
@@ -72,7 +79,7 @@ const Discount = () => {
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/discounts/${transliteratedTitle}`,
+			routePath: `/discounts/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		

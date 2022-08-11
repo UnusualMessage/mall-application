@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 import css from "../article.module.scss";
 
@@ -9,18 +9,29 @@ import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 import Image from "../../../components/Image";
 
-import shops from "../../../data/shops";
 import getDiscountForm from "../../../utils/getDiscountForm";
 import useForm, {Values} from "../../../hooks/useForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import DiscountStore from "../../../stores/DiscountStore";
 import transliterate from "../../../utils/transliterate";
 import CreateDiscount from "../../../api/interfaces/discount/CreateDiscount";
+import Shop from "../../../api/interfaces/shop/Shop";
+import ShopStore from "../../../stores/ShopStore";
 
 const NewDiscount = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [shops, setShops] = useState<Shop[]>([]);
 	
 	const isLoading = InterfaceStore.isLoading();
+	
+	useEffect(() => {
+		const getShops = async () => {
+			const shops = await ShopStore.getAsync("");
+			setShops(shops);
+		};
+		
+		void getShops();
+	}, []);
 	
 	const form = useMemo(() => {
 		return getDiscountForm();
@@ -40,7 +51,7 @@ const NewDiscount = () => {
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/discounts/${transliteratedTitle}`,
+			routePath: `/discounts/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		

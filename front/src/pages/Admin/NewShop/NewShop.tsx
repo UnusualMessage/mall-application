@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
@@ -9,25 +9,37 @@ import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 import Button from "../../../components/Button";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 
-import categoriesData from "../../../data/categories";
 import getShopForm from "../../../utils/getShopForm";
 import useForm, {Values} from "../../../hooks/useForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
 import ShopStore from "../../../stores/ShopStore";
+import CategoryStore from "../../../stores/CategoryStore";
+import Category from "../../../api/interfaces/category/Category";
 
 const NewShop = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [categories, setCategories] = useState<Category[]>([]);
+	
 	const isLoading = InterfaceStore.isLoading();
 	
 	const form = useMemo(() => {
 		return getShopForm();
 	}, []);
 	
-	const { inputs, handleSubmit } = useForm({ form: form });
-	const { title, floor, schedule, phone, site, categories, description } = inputs;
+	useEffect(() => {
+		const getCategories = async () => {
+			const categories = await CategoryStore.getAsync("");
+			setCategories(categories);
+		};
+		
+		void getCategories();
+	}, []);
 	
+	const { inputs, handleSubmit } = useForm({ form: form });
+	const { title, floor, schedule, phone, site, category, description } = inputs;
+
 	const handleCreate = async (values: Values) => {
 		if (!imagePreview) {
 			return;
@@ -39,11 +51,12 @@ const NewShop = () => {
 			description: values.description,
 			floor: Number(values.floor),
 			schedule: values.schedule,
+			site: values.site,
 			phone: values.phone,
-			categoryIds: ["58ffb128-1704-496d-98cb-5802160e86ce"],
+			categoryIds: [values.category],
 			image: imagePreview,
 			link: transliteratedTitle,
-			routeName: `/shops/${transliteratedTitle}`
+			routePath: `/shops/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);
@@ -66,8 +79,8 @@ const NewShop = () => {
 				<TextInput {...form.floor.options} onChange={floor.onChange} />
 				<TextInput {...form.schedule.options} onChange={schedule.onChange} />
 				<TextInput {...form.phone.options} onChange={phone.onChange} />
-				<TextInput {...form.site.options}onChange={site.onChange} />
-				<SelectInput {...form.categories.options} onChange={categories.onChange} values={categoriesData}/>
+				<TextInput {...form.site.options} onChange={site.onChange} />
+				<SelectInput {...form.category.options} onChange={category.onChange} values={categories}/>
 				<TextInput {...form.description.options} onChange={description.onChange} />
 			</div>
 			

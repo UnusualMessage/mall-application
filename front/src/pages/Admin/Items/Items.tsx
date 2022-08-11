@@ -21,7 +21,7 @@ const Items = ({ items }: Props) => {
 			{
 				items.map(item => {
 					return (
-						<ItemBar title={item.title} image={item.image} to={item.link} key={item.id}/>
+						<ItemBar title={item.title} image={item.image} to={item.id} key={item.id}/>
 					);
 				})
 			}

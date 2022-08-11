@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 import css from "../article.module.scss";
 
@@ -10,17 +10,28 @@ import LoadingOverlay from "../../../components/LoadingOverlay";
 import Image from "../../../components/Image";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import shops from "../../../data/shops";
 import getEventForm from "../../../utils/getEventForm";
 import useForm, {Values} from "../../../hooks/useForm";
 import CreateEvent from "../../../api/interfaces/event/CreateEvent";
 import EventStore from "../../../stores/EventStore";
 import transliterate from "../../../utils/transliterate";
+import ShopStore from "../../../stores/ShopStore";
+import Shop from "../../../api/interfaces/shop/Shop";
 
 const NewEvent = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
+	const [shops, setShops] = useState<Shop[]>([]);
 	
 	const isLoading = InterfaceStore.isLoading();
+	
+	useEffect(() => {
+		const getShops = async () => {
+			const shops = await ShopStore.getAsync("");
+			setShops(shops);
+		};
+		
+		void getShops();
+	}, []);
 	
 	const form = useMemo(() => {
 		return getEventForm();
@@ -40,7 +51,7 @@ const NewEvent = () => {
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			route: `/events/${transliteratedTitle}`,
+			routePath: `/events/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		
