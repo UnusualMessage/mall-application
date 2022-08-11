@@ -17,7 +17,42 @@ public class BreadcrumbConfiguration : IEntityTypeConfiguration<Breadcrumb>
                 Id = Guid.NewGuid(),
                 Name = "Главная",
                 Link = "/"
-            }
+            },
+            
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Магазины",
+                Link = "shops"
+            },
+            
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Акции и скидки",
+                Link = "discounts"
+            },
+            
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "События и новости",
+                Link = "events"
+            },
+            
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Карта ТЦ",
+                Link = "map"
+            },
+            
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Информация",
+                Link = "info"
+            },
         });
     }
 }

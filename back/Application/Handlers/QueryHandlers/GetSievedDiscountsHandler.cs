@@ -26,8 +26,11 @@ public class GetSievedDiscountsHandler : IRequestHandler<GetSievedDiscounts, IEn
     {
         var result = await _discountRepository.GetAllAsync();
 
-        MapperConfiguration configuration = new(cfg => {
+        MapperConfiguration configuration = new(cfg =>
+        {
             cfg.AddProfile(new DiscountProfile());
+            cfg.AddProfile(new ShopProfile());
+            cfg.AddProfile(new CategoryProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<DiscountResponse>(configuration);

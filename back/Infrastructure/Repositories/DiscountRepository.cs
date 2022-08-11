@@ -13,7 +13,7 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
     {
     }
     
-    public override async Task<Discount?> GetByIdAsync(Guid id)
+    public override async Task<Discount?> GetByIdAsync(Guid? id)
     {
         return await ApplicationContext.Set<Discount>()
             .Include(e => e.Route)

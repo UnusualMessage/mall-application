@@ -13,7 +13,7 @@ public class EventRepository : Repository<Event>, IEventRepository
     {
     }
     
-    public override async Task<Event?> GetByIdAsync(Guid id)
+    public override async Task<Event?> GetByIdAsync(Guid? id)
     {
         return await ApplicationContext.Set<Event>()
             .Include(e => e.Route)

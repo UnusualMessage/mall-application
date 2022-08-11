@@ -6,7 +6,6 @@ using Sieve.Services;
 using Application.Requests.Queries;
 using Application.Responses;
 using Application.MappingProfiles;
-
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.QueryHandlers;
@@ -28,6 +27,8 @@ public class GetSievedEventsHandler : IRequestHandler<GetSievedEvents, IEnumerab
 
         MapperConfiguration configuration = new(cfg => {
             cfg.AddProfile(new EventProfile());
+            cfg.AddProfile(new ShopProfile());
+            cfg.AddProfile(new CategoryProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<EventResponse>(configuration);

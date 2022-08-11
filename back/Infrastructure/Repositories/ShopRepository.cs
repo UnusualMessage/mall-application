@@ -13,7 +13,7 @@ public class ShopRepository : Repository<Shop>, IShopRepository
     {
     }
 
-    public override async Task<Shop?> GetByIdAsync(Guid id)
+    public override async Task<Shop?> GetByIdAsync(Guid? id)
     {
         return await ApplicationContext.Set<Shop>()
             .Include(e => e.Route)

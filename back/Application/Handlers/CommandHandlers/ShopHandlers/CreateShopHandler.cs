@@ -33,9 +33,9 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
     {
         ICollection<Category> categories = new List<Category>();
         
-        foreach (var id in request.CategoryIds)
+        foreach (var categoryId in request.CategoryIds)
         {
-            var category = await _categoryRepository.GetByIdAsync(id) ?? null;
+            var category = await _categoryRepository.GetByIdAsync(categoryId) ?? null;
             if (category is null)
             {
                 continue;
@@ -43,14 +43,15 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
             
             categories.Add(category);
         }
-
+        
         var newShop = _mapper.Map<Shop>(request);
         newShop.Categories = categories;
         newShop.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
-        
+
+        var id = Guid.NewGuid();
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.RoutePath
+                Path = request.RoutePath + "/" + id  
             }
         );
 
@@ -68,6 +69,7 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
 
         newShop.RouteId = route.Id;
         newShop.BreadcrumbId = breadcrumb.Id;
+        newShop.Id = id;
         
         return _mapper.Map<ShopResponse>(await _shopRepository.AddAsync(newShop));
     }

@@ -24,7 +24,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         return await GetByIdAsync(entity.Id);
     }
 
-    public virtual async Task<T?> DeleteByIdAsync(Guid id)
+    public virtual async Task<T?> DeleteByIdAsync(Guid? id)
     {
         var entity = await GetByIdAsync(id);
 
@@ -44,7 +44,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         return await ApplicationContext.Set<T>().ToListAsync();
     }
 
-    public virtual async Task<T?> GetByIdAsync(Guid id)
+    public virtual async Task<T?> GetByIdAsync(Guid? id)
     {
         return await ApplicationContext.Set<T>().FindAsync(id);
     }
