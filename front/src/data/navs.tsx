@@ -1,45 +1,44 @@
 import icons from "./icons";
-import {home, shops, discounts, events, map, info} from "./breadcrumbs";
 
 const navs = [
 	{
-		title: home.name,
-		to: home.route,
+		title: "Главная",
+		to: "/",
 		icon: icons.home,
 		viewBox: "0 0 176.532 176.532"
 	},
 	
 	{
-		title: shops.name,
-		to: shops.route,
+		title: "Магазины",
+		to: "shops",
 		icon: icons.shops,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: discounts.name,
-		to: discounts.route,
+		title: "Акции и скидки",
+		to: "discounts",
 		icon: icons.discounts,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: events.name,
-		to: events.route,
+		title: "Новости и события",
+		to: "events",
 		icon: icons.events,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: map.name,
-		to: map.route,
+		title: "Карта ТЦ",
+		to: "map",
 		icon: icons.map,
 		viewBox: "0 0 24 24"
 	},
 	
 	{
-		title: info.name,
-		to: info.route,
+		title: "Информация",
+		to: "info",
 		icon: icons.contacts,
 		viewBox: "0 0 24 24"
 	},

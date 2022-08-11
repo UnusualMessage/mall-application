@@ -10,7 +10,7 @@ const discounts: Discount[] = [
 		image: "/images/discounts/tt_300_365_jpg.jpg",
 		description: "Летний SALE в Tom Tailor! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
 		link: transliterate("Летний SALE в Tom Tailor: скидки до 50%"),
-		route: `discounts/${transliterate("Летний SALE в Tom Tailor: скидки до 50%")}`,
+		routePath: `discounts/${transliterate("Летний SALE в Tom Tailor: скидки до 50%")}`,
 		shop: shops[5]
 	},
 	
@@ -20,7 +20,7 @@ const discounts: Discount[] = [
 		image: "/images/discounts/sm_300_365_jpg.jpg",
 		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
 		link: transliterate("Летний SALE в Спортмастер: скидки до 50%"),
-		route: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
+		routePath: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
 		shop: shops[4]
 	},
 	
@@ -30,7 +30,7 @@ const discounts: Discount[] = [
 		image: "/images/discounts/sm_krosy_300_365_jpg.jpg",
 		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
 		link: transliterate("Летний SALE в Спортмастер: скидки до 50%"),
-		route: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
+		routePath: `discounts/${transliterate("Летний SALE в Спортмастер: скидки до 50%")}`,
 		shop: shops[4]
 	},
 	
@@ -40,7 +40,7 @@ const discounts: Discount[] = [
 		image: "/images/discounts/sm_voda_300_365_jpg.jpg",
 		description: "Летний SALE в Спортмастер! Скидки до 50%! Количество товара ограничено. Подробности уточняйте у продавцов-консультантов отдела. Акция действительна до 31 июля 2022 г.",
 		link: transliterate("Скидки до 50% на всё для отдыха у воды в «Спортмастере»"),
-		route: `discounts/${transliterate("Скидки до 50% на всё для отдыха у воды в «Спортмастере»")}`,
+		routePath: `discounts/${transliterate("Скидки до 50% на всё для отдыха у воды в «Спортмастере»")}`,
 		shop: shops[4]
 	},
 ];
