@@ -48,7 +48,7 @@ public class Startup
         services.AddCors();
         services.AddSpaStaticFiles(configuration =>
         {
-            configuration.RootPath = "wwwroot/build";
+            configuration.RootPath = "wwwroot";
         });
 
         services.AddControllers(options =>

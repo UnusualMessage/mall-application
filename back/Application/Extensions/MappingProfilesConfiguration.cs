@@ -9,6 +9,7 @@ public static class MappingProfilesConfiguration
     public static void AddMappingProfiles(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(CategoryProfile));
+        services.AddAutoMapper(typeof(UserProfile));
 
         services.AddAutoMapper(typeof(ShopProfile));
         services.AddAutoMapper(typeof(EventProfile));
