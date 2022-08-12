@@ -68,17 +68,12 @@ namespace API.Controllers;
 
             var response = await _mediator.Send(request);
 
-            if (response.Successful == false)
-            {
-                return BadRequest();
-            }
-
             SetTokenCookie(response.RefreshToken ?? "");
             
             return Ok(response);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("revoke")]
         public async Task<IActionResult> Revoke([FromBody] RevokeUser request)
         {

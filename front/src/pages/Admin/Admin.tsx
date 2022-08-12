@@ -23,6 +23,8 @@ import DiscountStore from "../../stores/DiscountStore";
 import ShopInterface from "../../api/interfaces/shop/Shop";
 import DiscountInterface from "../../api/interfaces/discount/Discount";
 import EventInterface from "../../api/interfaces/event/Event";
+import Authorization from "./Authorization/Authorization";
+import RequireAuth from "./Authorization/RequireAuth";
 
 const Admin = () => {
 	const [shops, setShops] = useState<ShopInterface[]>([]);

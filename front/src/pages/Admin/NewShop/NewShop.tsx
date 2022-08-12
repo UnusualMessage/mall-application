@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
@@ -18,7 +18,7 @@ import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import Category from "../../../api/interfaces/category/Category";
 
-const NewShop = () => {
+const NewShop: FC = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	const [categories, setCategories] = useState<Category[]>([]);
 	
