@@ -2,13 +2,14 @@ import {Descendant} from "slate";
 import {ReactEditor} from "slate-react";
 import {HistoryEditor} from "slate-history";
 
-type Align = "center" | "left" | "right";
-type Type = "paragraph" | "ol-list" | "ul-list" | "heading-one" | "heading-two";
+export type Align = "center" | "left" | "right";
+export type ElementType = "paragraph" | "ol-list" | "ul-list" | "heading-one" | "heading-two" | "list-item" | "link";
 
 interface CustomElement {
-	type: Type,
+	type: ElementType,
 	align?: Align,
-	children: Descendant[]
+	children: Descendant[],
+	url?: string
 }
 
 interface CustomText {

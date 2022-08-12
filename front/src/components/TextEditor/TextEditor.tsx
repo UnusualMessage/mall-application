@@ -19,7 +19,7 @@ const deserialize = (value: string) => {
 	return JSON.parse(value);
 };
 
-const TextEditor = ({ className, readonly, defaultValue }: Props) => {
+const TextEditor = ({ className, readonly }: Props) => {
 	const [editor] = useState(() => withReact(withHistory(createEditor() as ReactEditor)));
 	
 	const renderText = useCallback((props: RenderLeafProps) => {
@@ -38,7 +38,16 @@ const TextEditor = ({ className, readonly, defaultValue }: Props) => {
 		);
 	}, []);
 	
-	const initialValue: Descendant[] = deserialize(defaultValue);
+	const initialValue: Descendant[] = [
+		{
+			type: "paragraph",
+			children: [
+				{
+					text: "A line of text in a paragraph."
+				}
+			],
+		},
+	];
 	
 	return (
 		<div className={classNames(css.wrapper, className)}>
@@ -60,7 +69,6 @@ const TextEditor = ({ className, readonly, defaultValue }: Props) => {
 interface Props {
 	className: string,
 	readonly?: boolean,
-	defaultValue: string,
 }
 
 export default memo(TextEditor);

@@ -14,7 +14,7 @@ const SelectInput = ({ values, onChange, label, defaultValue, placeholder, name 
 			<select className={classNames(css.input, labelStyles.mini, label.bold)}
 			        placeholder={placeholder}
 			        onChange={onChange}
-			        defaultValue={defaultValue ? defaultValue : values[0].id}
+			        defaultValue={defaultValue ? defaultValue : ""}
 			        name={name}
 			        id={name}
 			>

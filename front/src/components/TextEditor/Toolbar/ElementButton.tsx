@@ -1,24 +1,55 @@
 import React from "react";
-import {Editor, Element, Transforms} from "slate";
 import {useSlate} from "slate-react";
+import {Editor, Element, Transforms} from "slate";
 
 import Button from "./Button";
+import {ElementType} from "../../../types/CustomTypes";
 
-const ElementButton = ({ icon, format }: Props) => {
+const ElementButton = ({ icon, type }: Props) => {
 	const editor = useSlate();
 	
 	const onClick = () => {
-		toggleAlign(editor, format);
+		toggleType(editor, type);
 	};
 	
-	const active = isAlignActive(editor, format);
+	const active = isBlockActive(editor, type);
 	
 	return(
-		<Button icon={icon} onClick={onClick} active={active}/>
+		<Button icon={icon} active={active} onClick={onClick}/>
 	);
 };
 
-const isAlignActive = (editor: Editor, align: string) => {
+const toggleType = (editor: Editor, type: ElementType) => {
+	const LIST_TYPES = ["ol-list", "ul-list"];
+	
+	const isActive = isBlockActive(
+		editor,
+		type,
+	);
+	
+	const isList = LIST_TYPES.includes(type);
+	
+	Transforms.unwrapNodes(editor, {
+		match: node =>
+			!Editor.isEditor(node) &&
+			Element.isElement(node) &&
+			LIST_TYPES.includes(node.type),
+		split: true,
+	});
+	
+	const newProperties = {
+		type: isActive ? "paragraph" : isList ? "list-item" : type,
+	};
+	
+	Transforms.setNodes<Element>(editor, newProperties);
+	
+	if (!isActive && isList) {
+		const block = { type: type, children: [] };
+		Transforms.wrapNodes(editor, block);
+	}
+};
+
+const isBlockActive = (editor: Editor, type: ElementType) => {
 	const { selection } = editor;
 	if (!selection) return false;
 	
@@ -28,26 +59,16 @@ const isAlignActive = (editor: Editor, align: string) => {
 			match: node =>
 				!Editor.isEditor(node) &&
 				Element.isElement(node) &&
-				node.align === align,
+				node.type === type,
 		})
 	);
 	
 	return !!match;
 };
 
-const toggleAlign = (editor: Editor, align: string) => {
-	if (isAlignActive(editor, align)) {
-		Transforms.unsetNodes(editor, "align");
-	} else {
-		Transforms.setNodes(editor, {
-			align: align
-		});
-	}
-};
-
 interface Props {
 	icon: React.ReactNode
-	format: string
+	type: ElementType
 }
 
 export default ElementButton;

@@ -2,7 +2,7 @@
 @use "/src/utils/constants/colors" as *;
 
 .wrapper {
-  width: 320px;
+  width: 100%;
 
   background: $back;
   border: 2px solid $low;

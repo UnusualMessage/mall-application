@@ -1,7 +1,7 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import classNames from "classnames";
 
-import css from "./button.module.scss";
+import css from "./toolbar.module.scss";
 import link from "/src/components/Link/link.module.scss";
 import iconCss from "/src/components/Icon/icon.module.scss";
 
@@ -13,7 +13,7 @@ const Button = ({ icon, active, ...props }: Props) => {
 	});
 	
 	return (
-		<span className={classNames(css.wrapper, link.hovered)} {...props}>
+		<span className={classNames(css.button, link.hovered)} {...props}>
 			<Icon className={classes} viewBox={"0 0 24 24"} icon={icon}/>
 		</span>
 	);

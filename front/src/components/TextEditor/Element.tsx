@@ -3,6 +3,11 @@ import classNames from "classnames";
 import {RenderElementProps} from "slate-react";
 
 import label from "/src/components/Label/label.module.scss";
+import link from "/src/components/Link/link.module.scss";
+
+import List from "../List";
+import {ListType} from "../List/List";
+import {OuterLink} from "../Link";
 
 const Element = ({ children, element, attributes }: RenderElementProps) => {
 	const align = element.align;
@@ -15,15 +20,21 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 	switch (element.type) {
 		case "ul-list":
 			return (
-				<ul className={classNames(classes)} {...attributes}>
+				<List type={ListType.unordered} {...attributes}>
 					{children}
-				</ul>
+				</List>
 			);
 		case "ol-list":
 			return (
-				<ol className={classNames(classes)} {...attributes}>
+				<List type={ListType.ordered} {...attributes}>
 					{children}
-				</ol>
+				</List>
+			);
+		case "list-item":
+			return (
+				<li className={classNames(classes)} {...attributes}>
+					{children}
+				</li>
 			);
 		case "heading-one":
 			return (
@@ -36,6 +47,12 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 				<h2 className={classNames(classes)} {...attributes}>
 					{children}
 				</h2>
+			);
+		case "link":
+			return (
+				<OuterLink className={classNames(classes, link.underlined)} to={element.url ?? ""} {...attributes}>
+					{children}
+				</OuterLink>
 			);
 		default:
 			return (
