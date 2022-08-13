@@ -40,6 +40,11 @@ const Nav = () => {
 					<Label text={"Категории"} className={classNames(css.title, label.mini, label.upper, label.bold)}/>
 				</InnerLink>
 				
+				<InnerLink className={classNames(css.link, link.hovered)} to={"images"}>
+					<Icon className={classNames()} viewBox={"0 0 24 24"} icon={icons.contacts}/>
+					<Label text={"Изображения"} className={classNames(css.title, label.mini, label.upper, label.bold)}/>
+				</InnerLink>
+				
 				<InnerLink className={classNames(css.link, link.hovered)} to={"info"}>
 					<Icon className={classNames()} viewBox={"0 0 24 24"} icon={icons.contacts}/>
 					<Label text={"Контакты"} className={classNames(css.title, label.mini, label.upper, label.bold)}/>

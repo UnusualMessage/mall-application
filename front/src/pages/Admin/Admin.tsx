@@ -25,6 +25,7 @@ import DiscountInterface from "../../api/interfaces/discount/Discount";
 import EventInterface from "../../api/interfaces/event/Event";
 import Authorization from "./Authorization/Authorization";
 import RequireAuth from "./Authorization/RequireAuth";
+import Images from "./Images/Images";
 
 const Admin = () => {
 	const [shops, setShops] = useState<ShopInterface[]>([]);
@@ -66,6 +67,7 @@ const Admin = () => {
                     <Route path={"categories/new"} element={<NewCategory/>} />
                     
                     <Route path={"info"} element={<Info/>} />
+	                <Route path={"images"} element={<Images/>} />
                 </Route>
             </Routes>
         </React.Suspense>

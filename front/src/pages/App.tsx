@@ -10,26 +10,28 @@ import RequireAuth from "./Admin/Authorization/RequireAuth";
 import "./App.scss";
 
 // import {enableLogging} from "mobx-logger";
-// import {injectStores} from "@mobx-devtools/tools";
-// import InterfaceStore from "../stores/InterfaceStore";
-// import EventStore from "../stores/EventStore";
-// import NavigationStore from "../stores/NavigationStore";
-// import DiscountStore from "../stores/DiscountStore";
-// import ShopStore from "../stores/ShopStore";
-// import CategoryStore from "../stores/CategoryStore";
+import {injectStores} from "@mobx-devtools/tools";
+import InterfaceStore from "../stores/InterfaceStore";
+import EventStore from "../stores/EventStore";
+import NavigationStore from "../stores/NavigationStore";
+import DiscountStore from "../stores/DiscountStore";
+import ShopStore from "../stores/ShopStore";
+import CategoryStore from "../stores/CategoryStore";
+import ImageStore from "../stores/ImageStore";
 
 
 const App = () => {
 	// enableLogging();
 	//
-	// injectStores({
-	// 	ShopStore,
-	// 	CategoryStore,
-	// 	NavigationStore,
-	// 	DiscountStore,
-	// 	InterfaceStore,
-	// 	EventStore
-	// });
+	injectStores({
+		ShopStore,
+		CategoryStore,
+		NavigationStore,
+		DiscountStore,
+		InterfaceStore,
+		EventStore,
+		ImageStore
+	});
 	
 	
 	return (
