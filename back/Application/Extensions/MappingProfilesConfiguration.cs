@@ -18,5 +18,6 @@ public static class MappingProfilesConfiguration
         services.AddAutoMapper(typeof(ContactsProfile));
         services.AddAutoMapper(typeof(RouteProfile));
         services.AddAutoMapper(typeof(BreadcrumbProfile));
+        services.AddAutoMapper(typeof(ImageProfile));
     }
 }

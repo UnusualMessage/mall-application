@@ -30,8 +30,8 @@ public class FileService : IFileService
         return Path.Combine(_storageSettings.Value.ContentFolderName!, file.FileName);
     }
 
-    public void DeleteFile(string fullPath)
+    public void DeleteFile(string rootPath, string localPath)
     {
-        File.Delete(fullPath);
+        File.Delete(Path.Combine(rootPath, localPath));
     }
 }

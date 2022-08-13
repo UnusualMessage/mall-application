@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using Application.Responses;
 
 using MediatR;
@@ -36,6 +35,5 @@ public class CreateShop : IRequest<ShopResponse>
     
     public string? Site { get; set; }
     
-    [JsonIgnore]
     public string? Destination { get; set; }
 }
