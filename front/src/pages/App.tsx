@@ -9,9 +9,30 @@ import RequireAuth from "./Admin/Authorization/RequireAuth";
 
 import "./App.scss";
 
+// import {enableLogging} from "mobx-logger";
+// import {injectStores} from "@mobx-devtools/tools";
+// import InterfaceStore from "../stores/InterfaceStore";
+// import EventStore from "../stores/EventStore";
+// import NavigationStore from "../stores/NavigationStore";
+// import DiscountStore from "../stores/DiscountStore";
+// import ShopStore from "../stores/ShopStore";
+// import CategoryStore from "../stores/CategoryStore";
+
 
 const App = () => {
-    return (
+	// enableLogging();
+	//
+	// injectStores({
+	// 	ShopStore,
+	// 	CategoryStore,
+	// 	NavigationStore,
+	// 	DiscountStore,
+	// 	InterfaceStore,
+	// 	EventStore
+	// });
+	
+	
+	return (
         <React.Suspense fallback={<Loader/>}>
             <Routes>
 	            <Route path="/admin/*" element={<RequireAuth> <Admin/> </RequireAuth>} />
