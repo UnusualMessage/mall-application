@@ -5,6 +5,8 @@
 .wrapper {
   @include flexible(row, center, center);
 
+  width: 100%;
+
   background: $back;
 
   @media screen and (max-width: $medium) {
@@ -16,6 +18,10 @@
 	background-color: white;
 	transition: left 0.4s ease-in-out;
 	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  @media screen and (max-width: $mini) {
+	width: $mini;
   }
 
   .inner {

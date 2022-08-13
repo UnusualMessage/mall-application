@@ -5,36 +5,6 @@
   text-decoration: none;
 }
 
-.hovered {
-  cursor: pointer;
-
-  &:active {
-	svg {
-	  fill: $hover;
-	  transition: 0.5s;
-	}
-
-	span {
-	  color: $hover;
-	  transition: 0.5s;
-	}
-  }
-
-  @media screen and (min-width: $pre-big) {
-	&:hover {
-	  svg {
-		fill: $hover;
-		transition: 0.5s;
-	  }
-
-	  span {
-		color: $hover;
-		transition: 0.5s;
-	  }
-	}
-  }
-}
-
 .underlined {
   text-decoration: none;
   cursor: pointer;

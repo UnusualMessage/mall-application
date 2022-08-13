@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import css from "./filter.module.scss";
 
-import Option from "./FilterOption/Option";
+import Option from "./Option";
 
 import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";

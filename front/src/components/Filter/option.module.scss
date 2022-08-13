@@ -1,6 +1,6 @@
-@use "../../../utils/mixins/flex" as *;
-@use "../../../utils/constants/sizes" as *;
-@use "../../../utils/constants/colors" as *;
+@use "../../utils/mixins/flex" as *;
+@use "../../utils/constants/sizes" as *;
+@use "../../utils/constants/colors" as *;
 
 .wrapper {
   @include flexible(row, center, space-between);

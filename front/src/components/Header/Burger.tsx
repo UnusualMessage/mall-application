@@ -1,5 +1,5 @@
-import {observer} from "mobx-react-lite";
 import classNames from "classnames";
+import {observer} from "mobx-react-lite";
 
 import css from "./burger.module.scss";
 

@@ -1,5 +1,6 @@
 @use "../utils/constants/sizes" as *;
 @use "../utils/constants/colors" as *;
+@use "../utils/mixins/flex" as *;
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -40,12 +41,6 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 #root {
-    min-width: $mini;
-    min-height: 100vh;
-}
-
-ol,
-ul {
-  margin: 0;
-  padding: 10px;
+  min-width: $mini;
+  height: 100vh;
 }

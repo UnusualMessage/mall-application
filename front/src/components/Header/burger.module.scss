@@ -34,7 +34,7 @@
 	}
   }
 
-  @media screen and (min-width: $medium) {
+  @media screen and (min-width: $medium + 0.5px) {
 	display: none;
   }
 }

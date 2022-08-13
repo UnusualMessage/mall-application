@@ -5,7 +5,7 @@ import css from "./link.module.scss";
 
 const OuterLink = ({ className, children, to}: Props) => {
 	return (
-		<a className={classNames(css.default, className)} href={to}>
+		<a className={classNames(css.default, className)} href={to} aria-label={"outer-link"}>
 			{children}
 		</a>
 	);

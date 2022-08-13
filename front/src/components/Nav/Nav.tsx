@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import css from "./nav.module.scss";
 
-import NavLink from "./Link";
+import NavLink from "./NavLink";
 
 import navs from "../../data/navs";
 import InterfaceStore from "../../stores/InterfaceStore";

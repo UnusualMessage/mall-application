@@ -3,20 +3,15 @@ import classNames from "classnames";
 
 import css from "./header.module.scss";
 
-import Image from "../Image";
 import Contacts from "../Contacts";
 import Socials from "../Socials";
-import Burger from "../Burger/Burger";
+import Logo from "./Logo";
 
 const Header = () => {
 	return (
 		<header className={classNames(css.wrapper)}>
 			<div className={classNames(css.inner)}>
-				<div className={classNames(css.start)}>
-					<Burger/>
-					<Image classes={classNames(css.logo)} source={"/Logo.png"} />
-				</div>
-				
+				<Logo/>
 				<Contacts className={classNames(css.info)}/>
 				<Socials/>
 			</div>

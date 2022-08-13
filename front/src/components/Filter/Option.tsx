@@ -2,12 +2,12 @@ import {observer} from "mobx-react-lite";
 import classNames from "classnames";
 
 import css from "./option.module.scss";
-import label from "../../Label/label.module.scss";
+import label from "../Label/label.module.scss";
 
-import Label from "../../Label";
+import Label from "../Label";
 
-import Filterable from "../../../types/Filterable";
-import InterfaceStore from "../../../stores/InterfaceStore";
+import Filterable from "../../types/Filterable";
+import InterfaceStore from "../../stores/InterfaceStore";
 
 const Option = ({ count, text, store }: Props) => {
 	let active = false;

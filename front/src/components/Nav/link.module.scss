@@ -1,13 +1,31 @@
-@use "/src/utils/mixins/flex.scss" as *;
-@use "/src/utils/constants/sizes.scss" as *;
-@use "/src/utils/constants/colors.scss" as *;
+@use "../../utils/mixins/flex" as *;
+@use "../../utils/constants/sizes" as *;
+@use "../../utils/constants/colors" as *;
 
 .wrapper {
   @include flexible(column, center, center);
+  flex-basis: 10%;
 
   gap: 10px;
-  flex-basis: 10%;
   text-align: center;
+
+  .icon {
+	transition: fill 0.5s;
+  }
+
+  .title {
+	transition: color 0.5s;
+  }
+
+  &:hover {
+	.icon {
+	  fill: $hover;
+	}
+
+	.title {
+	  color: $hover;
+	}
+  }
 
   @media screen and (max-width: $pre-big) and (min-width: $medium) {
 	flex-basis: 21%;
