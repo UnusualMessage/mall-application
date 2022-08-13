@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {runInAction} from "mobx";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";

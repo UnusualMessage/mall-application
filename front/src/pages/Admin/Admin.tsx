@@ -13,6 +13,7 @@ const NewShop = lazy(() => import("./NewShop"));
 const Categories = lazy(() => import("./Categories"));
 const Category = lazy(() => import("./Category"));
 const NewCategory = lazy(() => import("./NewCategory"));
+const Images = lazy(() => import("./Images"));
 
 import Loader from "../../components/Loader";
 
@@ -23,9 +24,6 @@ import DiscountStore from "../../stores/DiscountStore";
 import ShopInterface from "../../api/interfaces/shop/Shop";
 import DiscountInterface from "../../api/interfaces/discount/Discount";
 import EventInterface from "../../api/interfaces/event/Event";
-import Authorization from "./Authorization/Authorization";
-import RequireAuth from "./Authorization/RequireAuth";
-import Images from "./Images/Images";
 
 const Admin = () => {
 	const [shops, setShops] = useState<ShopInterface[]>([]);
