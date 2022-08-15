@@ -1,25 +1,20 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
+import {Button, Form, Input, Space, Typography} from "antd";
 
 import {ImageInput, SelectInput} from "../../../components/Input";
 
-import ShopInterface from "../../../api/interfaces/shop/Shop";
+import{Values} from "../../../hooks/useForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
-import ShopStore from "../../../stores/ShopStore";
 import transliterate from "../../../utils/transliterate";
-import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
-import Category from "../../../api/interfaces/category/Category";
+import CreateShop from "../../../api/interfaces/shop/CreateShop";
+import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
-import shops from "../../../data/shops";
-import categoriesData from "../../../data/categories";
+import Category from "../../../api/interfaces/category/Category";
+import discounts from "../../../data/discounts";
 
-const Shop = () => {
-	const { id } = useParams();
-	const redirect = useNavigate();
-	
-	const [shop, setShop] = useState<ShopInterface>();
+const NewShop: FC = () => {
+	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	const [categories, setCategories] = useState<Category[]>([]);
 	
 	const isLoading = InterfaceStore.isLoading();
@@ -27,69 +22,45 @@ const Shop = () => {
 	const [form] = Form.useForm();
 	
 	useEffect(() => {
-		const getShop = async () => {
-			const shops = await ShopStore.getAsync(`Filters=Id==${id}`);
+		const getCategories = async () => {
 			const categories = await CategoryStore.getAsync("");
-			
-			if (shops.length !== 0) {
-				setShop(shops[0]);
-				setCategories(categories);
-			} else {
-				redirect("../");
-			}
+			setCategories(categories);
 		};
 		
-		setShop(shops.find(item => item.id === id));
-		setCategories(categoriesData);
-		// void getShop();
-	}, [id]);
+		void getCategories();
+	}, []);
 	
-	if (!shop) {
-		return null;
-	}
-	
-	const handleUpdate = async (values: any) => {
-		const transliteratedTitle = transliterate(values.title);
-		const imagePreview = values.image as File;
+	const handleCreate = async (values: Values) => {
+		if (!imagePreview) {
+			return;
+		}
 		
-		const newShop: UpdateShop = {
-			id: shop.id,
+		const transliteratedTitle = transliterate(values.title);
+		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
-			floor: values.floor,
+			floor: Number(values.floor),
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
-			categories: [values.categories],
+			categoryIds: [values.category],
 			image: imagePreview,
 			link: transliteratedTitle,
 			routePath: `/shops/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);
-		await ShopStore.updateAsync(newShop);
+		await ShopStore.createAsync(newShop);
 		InterfaceStore.setLoading(false);
-	};
-	
-	const handleDelete = async () => {
-		InterfaceStore.setLoading(true);
-		await ShopStore.deleteAsync({ id: shop.id });
-		InterfaceStore.setLoading(false);
-		
-		if (ShopStore.isRequestSuccessful()) {
-			redirect("../shops");
-		}
 	};
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../shops")}
-			            title="Редактирование статьи"
-			            subTitle={shop.title}
-			            style={{padding: 0, paddingBottom: 20}}
-			/>
+			<Typography.Title level={2}>
+				Добавление магазина
+			</Typography.Title>
 			
-			<Form form={form} onFinish={handleUpdate} style={{width: "100%"}} labelCol={{span: 2}}>
+			<Form form={form} onFinish={handleCreate} style={{width: "100%"}} labelCol={{span: 2}}>
 				<Form.Item label="Название" name="title"
 				           rules={[{ required: true, message: "Необходимо ввести название магазина" }]}>
 					<Input />
@@ -122,7 +93,7 @@ const Shop = () => {
 				
 				<Form.Item label="Категория" name="category"
 				           rules={[{ required: true, message: "Необходимо выбрать категорию" }]}>
-					<SelectInput values={categories}/>
+					<SelectInput values={discounts}/>
 				</Form.Item>
 				
 				<Form.Item label="Описание" name="description">
@@ -131,16 +102,14 @@ const Shop = () => {
 				
 				<Space>
 					<Form.Item label=" " colon={false}>
-						<Button type="primary" htmlType="submit"
-						        loading={isLoading} disabled={isLoading}>
+						<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
 							Добавить
 						</Button>
 					</Form.Item>
 					
 					<Form.Item label=" " colon={false}>
-						<Button type="primary" onClick={() => handleDelete()}
-						        danger loading={isLoading} disabled={isLoading}>
-							Удалить
+						<Button type="dashed" onClick={() => form.resetFields()}>
+							Очистить
 						</Button>
 					</Form.Item>
 				</Space>
@@ -150,4 +119,4 @@ const Shop = () => {
 	);
 };
 
-export default observer(Shop);
+export default observer(NewShop);

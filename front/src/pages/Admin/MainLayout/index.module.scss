@@ -1,0 +1,42 @@
+@use "/src/utils/mixins/flex" as *;
+
+.sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  @media screen and (max-width: 576px) {
+	display: none;
+  }
+}
+
+.main {
+  margin-left: 240px;
+
+  @media screen and (max-width: 576px) {
+	margin-left: 0;
+  }
+
+  .header {
+	padding: 0;
+	height: 52px;
+
+	@media screen and (max-width: 576px) {
+	  height: 64px;
+	}
+
+	.horizontalMenu {
+	  @media screen and (min-width: 576px) {
+		display: none;
+	  }
+	}
+  }
+
+  .content {
+	min-height: 100vh;
+	padding: 20px;
+  }
+}

@@ -1,59 +1,58 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
-import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
+import {observer} from "mobx-react-lite";
 
 import {ImageInput, SelectInput} from "../../../components/Input";
 
-import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
+import EventStore from "../../../stores/EventStore";
 import shops from "../../../data/shops";
-import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
-import DiscountInterface from "../../../api/interfaces/discount/Discount";
-import discounts from "../../../data/discounts";
+import UpdateEvent from "../../../api/interfaces/event/UpdateEvent";
+import EventInterface from "../../../api/interfaces/event/Event";
+import {Button, Form, Input, PageHeader, Space} from "antd";
+import events from "../../../data/events";
 
-const Discount = () => {
+const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const [discount, setDiscount] = useState<DiscountInterface>();
-	
 	const isLoading = InterfaceStore.isLoading();
 	
+	const [event, setEvent] = useState<EventInterface>();
 	const [form] = Form.useForm();
 	
 	useEffect(() => {
-		const getDiscount = async () => {
-			const discounts = await DiscountStore.getAsync(`Filters=Id==${id}`);
+		const getEvent = async () => {
+			const events = await EventStore.getAsync(`Filters=Id==${id}`);
 			
-			if (discounts.length !== 0) {
-				setDiscount(discounts[0]);
+			if (events.length !== 0) {
+				setEvent(events[0]);
 			} else {
-				redirect("../discounts");
+				redirect("../events");
 			}
 		};
 		
-		setDiscount(discounts.find(item => item.id === id));
-		// void getDiscount();
-	}, [discount]);
+		setEvent(events.find(item => item.id === id));
+		// void getEvent();
+	}, [event]);
 	
-	if (!discount) {
+	if (!event) {
 		return null;
 	}
 	
 	const initialValues = {
-		title: discount.title,
-		description: discount.description,
-		shop: discount.shop.id
+		title: event.title,
+		description: event.description,
+		shop: event.shop.id
 	};
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		await DiscountStore.deleteAsync({ id: discount.id });
+		await EventStore.deleteAsync({ id: event.id });
 		InterfaceStore.setLoading(false);
 		
-		if (DiscountStore.isRequestSuccessful()) {
+		if (EventStore.isRequestSuccessful()) {
 			redirect("../");
 		}
 	};
@@ -62,26 +61,26 @@ const Discount = () => {
 		const imagePreview = values.image as File;
 		
 		const transliteratedTitle = transliterate(values.title);
-		const newDiscount: UpdateDiscount = {
-			id: discount.id,
+		const newEvent: UpdateEvent = {
+			id: event.id,
 			title: values.title,
 			description: values.description,
 			image: imagePreview,
 			link: transliteratedTitle,
-			routePath: `/discounts/${transliteratedTitle}`,
+			routePath: `/events/${transliteratedTitle}`,
 			shopId: values.shop
 		};
 		
 		InterfaceStore.setLoading(true);
-		await DiscountStore.createAsync(newDiscount);
+		await EventStore.updateAsync(newEvent);
 		InterfaceStore.setLoading(false);
 	};
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../discounts")}
+			<PageHeader onBack={() => redirect("../events")}
 			            title="Редактирование статьи"
-			            subTitle={discount.title}
+			            subTitle={event.title}
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
@@ -125,4 +124,4 @@ const Discount = () => {
 	);
 };
 
-export default observer(Discount);
+export default observer(Event);
