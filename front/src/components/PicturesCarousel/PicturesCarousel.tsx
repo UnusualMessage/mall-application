@@ -8,6 +8,7 @@ import label from "/src/components/Label/label.module.scss";
 import {InnerLink} from "../Link";
 import Label from "../Label";
 import Image from "../Image";
+import {Skeleton} from "antd";
 
 const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, cols }: Props) => {
 	return(

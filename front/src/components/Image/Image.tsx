@@ -24,7 +24,7 @@ const Image = ({classes, source}: Props) => {
 
 interface Props {
 	classes: string,
-	source: string
+	source: string,
 }
 
 export default Image;

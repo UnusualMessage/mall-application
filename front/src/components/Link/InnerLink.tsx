@@ -13,7 +13,7 @@ const InnerLink = ({ className, children, to, ...props }: Props) => {
 };
 
 interface Props extends LinkProps {
-	className: string,
+	className?: string,
 	children: React.ReactNode,
 	to: string
 }
