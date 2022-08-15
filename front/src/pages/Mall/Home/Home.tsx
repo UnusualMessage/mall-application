@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import classNames from "classnames";
+import {Skeleton} from "antd";
 
 import styles from "/src/components/styles.module.scss";
 import css from "./home.module.scss";
@@ -31,39 +32,50 @@ const Home = () => {
 		
 		void get();
 	}, []);
-	
-	if (!shops || !discounts || !events) {
-		return null;
-	}
-    
+
     return(
         <div className={classNames(css.wrapper)}>
-            <PicturesCarousel images={shops}
-                              title={"Магазины"}
-                              linkLabel={"Все отделы"}
-                              to={"shops"}
-                              borderColor={styles.redBorder}
-                              rows={1}
-                              cols={4}
-            />
-    
-            <PicturesCarousel images={discounts}
-                              title={"Акции"}
-                              linkLabel={"Все акции"}
-                              to={"discounts"}
-                              borderColor={styles.greenBorder}
-                              rows={1}
-                              cols={3}
-            />
-    
-            <PicturesCarousel images={events}
-                              title={"Новости"}
-                              linkLabel={"Все новости"}
-                              to={"events"}
-                              borderColor={styles.blueBorder}
-                              rows={3}
-                              cols={2}
-            />
+	        {
+		        shops
+			        ?
+			        <PicturesCarousel images={shops}
+			                          title={"Магазины"}
+			                          linkLabel={"Все отделы"}
+			                          to={"shops"}
+			                          borderColor={styles.redBorder}
+			                          rows={1}
+			                          cols={4}
+			        />
+			        : <Skeleton active />
+	        }
+	
+	        {
+		        discounts
+			        ?
+			        <PicturesCarousel images={discounts}
+			                          title={"Акции"}
+			                          linkLabel={"Все акции"}
+			                          to={"discounts"}
+			                          borderColor={styles.greenBorder}
+			                          rows={1}
+			                          cols={3}
+			        />
+			        : <Skeleton active />
+	        }
+			
+	        {
+		        events
+			        ?
+			        <PicturesCarousel images={events}
+			                          title={"Новости"}
+			                          linkLabel={"Все новости"}
+			                          to={"events"}
+			                          borderColor={styles.blueBorder}
+			                          rows={3}
+			                          cols={2}
+			        />
+			        : <Skeleton active />
+	        }
         </div>
         
     );

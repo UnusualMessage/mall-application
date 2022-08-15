@@ -4,36 +4,13 @@ import {Route, Routes} from "react-router-dom";
 import Loader from "../components/Loader";
 const Mall = lazy(() => import("./Mall"));
 const Admin = lazy(() => import("./Admin"));
-import Authorization from "./Admin/Authorization/Authorization";
-import RequireAuth from "./Admin/Authorization/RequireAuth";
+const Authorization = lazy(() => import("./Admin/Authorization/Authorization"));
+const RequireAuth = lazy(() => import("./Admin/Authorization/RequireAuth"));
 
 import "./App.scss";
-
-// import {enableLogging} from "mobx-logger";
-import {injectStores} from "@mobx-devtools/tools";
-import InterfaceStore from "../stores/InterfaceStore";
-import EventStore from "../stores/EventStore";
-import NavigationStore from "../stores/NavigationStore";
-import DiscountStore from "../stores/DiscountStore";
-import ShopStore from "../stores/ShopStore";
-import CategoryStore from "../stores/CategoryStore";
-import ImageStore from "../stores/ImageStore";
-
+import "antd/dist/antd.css";
 
 const App = () => {
-	// enableLogging();
-	//
-	injectStores({
-		ShopStore,
-		CategoryStore,
-		NavigationStore,
-		DiscountStore,
-		InterfaceStore,
-		EventStore,
-		ImageStore
-	});
-	
-	
 	return (
         <React.Suspense fallback={<Loader/>}>
             <Routes>

@@ -24,11 +24,7 @@ const Base = () => {
 		
 		void setupRoutes();
     }, [location]);
-	
-	if (!breadcrumbs) {
-		return null;
-	}
-    
+
     return(
         <>
             <Header/>
