@@ -1,5 +1,6 @@
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, Space, Typography} from "antd";
+import {Button, Form, Input, PageHeader, Space} from "antd";
+import {useNavigate} from "react-router-dom";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import {Values} from "../../../hooks/useForm";
@@ -7,8 +8,8 @@ import CategoryStore from "../../../stores/CategoryStore";
 import CreateCategory from "../../../api/interfaces/category/CreateCategory";
 
 const NewCategory = () => {
+	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
-	
 	const [form] = Form.useForm();
 	
 	const handleCreate = async (values: Values) => {
@@ -23,9 +24,10 @@ const NewCategory = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<Typography.Title level={2}>
-				Добавление категории
-			</Typography.Title>
+			<PageHeader onBack={() => redirect("../categories")}
+			            title="Добавление категории"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
 			
 			<Form form={form} onFinish={handleCreate} style={{width: "100%"}}>
 				<Form.Item label="Категория" name="title"

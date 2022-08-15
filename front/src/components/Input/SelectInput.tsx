@@ -1,8 +1,5 @@
-import React, {ChangeEventHandler} from "react";
-import classNames from "classnames";
+import React, {ChangeEvent, ChangeEventHandler} from "react";
 import {ConfigProvider, Empty, Select} from "antd";
-
-import labelStyles from "/src/components/Label/label.module.scss";
 
 const { Option } = Select;
 
@@ -12,6 +9,7 @@ const SelectInput = ({ values, onChange, label, defaultValue, placeholder, name 
 			<Select placeholder={placeholder}
 			        onChange={onChange}
 			        id={name}
+			        defaultValue={defaultValue}
 			>
 				{
 					values.map(value => {
@@ -37,7 +35,7 @@ interface Props {
 	onChange?: ChangeEventHandler<HTMLSelectElement>,
 	placeholder?: string
 	label?: string,
-	defaultValue?: string,
+	defaultValue?: ChangeEvent<HTMLSelectElement>,
 	name?: string
 }
 

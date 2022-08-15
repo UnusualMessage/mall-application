@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
-import {Button, Form, Input, Space, Typography} from "antd";
+import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
 
 import {ImageInput, SelectInput} from "../../../components/Input";
 
@@ -11,11 +11,13 @@ import ShopStore from "../../../stores/ShopStore";
 import discounts from "../../../data/discounts";
 import CreateEvent from "../../../api/interfaces/event/CreateEvent";
 import EventStore from "../../../stores/EventStore";
+import {useNavigate} from "react-router-dom";
 
 const NewEvent = () => {
 	const [shops, setShops] = useState<Shop[]>([]);
-	
+	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
+	const [form] = Form.useForm();
 	
 	useEffect(() => {
 		const getShops = async () => {
@@ -25,8 +27,6 @@ const NewEvent = () => {
 		
 		void getShops();
 	}, []);
-	
-	const [form] = Form.useForm();
 	
 	const handleCreate = async (values: any) => {
 		console.log(values);
@@ -50,9 +50,10 @@ const NewEvent = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<Typography.Title level={2}>
-				Добавление новости
-			</Typography.Title>
+			<PageHeader onBack={() => redirect("../events")}
+			            title="Добавление статьи"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
 			
 			<Form form={form} onFinish={handleCreate} style={{width: "100%"}}>
 				<Form.Item label="Заголовок" name="title"

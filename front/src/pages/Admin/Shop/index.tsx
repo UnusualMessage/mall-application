@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
 
@@ -122,7 +122,7 @@ const Shop = () => {
 				
 				<Form.Item label="Категория" name="category"
 				           rules={[{ required: true, message: "Необходимо выбрать категорию" }]}>
-					<SelectInput values={categories}/>
+					<SelectInput values={categories} defaultValue={shop.categories[1].id as unknown as ChangeEvent<HTMLSelectElement>}/>
 				</Form.Item>
 				
 				<Form.Item label="Описание" name="description">

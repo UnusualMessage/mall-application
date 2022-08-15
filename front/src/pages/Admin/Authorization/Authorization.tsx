@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 
 import css from "./authorization.module.scss";
 
-import Button from "../../../components/Button";
 import {TextInput} from "../../../components/Input";
 
 import getAuthForm from "../../../utils/getAuthForm";
@@ -40,7 +39,6 @@ const Authorization = () => {
 			<form className={css.form} onSubmit={handleSubmit(authenticate)}>
 				<TextInput {...form.login.options} onChange={login.onChange}/>
 				<TextInput {...form.password.options} onChange={password.onChange}/>
-				<Button text={"Войти"} submit/>
 			</form>
 		</div>
 	);

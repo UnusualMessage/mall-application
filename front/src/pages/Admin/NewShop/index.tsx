@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, Space, Typography} from "antd";
+import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
 
 import {ImageInput, SelectInput} from "../../../components/Input";
 
@@ -12,10 +12,12 @@ import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import Category from "../../../api/interfaces/category/Category";
 import discounts from "../../../data/discounts";
+import {useNavigate} from "react-router-dom";
 
 const NewShop: FC = () => {
 	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	const [categories, setCategories] = useState<Category[]>([]);
+	const redirect = useNavigate();
 	
 	const isLoading = InterfaceStore.isLoading();
 	
@@ -56,9 +58,10 @@ const NewShop: FC = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<Typography.Title level={2}>
-				Добавление магазина
-			</Typography.Title>
+			<PageHeader onBack={() => redirect("../shops")}
+			            title="Добавление магазина"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
 			
 			<Form form={form} onFinish={handleCreate} style={{width: "100%"}} labelCol={{span: 2}}>
 				<Form.Item label="Название" name="title"

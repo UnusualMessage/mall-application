@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Space} from "antd";
+import {Button, Form, Input, PageHeader, Popconfirm, Space} from "antd";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import {Values} from "../../../hooks/useForm";
@@ -80,17 +80,21 @@ const Category = () => {
 				</Form.Item>
 				
 				<Space>
-					<Form.Item label=" " colon={false}>
+					<Form.Item colon={false}>
 						<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
 							Добавить
 						</Button>
 					</Form.Item>
 					
-					<Form.Item label=" " colon={false}>
-						<Button type="primary" onClick={() => handleDelete()} danger loading={isLoading} disabled={isLoading}>
-							Удалить
-						</Button>
-					</Form.Item>
+						<Form.Item colon={false} >
+							<Popconfirm placement="top" title={"Удалить?"} onConfirm={() => handleDelete()}
+							            okText="Да" cancelText="Нет">
+								
+								<Button type="primary" danger loading={isLoading} disabled={isLoading}>
+									Удалить
+								</Button>
+							</Popconfirm>
+						</Form.Item>
 				</Space>
 			</Form>
 		</Space>

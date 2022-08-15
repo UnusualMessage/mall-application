@@ -1,6 +1,7 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
-import {Button, Form, Input, Space, Typography} from "antd";
+import {Button, Form, Input, PageHeader, Space} from "antd";
+import {useNavigate} from "react-router-dom";
 
 import {ImageInput, SelectInput} from "../../../components/Input";
 
@@ -14,7 +15,7 @@ import discounts from "../../../data/discounts";
 
 const NewDiscount = () => {
 	const [shops, setShops] = useState<Shop[]>([]);
-	
+	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
 	
 	useEffect(() => {
@@ -50,9 +51,10 @@ const NewDiscount = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<Typography.Title level={2}>
-				Добавление акции
-			</Typography.Title>
+			<PageHeader onBack={() => redirect("../discounts")}
+			            title="Добавление статьи"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
 			
 			<Form form={form} onFinish={handleCreate} style={{width: "100%"}}>
 				<Form.Item label="Заголовок" name="title"
