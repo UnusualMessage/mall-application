@@ -1,10 +1,10 @@
 import Shop from "../api/interfaces/shop/Shop";
-import {UploadFile} from "antd";
+import {FormRule, UploadFile} from "antd";
 
 export interface Values {
 	image: UploadFile[],
 	title: string,
-	floor: string,
+	floor: number,
 	schedule: string,
 	phone: string,
 	site: string,
@@ -15,7 +15,7 @@ export interface Values {
 export const getShopInitialValues = (shop?: Shop) => {
 	return {
 		title: shop?.title,
-		floor: shop?.floor,
+		floor: Number(shop?.floor),
 		schedule: shop?.schedule,
 		phone: shop?.phone,
 		site: shop?.site,
@@ -24,7 +24,16 @@ export const getShopInitialValues = (shop?: Shop) => {
 	};
 };
 
-export const getShopInitialOptions = () => {
+interface Option {
+	name: string,
+	placeholder: string,
+	label: string,
+	rules?: FormRule[]
+}
+
+type Options = Record<string, Option>;
+
+export const getShopInitialOptions = (): Options => {
 	return {
 		image: {
 			name: "image",
@@ -76,7 +85,8 @@ export const getShopInitialOptions = () => {
 			placeholder: "Введите адрес сайта",
 			label: "Сайт",
 			rules: [
-				{ required: true, message: "Обязательно для заполнения" }
+				{ required: true, message: "Обязательно для заполнения" },
+				{ type: "url", warningOnly: true, message: "Некорректная ссылка!" }
 			]
 		},
 		

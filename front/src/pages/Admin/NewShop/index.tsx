@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
+import {ImageInput, SelectInput, TextInput, NumberInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -70,7 +70,7 @@ const NewShop: FC = () => {
 			
 			<Form form={form} onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues}>
 				<TextInput {...initialOptions.title}/>
-				<TextInput {...initialOptions.floor}/>
+				<NumberInput {...initialOptions.floor} min={1} max={2}/>
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>

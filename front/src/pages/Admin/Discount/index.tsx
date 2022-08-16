@@ -95,10 +95,10 @@ const Discount = () => {
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-						Добавить
+						Изменить
 					</Button>
 					
-					<Popconfirm title={"Удалить статью?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
+					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
 						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
 							Удалить
 						</Button>

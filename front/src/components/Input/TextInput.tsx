@@ -19,7 +19,7 @@ interface Props {
 	placeholder: string,
 	name: string,
 	rules?: FormRule[]
-	password?: boolean
+	password?: boolean,
 }
 
 export default memo(TextInput);

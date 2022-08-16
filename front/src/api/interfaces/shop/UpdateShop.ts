@@ -2,7 +2,7 @@ export default interface UpdateShop {
 	id: string,
 	image?: File,
 	categories?: string[],
-	floor?: string,
+	floor?: number,
 	title?: string,
 	description?: string,
 	schedule?: string,

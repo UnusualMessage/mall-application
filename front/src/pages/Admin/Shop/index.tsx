@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
+import {ImageInput, SelectInput, TextInput, NumberInput} from "../../../components/Input";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -63,7 +63,7 @@ const Shop = () => {
 			id: shop.id,
 			title: values.title,
 			description: values.description,
-			floor: values.floor,
+			floor: Number(values.floor),
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
@@ -94,7 +94,7 @@ const Shop = () => {
 			
 			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
 				<TextInput {...initialOptions.title}/>
-				<TextInput {...initialOptions.floor}/>
+				<NumberInput {...initialOptions.floor} min={1} max={2}/>
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
@@ -104,10 +104,10 @@ const Shop = () => {
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-						Добавить
+						Изменить
 					</Button>
 					
-					<Popconfirm title={"Удалить статью?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
+					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
 						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
 							Удалить
 						</Button>
