@@ -1,7 +1,7 @@
 export default interface CreateEvent {
 	title: string,
 	description: string,
-	image: File,
+	image: string,
 	link: string,
 	routePath: string,
 	shopId: string

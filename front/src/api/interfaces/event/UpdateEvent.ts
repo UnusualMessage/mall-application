@@ -2,7 +2,7 @@ export default interface UpdateEvent {
 	id: string,
 	title: string,
 	description: string,
-	image: File,
+	image: string,
 	link: string,
 	routePath: string,
 	shopId: string

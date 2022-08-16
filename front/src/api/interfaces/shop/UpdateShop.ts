@@ -1,6 +1,6 @@
 export default interface UpdateShop {
 	id: string,
-	image?: File,
+	image?: string,
 	categories?: string[],
 	floor?: number,
 	title?: string,

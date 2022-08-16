@@ -1,6 +1,6 @@
 export default interface CreateDiscount {
 	title: string,
-	image: File,
+	image: string,
 	link: string,
 	routePath: string,
 	description: string,

@@ -1,7 +1,7 @@
 export default interface UpdateDiscount {
 	id: string,
 	title: string,
-	image: File,
+	image: string,
 	link: string,
 	routePath: string,
 	description: string,

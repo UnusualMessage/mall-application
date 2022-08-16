@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {ImageInput, SelectInput, TextInput, NumberInput} from "../../../components/Input";
+import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -51,7 +51,7 @@ const NewShop: FC = () => {
 			site: values.site,
 			phone: values.phone,
 			categoryIds: [values.category],
-			image: values.image[0].originFileObj as File,
+			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`
 		};
@@ -74,7 +74,7 @@ const NewShop: FC = () => {
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
-				<ImageInput {...initialOptions.image}/>
+				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.category}/>
 				<TextInput {...initialOptions.description}/>
 				

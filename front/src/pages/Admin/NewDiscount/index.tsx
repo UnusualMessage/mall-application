@@ -3,7 +3,8 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
+import {SelectInput, TextInput} from "../../../components/Input";
+import ImagePicker from "../../../components/Input/ImagePicker";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -41,10 +42,13 @@ const NewDiscount = () => {
 	
 	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
+		
+		console.log(values);
+		
 		const newDiscount: CreateDiscount = {
 			title: values.title,
 			description: values.description,
-			image: values.image[0].originFileObj as File,
+			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
 			shopId: values.shop
@@ -62,9 +66,9 @@ const NewDiscount = () => {
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues}>
+			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
-				<ImageInput {...initialOptions.image}/>
+				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shopsData} {...initialOptions.shop}/>
 				<TextInput {...initialOptions.description}/>
 				

@@ -1,9 +1,7 @@
-import {UploadFile} from "antd";
-
 import Event from "../api/interfaces/event/Event";
 
 export interface Values {
-	image: UploadFile[],
+	image: string,
 	title: string,
 	description: string,
 	shop: string,
@@ -11,6 +9,7 @@ export interface Values {
 
 export const getEventInitialValues = (event?: Event) => {
 	return {
+		image: event?.image,
 		title: event?.title,
 		shop: event?.shop.id,
 		description: event?.description,

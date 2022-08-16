@@ -1,51 +1,47 @@
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
+import {useMemo} from "react";
 
-import {TextInput} from "../../../components/Input";
+import {ImageInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import {Values} from "../../../hooks/useForm";
-import CreateCategory from "../../../api/interfaces/category/CreateCategory";
-import {useMemo} from "react";
-import {getCategoryInitialOptions, getCategoryInitialValues} from "../../../utils/getCategoryForm";
+import ImageStore from "../../../stores/ImageStore";
+import CreateImage from "../../../api/interfaces/image/CreateImage";
+import {getImageInitialOptions, Values} from "../../../utils/getImageForm";
 
-const rootRoute = "categories";
+const rootRoute = "images";
 
-const NewCategory = () => {
+const NewImage = () => {
 	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
 	const [form] = Form.useForm();
 	
-	const initialValues = useMemo(() => {
-		return getCategoryInitialValues();
-	}, []);
-	
 	const initialOptions = useMemo(() => {
-		return getCategoryInitialOptions();
+		return getImageInitialOptions();
 	}, []);
 	
 	const handleCreate = async (values: Values) => {
 		console.log(values);
-		const newCategory: CreateCategory = {
-			title: values.title,
+		const newImage: CreateImage = {
+			image: values.image[0].originFileObj as File,
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await CategoryStore.createAsync(newCategory);
+		// await ImageStore.createAsync(newImage);
 		InterfaceStore.setLoading(false);
 	};
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
 			<PageHeader onBack={() => redirect(`../${rootRoute}`)}
-			            title="Добавление категории"
+			            title="Добавление изображения"
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
-				<TextInput {...initialOptions.title}/>
-
+			<Form onFinish={handleCreate} labelCol={{span: 24}} form={form}>
+				<ImageInput {...initialOptions.title}/>
+				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
 						Добавить
@@ -60,4 +56,4 @@ const NewCategory = () => {
 	);
 };
 
-export default observer(NewCategory);
+export default observer(NewImage);

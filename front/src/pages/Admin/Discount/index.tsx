@@ -15,6 +15,7 @@ import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../..
 import Shop from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
 import shopsData from "../../../data/shops";
+import ImagePicker from "../../../components/Input/ImagePicker";
 
 const rootRoute = "discounts";
 
@@ -22,6 +23,7 @@ const Discount = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
+	const [form] = Form.useForm();
 	
 	const [discount, setDiscount] = useState<DiscountInterface>();
 	const [shops, setShops] = useState<Shop[]>([]);
@@ -68,7 +70,7 @@ const Discount = () => {
 			id: discount.id,
 			title: values.title,
 			description: values.description,
-			image: values.image[0].originFileObj as File,
+			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
 			shopId: values.shop
@@ -87,9 +89,9 @@ const Discount = () => {
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
-				<ImageInput {...initialOptions.image}/>
+				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shopsData} {...initialOptions.shop}/>
 				<TextInput {...initialOptions.description}/>
 				

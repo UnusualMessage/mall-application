@@ -1,8 +1,7 @@
-import {UploadFile} from "antd";
 import Discount from "../api/interfaces/discount/Discount";
 
 export interface Values {
-	image: UploadFile[],
+	image: string,
 	title: string,
 	description: string,
 	shop: string,
@@ -10,6 +9,7 @@ export interface Values {
 
 export const getDiscountInitialValues = (discount?: Discount) => {
 	return {
+		image: discount?.image,
 		title: discount?.title,
 		shop: discount?.shop.id,
 		description: discount?.description,
@@ -20,7 +20,7 @@ export const getDiscountInitialOptions = () => {
 	return {
 		image: {
 			name: "image",
-			placeholder: "Выберите основное изображение",
+			placeholder: "Выберите изображение",
 			label: "Изображение",
 			rules: [
 				{ required: true, message: "Обязательно для заполнения" }

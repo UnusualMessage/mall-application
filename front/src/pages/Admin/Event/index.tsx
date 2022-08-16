@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -22,6 +22,7 @@ const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
+	const [form] = Form.useForm();
 	
 	const [event, setEvent] = useState<EventInterface>();
 	const [shops, setShops] = useState<Shop[]>([]);
@@ -68,7 +69,7 @@ const Event = () => {
 			id: event.id,
 			title: values.title,
 			description: values.description,
-			image: values.image[0].originFileObj as File,
+			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
 			shopId: values.shop
@@ -87,9 +88,9 @@ const Event = () => {
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
-				<ImageInput {...initialOptions.image}/>
+				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shopsData} {...initialOptions.shop}/>
 				<TextInput {...initialOptions.description}/>
 				

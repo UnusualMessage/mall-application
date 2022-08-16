@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {ImageInput, SelectInput, TextInput, NumberInput} from "../../../components/Input";
+import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -22,6 +22,7 @@ const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
+	const [form] = Form.useForm();
 	
 	const [shop, setShop] = useState<ShopInterface>();
 	const [categories, setCategories] = useState<Category[]>([]);
@@ -68,7 +69,7 @@ const Shop = () => {
 			site: values.site,
 			phone: values.phone,
 			categories: [values.category],
-			image: values.image[0].originFileObj as File,
+			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${shops}/${transliteratedTitle}`
 		};
@@ -92,13 +93,13 @@ const Shop = () => {
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
 				<NumberInput {...initialOptions.floor} min={1} max={2}/>
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
-				<ImageInput {...initialOptions.image}/>
+				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.category}/>
 				<TextInput {...initialOptions.description}/>
 				

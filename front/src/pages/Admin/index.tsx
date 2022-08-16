@@ -26,6 +26,7 @@ import shops from "../../data/shops";
 import events from "../../data/events";
 import discounts from "../../data/discounts";
 import categories from "../../data/categories";
+import NewImage from "./NewImage";
 
 const Admin = () => {
 	// const [shops, setShops] = useState<ShopInterface[]>([]);
@@ -69,6 +70,7 @@ const Admin = () => {
 				
 				<Route path={"info"} element={<Info/>} />
 				<Route path={"images"} element={<Items items={shops.map(item => { return { id: item.id, image: item.image }; })}/>} />
+				<Route path={"images/new"} element={<NewImage/>} />
 			</Route>
 		</Routes>
 	);

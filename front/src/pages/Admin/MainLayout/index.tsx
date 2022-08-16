@@ -63,7 +63,6 @@ const items: MenuProps["items"] = [
 	getNav(<InnerLink to={"info"}> Контакты и информация </InnerLink>, "info", <InfoCircleOutlined/>),
 ];
 
-
 const MainLayout = () => (
 	<Layout hasSider>
 		<Sider className={css.sider} width={240}>

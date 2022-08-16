@@ -1,5 +1,5 @@
 export default interface CreateShop extends Record<Key, Value> {
-	image: File,
+	image: string,
 	categoryIds: string[],
 	floor: number,
 	title: string,

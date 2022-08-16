@@ -1,8 +1,8 @@
 import Shop from "../api/interfaces/shop/Shop";
-import {FormRule, UploadFile} from "antd";
+import {FormRule} from "antd";
 
 export interface Values {
-	image: UploadFile[],
+	image: string,
 	title: string,
 	floor: number,
 	schedule: string,
@@ -14,6 +14,7 @@ export interface Values {
 
 export const getShopInitialValues = (shop?: Shop) => {
 	return {
+		image: shop?.image,
 		title: shop?.title,
 		floor: Number(shop?.floor),
 		schedule: shop?.schedule,
