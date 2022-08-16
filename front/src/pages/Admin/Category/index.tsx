@@ -1,7 +1,10 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Popconfirm, Space} from "antd";
+import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
+
+import Loader from "../../../components/Loader";
+import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import {Values} from "../../../hooks/useForm";
@@ -9,18 +12,25 @@ import UpdateCategory from "../../../api/interfaces/category/UpdateCategory";
 import CategoryStore from "../../../stores/CategoryStore";
 import DeleteCategory from "../../../api/interfaces/category/DeleteCategory";
 import CategoryInterface from "../../../api/interfaces/category/Category";
-import Loader from "../../../components/Loader";
 import categories from "../../../data/categories";
+import {getCategoryInitialOptions, getCategoryInitialValues} from "../../../utils/getCategoryForm";
+
+const rootRoute = "categories";
 
 const Category = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	
 	const [category, setCategory] = useState<CategoryInterface>();
 	
 	const isLoading = InterfaceStore.isLoading();
 	
-	const [form] = Form.useForm();
+	const initialValues = useMemo(() => {
+		return getCategoryInitialValues(category);
+	}, [category]);
+	
+	const initialOptions = useMemo(() => {
+		return getCategoryInitialOptions();
+	}, [category]);
 	
 	useEffect(() => {
 		const getCategory = async () => {
@@ -28,7 +38,7 @@ const Category = () => {
 			if (categories.length !== 0) {
 				setCategory(categories[0]);
 			} else {
-				redirect("../");
+				redirect(`../${rootRoute}`);
 			}
 		};
 		
@@ -39,10 +49,6 @@ const Category = () => {
 	if (!category) {
 		return <Loader/>;
 	}
-	
-	const initialValues = {
-		"title": category.title
-	};
 	
 	const handleDelete = async () => {
 		const id: DeleteCategory = {
@@ -67,34 +73,25 @@ const Category = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../categories")}
+			<PageHeader onBack={() => redirect(`../${rootRoute}`)}
 			            title="Редактирование категории"
 			            subTitle={category.title}
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form form={form} onFinish={handleUpdate} style={{width: "100%"}} initialValues={initialValues}>
-				<Form.Item label="Категория" name="title"
-				           rules={[{ required: true, message: "Необходимо ввести название категории" }]}>
-					<Input />
-				</Form.Item>
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+				<TextInput {...initialOptions.title}/>
 				
 				<Space>
-					<Form.Item colon={false}>
-						<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-							Добавить
-						</Button>
-					</Form.Item>
+					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+						Изменить
+					</Button>
 					
-						<Form.Item colon={false} >
-							<Popconfirm placement="top" title={"Удалить?"} onConfirm={() => handleDelete()}
-							            okText="Да" cancelText="Нет">
-								
-								<Button type="primary" danger loading={isLoading} disabled={isLoading}>
-									Удалить
-								</Button>
-							</Popconfirm>
-						</Form.Item>
+					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
+						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
+							Удалить
+						</Button>
+					</Popconfirm>
 				</Space>
 			</Form>
 		</Space>

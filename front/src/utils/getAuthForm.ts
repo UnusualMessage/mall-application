@@ -1,35 +1,26 @@
-import {Options} from "../hooks/useForm";
-
-interface InitialValue {
-	value?: string,
-	options: Options,
-	exclude?: boolean
+export interface Values {
+	login: string,
+	password: string
 }
 
-type Name = string;
-
-type Returns = Record<Name, InitialValue>;
-
-const getAuthForm = (): Returns => {
+export const getAuthInitialOptions = () => {
 	return {
 		login: {
-			value: "",
-			options: {
-				name: "login",
-				placeholder: "Введите логин",
-				label: "Логин"
-			},
+			name: "login",
+			placeholder: "Введите логин",
+			label: "Логин",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
 		},
 		
 		password: {
-			value: "",
-			options: {
-				name: "password",
-				placeholder: "Введите пароль",
-				label: "Пароль"
-			}
-		}
+			name: "password",
+			placeholder: "Введите пароль",
+			label: "Пароль",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
 	};
 };
-
-export default getAuthForm;

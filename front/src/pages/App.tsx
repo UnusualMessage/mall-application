@@ -4,8 +4,9 @@ import {Route, Routes} from "react-router-dom";
 import Loader from "../components/Loader";
 const Mall = lazy(() => import("./Mall"));
 const Admin = lazy(() => import("./Admin"));
-const Authorization = lazy(() => import("./Admin/Authorization/Authorization"));
-const RequireAuth = lazy(() => import("./Admin/Authorization/RequireAuth"));
+const Authorization = lazy(() => import("./Admin/Authorization"));
+
+import {RequireAuth} from "./Admin/Authorization";
 
 import "./App.scss";
 import "antd/dist/antd.css";

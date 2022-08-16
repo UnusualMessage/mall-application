@@ -1,9 +1,9 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {ChangeEvent, useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
+import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {ImageInput, SelectInput} from "../../../components/Input";
+import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 
 import ShopInterface from "../../../api/interfaces/shop/Shop";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -14,17 +14,25 @@ import Category from "../../../api/interfaces/category/Category";
 import CategoryStore from "../../../stores/CategoryStore";
 import shops from "../../../data/shops";
 import categoriesData from "../../../data/categories";
+import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+
+const rootRoute = "shops";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
+	const isLoading = InterfaceStore.isLoading();
 	
 	const [shop, setShop] = useState<ShopInterface>();
 	const [categories, setCategories] = useState<Category[]>([]);
 	
-	const isLoading = InterfaceStore.isLoading();
+	const initialValues = useMemo(() => {
+		return getShopInitialValues(shop);
+	}, [shop]);
 	
-	const [form] = Form.useForm();
+	const initialOptions = useMemo(() => {
+		return getShopInitialOptions();
+	}, [shop]);
 	
 	useEffect(() => {
 		const getShop = async () => {
@@ -35,7 +43,7 @@ const Shop = () => {
 				setShop(shops[0]);
 				setCategories(categories);
 			} else {
-				redirect("../");
+				redirect(`../${rootRoute}`);
 			}
 		};
 		
@@ -48,9 +56,8 @@ const Shop = () => {
 		return null;
 	}
 	
-	const handleUpdate = async (values: any) => {
+	const handleUpdate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
-		const imagePreview = values.image as File;
 		
 		const newShop: UpdateShop = {
 			id: shop.id,
@@ -60,91 +67,52 @@ const Shop = () => {
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
-			categories: [values.categories],
-			image: imagePreview,
+			categories: [values.category],
+			image: values.image[0].originFileObj as File,
 			link: transliteratedTitle,
-			routePath: `/shops/${transliteratedTitle}`
+			routePath: `/${shops}/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);
-		await ShopStore.updateAsync(newShop);
+		// await ShopStore.updateAsync(newShop);
 		InterfaceStore.setLoading(false);
 	};
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		await ShopStore.deleteAsync({ id: shop.id });
+		// await ShopStore.deleteAsync({ id: shop.id });
 		InterfaceStore.setLoading(false);
-		
-		if (ShopStore.isRequestSuccessful()) {
-			redirect("../shops");
-		}
 	};
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../shops")}
-			            title="Редактирование статьи"
+			<PageHeader onBack={() => redirect(`../${rootRoute}`)}
+			            title="Редактирование магазина"
 			            subTitle={shop.title}
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form form={form} onFinish={handleUpdate} style={{width: "100%"}} labelCol={{span: 2}}>
-				<Form.Item label="Название" name="title"
-				           rules={[{ required: true, message: "Необходимо ввести название магазина" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Этаж" name="floor"
-				           rules={[{ required: true, message: "Необходимо ввести этаж" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Время" name="schedule"
-				           rules={[{ required: true, message: "Необходимо ввести график работы" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Телефон" name="phone"
-				           rules={[{ required: true, message: "Необходимо ввести номер телефона" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Сайт" name="site"
-				           rules={[{ required: true, message: "Необходимо ввести адрес сайта" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Изображение" name="image"
-				           rules={[{ required: true, message: "Необходимо выбрать изображение" }]}>
-					<ImageInput/>
-				</Form.Item>
-				
-				<Form.Item label="Категория" name="category"
-				           rules={[{ required: true, message: "Необходимо выбрать категорию" }]}>
-					<SelectInput values={categories} defaultValue={shop.categories[1].id as unknown as ChangeEvent<HTMLSelectElement>}/>
-				</Form.Item>
-				
-				<Form.Item label="Описание" name="description">
-					<Input />
-				</Form.Item>
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+				<TextInput {...initialOptions.title}/>
+				<TextInput {...initialOptions.floor}/>
+				<TextInput {...initialOptions.schedule}/>
+				<TextInput {...initialOptions.phone}/>
+				<TextInput {...initialOptions.site}/>
+				<ImageInput {...initialOptions.image}/>
+				<SelectInput values={categories} {...initialOptions.category}/>
+				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Form.Item label=" " colon={false}>
-						<Button type="primary" htmlType="submit"
-						        loading={isLoading} disabled={isLoading}>
-							Добавить
-						</Button>
-					</Form.Item>
+					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+						Добавить
+					</Button>
 					
-					<Form.Item label=" " colon={false}>
-						<Button type="primary" onClick={() => handleDelete()}
-						        danger loading={isLoading} disabled={isLoading}>
+					<Popconfirm title={"Удалить статью?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
+						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
 							Удалить
 						</Button>
-					</Form.Item>
+					</Popconfirm>
 				</Space>
-			
 			</Form>
 		</Space>
 	);

@@ -1,27 +1,34 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Space, Typography} from "antd";
+import {Button, Form, PageHeader, Space} from "antd";
+import {useNavigate} from "react-router-dom";
 
-import {ImageInput, SelectInput} from "../../../components/Input";
+import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
 
-import{Values} from "../../../hooks/useForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
-import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import Category from "../../../api/interfaces/category/Category";
-import discounts from "../../../data/discounts";
-import {useNavigate} from "react-router-dom";
+import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+import categoriesData from "../../../data/categories";
+
+const rootRoute = "shops";
 
 const NewShop: FC = () => {
-	const [imagePreview, setImagePreview] = useState<File | undefined>(undefined);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const redirect = useNavigate();
+	const [form] = Form.useForm();
 	
 	const isLoading = InterfaceStore.isLoading();
 	
-	const [form] = Form.useForm();
+	const initialValues = useMemo(() => {
+		return getShopInitialValues();
+	}, []);
+	
+	const initialOptions = useMemo(() => {
+		return getShopInitialOptions();
+	}, []);
 	
 	useEffect(() => {
 		const getCategories = async () => {
@@ -29,15 +36,13 @@ const NewShop: FC = () => {
 			setCategories(categories);
 		};
 		
-		void getCategories();
+		setCategories(categoriesData);
+		// void getCategories();
 	}, []);
 	
 	const handleCreate = async (values: Values) => {
-		if (!imagePreview) {
-			return;
-		}
-		
 		const transliteratedTitle = transliterate(values.title);
+		
 		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
@@ -46,75 +51,41 @@ const NewShop: FC = () => {
 			site: values.site,
 			phone: values.phone,
 			categoryIds: [values.category],
-			image: imagePreview,
+			image: values.image[0].originFileObj as File,
 			link: transliteratedTitle,
-			routePath: `/shops/${transliteratedTitle}`
+			routePath: `/${rootRoute}/${transliteratedTitle}`
 		};
 		
 		InterfaceStore.setLoading(true);
-		await ShopStore.createAsync(newShop);
+		// await ShopStore.createAsync(newShop);
 		InterfaceStore.setLoading(false);
 	};
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../shops")}
+			<PageHeader onBack={() => redirect(`../${rootRoute}`)}
 			            title="Добавление магазина"
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form form={form} onFinish={handleCreate} style={{width: "100%"}} labelCol={{span: 2}}>
-				<Form.Item label="Название" name="title"
-				           rules={[{ required: true, message: "Необходимо ввести название магазина" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Этаж" name="floor"
-				           rules={[{ required: true, message: "Необходимо ввести этаж" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Время" name="schedule"
-				           rules={[{ required: true, message: "Необходимо ввести график работы" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Телефон" name="phone"
-				           rules={[{ required: true, message: "Необходимо ввести номер телефона" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Сайт" name="site"
-				           rules={[{ required: true, message: "Необходимо ввести адрес сайта" }]}>
-					<Input />
-				</Form.Item>
-				
-				<Form.Item label="Изображение" name="image"
-				           rules={[{ required: true, message: "Необходимо выбрать изображение" }]}>
-					<ImageInput/>
-				</Form.Item>
-				
-				<Form.Item label="Категория" name="category"
-				           rules={[{ required: true, message: "Необходимо выбрать категорию" }]}>
-					<SelectInput values={discounts}/>
-				</Form.Item>
-				
-				<Form.Item label="Описание" name="description">
-					<Input />
-				</Form.Item>
+			<Form form={form} onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues}>
+				<TextInput {...initialOptions.title}/>
+				<TextInput {...initialOptions.floor}/>
+				<TextInput {...initialOptions.schedule}/>
+				<TextInput {...initialOptions.phone}/>
+				<TextInput {...initialOptions.site}/>
+				<ImageInput {...initialOptions.image}/>
+				<SelectInput values={categories} {...initialOptions.category}/>
+				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Form.Item label=" " colon={false}>
-						<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-							Добавить
-						</Button>
-					</Form.Item>
+					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+						Добавить
+					</Button>
 					
-					<Form.Item label=" " colon={false}>
-						<Button type="dashed" onClick={() => form.resetFields()}>
-							Очистить
-						</Button>
-					</Form.Item>
+					<Button type="dashed" onClick={() => form.resetFields()}>
+						Очистить
+					</Button>
 				</Space>
 			
 			</Form>

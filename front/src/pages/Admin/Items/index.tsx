@@ -8,12 +8,12 @@ import Event from "../../../api/interfaces/event/Event";
 import Category from "../../../api/interfaces/category/Category";
 
 const cardBreakpoints = {
-	xs: 24,
-	sm: 24,
-	md: 12,
-	lg: 12,
+	xs: 12,
+	sm: 12,
+	md: 8,
+	lg: 6,
 	xl: 6,
-	xxl: 6
+	xxl: 4
 };
 
 const Items = ({ items }: Props) => {

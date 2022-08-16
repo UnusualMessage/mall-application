@@ -1,25 +1,25 @@
-import React, {ChangeEventHandler, memo} from "react";
+import React, {memo} from "react";
+import {Form, Input} from "antd";
+import {FormRule} from "antd";
 
-import {Input, Space, Typography} from "antd";
-
-const TextInput = ({ label, placeholder, name, defaultValue, onChange }: Props) => {
+const TextInput = ({ label, placeholder, name, rules, password }: Props) => {
 	return (
-		<Input id={name}
-		       name={name}
-		       type={"text"}
-		       placeholder={placeholder}
-		       defaultValue={defaultValue ? defaultValue : ""}
-		       onChange={onChange}
-		/>
+		<Form.Item label={label} name={name} rules={rules} hasFeedback>
+			{
+				password
+					? <Input.Password id={name} placeholder={placeholder} />
+					: <Input id={name} placeholder={placeholder} />
+			}
+		</Form.Item>
 	);
 };
 
 interface Props {
 	label: string,
 	placeholder: string,
-	defaultValue?: string,
-	name: string
-	onChange?: ChangeEventHandler<HTMLInputElement>
+	name: string,
+	rules?: FormRule[]
+	password?: boolean
 }
 
 export default memo(TextInput);

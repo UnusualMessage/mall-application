@@ -1,26 +1,24 @@
-import React, {ChangeEvent, ChangeEventHandler} from "react";
-import {ConfigProvider, Empty, Select} from "antd";
+import React from "react";
+import {ConfigProvider, Empty, Form, FormRule, Select} from "antd";
 
 const { Option } = Select;
 
-const SelectInput = ({ values, onChange, label, defaultValue, placeholder, name }: Props) => {
+const SelectInput = ({ values, label, placeholder, name, rules }: Props) => {
 	return (
 		<ConfigProvider renderEmpty={() => <Empty description={"Нет данных"}/> }>
-			<Select placeholder={placeholder}
-			        onChange={onChange}
-			        id={name}
-			        defaultValue={defaultValue}
-			>
-				{
-					values.map(value => {
-						return (
-							<Option key={value.id} value={value.id}>
-								{value.title}
-							</Option>
-						);
-					})
-				}
-			</Select>
+			<Form.Item label={label} name={name} rules={rules} hasFeedback>
+				<Select placeholder={placeholder} id={name}>
+					{
+						values.map(value => {
+							return (
+								<Option key={value.id} value={value.id}>
+									{value.title}
+								</Option>
+							);
+						})
+					}
+				</Select>
+			</Form.Item>
 		</ConfigProvider>
 	);
 };
@@ -32,11 +30,10 @@ interface Value {
 
 interface Props {
 	values: Value[],
-	onChange?: ChangeEventHandler<HTMLSelectElement>,
-	placeholder?: string
-	label?: string,
-	defaultValue?: ChangeEvent<HTMLSelectElement>,
-	name?: string
+	placeholder: string
+	label: string,
+	name: string,
+	rules?: FormRule[]
 }
 
 export default SelectInput;

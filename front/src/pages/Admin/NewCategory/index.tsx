@@ -1,16 +1,29 @@
 import {observer} from "mobx-react-lite";
-import {Button, Form, Input, PageHeader, Space} from "antd";
+import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import {Values} from "../../../hooks/useForm";
 import CategoryStore from "../../../stores/CategoryStore";
 import CreateCategory from "../../../api/interfaces/category/CreateCategory";
+import {useMemo} from "react";
+import {getCategoryInitialOptions, getCategoryInitialValues} from "../../../utils/getCategoryForm";
+import {TextInput} from "../../../components/Input";
+
+const rootRoute = "categories";
 
 const NewCategory = () => {
 	const redirect = useNavigate();
 	const isLoading = InterfaceStore.isLoading();
 	const [form] = Form.useForm();
+	
+	const initialValues = useMemo(() => {
+		return getCategoryInitialValues();
+	}, []);
+	
+	const initialOptions = useMemo(() => {
+		return getCategoryInitialOptions();
+	}, []);
 	
 	const handleCreate = async (values: Values) => {
 		const newCategory: CreateCategory = {
@@ -24,33 +37,25 @@ const NewCategory = () => {
 	
 	return(
 		<Space direction={"vertical"} style={{width: "100%"}}>
-			<PageHeader onBack={() => redirect("../categories")}
+			<PageHeader onBack={() => redirect(`../${rootRoute}`)}
 			            title="Добавление категории"
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form form={form} onFinish={handleCreate} style={{width: "100%"}}>
-				<Form.Item label="Категория" name="title"
-				           rules={[{ required: true, message: "Необходимо ввести название категории" }]}>
-					<Input />
-				</Form.Item>
-				
+			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues}>
+				<TextInput {...initialOptions.title}/>
+
 				<Space>
-					<Form.Item label=" " colon={false}>
-						<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-							Добавить
-						</Button>
-					</Form.Item>
+					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+						Добавить
+					</Button>
 					
-					<Form.Item label=" " colon={false}>
-						<Button type="dashed" onClick={() => form.resetFields()}>
-							Очистить
-						</Button>
-					</Form.Item>
+					<Button type="dashed" onClick={() => form.resetFields()}>
+						Очистить
+					</Button>
 				</Space>
 			</Form>
 		</Space>
-	
 	);
 };
 

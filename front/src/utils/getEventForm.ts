@@ -1,55 +1,55 @@
-import Event from "../api/interfaces/event/Event";
-import {Options} from "../hooks/useForm";
+import {UploadFile} from "antd";
 
-interface InitialValue {
-	value?: string,
-	options: Options,
-	exclude?: boolean
+import Event from "../api/interfaces/event/Event";
+
+export interface Values {
+	image: UploadFile[],
+	title: string,
+	description: string,
+	shop: string,
 }
 
-type Name = string;
-
-type Returns = Record<Name, InitialValue>;
-
-const getEventForm = (event?: Event): Returns => {
+export const getEventInitialValues = (event?: Event) => {
 	return {
-		image: {
-			value: event?.image,
-			options: {
-				name: "image",
-				placeholder: "Выберите заглавное изображение",
-				label: "Изображение"
-			},
-			exclude: true
-		},
-		
-		title: {
-			value: event?.title,
-			options: {
-				name: "title",
-				placeholder: "Введите заголовок статьи",
-				label: "Заголовок"
-			}
-		},
-		
-		description: {
-			value: event?.description,
-			options: {
-				name: "description",
-				placeholder: "Введите текст статьи",
-				label: "Текст статьи"
-			}
-		},
-		
-		shop: {
-			value: event?.shop.id,
-			options: {
-				name: "shop",
-				placeholder: "Выберите магазин",
-				label: "Магазин"
-			}
-		},
+		title: event?.title,
+		shop: event?.shop.id,
+		description: event?.description,
 	};
 };
 
-export default getEventForm;
+export const getEventInitialOptions = () => {
+	return {
+		image: {
+			name: "image",
+			placeholder: "Выберите основное изображение",
+			label: "Изображение",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		title: {
+			name: "title",
+			placeholder: "Введите заголовок статьи",
+			label: "Заголовок",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		shop: {
+			name: "shop",
+			placeholder: "Выберите магазин",
+			label: "Магазин",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		description: {
+			name: "description",
+			placeholder: "Введите текст статьи",
+			label: "Текст статьи"
+		}
+	};
+};

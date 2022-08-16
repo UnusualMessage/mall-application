@@ -1,27 +1,24 @@
 import Category from "../api/interfaces/category/Category";
-import {Options} from "../hooks/useForm";
 
-interface InitialValue {
-	value?: string,
-	options: Options,
-	exclude?: boolean
+export interface Values {
+	title: string,
 }
 
-type Name = string;
-
-type Returns = Record<Name, InitialValue>;
-
-const getCategoryForm = (category?: Category): Returns => {
+export const getCategoryInitialValues = (category?: Category) => {
 	return {
-		title: {
-			value: category?.title,
-			options: {
-				name: "title",
-				placeholder: "Введите название категории",
-				label: "Название"
-			}
-		},
+		title: category?.title,
 	};
 };
 
-export default getCategoryForm;
+export const getCategoryInitialOptions = () => {
+	return {
+		title: {
+			name: "title",
+			placeholder: "Введите название категории",
+			label: "Название",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+	};
+};

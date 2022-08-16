@@ -1,91 +1,98 @@
 import Shop from "../api/interfaces/shop/Shop";
-import {Options} from "../hooks/useForm";
+import {UploadFile} from "antd";
 
-interface InitialValue {
-	value?: string,
-	options: Options,
-	exclude?: boolean
+export interface Values {
+	image: UploadFile[],
+	title: string,
+	floor: string,
+	schedule: string,
+	phone: string,
+	site: string,
+	category: string,
+	description: string
 }
 
-type Name = string;
-
-type Returns = Record<Name, InitialValue>;
-
-const getShopForm = (shop?: Shop): Returns => {
+export const getShopInitialValues = (shop?: Shop) => {
 	return {
-		image: {
-			value: shop?.image,
-			options: {
-				name: "image",
-				placeholder: "Выберите логотип магазина",
-				label: "Логотип"
-			},
-			exclude: true
-		},
-		
-		title: {
-			value: shop?.title,
-			options: {
-				name: "title",
-				placeholder: "Введите название магазина",
-				label: "Название"
-			}
-		},
-		
-		floor: {
-			value: shop?.floor,
-			options: {
-				name: "floor",
-				placeholder: "Введите номер этажа",
-				label: "Этаж"
-			}
-		},
-		
-		schedule: {
-			value: shop?.schedule,
-			options: {
-				name: "schedule",
-				placeholder: "Введите время работы",
-				label: "Время работы"
-			}
-		},
-		
-		phone: {
-			value: shop?.phone,
-			options: {
-				name: "phone",
-				placeholder: "Введите номер телефона",
-				label: "Телефон"
-			}
-		},
-		
-		site: {
-			value: shop?.site,
-			options: {
-				name: "site",
-				placeholder: "Введите адрес сайта",
-				label: "Сайт"
-			}
-		},
-		
-		category: {
-			value: shop?.categories[0].id,
-			options: {
-				name: "category",
-				placeholder: "Выберите категорию",
-				label: "Категория"
-			}
-		},
-		
-		description: {
-			value: shop?.description,
-			options: {
-				name: "description",
-				placeholder: "Введите текст статьи",
-				label: "Текст статьи"
-			}
-		}
+		title: shop?.title,
+		floor: shop?.floor,
+		schedule: shop?.schedule,
+		phone: shop?.phone,
+		site: shop?.site,
+		category: shop?.categories[1].id,
+		description: shop?.description,
 	};
 };
 
-export default getShopForm;
+export const getShopInitialOptions = () => {
+	return {
+		image: {
+			name: "image",
+			placeholder: "Выберите логотип магазина",
+			label: "Логотип",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		title: {
+			name: "title",
+			placeholder: "Введите название магазина",
+			label: "Название",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		floor: {
+			name: "floor",
+			placeholder: "Введите номер этажа",
+			label: "Этаж",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		schedule: {
+			name: "schedule",
+			placeholder: "Введите время работы",
+			label: "Время работы",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		phone: {
+			name: "phone",
+			placeholder: "Введите номер телефона",
+			label: "Телефон",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		site: {
+			name: "site",
+			placeholder: "Введите адрес сайта",
+			label: "Сайт",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		category: {
+			name: "category",
+			placeholder: "Выберите категорию",
+			label: "Категория",
+			rules: [
+				{ required: true, message: "Обязательно для заполнения" }
+			]
+		},
+		
+		description: {
+			name: "description",
+			placeholder: "Введите текст статьи",
+			label: "Текст статьи"
+		}
+	};
+};
