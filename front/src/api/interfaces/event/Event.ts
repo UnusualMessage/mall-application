@@ -1,11 +1,13 @@
 import Shop from "../shop/Shop";
+import Image from "../image/Image";
 
 export default interface Event {
 	id: string,
 	title: string,
-	description: string,
-	image: string,
 	link: string,
 	routePath: string,
+	description: string,
+	
+	image: Image,
 	shop: Shop
 }

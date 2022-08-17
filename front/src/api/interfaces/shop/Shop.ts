@@ -1,9 +1,8 @@
 import Category from "../category/Category";
+import Image from "../image/Image";
 
 export default interface Shop {
 	id: string,
-	image: string,
-	categories: Category[],
 	floor: string,
 	title: string,
 	description: string,
@@ -11,5 +10,8 @@ export default interface Shop {
 	phone: string,
 	site: string,
 	link: string,
-	routePath: string
+	routePath: string,
+	
+	category: Category,
+	image: Image
 }
