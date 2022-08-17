@@ -17,8 +17,9 @@ public class ShopRepository : Repository<Shop>, IShopRepository
     {
         return await ApplicationContext.Set<Shop>()
             .Include(e => e.Route)
-            .Include(e => e.Categories)
+            .Include(e => e.Category)
             .Include(e => e.Breadcrumb)
+            .Include(e => e.Image)
             .FirstOrDefaultAsync(shop => shop.Id == id);
     }
 
@@ -27,7 +28,8 @@ public class ShopRepository : Repository<Shop>, IShopRepository
         return await ApplicationContext.Set<Shop>()
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
-            .Include(e => e.Categories)
+            .Include(e => e.Category)
+            .Include(e => e.Image)
             .ToListAsync();
     }
 

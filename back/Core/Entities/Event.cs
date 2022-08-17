@@ -6,7 +6,9 @@ public class Event : Entity, IUpdatable<Event>
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string? LogoPath { get; set; }
+    
+    public Guid? ImageId { get; set; }
+    public Image? Image { get; set; }
     
     public Guid? RouteId { get; set; }
     public Route? Route { get; set; }
@@ -21,8 +23,8 @@ public class Event : Entity, IUpdatable<Event>
     {
         Title = entity.Title;
         Description = entity.Description;
-        LogoPath = entity.LogoPath;
-
+    
+        ImageId = entity.ImageId;
         BreadcrumbId = entity.BreadcrumbId;
         RouteId = entity.RouteId;
         ShopId = entity.ShopId;

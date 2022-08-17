@@ -10,10 +10,9 @@ public class ShopResponse : Response
     public string? Phone { get; set; }
     public string? Site { get; set; }
     public short Floor { get; set; }
-    public string? LogoPath { get; set; }
-    
     public string? Link { get; set; }
     public string? RoutePath { get; set; }
     
-    public ICollection<CategoryResponse>? Categories { get; set; }
+    public ImageResponse? Image { get; set; }
+    public CategoryResponse? Category { get; set; }
 }

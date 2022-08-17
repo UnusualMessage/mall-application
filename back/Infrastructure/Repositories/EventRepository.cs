@@ -18,6 +18,7 @@ public class EventRepository : Repository<Event>, IEventRepository
         return await ApplicationContext.Set<Event>()
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
+            .Include(e => e.Image)
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
@@ -26,6 +27,7 @@ public class EventRepository : Repository<Event>, IEventRepository
         return await ApplicationContext.Set<Event>()
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
+            .Include(e => e.Image)
             .ToListAsync();
     }
 

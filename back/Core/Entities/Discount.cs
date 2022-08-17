@@ -6,8 +6,10 @@ public class Discount : Entity, IUpdatable<Discount>
 {
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string? LogoPath { get; set; }
 
+    public Guid? ImageId { get; set; }
+    public Image? Image { get; set; }
+    
     public Guid? BreadcrumbId { get; set; }
     public Breadcrumb? Breadcrumb { get; set; }
     
@@ -21,8 +23,8 @@ public class Discount : Entity, IUpdatable<Discount>
     {
         Title = discount.Title;
         Description = discount.Description;
-        LogoPath = discount.LogoPath;
 
+        ImageId = discount.ImageId;
         RouteId = discount.RouteId;
         BreadcrumbId = discount.BreadcrumbId;
         ShopId = discount.ShopId;

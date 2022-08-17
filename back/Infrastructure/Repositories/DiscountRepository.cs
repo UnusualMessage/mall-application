@@ -18,6 +18,7 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
         return await ApplicationContext.Set<Discount>()
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
+            .Include(e => e.Image)
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
@@ -26,6 +27,7 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
         return await ApplicationContext.Set<Discount>()
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
+            .Include(e => e.Image)
             .ToListAsync();
     }
 
