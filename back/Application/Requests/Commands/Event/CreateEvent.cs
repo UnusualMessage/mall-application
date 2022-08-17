@@ -16,9 +16,6 @@ public class CreateEvent : IRequest<EventResponse>
     public string? Description { get; set; }
     
     [Required]
-    public IFormFile? Image { get; set; }
-    
-    [Required]
     public string? Link { get; set; }
     
     [Required]
@@ -27,6 +24,6 @@ public class CreateEvent : IRequest<EventResponse>
     [Required]
     public Guid? ShopId { get; set; }
     
-    [JsonIgnore]
-    public string? Destination { get; set; }
+    [Required]
+    public Guid? ImageId { get; set; }
 }

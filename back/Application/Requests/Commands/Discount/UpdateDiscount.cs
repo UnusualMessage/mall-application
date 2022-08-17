@@ -14,12 +14,10 @@ public class UpdateDiscount : IRequest<DiscountResponse>
     
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public IFormFile? Image { get; set; }
     public string? Link { get; set; }
     public string? RoutePath { get; set; }
-    public Guid? ShopId { get; set; }
     
-    [JsonIgnore]
-    public string? Destination { get; set; }
+    public Guid? ImageId { get; set; }
+    public Guid? ShopId { get; set; }
     
 }

@@ -16,7 +16,7 @@ public class CreateDiscount : IRequest<DiscountResponse>
     public string? Description { get; set; }
     
     [Required]
-    public IFormFile? Image { get; set; }
+    public Guid? ImageId { get; set; }
     
     [Required]
     public string? Link { get; set; }
@@ -26,7 +26,4 @@ public class CreateDiscount : IRequest<DiscountResponse>
 
     [Required]
     public Guid? ShopId { get; set; }
-    
-    [JsonIgnore]
-    public string? Destination { get; set; }
 }

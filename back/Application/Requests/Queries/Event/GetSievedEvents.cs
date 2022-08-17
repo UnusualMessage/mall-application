@@ -1,10 +1,9 @@
 ﻿using Application.Requests.Queries.Base;
 using Application.Responses;
-
 using MediatR;
 using Sieve.Models;
 
-namespace Application.Requests.Queries;
+namespace Application.Requests.Queries.Event;
 
 public class GetSievedEvents : SievedQuery, IRequest<IEnumerable<EventResponse>>
 {

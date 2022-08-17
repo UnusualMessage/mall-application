@@ -24,16 +24,14 @@ public class CreateShop : IRequest<ShopResponse>
     public short Floor { get; set; }
     
     [Required]
-    public IFormFile? Image { get; set; }
+    public Guid? ImageId { get; set; }
     
     [Required] 
-    public IEnumerable<Guid> CategoryIds { get; set; } = new List<Guid>();
+    public Guid? CategoryId { get; set; }
     
     public string? Schedule { get; set; }
     
     public string? Phone { get; set; }
     
     public string? Site { get; set; }
-    
-    public string? Destination { get; set; }
 }
