@@ -14,7 +14,7 @@ const rootRoute = "images";
 
 const NewImage = () => {
 	const redirect = useNavigate();
-	const isLoading = InterfaceStore.isLoading();
+	const interfaceLocked = InterfaceStore.isLoading();
 	const [form] = Form.useForm();
 	
 	const initialOptions = useMemo(() => {
@@ -22,13 +22,12 @@ const NewImage = () => {
 	}, []);
 	
 	const handleCreate = async (values: Values) => {
-		console.log(values);
 		const newImage: CreateImage = {
 			image: values.image[0].originFileObj as File,
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await ImageStore.createAsync(newImage);
+		await ImageStore.createAsync(newImage);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -43,7 +42,7 @@ const NewImage = () => {
 				<ImageInput {...initialOptions.title}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Добавить
 					</Button>
 					

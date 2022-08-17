@@ -5,15 +5,10 @@ import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 
-import ShopInterface from "../../../api/interfaces/shop/Shop";
-import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
 import transliterate from "../../../utils/transliterate";
 import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
-import Category from "../../../api/interfaces/category/Category";
 import CategoryStore from "../../../stores/CategoryStore";
-import shops from "../../../data/shops";
-import categoriesData from "../../../data/categories";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
 
 const rootRoute = "shops";
@@ -21,11 +16,11 @@ const rootRoute = "shops";
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const isLoading = InterfaceStore.isLoading();
+	const [isLoading, setIsLoading] = useState(true);
 	const [form] = Form.useForm();
 	
-	const [shop, setShop] = useState<ShopInterface>();
-	const [categories, setCategories] = useState<Category[]>([]);
+	const shop = ShopStore.getCurrent();
+	const categories = CategoryStore.get();
 	
 	const initialValues = useMemo(() => {
 		return getShopInitialValues(shop);
@@ -37,20 +32,19 @@ const Shop = () => {
 	
 	useEffect(() => {
 		const getShop = async () => {
-			const shops = await ShopStore.getAsync(`Filters=Id==${id}`);
-			const categories = await CategoryStore.getAsync("");
+			await ShopStore.getByIdAsync(id ?? "");
+			await CategoryStore.getAsync("");
 			
-			if (shops.length !== 0) {
-				setShop(shops[0]);
-				setCategories(categories);
-			} else {
+			const shop = ShopStore.getCurrent();
+			
+			setIsLoading(false);
+			
+			if (!shop) {
 				redirect(`../${rootRoute}`);
 			}
 		};
 		
-		setShop(shops.find(item => item.id === id));
-		setCategories(categoriesData);
-		// void getShop();
+		void getShop();
 	}, [id]);
 	
 	if (!shop) {
@@ -64,25 +58,29 @@ const Shop = () => {
 			id: shop.id,
 			title: values.title,
 			description: values.description,
-			floor: Number(values.floor),
+			floor: values.floor,
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
-			categories: [values.category],
-			image: values.image,
+			categoryId: values.categoryId,
+			imageId: values.image.id,
 			link: transliteratedTitle,
-			routePath: `/${shops}/${transliteratedTitle}`
+			routePath: `/${rootRoute}/${transliteratedTitle}`
 		};
 		
-		InterfaceStore.setLoading(true);
-		// await ShopStore.updateAsync(newShop);
-		InterfaceStore.setLoading(false);
+		setIsLoading(true);
+		await ShopStore.updateAsync(newShop);
+		setIsLoading(false);
 	};
 	
 	const handleDelete = async () => {
-		InterfaceStore.setLoading(true);
-		// await ShopStore.deleteAsync({ id: shop.id });
-		InterfaceStore.setLoading(false);
+		setIsLoading(true);
+		await ShopStore.deleteAsync({ id: shop.id });
+		setIsLoading(false);
+		
+		if (ShopStore.isRequestSuccessful()) {
+			redirect(`../${rootRoute}`);
+		}
 	};
 	
 	return(
@@ -100,7 +98,7 @@ const Shop = () => {
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={categories} {...initialOptions.category}/>
+				<SelectInput values={categories} {...initialOptions.categoryId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>

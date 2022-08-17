@@ -7,22 +7,20 @@ import Loader from "../../../components/Loader";
 import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import {Values} from "../../../hooks/useForm";
 import UpdateCategory from "../../../api/interfaces/category/UpdateCategory";
 import CategoryStore from "../../../stores/CategoryStore";
 import DeleteCategory from "../../../api/interfaces/category/DeleteCategory";
-import CategoryInterface from "../../../api/interfaces/category/Category";
-import categories from "../../../data/categories";
-import {getCategoryInitialOptions, getCategoryInitialValues} from "../../../utils/getCategoryForm";
+import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
 
 const rootRoute = "categories";
 
 const Category = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const [category, setCategory] = useState<CategoryInterface>();
+	const [isFetching, setIsFetching] = useState(true);
 	
-	const isLoading = InterfaceStore.isLoading();
+	const interfaceLocked = InterfaceStore.isLoading();
+	const category = CategoryStore.getCurrent();
 	
 	const initialValues = useMemo(() => {
 		return getCategoryInitialValues(category);
@@ -34,19 +32,19 @@ const Category = () => {
 	
 	useEffect(() => {
 		const getCategory = async () => {
-			const categories = await CategoryStore.getAsync(`Filters=Id==${id}`);
-			if (categories.length !== 0) {
-				setCategory(categories[0]);
-			} else {
+			const category = await CategoryStore.getByIdAsync(id ?? "");
+			
+			if (!category) {
 				redirect(`../${rootRoute}`);
 			}
+			
+			setIsFetching(false);
 		};
 		
-		setCategory(categories.find(item => item.id === id));
-		// void getCategory();
+		void getCategory();
 	}, [category]);
 	
-	if (!category) {
+	if (!category || isFetching) {
 		return <Loader/>;
 	}
 	
@@ -58,6 +56,7 @@ const Category = () => {
 		InterfaceStore.setLoading(true);
 		await CategoryStore.deleteAsync(id);
 		InterfaceStore.setLoading(false);
+		redirect(`../${rootRoute}`);
 	};
 	
 	const handleUpdate = async (values: Values) => {
@@ -83,12 +82,12 @@ const Category = () => {
 				<TextInput {...initialOptions.title}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Изменить
 					</Button>
 					
 					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
+						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
 							Удалить
 						</Button>
 					</Popconfirm>

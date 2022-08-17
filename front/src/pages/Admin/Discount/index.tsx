@@ -3,30 +3,27 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {ImageInput, SelectInput, TextInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
-import DiscountInterface from "../../../api/interfaces/discount/Discount";
-import discounts from "../../../data/discounts";
 import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
-import Shop from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
-import shopsData from "../../../data/shops";
-import ImagePicker from "../../../components/Input/ImagePicker";
 
 const rootRoute = "discounts";
 
 const Discount = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const isLoading = InterfaceStore.isLoading();
 	const [form] = Form.useForm();
+	const [isFetching, setIsFetching] = useState(true);
 	
-	const [discount, setDiscount] = useState<DiscountInterface>();
-	const [shops, setShops] = useState<Shop[]>([]);
+	const interfaceLocked = InterfaceStore.isLoading();
+	
+	const discount = DiscountStore.getCurrent();
+	const shops = ShopStore.get();
 	
 	const initialValues = useMemo(() => {
 		return getDiscountInitialValues(discount);
@@ -38,28 +35,25 @@ const Discount = () => {
 	
 	useEffect(() => {
 		const getDiscount = async () => {
-			const discounts = await DiscountStore.getAsync(`Filters=Id==${id}`);
-			const shops = await ShopStore.getAsync("");
+			const discount = await DiscountStore.getByIdAsync(id ?? "");
+			await ShopStore.getAsync("");
 			
-			if (discounts.length !== 0) {
-				setShops(shops);
-				setDiscount(discounts[0]);
-			} else {
+			if (!discount) {
 				redirect(`../${rootRoute}`);
 			}
 		};
 		
-		setDiscount(discounts.find(item => item.id === id));
-		// void getDiscount();
+		void getDiscount();
+		setIsFetching(false);
 	}, [discount]);
 	
-	if (!discount) {
+	if (!discount || isFetching) {
 		return null;
 	}
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		// await DiscountStore.deleteAsync({ id: discount.id });
+		await DiscountStore.deleteAsync({ id: discount.id });
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -70,14 +64,14 @@ const Discount = () => {
 			id: discount.id,
 			title: values.title,
 			description: values.description,
-			image: values.image,
+			imageId: values.image.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
-			shopId: values.shop
+			shopId: values.shopId
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await DiscountStore.createAsync(newDiscount);
+		await DiscountStore.createAsync(newDiscount);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -92,16 +86,16 @@ const Discount = () => {
 			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={shopsData} {...initialOptions.shop}/>
+				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Изменить
 					</Button>
 					
 					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
+						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
 							Удалить
 						</Button>
 					</Popconfirm>

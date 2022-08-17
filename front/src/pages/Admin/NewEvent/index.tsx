@@ -7,19 +7,20 @@ import {ImagePicker, SelectInput, TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
-import Shop from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
 import CreateEvent from "../../../api/interfaces/event/CreateEvent";
-import shopsData from "../../../data/shops";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
+import EventStore from "../../../stores/EventStore";
 
 const rootRoute = "events";
 
 const NewEvent = () => {
-	const [shops, setShops] = useState<Shop[]>([]);
 	const redirect = useNavigate();
-	const isLoading = InterfaceStore.isLoading();
 	const [form] = Form.useForm();
+	const [isFetching, setIsFetching] = useState(true);
+	const interfaceLocked = InterfaceStore.isLoading();
+	
+	const shops = ShopStore.get();
 	
 	const initialValues = useMemo(() => {
 		return getEventInitialValues();
@@ -31,12 +32,16 @@ const NewEvent = () => {
 	
 	useEffect(() => {
 		const getShops = async () => {
-			const shops = await ShopStore.getAsync("");
-			setShops(shops);
+			await ShopStore.getAsync("");
+			setIsFetching(false);
 		};
 		
-		// void getShops();
+		void getShops();
 	}, []);
+	
+	if (isFetching) {
+		return null;
+	}
 	
 	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
@@ -44,14 +49,14 @@ const NewEvent = () => {
 		const newEvent: CreateEvent = {
 			title: values.title,
 			description: values.description,
-			image: values.image,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
-			shopId: values.shop
+			imageId: values.image.id,
+			shopId: values.shopId
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await EventStore.createAsync(newEvent);
+		await EventStore.createAsync(newEvent);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -65,11 +70,11 @@ const NewEvent = () => {
 			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={shopsData} {...initialOptions.shop}/>
+				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Добавить
 					</Button>
 					

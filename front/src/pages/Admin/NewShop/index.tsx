@@ -1,26 +1,26 @@
-import {FC, useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 
-import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
 import CategoryStore from "../../../stores/CategoryStore";
-import Category from "../../../api/interfaces/category/Category";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
-import categoriesData from "../../../data/categories";
+import InterfaceStore from "../../../stores/InterfaceStore";
+import ShopStore from "../../../stores/ShopStore";
 
 const rootRoute = "shops";
 
-const NewShop: FC = () => {
-	const [categories, setCategories] = useState<Category[]>([]);
+const NewShop = () => {
 	const redirect = useNavigate();
 	const [form] = Form.useForm();
+	const [isFetching, setIsFetching] = useState(true);
+	const interfaceLocked = InterfaceStore.isLoading();
 	
-	const isLoading = InterfaceStore.isLoading();
+	const categories = CategoryStore.get();
 	
 	const initialValues = useMemo(() => {
 		return getShopInitialValues();
@@ -32,13 +32,16 @@ const NewShop: FC = () => {
 	
 	useEffect(() => {
 		const getCategories = async () => {
-			const categories = await CategoryStore.getAsync("");
-			setCategories(categories);
+			await CategoryStore.getAsync("");
+			setIsFetching(false);
 		};
 		
-		setCategories(categoriesData);
-		// void getCategories();
+		void getCategories();
 	}, []);
+	
+	if (isFetching) {
+		return null;
+	}
 	
 	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
@@ -46,18 +49,20 @@ const NewShop: FC = () => {
 		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
-			floor: Number(values.floor),
+			floor: values.floor,
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
-			categoryIds: [values.category],
-			image: values.image,
+			categoryId: values.categoryId,
+			imageId: values.image.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`
 		};
 		
+		console.log(newShop);
+		
 		InterfaceStore.setLoading(true);
-		// await ShopStore.createAsync(newShop);
+		await ShopStore.createAsync(newShop);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -75,11 +80,11 @@ const NewShop: FC = () => {
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={categories} {...initialOptions.category}/>
+				<SelectInput values={categories} {...initialOptions.categoryId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Добавить
 					</Button>
 					

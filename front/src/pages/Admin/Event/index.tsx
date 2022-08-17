@@ -7,11 +7,7 @@ import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
-import EventInterface from "../../../api/interfaces/event/Event";
-import discounts from "../../../data/discounts";
-import Shop from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
-import shopsData from "../../../data/shops";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
 import EventStore from "../../../stores/EventStore";
 import UpdateEvent from "../../../api/interfaces/event/UpdateEvent";
@@ -21,11 +17,13 @@ const rootRoute = "events";
 const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const isLoading = InterfaceStore.isLoading();
+	const [isFetching, setIsFetching] = useState(true);
 	const [form] = Form.useForm();
 	
-	const [event, setEvent] = useState<EventInterface>();
-	const [shops, setShops] = useState<Shop[]>([]);
+	const interfaceLocked = InterfaceStore.isLoading();
+	
+	const event = EventStore.getCurrent();
+	const shops = ShopStore.get();
 	
 	const initialValues = useMemo(() => {
 		return getEventInitialValues(event);
@@ -37,28 +35,26 @@ const Event = () => {
 	
 	useEffect(() => {
 		const getEvent = async () => {
-			const events = await EventStore.getAsync(`Filters=Id==${id}`);
-			const shops = await ShopStore.getAsync("");
+			const event = await EventStore.getByIdAsync(id ?? "");
+			await ShopStore.getAsync("");
 			
-			if (events.length !== 0) {
-				setShops(shops);
-				setEvent(events[0]);
-			} else {
+			setIsFetching(false);
+			
+			if (!event) {
 				redirect(`../${rootRoute}`);
 			}
 		};
 		
-		setEvent(discounts.find(item => item.id === id));
-		// void getDiscount();
+		void getEvent();
 	}, [event]);
 	
-	if (!event) {
+	if (!event || isFetching) {
 		return null;
 	}
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		// await EventStore.deleteAsync({ id: event.id });
+		await EventStore.deleteAsync({ id: event.id });
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -69,14 +65,14 @@ const Event = () => {
 			id: event.id,
 			title: values.title,
 			description: values.description,
-			image: values.image,
+			imageId: values.image.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
-			shopId: values.shop
+			shopId: values.shopId
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await EventStore.createAsync(newEvent);
+		await EventStore.createAsync(newEvent);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -91,16 +87,16 @@ const Event = () => {
 			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={shopsData} {...initialOptions.shop}/>
+				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Изменить
 					</Button>
 					
 					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
+						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
 							Удалить
 						</Button>
 					</Popconfirm>

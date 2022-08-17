@@ -1,11 +1,20 @@
-import { Col, Row } from "antd";
+import {Col, Empty, PageHeader, Row} from "antd";
+import {observer} from "mobx-react-lite";
+import {useEffect, useMemo, useState} from "react";
 
 import ItemCard from "./ItemCard";
 
-import Shop from "../../../api/interfaces/shop/Shop";
+import DiscountStore from "../../../stores/DiscountStore";
+import ShopStore from "../../../stores/ShopStore";
+import EventStore from "../../../stores/EventStore";
+import ImageStore from "../../../stores/ImageStore";
+import CategoryStore from "../../../stores/CategoryStore";
+import {ShopInterface} from "../../../api/interfaces/shop";
+import Category from "../../../api/interfaces/category/Category";
+import Image from "../../../api/interfaces/image/Image";
 import Discount from "../../../api/interfaces/discount/Discount";
 import Event from "../../../api/interfaces/event/Event";
-import Category from "../../../api/interfaces/category/Category";
+import {useNavigate} from "react-router-dom";
 
 const cardBreakpoints = {
 	xs: 12,
@@ -16,44 +25,88 @@ const cardBreakpoints = {
 	xxl: 4
 };
 
-const Items = ({ items }: Props) => {
+export enum StoreType {
+	category,
+	shop,
+	event,
+	image,
+	discount
+}
+
+const Items = ({ storeType }: Props) => {
+	const [isFetching, setIsFetching] = useState(true);
+	const redirect = useNavigate();
+	
+	const store = useMemo(() => {
+		switch (storeType) {
+			case StoreType.category: return CategoryStore;
+			case StoreType.image: return ImageStore;
+			case StoreType.event: return EventStore;
+			case StoreType.discount: return DiscountStore;
+			case StoreType.shop: return ShopStore;
+		}
+	}, [storeType]);
+	
+	const items = store.get() as ShopInterface[] | Category[] | Event[] | Image[] | Discount[];
+	
+	useEffect(() => {
+		const getItems = async () => {
+			await store.getAsync("");
+			setIsFetching(false);
+		};
+		
+		void getItems();
+	}, [storeType]);
+	
+	if (isFetching) {
+		return null;
+	}
+	
 	return (
-		<Row gutter={[32, 32]} justify={"space-evenly"}>
+		<>
+			<PageHeader onBack={() => redirect("../")}
+			            title="Элементы"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
+			
 			{
-				items.map(item => {
-					if ("image" in item && "title" in item) {
-						return (
-							<Col {...cardBreakpoints} key={item.id}>
-								<ItemCard title={item.title} to={item.id} image={item.image}/>
-							</Col>
-						);
-					} else if ("title" in item) {
-						return (
-							<Col {...cardBreakpoints} key={item.id}>
-								<ItemCard title={item.title} to={item.id}/>
-							</Col>
-						);
-					} else {
-						return (
-							<Col {...cardBreakpoints} key={item.id}>
-								<ItemCard image={item.image}/>
-							</Col>
-						);
-					}
-					
-				})
+				items.length === 0
+					?
+					<Empty description={"Данные отсутствуют!"}/>
+					:
+					<Row gutter={[32, 32]} justify={"space-evenly"}>
+						{
+							items.map(item => {
+								if ("image" in item && "title" in item) {
+									return (
+										<Col {...cardBreakpoints} key={item.id}>
+											<ItemCard title={item.title} to={item.id} image={item.image.path}/>
+										</Col>
+									);
+								} else if ("title" in item) {
+									return (
+										<Col {...cardBreakpoints} key={item.id}>
+											<ItemCard title={item.title} to={item.id}/>
+										</Col>
+									);
+								} else {
+									return (
+										<Col {...cardBreakpoints} key={item.id}>
+											<ItemCard image={item.path}/>
+										</Col>
+									);
+								}
+								
+							})
+						}
+					</Row>
 			}
-		</Row>
+		</>
 	);
 };
 
-interface Image {
-	id: string
-	image: string
-}
-
 interface Props {
-	items: Discount[] | Shop[] | Event[] | Category[] | Image[],
+	storeType: StoreType,
 }
 
-export default Items;
+export default observer(Items);

@@ -9,19 +9,20 @@ import ImagePicker from "../../../components/Input/ImagePicker";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
 import CreateDiscount from "../../../api/interfaces/discount/CreateDiscount";
-import Shop from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
-import shopsData from "../../../data/shops";
 import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
+import DiscountStore from "../../../stores/DiscountStore";
 
 const rootRoute = "discounts";
 
 const NewDiscount = () => {
-	const [shops, setShops] = useState<Shop[]>([]);
 	const redirect = useNavigate();
 	const [form] = Form.useForm();
+	const [isFetching, setIsFetching] = useState(true);
 	
-	const isLoading = InterfaceStore.isLoading();
+	const shops = ShopStore.get();
+	
+	const interfaceLocked = InterfaceStore.isLoading();
 	
 	const initialValues = useMemo(() => {
 		return getDiscountInitialValues();
@@ -33,29 +34,31 @@ const NewDiscount = () => {
 	
 	useEffect(() => {
 		const getShops = async () => {
-			const shops = await ShopStore.getAsync("");
-			setShops(shops);
+			await ShopStore.getAsync("");
+			setIsFetching(false);
 		};
 		
-		// void getShops();
+		void getShops();
 	}, []);
+	
+	if (isFetching) {
+		return null;
+	}
 	
 	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
 		
-		console.log(values);
-		
 		const newDiscount: CreateDiscount = {
 			title: values.title,
 			description: values.description,
-			image: values.image,
+			imageId: values.image.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
-			shopId: values.shop
+			shopId: values.shopId
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await DiscountStore.createAsync(newDiscount);
+		await DiscountStore.createAsync(newDiscount);
 		InterfaceStore.setLoading(false);
 	};
 	
@@ -69,11 +72,11 @@ const NewDiscount = () => {
 			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
-				<SelectInput values={shopsData} {...initialOptions.shop}/>
+				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<TextInput {...initialOptions.description}/>
 				
 				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
 						Добавить
 					</Button>
 					

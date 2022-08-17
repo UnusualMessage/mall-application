@@ -1,14 +1,14 @@
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
+import {useMemo} from "react";
 
 import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import {Values} from "../../../hooks/useForm";
 import CreateCategory from "../../../api/interfaces/category/CreateCategory";
-import {useMemo} from "react";
-import {getCategoryInitialOptions, getCategoryInitialValues} from "../../../utils/getCategoryForm";
+import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
+import CategoryStore from "../../../stores/CategoryStore";
 
 const rootRoute = "categories";
 
@@ -32,7 +32,7 @@ const NewCategory = () => {
 		};
 		
 		InterfaceStore.setLoading(true);
-		// await CategoryStore.createAsync(newCategory);
+		await CategoryStore.createAsync(newCategory);
 		InterfaceStore.setLoading(false);
 	};
 	
