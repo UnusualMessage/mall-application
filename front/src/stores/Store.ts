@@ -15,6 +15,7 @@ export const storeProps = {
 	successful: observable,
 	
 	invokeError: action,
+	getByIdAsync: action,
 	getAsync: action,
 	createAsync: action,
 	updateAsync: action,
@@ -24,6 +25,7 @@ export const storeProps = {
 class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 	protected service: Service<T, CreateT, UpdateT, DeleteT>;
 	protected data: T[];
+	protected current: T | undefined;
 	
 	protected error: string;
 	protected successful: boolean;
@@ -31,6 +33,7 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 	constructor(service: Service<T, CreateT, UpdateT, DeleteT>, data: T[]) {
 		this.service = service;
 		this.data = data;
+		this.current = undefined;
 		
 		this.error = "";
 		this.successful = true;
@@ -44,6 +47,10 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 	
 	public get() {
 		return toJS(this.data);
+	}
+	
+	public getCurrent() {
+		return toJS(this.current);
 	}
 	
 	public getCount() {
@@ -64,8 +71,20 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 		} catch(error) {
 			this.invokeError("Request Error");
 		}
+	};
+	
+	public getByIdAsync = async (id: string) => {
+		try {
+			const data = await this.service.getById(id);
+			
+			runInAction(() => {
+				this.current = data;
+			});
+		} catch(error) {
+			this.invokeError("Request Error");
+		}
 		
-		return this.data;
+		return this.current;
 	};
 	
 	public createAsync = async (newData: CreateT) => {
@@ -87,6 +106,7 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 			
 			runInAction(() => {
 				this.data = this.data.map(item => item.id === data.id ? data : item);
+				this.current = data;
 			});
 			
 		} catch(error) {
@@ -102,7 +122,8 @@ class Store<T extends Model, CreateT, UpdateT, DeleteT extends Request> {
 				this.data = this.data.filter(item => item.id !== data.id);
 			});
 			
-		} catch(error) {
+		} catch(error: any) {
+			console.log(error.message);
 			this.invokeError("Request Error");
 		}
 	};

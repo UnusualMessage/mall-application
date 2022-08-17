@@ -1,22 +1,34 @@
+import {FormRule} from "antd";
+
 import Discount from "../api/interfaces/discount/Discount";
+import Image from "../api/interfaces/image/Image";
 
 export interface Values {
-	image: string,
+	image: Image,
 	title: string,
 	description: string,
-	shop: string,
+	shopId: string,
 }
 
 export const getDiscountInitialValues = (discount?: Discount) => {
 	return {
 		image: discount?.image,
 		title: discount?.title,
-		shop: discount?.shop.id,
+		shopId: discount?.shop.id,
 		description: discount?.description,
 	};
 };
 
-export const getDiscountInitialOptions = () => {
+interface Option {
+	name: string,
+	placeholder: string,
+	label: string,
+	rules?: FormRule[]
+}
+
+type Options = Record<keyof Values, Option>;
+
+export const getDiscountInitialOptions = (): Options => {
 	return {
 		image: {
 			name: "image",
@@ -36,8 +48,8 @@ export const getDiscountInitialOptions = () => {
 			]
 		},
 		
-		shop: {
-			name: "shop",
+		shopId: {
+			name: "shopId",
 			placeholder: "Выберите магазин",
 			label: "Магазин",
 			rules: [

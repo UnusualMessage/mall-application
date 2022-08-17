@@ -1,5 +1,5 @@
 export default interface Filterable {
-	setFilter(filter: string): void;
+	setFilter(id: string, title: string): void;
 	getFilter(): string;
 	getCountByCategoryId(id: string): number;
 }

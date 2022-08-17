@@ -1,26 +1,28 @@
-import Shop from "../api/interfaces/shop/Shop";
 import {FormRule} from "antd";
 
+import Image from "../api/interfaces/image/Image";
+import Shop from "../api/interfaces/shop/Shop";
+
 export interface Values {
-	image: string,
 	title: string,
 	floor: number,
 	schedule: string,
 	phone: string,
 	site: string,
-	category: string,
 	description: string
+	categoryId: string,
+	image: Image,
 }
 
 export const getShopInitialValues = (shop?: Shop) => {
 	return {
 		image: shop?.image,
 		title: shop?.title,
-		floor: Number(shop?.floor),
+		floor: shop?.floor ?? 1,
 		schedule: shop?.schedule,
 		phone: shop?.phone,
 		site: shop?.site,
-		category: shop?.categories[1].id,
+		categoryId: shop?.category.id,
 		description: shop?.description,
 	};
 };
@@ -32,7 +34,7 @@ interface Option {
 	rules?: FormRule[]
 }
 
-type Options = Record<string, Option>;
+type Options = Record<keyof Values, Option>;
 
 export const getShopInitialOptions = (): Options => {
 	return {
@@ -91,8 +93,8 @@ export const getShopInitialOptions = (): Options => {
 			]
 		},
 		
-		category: {
-			name: "category",
+		categoryId: {
+			name: "categoryId",
 			placeholder: "Выберите категорию",
 			label: "Категория",
 			rules: [

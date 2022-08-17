@@ -1,22 +1,33 @@
 import Event from "../api/interfaces/event/Event";
+import Image from "../api/interfaces/image/Image";
+import {FormRule} from "antd";
 
 export interface Values {
-	image: string,
 	title: string,
 	description: string,
-	shop: string,
+	shopId: string,
+	image: Image,
 }
 
 export const getEventInitialValues = (event?: Event) => {
 	return {
 		image: event?.image,
 		title: event?.title,
-		shop: event?.shop.id,
+		shopId: event?.shop.id,
 		description: event?.description,
 	};
 };
 
-export const getEventInitialOptions = () => {
+interface Option {
+	name: string,
+	placeholder: string,
+	label: string,
+	rules?: FormRule[]
+}
+
+type Options = Record<keyof Values, Option>;
+
+export const getEventInitialOptions = (): Options => {
 	return {
 		image: {
 			name: "image",
@@ -36,8 +47,8 @@ export const getEventInitialOptions = () => {
 			]
 		},
 		
-		shop: {
-			name: "shop",
+		shopId: {
+			name: "shopId",
 			placeholder: "Выберите магазин",
 			label: "Магазин",
 			rules: [
