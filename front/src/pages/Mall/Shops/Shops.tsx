@@ -9,21 +9,22 @@ import ShopCards from "./ShopCards";
 
 import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
-import Category from "../../../api/interfaces/category/Category";
 
 const Shops = () => {
-	const [categories, setCategories] = useState<Category[]>();
+	const [isLoading, setIsLoading] = useState(true);
+	
+	const categories = CategoryStore.get();
 
 	useEffect(() => {
 		const getCategories = async () => {
-			const categories = await CategoryStore.getAsync("");
-			setCategories(categories);
+			await CategoryStore.getAsync("");
+			setIsLoading(false);
 		};
 		
 		void getCategories();
 	}, []);
 	
-	if (!categories) {
+	if (isLoading) {
 		return null;
 	}
 	

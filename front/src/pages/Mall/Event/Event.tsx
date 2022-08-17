@@ -13,22 +13,23 @@ import {InnerLink, OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
 
 import icons from "../../../data/icons";
-import EventInterface from "../../../api/interfaces/event/Event";
 import EventStore from "../../../stores/EventStore";
 
 const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
+	const [isLoading, setIsLoading] = useState(true);
 	
-	const [event, setEvent] = useState<EventInterface>();
+	const event = EventStore.getCurrent();
 	
 	useEffect(() => {
 		const getEvent = async () => {
-			const events = await EventStore.getAsync(`Filters=Id==${id}`);
+			await EventStore.getByIdAsync(id ?? "");
+			const event = EventStore.getCurrent();
 			
-			if (events.length !== 0) {
-				setEvent(events[0]);
-			} else {
+			setIsLoading(false);
+			
+			if (!event) {
 				redirect("/");
 			}
 		};
@@ -36,7 +37,7 @@ const Event = () => {
 		void getEvent();
 	}, [id]);
 	
-	if (!event) {
+	if (!event || isLoading) {
 		return null;
 	}
 	
@@ -44,7 +45,7 @@ const Event = () => {
 		<div className={classNames(css.wrapper)}>
 			<div className={classNames(css.info)}>
 				<InnerLink className={classNames(css.image)} to={event.shop.routePath}>
-					<Image classes={classNames()} source={event.shop.image}/>
+					<Image classes={classNames()} source={event.shop.image.path}/>
 				</InnerLink>
 				
 				<div className={`${css.contacts}`}>
@@ -77,7 +78,7 @@ const Event = () => {
 			</div>
 			
 			<Hider className={classNames(css.description)} defaultHeight={230}>
-				<Image classes={classNames()} source={event.image}/>
+				<Image classes={classNames()} source={event.image.path}/>
 				<Label className={classNames(label.default)} text={event.description}/>
 			</Hider>
 		</div>

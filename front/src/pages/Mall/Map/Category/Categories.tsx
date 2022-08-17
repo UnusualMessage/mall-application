@@ -6,20 +6,21 @@ import css from "./categories.module.scss";
 
 import {Category} from "./index";
 
-import CategoryInterface from "../../../../api/interfaces/category/Category";
 import CategoryStore from "../../../../stores/CategoryStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 
 const Categories = () => {
-	const [categories, setCategories] = useState<CategoryInterface[]>();
+	const [isFetching, setIsFetching] = useState(true);
+	
+	const categories = CategoryStore.get();
 	
 	useEffect(() => {
 		const getCategories = async () => {
-			const categories = await CategoryStore.getAsync("");
-			setCategories(categories);
+			await CategoryStore.getAsync("");
 		};
 		
 		void getCategories();
+		setIsFetching(false);
 	}, []);
 
 	const classes = classNames({
@@ -27,7 +28,7 @@ const Categories = () => {
 		[css.active]: InterfaceStore.isMapFilterActive()
 	});
 	
-	if (!categories) {
+	if (isFetching) {
 		return null;
 	}
 	

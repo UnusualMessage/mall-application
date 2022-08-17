@@ -13,23 +13,24 @@ import {OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
 
 import icons from "../../../data/icons";
-import ShopInterface from "../../../api/interfaces/shop/Shop";
 import ShopStore from "../../../stores/ShopStore";
-import Loader from "../../../components/Loader";
 
 const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const [shop, setShop] = useState<ShopInterface>();
+	const [isLoading, setIsLoading] = useState(true);
+	
+	const shop = ShopStore.getCurrent();
 	
 	useEffect(() => {
 		const getShop = async () => {
-			const shops = await ShopStore.getAsync(`Filters=Id==${id}`);
+			await ShopStore.getByIdAsync(id ?? "");
+			const shop = ShopStore.getCurrent();
 			
-			if (shops.length !== 0) {
-				setShop(shops[0]);
-			} else {
+			setIsLoading(false);
+			
+			if (!shop) {
 				redirect("/");
 			}
 		};
@@ -37,50 +38,49 @@ const Shop = () => {
 		void getShop();
 	}, [id]);
 	
+	if (!shop || isLoading) {
+		return null;
+	}
+	
 	return(
 		<div className={classNames(css.wrapper)}>
-			{
-				shop ?
-					<div className={classNames(css.shop)}>
-						<div className={classNames(css.info)}>
-							<Image classes={classNames(css.image)} source={shop.image}/>
-							
-							<div className={`${css.contacts}`}>
-								<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
-								<Label className={classNames(label.big)} text={shop.schedule}/>
-								<Label className={classNames(label.big)} text={shop.phone}/>
-								
-								<OuterLink className={classNames(link.hovered)} to={`https://${shop.site}`}>
-									<Label className={classNames(label.big, label.hovered)} text={shop.site}/>
-								</OuterLink>
-								
-								<div className={classNames(css.socials)}>
-									<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-										<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-									</OuterLink>
-									
-									<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-										<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-									</OuterLink>
-									
-									<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-										<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-									</OuterLink>
-									
-									<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-										<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-									</OuterLink>
-								</div>
-							</div>
-						</div>
-						
-						<Hider className={classNames(css.description)} defaultHeight={230}>
-							<Label className={classNames(label.default)} text={shop.description}/>
-						</Hider>
-					</div>
+			<div className={classNames(css.shop)}>
+				<div className={classNames(css.info)}>
+					<Image classes={classNames(css.image)} source={shop.image.path}/>
 					
-					: <Loader/>
-			}
+					<div className={`${css.contacts}`}>
+						<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
+						<Label className={classNames(label.big)} text={shop.schedule}/>
+						<Label className={classNames(label.big)} text={shop.phone}/>
+						
+						<OuterLink className={classNames(link.hovered)} to={`https://${shop.site}`}>
+							<Label className={classNames(label.big, label.hovered)} text={shop.site}/>
+						</OuterLink>
+						
+						<div className={classNames(css.socials)}>
+							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							
+							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							
+							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+							
+							<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
+								<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
+							</OuterLink>
+						</div>
+					</div>
+				</div>
+				
+				<Hider className={classNames(css.description)} defaultHeight={230}>
+					<Label className={classNames(label.default)} text={shop.description}/>
+				</Hider>
+			</div>
 		</div>
 	);
 };

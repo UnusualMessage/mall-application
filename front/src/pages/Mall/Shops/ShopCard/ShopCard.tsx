@@ -13,7 +13,7 @@ import Shop from "../../../../api/interfaces/shop/Shop";
 const ShopCard = ({ shop }: Props) => {
 	return(
 		<InnerLink className={classNames(css.wrapper)} to={shop.routePath}>
-			<Image classes={classNames(css.logo)} source={shop.image}/>
+			<Image classes={classNames(css.logo)} source={shop.image.path}/>
 			<Label className={classNames(css.title, label.default, label.bold)} text={shop.title}/>
 
 			<div className={classNames(css.more)}>

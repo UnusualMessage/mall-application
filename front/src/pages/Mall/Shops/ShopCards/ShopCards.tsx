@@ -11,18 +11,18 @@ import Label from "../../../../components/Label";
 import ShopStore from "../../../../stores/ShopStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 import toRightForm from "../../../../utils/toRightForm";
-import Shop from "../../../../api/interfaces/shop/Shop";
 
 const ShopCards = () => {
-	const [shops, setShops] = useState<Shop[]>();
+	const [isFetching, setIsFetching] = useState(true);
+	const shops = ShopStore.get();
 	
 	useEffect(() => {
 		const getShops = async () => {
-			const shops = await ShopStore.getAsync("");
-			setShops(shops);
+			await ShopStore.getAsync("");
 		};
 		
 		void getShops();
+		setIsFetching(false);
 	}, []);
 	
 	const onFilterSwitch = () => {
@@ -34,7 +34,7 @@ const ShopCards = () => {
 		[css.moved]: InterfaceStore.isFilterActive()
 	});
 	
-	if (!shops) {
+	if (isFetching) {
 		return null;
 	}
 	

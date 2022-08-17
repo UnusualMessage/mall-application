@@ -13,23 +13,24 @@ import {InnerLink, OuterLink} from "../../../components/Link";
 import Icon from "../../../components/Icon";
 import Hider from "../../../components/Hider";
 
-import DiscountInterface from "../../../api/interfaces/discount/Discount";
 import icons from "../../../data/icons";
 import DiscountStore from "../../../stores/DiscountStore";
 
 const Discount = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
+	const [isLoading, setIsLoading] = useState(true);
 	
-	const [discount, setDiscount] = useState<DiscountInterface>();
+	const discount = DiscountStore.getCurrent();
 	
 	useEffect(() => {
 		const getDiscount = async () => {
-			const discounts = await DiscountStore.getAsync(`Filters=Id==${id}`);
+			await DiscountStore.getByIdAsync(id ?? "");
+			const discount = DiscountStore.getCurrent();
 			
-			if (discounts.length !== 0) {
-				setDiscount(discounts[0]);
-			} else {
+			setIsLoading(false);
+			
+			if (!discount) {
 				redirect("/");
 			}
 		};
@@ -37,7 +38,7 @@ const Discount = () => {
 		void getDiscount();
 	}, [id]);
 	
-	if (!discount) {
+	if (!discount || isLoading) {
 		return null;
 	}
 	
@@ -45,7 +46,7 @@ const Discount = () => {
 		<div className={classNames(css.wrapper)}>
 			<div className={classNames(css.info)}>
 				<InnerLink className={classNames(css.image)} to={discount.shop.routePath}>
-					<Image classes={classNames()} source={discount.shop.image}/>
+					<Image classes={classNames()} source={discount.shop.image.path}/>
 				</InnerLink>
 				
 				<div className={classNames(css.contacts)}>
@@ -77,7 +78,7 @@ const Discount = () => {
 			</div>
 			
 			<Hider className={classNames(css.description)} defaultHeight={230}>
-				<Image classes={classNames()} source={discount.image}/>
+				<Image classes={classNames()} source={discount.image.path}/>
 				<Label className={classNames(label.default)} text={discount.description}/>
 			</Hider>
 		</div>

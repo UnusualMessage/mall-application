@@ -16,7 +16,7 @@ const DiscountCard = ({ discount }: Props) => {
 			<div className={classNames(css.info)}>
 				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={discount.title}/>
 			</div>
-			<Image classes={classNames(css.logo)} source={discount.image}/>
+			<Image classes={classNames(css.logo)} source={discount.image.path}/>
 		</InnerLink>
 	);
 };

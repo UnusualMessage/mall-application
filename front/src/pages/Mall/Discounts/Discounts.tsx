@@ -9,21 +9,21 @@ import DiscountCards from "./DiscountCards";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import CategoryStore from "../../../stores/CategoryStore";
-import Category from "../../../api/interfaces/category/Category";
 
 const Discounts = () => {
-	const [categories, setCategories] = useState<Category[]>();
+	const [isFetching, setIsFetching] = useState(true);
+	const categories = CategoryStore.get();
 	
 	useEffect(() => {
 		const getCategories = async () => {
-			const categories = await CategoryStore.getAsync("");
-			setCategories(categories);
+			await CategoryStore.getAsync("");
 		};
 		
 		void getCategories();
+		setIsFetching(false);
 	}, []);
 	
-	if (!categories) {
+	if (isFetching) {
 		return null;
 	}
 	

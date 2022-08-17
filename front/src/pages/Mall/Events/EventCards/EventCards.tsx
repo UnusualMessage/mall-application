@@ -6,21 +6,21 @@ import css from "./eventCards.module.scss";
 import EventCard from "../EventCard";
 
 import EventStore from "../../../../stores/EventStore";
-import Event from "../../../../api/interfaces/event/Event";
 
 const EventCards = () => {
-	const [events, setEvents] = useState<Event[]>();
+	const [isFetching, setIsFetching] = useState(true);
+	const events = EventStore.get();
 	
 	useEffect(() => {
 		const getEvents = async () => {
-			const events = await EventStore.getAsync("");
-			setEvents(events);
+			await EventStore.getAsync("");
 		};
 		
 		void getEvents();
+		setIsFetching(false);
 	}, []);
 	
-	if (!events) {
+	if (isFetching) {
 		return null;
 	}
 	

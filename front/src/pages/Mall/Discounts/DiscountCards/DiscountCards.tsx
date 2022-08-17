@@ -11,21 +11,21 @@ import DiscountCard from "../DiscountCard";
 import DiscountStore from "../../../../stores/DiscountStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
 import toRightForm from "../../../../utils/toRightForm";
-import Discount from "../../../../api/interfaces/discount/Discount";
 
 const DiscountCards = () => {
-	const [discounts, setDiscounts] = useState<Discount[]>();
+	const [isFetching, setIsFetching] = useState(true);
+	const discounts = DiscountStore.get();
 	
 	useEffect(() => {
 		const getDiscounts = async () => {
-			const discounts = await DiscountStore.getAsync("");
-			setDiscounts(discounts);
+			await DiscountStore.getAsync("");
 		};
 		
 		void getDiscounts();
+		setIsFetching(false);
 	}, []);
 	
-	if (!discounts) {
+	if (isFetching) {
 		return null;
 	}
 	

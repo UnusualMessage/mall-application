@@ -15,7 +15,7 @@ const EventCard = ({ event }: Props) => {
 			<div className={classNames(css.info)}>
 				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={event.title}/>
 			</div>
-			<Image classes={classNames(css.logo)} source={event.image}/>
+			<Image classes={classNames(css.logo)} source={event.image.path}/>
 		</InnerLink>
 	);
 };
