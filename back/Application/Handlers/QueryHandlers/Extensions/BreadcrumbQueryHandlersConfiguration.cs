@@ -1,4 +1,5 @@
-﻿using Application.Requests.Queries;
+﻿using Application.Handlers.QueryHandlers.BreadcrumbHandlers;
+using Application.Requests.Queries.Breadcrumb;
 using Application.Responses;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

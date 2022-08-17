@@ -1,15 +1,13 @@
-﻿using AutoMapper;
+﻿using Application.MappingProfiles;
+using Application.Requests.Queries.Shop;
+using Application.Responses;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Core.Interfaces.Repositories;
 using MediatR;
 using Sieve.Services;
 
-using Application.Requests.Queries;
-using Application.Responses;
-using Application.MappingProfiles;
-
-using Core.Interfaces.Repositories;
-
-namespace Application.Handlers.QueryHandlers;
+namespace Application.Handlers.QueryHandlers.ShopHandlers;
 
 public class GetSievedShopsHandler : IRequestHandler<GetSievedShops, IEnumerable<ShopResponse>>
 {
@@ -29,6 +27,7 @@ public class GetSievedShopsHandler : IRequestHandler<GetSievedShops, IEnumerable
         MapperConfiguration configuration = new(cfg => {
             cfg.AddProfile(new ShopProfile());
             cfg.AddProfile(new CategoryProfile());
+            cfg.AddProfile(new ImageProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<ShopResponse>(configuration);

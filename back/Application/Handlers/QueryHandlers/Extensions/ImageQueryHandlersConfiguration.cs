@@ -1,4 +1,5 @@
-﻿using Application.Requests.Queries;
+﻿using Application.Handlers.QueryHandlers.ImageHandlers;
+using Application.Requests.Queries.Image;
 using Application.Responses;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Application.Handlers.QueryHandlers.ContactsHandlers;
+using MediatR;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using Application.Requests.Queries;
+using Application.Requests.Queries.Contacts;
 using Application.Responses;
 
 namespace Application.Handlers.QueryHandlers.Extensions;

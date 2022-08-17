@@ -1,5 +1,5 @@
 ﻿using Application.MappingProfiles;
-using Application.Requests.Queries;
+using Application.Requests.Queries.Image;
 using Application.Responses;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -7,7 +7,7 @@ using Core.Interfaces.Repositories;
 using MediatR;
 using Sieve.Services;
 
-namespace Application.Handlers.QueryHandlers;
+namespace Application.Handlers.QueryHandlers.ImageHandlers;
 
 public class GetSievedImagesHandler : IRequestHandler<GetSievedImages, IEnumerable<ImageResponse>>
 {

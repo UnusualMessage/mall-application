@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Application.Handlers.QueryHandlers.DiscountHandlers;
+using MediatR;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Application.Requests.Queries;
+using Application.Requests.Queries.Discount;
 using Application.Responses;
 
 namespace Application.Handlers.QueryHandlers.Extensions;
@@ -13,5 +14,8 @@ public static class DiscountQueryHandlersConfiguration
     {
         services
             .AddScoped<IRequestHandler<GetSievedDiscounts, IEnumerable<DiscountResponse>>, GetSievedDiscountsHandler>();
+        
+        services
+            .AddScoped<IRequestHandler<GetDiscountById, DiscountResponse>, GetDiscountByIdHandler>();
     }
 }
