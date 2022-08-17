@@ -16,42 +16,25 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
     private readonly IRouteRepository _routeRepository;
     private readonly IBreadcrumbRepository _breadcrumbRepository;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
     public CreateShopHandler(IShopRepository repository, ICategoryRepository categoryRepository, IMapper mapper, 
-        IFileService fileService, IRouteRepository routeRepository, IBreadcrumbRepository breadcrumbRepository)
+        IRouteRepository routeRepository, IBreadcrumbRepository breadcrumbRepository)
     {
         _categoryRepository = categoryRepository;
         _shopRepository = repository;
         _mapper = mapper;
-        _fileService = fileService;
         _routeRepository = routeRepository;
         _breadcrumbRepository = breadcrumbRepository;
     }
     
     public async Task<ShopResponse> Handle(CreateShop request, CancellationToken cancellationToken)
     {
-        ICollection<Category> categories = new List<Category>();
-        
-        foreach (var categoryId in request.CategoryIds)
-        {
-            var category = await _categoryRepository.GetByIdAsync(categoryId) ?? null;
-            if (category is null)
-            {
-                continue;
-            }
-            
-            categories.Add(category);
-        }
-        
         var newShop = _mapper.Map<Shop>(request);
-        newShop.Categories = categories;
-        newShop.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
 
         var id = Guid.NewGuid();
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.RoutePath + "/" + id  
+                Path = $"{request.RoutePath}/{id}"  
             }
         );
 

@@ -15,26 +15,24 @@ public class CreateEventHandler : IRequestHandler<CreateEvent, EventResponse>
     private readonly IRouteRepository _routeRepository;
     private readonly IBreadcrumbRepository _breadcrumbRepository;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
     public CreateEventHandler(IEventRepository repository, IRouteRepository routeRepository, 
-        IBreadcrumbRepository breadcrumbRepository, IMapper mapper, IFileService fileService)
+        IBreadcrumbRepository breadcrumbRepository, IMapper mapper)
     {
         _eventRepository = repository;
         _routeRepository = routeRepository;
         _breadcrumbRepository = breadcrumbRepository;
         _mapper = mapper;
-        _fileService = fileService;
     }
     
     public async Task<EventResponse> Handle(CreateEvent request, CancellationToken cancellationToken)
     {
         var newEvent = _mapper.Map<Event>(request);
-        newEvent.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
         
+        var id = Guid.NewGuid();
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.RoutePath
+                Path = $"{request.RoutePath}/{id}"  
             }
         );
 
@@ -52,6 +50,7 @@ public class CreateEventHandler : IRequestHandler<CreateEvent, EventResponse>
 
         newEvent.RouteId = route.Id;
         newEvent.BreadcrumbId = breadcrumb.Id;
+        newEvent.Id = id;
         
         return _mapper.Map<EventResponse>(await _eventRepository.AddAsync(newEvent));
     }

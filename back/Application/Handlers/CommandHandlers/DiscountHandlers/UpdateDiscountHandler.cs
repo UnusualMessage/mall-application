@@ -13,13 +13,11 @@ public class UpdateDiscountHandler : IRequestHandler<UpdateDiscount, DiscountRes
 {
     private readonly IDiscountRepository _discountRepository;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
-    public UpdateDiscountHandler(IDiscountRepository repository, IMapper mapper, IFileService fileService)
+    public UpdateDiscountHandler(IDiscountRepository repository, IMapper mapper)
     {
         _discountRepository = repository;
         _mapper = mapper;
-        _fileService = fileService;
     }
     
     public async Task<DiscountResponse> Handle(UpdateDiscount request, CancellationToken cancellationToken)
@@ -36,9 +34,6 @@ public class UpdateDiscountHandler : IRequestHandler<UpdateDiscount, DiscountRes
             Link = request.Link
         });
 
-        var newDiscount = _mapper.Map<Discount>(request);
-        newDiscount.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
-        
         return _mapper.Map<DiscountResponse>(await _discountRepository.UpdateAsync(_mapper.Map<Discount>(request)));
     }
 }

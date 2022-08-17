@@ -12,14 +12,12 @@ namespace Application.Handlers.CommandHandlers.EventHandlers;
 public class UpdateEventHandler : IRequestHandler<UpdateEvent, EventResponse>
 {
     private readonly IEventRepository _eventRepository;
-    private readonly IFileService _fileService;
     private readonly IMapper _mapper;
 
-    public UpdateEventHandler(IEventRepository repository, IMapper mapper, IFileService fileService)
+    public UpdateEventHandler(IEventRepository repository, IMapper mapper)
     {
         _eventRepository = repository;
         _mapper = mapper;
-        _fileService = fileService;
     }
     
     public async Task<EventResponse> Handle(UpdateEvent request, CancellationToken cancellationToken)
@@ -36,9 +34,6 @@ public class UpdateEventHandler : IRequestHandler<UpdateEvent, EventResponse>
             Link = request.Link
         });
 
-        var newEvent = _mapper.Map<Event>(request);
-        newEvent.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
-        
         return _mapper.Map<EventResponse>(await _eventRepository.UpdateAsync(_mapper.Map<Event>(request)));
     }
 }

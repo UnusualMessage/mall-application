@@ -15,26 +15,24 @@ public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountRes
     private readonly IRouteRepository _routeRepository;
     private readonly IBreadcrumbRepository _breadcrumbRepository;
     private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
 
     public CreateDiscountHandler(IDiscountRepository repository, IRouteRepository routeRepository, 
-        IBreadcrumbRepository breadcrumbRepository, IMapper mapper, IFileService fileService)
+        IBreadcrumbRepository breadcrumbRepository, IMapper mapper)
     {
         _discountRepository = repository;
         _routeRepository = routeRepository;
         _breadcrumbRepository = breadcrumbRepository;
         _mapper = mapper;
-        _fileService = fileService;
     }
     
     public async Task<DiscountResponse> Handle(CreateDiscount request, CancellationToken cancellationToken)
     {
         var newDiscount = _mapper.Map<Discount>(request);
-        newDiscount.LogoPath = await _fileService.UploadFile(request.Image, request.Destination!);
         
+        var id = Guid.NewGuid();
         var route = await _routeRepository.AddAsync(new Route()
             {
-                Path = request.RoutePath
+                Path = $"{request.RoutePath}/{id}"  
             }
         );
 
@@ -52,6 +50,7 @@ public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountRes
 
         newDiscount.RouteId = route.Id;
         newDiscount.BreadcrumbId = breadcrumb.Id;
+        newDiscount.Id = id;
         
         return _mapper.Map<DiscountResponse>(await _discountRepository.AddAsync(newDiscount));
     }
