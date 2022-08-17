@@ -1,7 +1,9 @@
 import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Input, Row, Space} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
+import {observer} from "mobx-react-lite";
 
-import shops from "../../data/shops";
+import ImageStore from "../../stores/ImageStore";
+import Image from "../../api/interfaces/image/Image";
 
 const cardBreakpoints = {
 	xs: 12,
@@ -14,19 +16,20 @@ const cardBreakpoints = {
 
 const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 	const [visible, setVisible] = useState(false);
-	const [image, setImage] = useState<string>();
+	const image = Form.useWatch<Image | undefined>(name, form);
+	const [isFetching, setIsFetching] = useState(false);
 	
-	useEffect(() => {
+	const images = ImageStore.get();
+	
+	const pick = (image: Image) => {
 		form.setFieldValue(name, image);
-	}, [image]);
-	
-	
-	const pick = (image: string) => {
-		setImage(image);
 		setVisible(false);
 	};
-
-	const showDrawer = () => {
+	
+	const showDrawer = async () => {
+		setIsFetching(true);
+		await ImageStore.getAsync("");
+		setIsFetching(false);
 		setVisible(true);
 	};
 	
@@ -38,7 +41,7 @@ const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 		<>
 			<Form.Item label={label} name={name} hasFeedback rules={rules}>
 				<Space>
-					<Input id={name} value={image} disabled placeholder={placeholder}/>
+					<Input id={name} disabled placeholder={placeholder} value={image?.path}/>
 					<Button type="primary" onClick={showDrawer}>
 						Показать
 					</Button>
@@ -48,14 +51,18 @@ const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 			<Drawer placement="right" onClose={onClose} visible={visible} width={"100%"}>
 				<Row gutter={[32, 32]} justify={"space-evenly"}>
 					{
-						shops.map(shop => {
-							return (
-								<Col {...cardBreakpoints} key={shop.id}>
-									<Card hoverable
-									      cover={<img alt="" src={shop.image} />}
-									      onClick={() => pick(shop.image)} />
-								</Col>
-							);
+						isFetching
+							?
+							<></>
+							:
+							images.map(image => {
+								return (
+									<Col {...cardBreakpoints} key={image.id}>
+										<Card hoverable
+										      cover={<img alt="" src={image.path} />}
+										      onClick={() => pick(image)} />
+									</Col>
+								);
 						})
 					}
 				</Row>
@@ -72,4 +79,4 @@ interface Props {
 	rules?: FormRule[]
 }
 
-export default ImagePicker;
+export default observer(ImagePicker);

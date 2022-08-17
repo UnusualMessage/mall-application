@@ -8,9 +8,10 @@ import label from "/src/components/Label/label.module.scss";
 import {InnerLink} from "../Link";
 import Label from "../Label";
 import Image from "../Image";
-import {Skeleton} from "antd";
 
-const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, cols }: Props) => {
+import ImageInterface from "../../api/interfaces/image/Image";
+
+const PicturesCarousel = ({ items, title, linkLabel, to, borderColor, rows, cols }: Props) => {
 	return(
 		<div className={classNames(css.wrapper, borderColor)}>
 			<div className={classNames(css.info)}>
@@ -23,11 +24,11 @@ const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, col
 			
 			<Carousel mobileBreakpoint={576} cols={cols} rows={rows} gap={10} loop>
 				{
-					images.map((image: Image, index) => {
+					items.map((item: Item, index) => {
 						return(
 							<Carousel.Item key={index}>
-								<InnerLink className={classNames()} to={image.routePath}>
-									<Image classes={classNames(css.item)} source={image.image}/>
+								<InnerLink className={classNames()} to={item.routePath}>
+									<Image classes={classNames(css.item)} source={item.image.path}/>
 								</InnerLink>
 							</Carousel.Item>
 						);
@@ -38,13 +39,13 @@ const PicturesCarousel = ({ images, title, linkLabel, to, borderColor, rows, col
 	);
 };
 
-interface Image {
-	image: string,
+export interface Item {
+	image: ImageInterface,
 	routePath: string
 }
 
 interface Props {
-	images: Image[]
+	items: Item[]
 	title: string,
 	linkLabel: string,
 	borderColor: string,

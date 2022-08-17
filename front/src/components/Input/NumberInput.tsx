@@ -5,7 +5,7 @@ import {FormRule} from "antd";
 const NumberInput = ({ label, placeholder, name, rules, min, max }: Props) => {
 	return (
 		<Form.Item label={label} name={name} rules={rules}>
-			<InputNumber id={name} placeholder={placeholder} min={min} max={max} defaultValue={min}/>
+			<InputNumber id={name} placeholder={placeholder} min={min} max={max}/>
 		</Form.Item>
 	);
 };

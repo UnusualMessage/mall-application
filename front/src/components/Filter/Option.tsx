@@ -9,7 +9,7 @@ import Label from "../Label";
 import Filterable from "../../types/Filterable";
 import InterfaceStore from "../../stores/InterfaceStore";
 
-const Option = ({ count, text, store }: Props) => {
+const Option = ({ count, text, store, id }: Props) => {
 	let active = false;
 	
 	if (Number(count) === 0) {
@@ -21,7 +21,7 @@ const Option = ({ count, text, store }: Props) => {
 	}
 	
 	const onClick = () => {
-		store.setFilter(text);
+		store.setFilter(id, text);
 		InterfaceStore.switchFilter();
 	};
 	
@@ -41,6 +41,7 @@ const Option = ({ count, text, store }: Props) => {
 interface Props {
 	count: string,
 	text: string,
+	id: string,
 	store: Filterable
 }
 

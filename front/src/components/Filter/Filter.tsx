@@ -19,7 +19,7 @@ const Filter = ({ store, categories }: Props ) => {
 	
 	const categoriesWithAll = [...categories];
 	categoriesWithAll.unshift(...[{
-		id: "1",
+		id: "0",
 		title: "Все"
 	}]);
 	
@@ -29,7 +29,7 @@ const Filter = ({ store, categories }: Props ) => {
 				return(
 					<Option key={category.id}
 					        count={store.getCountByCategoryId(category.id).toString()}
-					        text={category.title} store={store}/>
+					        text={category.title} id={category.id} store={store}/>
 				);
 			})}
 		</div>
