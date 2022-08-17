@@ -1,20 +1,25 @@
-import {action, makeObservable, observable, runInAction} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 
 import Filterable from "../types/Filterable";
-import Store, {storeProps} from "./Store";
 import UpdateShop from "../api/interfaces/shop/UpdateShop";
 import DeleteShop from "../api/interfaces/shop/DeleteShop";
 import CreateShop from "../api/interfaces/shop/CreateShop";
 import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
+import Category from "../api/interfaces/category/Category";
+
+import Store, {storeProps} from "./Store";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implements Filterable {
-	filter: string;
+	filter: Category;
 	
 	constructor() {
 		super(new ShopService(), []);
 		
-		this.filter = "Все";
+		this.filter = {
+			id: "0",
+			title: "Все"
+		};
 		
 		makeObservable(this, {
 			...storeProps,
@@ -33,7 +38,7 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 		let count = 0;
 		
 		for (const shop of this.data) {
-			if (shop.categories.find(shop => shop.id === id)) {
+			if (shop.category.id === id) {
 				++count;
 			}
 		}
@@ -43,41 +48,27 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 	
 	public getByCategory = (id: string) => {
 		return this.data.filter(shop => {
-			return shop.categories.find(category => category.id === id);
+			return shop.category.id === id;
 		});
 	};
 	
 	public getFiltered = () => {
-		if (this.filter === "Все") {
+		if (this.filter.id === "0") {
 			return this.data;
 		}
 		
-		return this.data.filter(shop => shop.categories.find(
-			category => category.title === this.filter
-		));
+		return this.data.filter(shop => shop.category.id === this.filter.id);
 	};
 	
 	public getFilter = () => {
-		return this.filter;
+		return this.filter.title;
 	};
 	
-	public setFilter = (filter: string) => {
-		this.filter = filter;
-	};
-	
-	public createAsync = async (newData: CreateShop) => {
-		const service = this.service as ShopService;
-		
-		try {
-			const data = await service.post(newData);
-			
-			runInAction(() => {
-				this.data.push(data);
-			});
-			
-		} catch(error) {
-			this.invokeError("Request Error");
-		}
+	public setFilter = (id: string, title: string) => {
+		this.filter = {
+			id,
+			title
+		};
 	};
 }
 

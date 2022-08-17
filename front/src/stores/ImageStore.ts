@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {makeAutoObservable, runInAction, toJS} from "mobx";
 import ImageService from "../api/services/ImageService";
 import Image from "../api/interfaces/image/Image";
 import CreateImage from "../api/interfaces/image/CreateImage";
@@ -16,7 +16,7 @@ class ImageStore {
 	}
 	
 	public get() {
-		return this.images;
+		return toJS(this.images);
 	}
 	
 	public getAsync = async (query: string) => {
