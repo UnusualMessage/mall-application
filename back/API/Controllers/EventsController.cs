@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Event;
 using Application.Requests.Queries;
+using Application.Requests.Queries.Event;
 
 namespace API.Controllers;
 
@@ -14,12 +15,10 @@ namespace API.Controllers;
 public class EventsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public EventsController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
+    public EventsController(IMediator mediator)
     {
         _mediator = mediator;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     [AllowAnonymous]
@@ -28,12 +27,17 @@ public class EventsController : ControllerBase
     {
         return Ok(await _mediator.Send(new GetSievedEvents(model)));
     }
+    
+    [AllowAnonymous]
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        return Ok(await _mediator.Send(new GetEventById(id)));
+    }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] CreateEvent request)
+    public async Task<IActionResult> Post([FromBody] CreateEvent request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 
@@ -44,10 +48,8 @@ public class EventsController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put([FromForm] UpdateEvent request)
+    public async Task<IActionResult> Put([FromBody] UpdateEvent request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Category;
 using Application.Requests.Queries;
+using Application.Requests.Queries.Category;
 
 namespace API.Controllers;
 
@@ -25,6 +26,13 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> Get([FromQuery] SieveModel model)
     {
         return Ok(await _mediator.Send(new GetSievedCategories(model)));
+    }
+    
+    [AllowAnonymous]
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        return Ok(await _mediator.Send(new GetCategoryById(id)));
     }
 
     [HttpPost]

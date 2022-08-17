@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Shop;
 using Application.Requests.Queries;
+using Application.Requests.Queries.Shop;
 
 namespace API.Controllers;
 
@@ -14,12 +15,10 @@ namespace API.Controllers;
 public class ShopsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ShopsController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
+    public ShopsController(IMediator mediator)
     {
         _mediator = mediator;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     [AllowAnonymous]
@@ -28,12 +27,17 @@ public class ShopsController : ControllerBase
     {
         return Ok(await _mediator.Send(new GetSievedShops(model)));
     }
+    
+    [AllowAnonymous]
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        return Ok(await _mediator.Send(new GetShopById(id)));
+    }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] CreateShop request)
+    public async Task<IActionResult> Post([FromBody] CreateShop request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 
@@ -44,10 +48,8 @@ public class ShopsController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put([FromForm] UpdateShop request)
+    public async Task<IActionResult> Put([FromBody] UpdateShop request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 }

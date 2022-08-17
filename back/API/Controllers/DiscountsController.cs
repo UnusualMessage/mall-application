@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Discount;
 using Application.Requests.Queries;
+using Application.Requests.Queries.Discount;
 
 namespace API.Controllers;
 
@@ -14,12 +15,10 @@ namespace API.Controllers;
 public class DiscountsController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public DiscountsController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
+    public DiscountsController(IMediator mediator)
     {
         _mediator = mediator;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     [AllowAnonymous]
@@ -28,12 +27,17 @@ public class DiscountsController : ControllerBase
     {
         return Ok(await _mediator.Send(new GetSievedDiscounts(model)));
     }
+    
+    [AllowAnonymous]
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Get([FromRoute] Guid id)
+    {
+        return Ok(await _mediator.Send(new GetDiscountById(id)));
+    }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromForm] CreateDiscount request)
+    public async Task<IActionResult> Post([FromBody] CreateDiscount request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 
@@ -44,10 +48,8 @@ public class DiscountsController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put([FromForm] UpdateDiscount request)
+    public async Task<IActionResult> Put([FromBody] UpdateDiscount request)
     {
-        request.Destination = _webHostEnvironment.WebRootPath;
-        
         return Ok(await _mediator.Send(request));
     }
 }

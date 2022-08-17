@@ -1,5 +1,6 @@
 ﻿using Application.Requests.Commands.Image;
 using Application.Requests.Queries;
+using Application.Requests.Queries.Image;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
