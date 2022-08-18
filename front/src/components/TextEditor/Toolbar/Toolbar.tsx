@@ -1,38 +1,53 @@
 import classNames from "classnames";
+import {
+	AlignCenterOutlined,
+	AlignLeftOutlined, AlignRightOutlined,
+	BoldOutlined, DeleteOutlined, DownSquareOutlined, FileImageOutlined,
+	ItalicOutlined, LinkOutlined, OrderedListOutlined, RedoOutlined,
+	UnderlineOutlined, UndoOutlined, UnorderedListOutlined, UpSquareOutlined
+} from "@ant-design/icons";
 
 import css from "./toolbar.module.scss";
 
-import TextButton from "./TextButton";
-import ElementButton from "./ElementButton";
+import {AlignButton, ClearButton, ElementButton, HistoryButton, ImageButton, LinkButton, TextButton} from "../buttons";
 
-import icons from "../../../data/icons";
-import ClearButton from "./ClearButton";
-import HistoryButton, {Action} from "./HistoryButton";
-import AlignButton from "./AlignButton";
-import LinkButton, {LinkButtonType} from "./LinkButton";
+import {Action} from "../buttons/HistoryButton";
+import {LinkButtonType} from "../buttons/LinkButton";
+import {Divider} from "antd";
 
 const Toolbar = () => {
 	return (
 		<div className={classNames(css.wrapper)}>
-			<TextButton icon={icons.bold} format={"bold"}/>
-			<TextButton icon={icons.italic} format={"italic"}/>
-			<TextButton icon={icons.underlined} format={"underlined"}/>
+			<Divider type={"vertical"}/>
+			<TextButton icon={<BoldOutlined />} format={"bold"}/>
+			<TextButton icon={<ItalicOutlined />} format={"italic"}/>
+			<TextButton icon={<UnderlineOutlined />} format={"underlined"}/>
 			
-			<AlignButton icon={icons.left} align={"left"}/>
-			<AlignButton icon={icons.center} align={"center"}/>
-			<AlignButton icon={icons.right} align={"right"}/>
+			<Divider type={"vertical"}/>
+			<AlignButton icon={<AlignLeftOutlined />} align={"left"}/>
+			<AlignButton icon={<AlignCenterOutlined />} align={"center"}/>
+			<AlignButton icon={<AlignRightOutlined />} align={"right"}/>
 			
-			<ElementButton icon={icons.ol} type={"ol-list"}/>
-			<ElementButton icon={icons.ul} type={"ul-list"}/>
-			<ElementButton icon={icons.headingOne} type={"heading-one"}/>
-			<ElementButton icon={icons.headingTwo} type={"heading-two"}/>
+			<Divider type={"vertical"}/>
+			<ElementButton icon={<OrderedListOutlined />} type={"ol-list"}/>
+			<ElementButton icon={<UnorderedListOutlined />} type={"ul-list"}/>
 			
-			<LinkButton icon={icons.addLink} action={LinkButtonType.add}/>
-			<LinkButton icon={icons.removeLink} action={LinkButtonType.remove}/>
+			<Divider type={"vertical"}/>
+			<ElementButton icon={<UpSquareOutlined />} type={"heading-one"}/>
+			<ElementButton icon={<DownSquareOutlined />} type={"heading-two"}/>
 			
-			<HistoryButton icon={icons.undo} action={Action.undo}/>
-			<HistoryButton icon={icons.redo} action={Action.redo}/>
-			<ClearButton icon={icons.clear}/>
+			<Divider type={"vertical"}/>
+			<ImageButton icon={<FileImageOutlined />} format={"image"}/>
+			
+			<Divider type={"vertical"}/>
+			<LinkButton icon={<LinkOutlined />} action={LinkButtonType.add}/>
+			<LinkButton icon={<LinkOutlined />} action={LinkButtonType.remove}/>
+			
+			<Divider type={"vertical"}/>
+			<HistoryButton icon={<UndoOutlined />} action={Action.undo}/>
+			<HistoryButton icon={<RedoOutlined />} action={Action.redo}/>
+			<ClearButton icon={<DeleteOutlined />}/>
+			<Divider type={"vertical"}/>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Input, Row, Space} from "antd";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
 import ImageStore from "../../stores/ImageStore";
@@ -15,26 +15,16 @@ const cardBreakpoints = {
 };
 
 const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
-	const [visible, setVisible] = useState(false);
 	const image = Form.useWatch<Image | undefined>(name, form);
-	const [isFetching, setIsFetching] = useState(false);
-	
-	const images = ImageStore.get();
+	const [visible, setVisible] = useState(false);
 	
 	const pick = (image: Image) => {
 		form.setFieldValue(name, image);
 		setVisible(false);
 	};
 	
-	const showDrawer = async () => {
-		setIsFetching(true);
-		await ImageStore.getAsync("");
-		setIsFetching(false);
+	const open = () => {
 		setVisible(true);
-	};
-	
-	const onClose = () => {
-		setVisible(false);
 	};
 	
 	return (
@@ -42,32 +32,57 @@ const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 			<Form.Item label={label} name={name} hasFeedback rules={rules}>
 				<Space>
 					<Input id={name} disabled placeholder={placeholder} value={image?.path}/>
-					<Button type="primary" onClick={showDrawer}>
+					<Button type="primary" onClick={open}>
 						Показать
 					</Button>
 				</Space>
 			</Form.Item>
 			
-			<Drawer placement="right" onClose={onClose} visible={visible} width={"100%"}>
-				<Row gutter={[32, 32]} justify={"space-evenly"}>
-					{
-						isFetching
-							?
-							<></>
-							:
-							images.map(image => {
-								return (
-									<Col {...cardBreakpoints} key={image.id}>
-										<Card hoverable
-										      cover={<img alt="" src={image.path} />}
-										      onClick={() => pick(image)} />
-									</Col>
-								);
-						})
-					}
-				</Row>
-			</Drawer>
+			<ImageDrawer visible={visible} setVisible={setVisible} pick={pick}/>
 		</>
+	);
+};
+
+export const ImageDrawer = ({ visible, setVisible, pick }: ImageDrawerProps) => {
+	const [isFetching, setIsFetching] = useState(false);
+	const images = ImageStore.get();
+	
+	useEffect(() => {
+		const getImages = async () => {
+			if (visible) {
+				setIsFetching(true);
+				await ImageStore.getAsync("");
+				setIsFetching(false);
+			}
+		};
+		
+		void getImages();
+	}, [visible]);
+	
+	const close = () => {
+		setVisible(false);
+	};
+	
+	return (
+		<Drawer placement="right" onClose={close} visible={visible} width={"100%"}>
+			<Row gutter={[32, 32]} justify={"space-evenly"}>
+				{
+					isFetching
+						?
+						<></>
+						:
+						images.map(image => {
+							return (
+								<Col {...cardBreakpoints} key={image.id}>
+									<Card hoverable
+									      cover={<img alt="" src={image.path} />}
+									      onClick={() => pick(image)} />
+								</Col>
+							);
+						})
+				}
+			</Row>
+		</Drawer>
 	);
 };
 
@@ -77,6 +92,12 @@ interface Props {
 	placeholder: string,
 	name: string,
 	rules?: FormRule[]
+}
+
+interface ImageDrawerProps {
+	visible: boolean,
+	setVisible: (visible: boolean) => void,
+	pick: (image: Image) => void
 }
 
 export default observer(ImagePicker);

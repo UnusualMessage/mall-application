@@ -1,6 +1,7 @@
 import { useSlate } from "slate-react";
 import { Editor, Transforms, Element, Range } from "slate";
 import React, {MouseEventHandler} from "react";
+import isUrl from "is-url";
 
 import Button from "./Button";
 
@@ -20,8 +21,10 @@ const LinkButton = ({ icon, action }: Props) => {
 	const onClick: MouseEventHandler = () => {
 		if (action === LinkButtonType.add) {
 			const url = window.prompt("Введите ссылку.");
-			if (!url) return;
-			insertLink(editor, url);
+			
+			if (url) {
+				insertLink(editor, url);
+			}
 		}
 		
 		if (action === LinkButtonType.remove) {
@@ -83,6 +86,33 @@ const insertLink = (editor: Editor, url: string) => {
 	if (editor.selection) {
 		wrapLink(editor, url);
 	}
+};
+
+export const withInlines = (editor: Editor) => {
+	const { insertData, insertText, isInline } = editor;
+	
+	editor.isInline = (element) =>
+		["link"].includes(element.type) || isInline(element);
+	
+	editor.insertText = (text) => {
+		if (text && isUrl(text)) {
+			wrapLink(editor, text);
+		} else {
+			insertText(text);
+		}
+	};
+	
+	editor.insertData = (data) => {
+		const text = data.getData("text/plain");
+		
+		if (text && isUrl(text)) {
+			wrapLink(editor, text);
+		} else {
+			insertData(data);
+		}
+	};
+	
+	return editor;
 };
 
 export default LinkButton;

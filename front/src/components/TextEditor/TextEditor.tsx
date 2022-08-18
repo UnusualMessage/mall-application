@@ -6,12 +6,28 @@ import classNames from "classnames";
 
 import css from "./editor.module.scss";
 
-import Text from "./Text";
+import Text from "./Leaf";
 import Element from "./Element";
 import Toolbar from "./Toolbar/Toolbar";
+import {withInlines} from "./buttons/LinkButton";
+import {withImages} from "./buttons/ImageButton";
+
+const initialValue: Descendant[] = [
+	{
+		type: "paragraph",
+		children: [
+			{
+				text: "A line of text in a paragraph."
+			}
+		],
+	},
+];
 
 const TextEditor = ({ className, readonly }: Props) => {
-	const [editor] = useState(() => withReact(withHistory(createEditor() as ReactEditor)));
+	const [editor] = useState(() => withInlines(withReact(withHistory(createEditor() as ReactEditor))));
+	const [value, setValue] = useState<Descendant[]>(initialValue);
+	
+	console.log(value);
 	
 	const renderText = useCallback((props: RenderLeafProps) => {
 		return (
@@ -28,21 +44,10 @@ const TextEditor = ({ className, readonly }: Props) => {
 			</Element>
 		);
 	}, []);
-	
-	const initialValue: Descendant[] = [
-		{
-			type: "paragraph",
-			children: [
-				{
-					text: "A line of text in a paragraph."
-				}
-			],
-		},
-	];
-	
+
 	return (
 		<div className={classNames(css.wrapper, className)}>
-			<Slate editor={editor} value={initialValue}>
+			<Slate editor={editor} value={value} onChange={value => setValue(value)}>
 				{ readonly ? <></> : <Toolbar/> }
 				
 				<Editable placeholder={"Введите текст"}

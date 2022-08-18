@@ -1,13 +1,15 @@
 import React from "react";
 import classNames from "classnames";
 import {RenderElementProps} from "slate-react";
+import {Image, Typography} from "antd";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
-import List from "../List";
-import {ListType} from "../List/List";
 import {OuterLink} from "../Link";
+import TitleElement from "./refs/Title";
+
+const { Title, Paragraph, Text } = Typography;
 
 const Element = ({ children, element, attributes }: RenderElementProps) => {
 	const align = element.align;
@@ -20,15 +22,15 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 	switch (element.type) {
 		case "ul-list":
 			return (
-				<List type={ListType.unordered} {...attributes}>
+				<ul className={classNames(classes)} {...attributes}>
 					{children}
-				</List>
+				</ul>
 			);
 		case "ol-list":
 			return (
-				<List type={ListType.ordered} {...attributes}>
+				<ol className={classNames(classes)} {...attributes}>
 					{children}
-				</List>
+				</ol>
 			);
 		case "list-item":
 			return (
@@ -38,15 +40,22 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 			);
 		case "heading-one":
 			return (
-				<h1 className={classNames(classes)} {...attributes}>
+				<TitleElement classes={classNames(classes)} level={2} {...attributes}>
 					{children}
-				</h1>
+				</TitleElement>
 			);
 		case "heading-two":
 			return (
-				<h2 className={classNames(classes)} {...attributes}>
+				<Title className={classNames(classes)} level={3} {...attributes}>
 					{children}
-				</h2>
+				</Title>
+			);
+		case "image":
+			return (
+				<>
+					<Image src={element.src} {...attributes}/>
+					{children}
+				</>
 			);
 		case "link":
 			return (
@@ -56,9 +65,9 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 			);
 		default:
 			return (
-				<p className={classNames(classes)} {...attributes}>
+				<Paragraph className={classNames(classes)} {...attributes}>
 					{children}
-				</p>
+				</Paragraph>
 			);
 	}
 };

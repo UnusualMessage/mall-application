@@ -17,12 +17,15 @@ import MainLayout from "./MainLayout";
 import NewImage from "./NewImage";
 
 import {StoreType} from "./Items";
+import TextEditor from "../../components/TextEditor/TextEditor";
 
 const Admin = () => {
 	return(
 		<Routes>
 			<Route path="*" element={<MainLayout />}>
 				<Route path={"*"} element={<Empty description={"Пустая страница"}/>}/>
+				
+				<Route path={""} element={<TextEditor className={""}/>} />
 				
 				<Route path={"shops"} element={<Items storeType={StoreType.shop} />} />
 				<Route path={"shops/:id"} element={<Shop/>} />

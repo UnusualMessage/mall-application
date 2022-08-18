@@ -1,4 +1,4 @@
-import React from "react";
+import React, {DetailedHTMLProps, HTMLAttributes} from "react";
 import classNames from "classnames";
 
 import css from "./link.module.scss";
@@ -11,7 +11,7 @@ const OuterLink = ({ className, children, to}: Props) => {
 	);
 };
 
-interface Props {
+interface Props extends DetailedHTMLProps<HTMLAttributes<any>, HTMLLinkElement>{
 	className: string,
 	children: React.ReactNode,
 	to: string
