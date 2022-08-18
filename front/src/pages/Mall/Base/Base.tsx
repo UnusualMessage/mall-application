@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {Outlet, useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 
 import Header from "../../../components/Header";
 import Nav from "../../../components/Nav";
@@ -9,17 +9,15 @@ import Main from "../../../components/Main";
 import Loader from "../../../components/Loader";
 
 import NavigationStore from "../../../stores/NavigationStore";
-import Breadcrumb from "../../../api/interfaces/breadcrumb/Breadcrumb";
 
 const Base = () => {
     const location = useLocation();
-	const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>();
+	const breadcrumbs = NavigationStore.get();
     
     useEffect(() => {
 		const setupRoutes = async () => {
 			await NavigationStore.getAsync("");
 			NavigationStore.toNext(location.pathname);
-			setBreadcrumbs(NavigationStore.get());
 		};
 		
 		void setupRoutes();

@@ -11,6 +11,7 @@ import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
 import {InnerLink, OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
+import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import EventStore from "../../../stores/EventStore";
@@ -18,7 +19,7 @@ import EventStore from "../../../stores/EventStore";
 const Event = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const [isLoading, setIsLoading] = useState(true);
+	const [isFetching, setIsFetching] = useState(true);
 	
 	const event = EventStore.getCurrent();
 	
@@ -27,7 +28,7 @@ const Event = () => {
 			await EventStore.getByIdAsync(id ?? "");
 			const event = EventStore.getCurrent();
 			
-			setIsLoading(false);
+			setIsFetching(false);
 			
 			if (!event) {
 				redirect("/");
@@ -37,8 +38,8 @@ const Event = () => {
 		void getEvent();
 	}, [id]);
 	
-	if (!event || isLoading) {
-		return null;
+	if (!event || isFetching) {
+		return <Loader/>;
 	}
 	
 	return(

@@ -11,6 +11,7 @@ import Icon from "../../../components/Icon";
 import Label from "../../../components/Label";
 import {OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
+import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import ShopStore from "../../../stores/ShopStore";
@@ -19,7 +20,7 @@ const Shop = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
 	
-	const [isLoading, setIsLoading] = useState(true);
+	const [isFetching, setIsFetching] = useState(true);
 	
 	const shop = ShopStore.getCurrent();
 	
@@ -28,7 +29,7 @@ const Shop = () => {
 			await ShopStore.getByIdAsync(id ?? "");
 			const shop = ShopStore.getCurrent();
 			
-			setIsLoading(false);
+			setIsFetching(false);
 			
 			if (!shop) {
 				redirect("/");
@@ -38,8 +39,8 @@ const Shop = () => {
 		void getShop();
 	}, [id]);
 	
-	if (!shop || isLoading) {
-		return null;
+	if (!shop || isFetching) {
+		return <Loader/>;
 	}
 	
 	return(

@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import css from "./categories.module.scss";
 
 import {Category} from "./index";
+import Loader from "../../../../components/Loader";
 
 import CategoryStore from "../../../../stores/CategoryStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
@@ -17,10 +18,10 @@ const Categories = () => {
 	useEffect(() => {
 		const getCategories = async () => {
 			await CategoryStore.getAsync("");
+			setIsFetching(false);
 		};
 		
 		void getCategories();
-		setIsFetching(false);
 	}, []);
 
 	const classes = classNames({
@@ -29,7 +30,7 @@ const Categories = () => {
 	});
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	return(

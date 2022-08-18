@@ -12,7 +12,7 @@ import EventStore from "../../../stores/EventStore";
 import DiscountStore from "../../../stores/DiscountStore";
 
 const Home = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isFetching, setIsFetching] = useState(true);
 	
 	const shops = ShopStore.get();
 	const discounts = DiscountStore.get();
@@ -23,16 +23,16 @@ const Home = () => {
 			await ShopStore.getAsync("Page=1&PageSize=10");
 			await DiscountStore.getAsync("Page=1&PageSize=10");
 			await EventStore.getAsync("Page=1&PageSize=6");
+			setIsFetching(false);
 		};
 		
 		void get();
-		setIsLoading(false);
 	}, []);
 
     return(
         <div className={classNames(css.wrapper)}>
 	        {
-		        isLoading ? <Skeleton active/> : <PicturesCarousel items={shops}
+		        isFetching ? <Skeleton active/> : <PicturesCarousel items={shops}
 		                                                            title={"Магазины"}
 		                                                            linkLabel={"Все отделы"}
 		                                                            to={"shops"}
@@ -43,7 +43,7 @@ const Home = () => {
 	        }
 	
 	        {
-		        isLoading ? <Skeleton active/> : <PicturesCarousel items={discounts}
+		        isFetching ? <Skeleton active/> : <PicturesCarousel items={discounts}
 		                                                            title={"Акции"}
 		                                                            linkLabel={"Все акции"}
 		                                                            to={"discounts"}
@@ -54,7 +54,7 @@ const Home = () => {
 	        }
 			
 	        {
-		        isLoading ? <Skeleton active/> : <PicturesCarousel items={events}
+		        isFetching ? <Skeleton active/> : <PicturesCarousel items={events}
 		                                                            title={"Новости"}
 		                                                            linkLabel={"Все новости"}
 		                                                            to={"events"}

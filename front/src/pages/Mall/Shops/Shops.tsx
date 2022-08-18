@@ -5,27 +5,28 @@ import {useEffect, useState} from "react";
 import css from "./shops.module.scss";
 
 import Filter from "../../../components/Filter/Filter";
+import Loader from "../../../components/Loader";
 import ShopCards from "./ShopCards";
 
 import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
 
 const Shops = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isFetching, setIsFetching] = useState(true);
 	
 	const categories = CategoryStore.get();
 
 	useEffect(() => {
 		const getCategories = async () => {
 			await CategoryStore.getAsync("");
-			setIsLoading(false);
+			setIsFetching(false);
 		};
 		
 		void getCategories();
 	}, []);
 	
-	if (isLoading) {
-		return null;
+	if (isFetching) {
+		return <Loader/>;
 	}
 	
     return(

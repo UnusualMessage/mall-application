@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {useMemo, useRef} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import classNames from "classnames";
 
 import css from "./category.module.scss";
@@ -7,6 +7,7 @@ import label from "/src/components/Label/label.module.scss";
 
 import Label from "../../../../components/Label";
 import Icon from "../../../../components/Icon";
+import Loader from "../../../../components/Loader";
 import {Shops} from "../Shop";
 
 import ShopStore from "../../../../stores/ShopStore";
@@ -15,14 +16,23 @@ import icons from "../../../../data/icons";
 import useElementHider from "../../../../hooks/useElementHider";
 
 const Category = ({ category }: Props) => {
+	const [isFetching, setIsFetching] = useState(true);
 	const defaultHeight = 0;
 	
-	const shops = useMemo(() => {
-		return ShopStore.getByCategory(category.id);
+	const shops = ShopStore.get();
+	
+	useEffect(() => {
+		const getShops = async () => {
+			setIsFetching(true);
+			await ShopStore.getAsync(`Filters=CategoryId==${category.id}`);
+			setIsFetching(false);
+		};
+		
+		void getShops();
 	}, [category.id]);
 	
-	if (shops.length === 0) {
-		return null;
+	if (isFetching) {
+		return <Loader/>;
 	}
 	
 	const targetRef = useRef<HTMLDivElement>(null);

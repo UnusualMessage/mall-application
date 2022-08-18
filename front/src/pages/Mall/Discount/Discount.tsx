@@ -12,6 +12,7 @@ import Label from "../../../components/Label";
 import {InnerLink, OuterLink} from "../../../components/Link";
 import Icon from "../../../components/Icon";
 import Hider from "../../../components/Hider";
+import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import DiscountStore from "../../../stores/DiscountStore";
@@ -19,7 +20,7 @@ import DiscountStore from "../../../stores/DiscountStore";
 const Discount = () => {
 	const { id } = useParams();
 	const redirect = useNavigate();
-	const [isLoading, setIsLoading] = useState(true);
+	const [isFetching, setIsFetching] = useState(true);
 	
 	const discount = DiscountStore.getCurrent();
 	
@@ -28,7 +29,7 @@ const Discount = () => {
 			await DiscountStore.getByIdAsync(id ?? "");
 			const discount = DiscountStore.getCurrent();
 			
-			setIsLoading(false);
+			setIsFetching(false);
 			
 			if (!discount) {
 				redirect("/");
@@ -38,8 +39,8 @@ const Discount = () => {
 		void getDiscount();
 	}, [id]);
 	
-	if (!discount || isLoading) {
-		return null;
+	if (!discount || isFetching) {
+		return <Loader/>;
 	}
 	
 	return(

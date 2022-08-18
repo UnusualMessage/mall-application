@@ -6,6 +6,7 @@ import css from "./discounts.module.scss";
 
 import Filter from "../../../components/Filter";
 import DiscountCards from "./DiscountCards";
+import Loader from "../../../components/Loader";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import CategoryStore from "../../../stores/CategoryStore";
@@ -24,7 +25,7 @@ const Discounts = () => {
 	}, []);
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
     return(

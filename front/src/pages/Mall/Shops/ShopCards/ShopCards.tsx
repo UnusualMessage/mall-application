@@ -7,6 +7,7 @@ import label from "/src/components/Label/label.module.scss";
 
 import ShopCard from "../ShopCard";
 import Label from "../../../../components/Label";
+import Loader from "../../../../components/Loader";
 
 import ShopStore from "../../../../stores/ShopStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
@@ -19,10 +20,10 @@ const ShopCards = () => {
 	useEffect(() => {
 		const getShops = async () => {
 			await ShopStore.getAsync("");
+			setIsFetching(false);
 		};
 		
 		void getShops();
-		setIsFetching(false);
 	}, []);
 	
 	const onFilterSwitch = () => {
@@ -35,7 +36,7 @@ const ShopCards = () => {
 	});
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	return(

@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import css from "./eventCards.module.scss";
 
 import EventCard from "../EventCard";
+import Loader from "../../../../components/Loader";
 
 import EventStore from "../../../../stores/EventStore";
 
@@ -14,14 +15,14 @@ const EventCards = () => {
 	useEffect(() => {
 		const getEvents = async () => {
 			await EventStore.getAsync("");
+			setIsFetching(false);
 		};
 		
 		void getEvents();
-		setIsFetching(false);
 	}, []);
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	return(

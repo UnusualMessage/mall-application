@@ -7,6 +7,7 @@ import label from "/src/components/Label/label.module.scss";
 
 import Label from "../../../../components/Label";
 import DiscountCard from "../DiscountCard";
+import Loader from "../../../../components/Loader";
 
 import DiscountStore from "../../../../stores/DiscountStore";
 import InterfaceStore from "../../../../stores/InterfaceStore";
@@ -19,14 +20,14 @@ const DiscountCards = () => {
 	useEffect(() => {
 		const getDiscounts = async () => {
 			await DiscountStore.getAsync("");
+			setIsFetching(false);
 		};
 		
 		void getDiscounts();
-		setIsFetching(false);
 	}, []);
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	const onFilterSwitch = () => {
