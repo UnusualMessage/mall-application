@@ -2,7 +2,6 @@ import {action, makeObservable, observable} from "mobx";
 
 import Filterable from "../types/Filterable";
 import UpdateShop from "../api/interfaces/shop/UpdateShop";
-import DeleteShop from "../api/interfaces/shop/DeleteShop";
 import CreateShop from "../api/interfaces/shop/CreateShop";
 import Shop from "../api/interfaces/shop/Shop";
 import ShopService from "../api/services/ShopService";
@@ -10,7 +9,7 @@ import Category from "../api/interfaces/category/Category";
 
 import Store, {storeProps} from "./Store";
 
-class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implements Filterable {
+class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterable {
 	filter: Category;
 	
 	constructor() {
@@ -26,7 +25,7 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop, DeleteShop> implemen
 			filter: observable,
 			
 			setFilter: action,
-			getAsync: action
+			getAsync: action,
 		});
 	}
 	

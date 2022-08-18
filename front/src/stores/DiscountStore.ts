@@ -1,16 +1,15 @@
-import {action, makeObservable, observable, runInAction} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 
 import DiscountService from "../api/services/DiscountService";
 import Discount from "../api/interfaces/discount/Discount";
 import CreateDiscount from "../api/interfaces/discount/CreateDiscount";
 import Filterable from "../types/Filterable";
 import UpdateDiscount from "../api/interfaces/discount/UpdateDiscount";
-import DeleteDiscount from "../api/interfaces/discount/DeleteDiscount";
 import Category from "../api/interfaces/category/Category";
 
 import Store, {storeProps} from "./Store";
 
-class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount, DeleteDiscount> implements Filterable {
+class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> implements Filterable {
 	filter: Category;
 	
 	constructor() {
@@ -45,23 +44,20 @@ class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount, Dele
 		return count;
 	};
 	
-	public getFilter = () => {
+	public getFilter() {
 		return this.filter.title;
-	};
+	}
 	
-	public getFiltered = () => {
+	public getFiltered() {
 		if (this.filter.id === "0") {
 			return this.data;
 		}
 		
 		return this.data.filter(discount => discount.shop.category.id === this.filter.id);
-	};
+	}
 	
-	public getDiscountsByShopId = (id: string) => {
-		runInAction(async () => {
-			await this.getAsync(`shopId=${id}`);
-		}).then(_ => _);
-		
+	public getDiscountsByShopId = async (id: string) => {
+		await this.getAsync(`shopId=${id}`);
 		return this.data;
 	};
 	

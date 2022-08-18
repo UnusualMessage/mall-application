@@ -1,13 +1,12 @@
-import {makeObservable, runInAction} from "mobx";
+import {makeObservable} from "mobx";
 
 import Store, {storeProps} from "./Store";
 import Event from "../api/interfaces/event/Event";
 import CreateEvent from "../api/interfaces/event/CreateEvent";
-import DeleteEvent from "../api/interfaces/event/DeleteEvent";
 import UpdateEvent from "../api/interfaces/event/UpdateEvent";
 import EventService from "../api/services/EventService";
 
-class EventStore extends Store<Event, CreateEvent, UpdateEvent, DeleteEvent> {
+class EventStore extends Store<Event, CreateEvent, UpdateEvent> {
 	constructor() {
 		super(new EventService(), []);
 		
@@ -16,11 +15,8 @@ class EventStore extends Store<Event, CreateEvent, UpdateEvent, DeleteEvent> {
 		});
 	}
 	
-	public getEventsByShopId = (id: string) => {
-		runInAction(async () => {
-			await this.getAsync(`shopId=${id}`);
-		}).then(_ => _);
-		
+	public getEventsByShopId = async (id: string) => {
+		await this.getAsync(`shopId=${id}`);
 		return this.data;
 	};
 }

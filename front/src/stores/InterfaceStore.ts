@@ -15,21 +15,21 @@ class InterfaceStore {
 		makeAutoObservable(this);
 	}
 	
-	public isLoading = () => {
+	public isLoading() {
 		return this.loading;
-	};
+	}
 	
-	public isMenuActive = () => {
+	public isMenuActive() {
 		return this.menuActive;
-	};
+	}
 	
-	public isFilterActive = () => {
+	public isFilterActive() {
 		return this.filterActive;
-	};
+	}
 	
-	public isMapFilterActive = () => {
+	public isMapFilterActive() {
 		return this.mapFilterActive;
-	};
+	}
 	
 	public setLoading = (loading: boolean) => {
 		this.loading = loading;

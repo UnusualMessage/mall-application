@@ -10,7 +10,7 @@ class AuthStore {
 	constructor() {
 		this.isLogin = false;
 		this.accessToken = "";
-		this.authService = new AuthService("https://localhost:44328/api/users/");
+		this.authService = new AuthService();
 		
 		makeAutoObservable(this);
 	}
@@ -20,41 +20,31 @@ class AuthStore {
 	};
 	
 	public authenticateUser = async (user: AuthenticateUser) => {
-		try {
-			const data = await this.authService.authenticate(user);
-
-			runInAction(() => {
-				if (data.successful) {
-					this.accessToken = data.accessToken;
-					this.isLogin = true;
-				} else {
-					this.accessToken = "";
-					this.isLogin = false;
-				}
-			});
-			
-		} catch(error) {
+		const data = await this.authService.authenticate(user);
 		
-		}
+		runInAction(() => {
+			if (data.successful) {
+				this.accessToken = data.accessToken;
+				this.isLogin = true;
+			} else {
+				this.accessToken = "";
+				this.isLogin = false;
+			}
+		});
 	};
 	
 	public refreshUser = async () => {
-		try {
-			const data = await this.authService.refresh();
-			
-			runInAction(() => {
-				if (data.successful) {
-					this.accessToken = data.accessToken;
-					this.isLogin = true;
-				} else {
-					this.accessToken = "";
-					this.isLogin = false;
-				}
-			});
-			
-		} catch(error) {
+		const data = await this.authService.refresh();
 		
-		}
+		runInAction(() => {
+			if (data.successful) {
+				this.accessToken = data.accessToken;
+				this.isLogin = true;
+			} else {
+				this.accessToken = "";
+				this.isLogin = false;
+			}
+		});
 	};
 }
 

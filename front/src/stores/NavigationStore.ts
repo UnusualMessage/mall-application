@@ -16,8 +16,8 @@ class NavigationStore {
 	
 	constructor() {
 		this.toStart();
-		this.breadcrumbService = new BreadcrumbService("https://localhost:44328/api/breadcrumbs/");
-		this.routeService = new RouteService("https://localhost:44328/api/routes/");
+		this.breadcrumbService = new BreadcrumbService();
+		this.routeService = new RouteService();
 		
 		makeAutoObservable(this);
 	}
@@ -57,18 +57,13 @@ class NavigationStore {
 	};
 	
 	public getAsync = async (query: string) => {
-		try {
-			const breadcrumbs = await this.breadcrumbService.get(query);
-			const routes = await this.routeService.get(query);
-			
-			runInAction(() => {
-				this.totalBreadcrumbs = breadcrumbs;
-				this.totalRoutes = routes;
-			});
-			
-		} catch(error) {
+		const breadcrumbs = await this.breadcrumbService.get(query);
+		const routes = await this.routeService.get(query);
 		
-		}
+		runInAction(() => {
+			this.totalBreadcrumbs = breadcrumbs;
+			this.totalRoutes = routes;
+		});
 	};
 }
 
