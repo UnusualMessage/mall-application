@@ -10,15 +10,6 @@ import Text from "./Text";
 import Element from "./Element";
 import Toolbar from "./Toolbar/Toolbar";
 
-const serialize = (value: Descendant[]) => {
-	return JSON.stringify(value);
-	
-};
-
-const deserialize = (value: string) => {
-	return JSON.parse(value);
-};
-
 const TextEditor = ({ className, readonly }: Props) => {
 	const [editor] = useState(() => withReact(withHistory(createEditor() as ReactEditor)));
 	
