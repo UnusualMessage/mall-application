@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import classNames from "classnames";
 
 import label from "../Label/label.module.scss";
@@ -40,4 +40,4 @@ interface Props {
 	breadcrumbs: Breadcrumb[]
 }
 
-export default Breadcrumbs;
+export default memo(Breadcrumbs);

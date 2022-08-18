@@ -10,15 +10,16 @@ import Category from "../api/interfaces/category/Category";
 import Store, {storeProps} from "./Store";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterable {
-	filter: Category;
+	public filter: Category;
+	private readonly defaultFilter = {
+		id: "0",
+		title: "Все"
+	};
 	
 	constructor() {
 		super(new ShopService(), []);
 		
-		this.filter = {
-			id: "0",
-			title: "Все"
-		};
+		this.filter = this.defaultFilter;
 		
 		makeObservable(this, {
 			...storeProps,

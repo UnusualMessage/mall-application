@@ -36,7 +36,7 @@ const Authorization = () => {
 	};
 	
 	return (
-		<Layout>
+		<Layout className={css.layout}>
 			<Content className={css.wrapper}>
 				<Space className={css.content} direction={"vertical"}>
 					<PageHeader onBack={() => redirect("/")}

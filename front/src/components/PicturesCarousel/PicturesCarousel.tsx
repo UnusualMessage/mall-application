@@ -1,5 +1,6 @@
 import Carousel from "better-react-carousel";
 import classNames from "classnames";
+import {memo} from "react";
 
 import css from "./carousel.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -54,4 +55,4 @@ interface Props {
 	rows: number
 }
 
-export default PicturesCarousel;
+export default memo(PicturesCarousel);
