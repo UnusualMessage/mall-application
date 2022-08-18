@@ -75,7 +75,7 @@ const Shop = () => {
 	
 	const handleDelete = async () => {
 		setIsLoading(true);
-		await ShopStore.deleteAsync({ id: shop.id });
+		await ShopStore.deleteAsync(id ?? "");
 		setIsLoading(false);
 		
 		if (ShopStore.isRequestSuccessful()) {

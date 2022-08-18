@@ -7,10 +7,10 @@ import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
-import transliterate from "../../../utils/transliterate";
-import UpdateDiscount from "../../../api/interfaces/discount/UpdateDiscount";
-import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
 import ShopStore from "../../../stores/ShopStore";
+import { UpdateDiscount } from "../../../api/interfaces/discount";
+import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
+import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "discounts";
 
@@ -53,7 +53,7 @@ const Discount = () => {
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		await DiscountStore.deleteAsync({ id: discount.id });
+		await DiscountStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
 	};
 	

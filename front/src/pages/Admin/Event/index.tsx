@@ -54,7 +54,7 @@ const Event = () => {
 	
 	const handleDelete = async () => {
 		InterfaceStore.setLoading(true);
-		await EventStore.deleteAsync({ id: event.id });
+		await EventStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
 	};
 	

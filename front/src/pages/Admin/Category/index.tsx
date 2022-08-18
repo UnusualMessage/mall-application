@@ -7,9 +7,8 @@ import Loader from "../../../components/Loader";
 import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import UpdateCategory from "../../../api/interfaces/category/UpdateCategory";
 import CategoryStore from "../../../stores/CategoryStore";
-import DeleteCategory from "../../../api/interfaces/category/DeleteCategory";
+import { UpdateCategory } from "../../../api/interfaces/category";
 import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
 
 const rootRoute = "categories";
@@ -49,12 +48,8 @@ const Category = () => {
 	}
 	
 	const handleDelete = async () => {
-		const id: DeleteCategory = {
-			id: category.id,
-		};
-		
 		InterfaceStore.setLoading(true);
-		await CategoryStore.deleteAsync(id);
+		await CategoryStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
 		redirect(`../${rootRoute}`);
 	};
