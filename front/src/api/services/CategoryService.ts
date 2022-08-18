@@ -2,9 +2,8 @@ import Service from "./Service";
 import Category from "../interfaces/category/Category";
 import CreateCategory from "../interfaces/category/CreateCategory";
 import UpdateCategory from "../interfaces/category/UpdateCategory";
-import DeleteCategory from "../interfaces/category/DeleteCategory";
 
-class CategoryService extends Service<Category, CreateCategory, UpdateCategory, DeleteCategory> {
+class CategoryService extends Service<Category, CreateCategory, UpdateCategory> {
 	constructor() {
 		super("https://localhost:44328/api/categories/");
 	}

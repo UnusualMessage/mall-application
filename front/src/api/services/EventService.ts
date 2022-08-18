@@ -2,9 +2,8 @@ import Event from "../interfaces/event/Event";
 import CreateEvent from "../interfaces/event/CreateEvent";
 import UpdateEvent from "../interfaces/event/UpdateEvent";
 import Service from "./Service";
-import DeleteEvent from "../interfaces/event/DeleteEvent";
 
-class EventService extends Service<Event, CreateEvent, UpdateEvent, DeleteEvent>{
+class EventService extends Service<Event, CreateEvent, UpdateEvent>{
 	constructor() {
 		super("https://localhost:44328/api/events/");
 	}

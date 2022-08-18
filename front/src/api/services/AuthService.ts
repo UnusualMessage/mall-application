@@ -1,61 +1,43 @@
 import AuthenticateUser from "../interfaces/user/AuthenticateUser";
-import AuthenticateUserResponse from "../interfaces/user/AuthenticateUserResponse";
+import User from "../interfaces/user/User";
 
 class AuthService {
 	protected readonly webApiUrl: string;
 	
-	constructor(webApiUrl: string) {
-		this.webApiUrl = webApiUrl;
+	constructor() {
+		this.webApiUrl = "https://localhost:44328/api/users/";
 	}
 	
-	public authenticate = async (model: AuthenticateUser): Promise<AuthenticateUserResponse> => {
+	public authenticate = async (model: AuthenticateUser): Promise<User> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
+		
 		const options = {
 			method: "POST",
 			headers,
 			body: JSON.stringify(model)
 		};
 		
-		try {
-			const request = new Request(this.webApiUrl + "authenticate", options);
-			const response = await fetch(request);
-			
-			return response.json();
-		} catch (error) {
-			return new Promise((resolve, reject) => {
-				if (error instanceof Error) {
-					reject(error.message);
-				} else {
-					reject("Internal Error");
-				}
-			});
-		}
+		const request = new Request(this.webApiUrl + "authenticate", options);
+		const response = await fetch(request);
+		
+		return response.json();
 	};
 	
-	public refresh = async (): Promise<AuthenticateUserResponse> => {
+	public refresh = async (): Promise<User> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
+		
 		const options = {
 			method: "POST",
 			headers,
 			body: JSON.stringify({})
 		};
 		
-		try {
-			const request = new Request(this.webApiUrl + "refresh", options);
-			const response = await fetch(request);
-			
-			return response.json();
-		} catch (error) {
-			return new Promise((resolve, reject) => {
-				if (error instanceof Error) {
-					reject(error.message);
-				} else {
-					reject("Internal Error");
-				}
-			});
-		}
+		const request = new Request(this.webApiUrl + "refresh", options);
+		const response = await fetch(request);
+		
+		return response.json();
 	};
 }
 

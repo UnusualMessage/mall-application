@@ -3,8 +3,8 @@ import Breadcrumb from "../interfaces/breadcrumb/Breadcrumb";
 class BreadcrumbService {
 	protected readonly webApiUrl: string;
 	
-	constructor(webApiUrl: string) {
-		this.webApiUrl = webApiUrl;
+	constructor() {
+		this.webApiUrl = "https://localhost:44328/api/breadcrumbs/";
 	}
 	
 	public get = async (urlParams: string): Promise<Breadcrumb[]> => {
@@ -12,20 +12,10 @@ class BreadcrumbService {
 			method: "GET",
 		};
 		
-		try {
-			const request = new Request(this.webApiUrl + "?" + urlParams, options);
-			const response = await fetch(request);
-			
-			return response.json();
-		} catch (error) {
-			return new Promise((resolve, reject) => {
-				if (error instanceof Error) {
-					reject(error.message);
-				} else {
-					reject("Internal Error");
-				}
-			});
-		}
+		const request = new Request(this.webApiUrl + "?" + urlParams, options);
+		const response = await fetch(request);
+		
+		return response.json();
 	};
 }
 

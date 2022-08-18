@@ -3,8 +3,8 @@ import Route from "../interfaces/route/Route";
 class RouteService {
 	protected readonly webApiUrl: string;
 	
-	constructor(webApiUrl: string) {
-		this.webApiUrl = webApiUrl;
+	constructor() {
+		this.webApiUrl = "https://localhost:44328/api/routes/";
 	}
 	
 	public get = async (urlParams: string): Promise<Route[]> => {
@@ -12,20 +12,10 @@ class RouteService {
 			method: "GET",
 		};
 		
-		try {
-			const request = new Request(this.webApiUrl + "?" + urlParams, options);
-			const response = await fetch(request);
-			
-			return response.json();
-		} catch (error) {
-			return new Promise((resolve, reject) => {
-				if (error instanceof Error) {
-					reject(error.message);
-				} else {
-					reject("Internal Error");
-				}
-			});
-		}
+		const request = new Request(this.webApiUrl + "?" + urlParams, options);
+		const response = await fetch(request);
+		
+		return response.json();
 	};
 }
 
