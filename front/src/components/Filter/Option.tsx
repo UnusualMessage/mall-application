@@ -15,7 +15,7 @@ const Option = ({ count, text, store, id }: Props) => {
 	if (Number(count) === 0) {
 		return null;
 	} else {
-		if (text === store.getFilter()) {
+		if (id === store.getFilter()) {
 			active = true;
 		}
 	}

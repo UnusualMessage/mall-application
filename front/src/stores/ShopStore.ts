@@ -61,7 +61,7 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterabl
 	};
 	
 	public getFilter = () => {
-		return this.filter.title;
+		return this.filter.id;
 	};
 	
 	public setFilter = (id: string, title: string) => {

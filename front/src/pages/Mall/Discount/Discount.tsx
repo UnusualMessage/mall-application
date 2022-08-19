@@ -16,6 +16,7 @@ import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import DiscountStore from "../../../stores/DiscountStore";
+import TextEditor from "../../../components/TextEditor/TextEditor";
 
 const Discount = () => {
 	const { id } = useParams();
@@ -79,8 +80,7 @@ const Discount = () => {
 			</div>
 			
 			<Hider className={classNames(css.description)} defaultHeight={230}>
-				<Image classes={classNames()} source={discount.image.path}/>
-				<Label className={classNames(label.default)} text={discount.description}/>
+				<TextEditor readonly text={discount.description}/>
 			</Hider>
 		</div>
 	);

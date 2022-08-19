@@ -4,6 +4,8 @@ import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
+import RichTextInput from "../../../components/Input/RichTextInput";
+import Loader from "../../../components/Loader";
 
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
@@ -40,7 +42,7 @@ const NewShop = () => {
 	}, []);
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	const handleCreate = async (values: Values) => {
@@ -58,8 +60,6 @@ const NewShop = () => {
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`
 		};
-		
-		console.log(newShop);
 		
 		InterfaceStore.setLoading(true);
 		await ShopStore.createAsync(newShop);
@@ -81,7 +81,7 @@ const NewShop = () => {
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
-				<TextInput {...initialOptions.description}/>
+				<RichTextInput form={form} {...initialOptions.description} empty/>
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>

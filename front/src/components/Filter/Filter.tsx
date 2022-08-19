@@ -8,24 +8,23 @@ import Option from "./Option";
 import Filterable from "../../types/Filterable";
 import Category from "../../api/interfaces/category/Category";
 import InterfaceStore from "../../stores/InterfaceStore";
+import {useEffect} from "react";
 
 const Filter = ({ store, categories }: Props ) => {
 	const isFilterActive = InterfaceStore.isFilterActive();
+	
+	useEffect(() => {
+		store.setFilter(categories[0].id, categories[0].title);
+	}, []);
 	
 	const classes = classNames({
 		[css.wrapper]: true,
 		[css.active]: isFilterActive
 	});
 	
-	const categoriesWithAll = [...categories];
-	categoriesWithAll.unshift(...[{
-		id: "0",
-		title: "Все"
-	}]);
-	
 	return(
 		<div className={classes}>
-			{categoriesWithAll.map(category => {
+			{categories.map(category => {
 				return(
 					<Option key={category.id}
 					        count={store.getCountByCategoryId(category.id).toString()}

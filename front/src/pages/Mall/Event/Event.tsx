@@ -15,6 +15,7 @@ import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import EventStore from "../../../stores/EventStore";
+import TextEditor from "../../../components/TextEditor/TextEditor";
 
 const Event = () => {
 	const { id } = useParams();
@@ -79,8 +80,7 @@ const Event = () => {
 			</div>
 			
 			<Hider className={classNames(css.description)} defaultHeight={230}>
-				<Image classes={classNames()} source={event.image.path}/>
-				<Label className={classNames(label.default)} text={event.description}/>
+				<TextEditor readonly text={event.description}/>
 			</Hider>
 		</div>
 	);

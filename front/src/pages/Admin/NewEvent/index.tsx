@@ -4,6 +4,8 @@ import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
 import {ImagePicker, SelectInput, TextInput} from "../../../components/Input";
+import RichTextInput from "../../../components/Input/RichTextInput";
+import Loader from "../../../components/Loader";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import transliterate from "../../../utils/transliterate";
@@ -40,7 +42,7 @@ const NewEvent = () => {
 	}, []);
 	
 	if (isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	const handleCreate = async (values: Values) => {
@@ -71,7 +73,7 @@ const NewEvent = () => {
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
-				<TextInput {...initialOptions.description}/>
+				<RichTextInput form={form} {...initialOptions.description} empty/>
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>

@@ -4,6 +4,8 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
 import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
+import RichTextInput from "../../../components/Input/RichTextInput";
+import Loader from "../../../components/Loader";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -48,7 +50,7 @@ const Discount = () => {
 	}, [discount]);
 	
 	if (!discount || isFetching) {
-		return null;
+		return <Loader/>;
 	}
 	
 	const handleDelete = async () => {
@@ -87,7 +89,7 @@ const Discount = () => {
 				<TextInput {...initialOptions.title}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
-				<TextInput {...initialOptions.description}/>
+				<RichTextInput form={form} {...initialOptions.description}/>
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>

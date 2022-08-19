@@ -12,23 +12,9 @@ import Toolbar from "./Toolbar/Toolbar";
 import {withInlines} from "./buttons/LinkButton";
 import {withImages} from "./buttons/ImageButton";
 
-const initialValue: Descendant[] = [
-	{
-		type: "paragraph",
-		children: [
-			{
-				text: "A line of text in a paragraph."
-			}
-		],
-	},
-];
+const TextEditor = ({ readonly, onChange, placeholder, text }: Props) => {
+	const [editor] = useState(() => withImages(withInlines(withReact(withHistory(createEditor() as ReactEditor)))));
 
-const TextEditor = ({ className, readonly }: Props) => {
-	const [editor] = useState(() => withInlines(withReact(withHistory(createEditor() as ReactEditor))));
-	const [value, setValue] = useState<Descendant[]>(initialValue);
-	
-	console.log(value);
-	
 	const renderText = useCallback((props: RenderLeafProps) => {
 		return (
 			<Text {...props}>
@@ -44,13 +30,22 @@ const TextEditor = ({ className, readonly }: Props) => {
 			</Element>
 		);
 	}, []);
-
+	
+	if (!text) {
+		return null;
+	}
+	
+	const classes = classNames({
+		[css.wrapper]: !readonly,
+		[css.readonly]: readonly
+	});
+	
 	return (
-		<div className={classNames(css.wrapper, className)}>
-			<Slate editor={editor} value={value} onChange={value => setValue(value)}>
+		<div className={classes}>
+			<Slate editor={editor} value={JSON.parse(text)} onChange={onChange}>
 				{ readonly ? <></> : <Toolbar/> }
 				
-				<Editable placeholder={"Введите текст"}
+				<Editable placeholder={placeholder}
 				          renderLeaf={renderText}
 				          renderElement={renderElement}
 				          className={classNames(css.content)}
@@ -63,8 +58,10 @@ const TextEditor = ({ className, readonly }: Props) => {
 };
 
 interface Props {
-	className: string,
 	readonly?: boolean,
+	onChange?: (value: Descendant[]) => void,
+	placeholder?: string,
+	text?: string
 }
 
 export default memo(TextEditor);

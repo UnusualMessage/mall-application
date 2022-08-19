@@ -15,6 +15,7 @@ import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import ShopStore from "../../../stores/ShopStore";
+import TextEditor from "../../../components/TextEditor/TextEditor";
 
 const Shop = () => {
 	const { id } = useParams();
@@ -79,7 +80,7 @@ const Shop = () => {
 				</div>
 				
 				<Hider className={classNames(css.description)} defaultHeight={230}>
-					<Label className={classNames(label.default)} text={shop.description}/>
+					<TextEditor readonly text={shop.description}/>
 				</Hider>
 			</div>
 		</div>

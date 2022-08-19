@@ -4,6 +4,8 @@ import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
+import RichTextInput from "../../../components/Input/RichTextInput";
+import Loader from "../../../components/Loader";
 
 import ShopStore from "../../../stores/ShopStore";
 import transliterate from "../../../utils/transliterate";
@@ -48,7 +50,7 @@ const Shop = () => {
 	}, [id]);
 	
 	if (!shop) {
-		return null;
+		return <Loader/>;
 	}
 	
 	const handleUpdate = async (values: Values) => {
@@ -99,7 +101,7 @@ const Shop = () => {
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
-				<TextInput {...initialOptions.description}/>
+				<RichTextInput {...initialOptions.description} form={form}/>
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>

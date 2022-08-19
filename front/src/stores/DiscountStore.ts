@@ -46,7 +46,7 @@ class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> impl
 	};
 	
 	public getFilter() {
-		return this.filter.title;
+		return this.filter.id;
 	}
 	
 	public getFiltered() {

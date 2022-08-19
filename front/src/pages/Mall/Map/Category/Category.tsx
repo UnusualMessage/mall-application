@@ -31,12 +31,12 @@ const Category = ({ category }: Props) => {
 		void getShops();
 	}, [category.id]);
 	
+	const targetRef = useRef<HTMLDivElement>(null);
+	const [hider, setHider] = useElementHider({ targetRef, defaultHeight });
+	
 	if (isFetching) {
 		return <Loader/>;
 	}
-	
-	const targetRef = useRef<HTMLDivElement>(null);
-	const [hider, setHider] = useElementHider({ targetRef, defaultHeight });
 	
 	const onClick = () => {
 		const hidden = !hider.hidden;
