@@ -69,7 +69,7 @@ const Event = () => {
 			description: values.description,
 			imageId: values.image.id,
 			link: transliteratedTitle,
-			routePath: `/${rootRoute}/${transliteratedTitle}`,
+			routePath: `/${rootRoute}/${transliteratedTitle}/${event.id}`,
 			shopId: values.shopId
 		};
 		

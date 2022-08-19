@@ -2,6 +2,7 @@ import {FormRule} from "antd";
 
 import Image from "../api/interfaces/image/Image";
 import Shop from "../api/interfaces/shop/Shop";
+import {SocialRecord, SocialType} from "../types/Social";
 
 export interface Values {
 	title: string,
@@ -12,9 +13,24 @@ export interface Values {
 	description: string
 	categoryId: string,
 	image: Image,
+	socials: SocialRecord
 }
 
 export const getShopInitialValues = (shop?: Shop) => {
+	const socials: SocialRecord = {
+		vk: undefined,
+		odnoklassniki: undefined,
+		facebook: undefined,
+		twitter: undefined,
+		instagram: undefined
+	};
+	
+	if (shop) {
+		for (const social of shop.socials) {
+			socials[social.name as SocialType] = social.site;
+		}
+	}
+	
 	return {
 		image: shop?.image,
 		title: shop?.title,
@@ -24,6 +40,7 @@ export const getShopInitialValues = (shop?: Shop) => {
 		site: shop?.site,
 		categoryId: shop?.category.id,
 		description: shop?.description,
+		socials: socials
 	};
 };
 
@@ -106,6 +123,12 @@ export const getShopInitialOptions = (): Options => {
 			name: "description",
 			placeholder: "Введите текст статьи",
 			label: "Текст статьи"
+		},
+		
+		socials: {
+			name: "socials",
+			placeholder: "",
+			label: "Социальные сети"
 		}
 	};
 };

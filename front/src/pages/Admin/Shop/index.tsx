@@ -6,14 +6,19 @@ import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 import RichTextInput from "../../../components/Input/RichTextInput";
 import Loader from "../../../components/Loader";
+import SocialInput from "../../../components/Input/SocialInput";
 
 import ShopStore from "../../../stores/ShopStore";
 import transliterate from "../../../utils/transliterate";
 import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
 import CategoryStore from "../../../stores/CategoryStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+import {SocialType} from "../../../types/Social";
+import {CreateSocial, Social} from "../../../api/interfaces/social";
 
 const rootRoute = "shops";
+
+const socials: SocialType[] = ["vk", "odnoklassniki", "facebook", "twitter", "instagram"];
 
 const Shop = () => {
 	const { id } = useParams();
@@ -56,6 +61,18 @@ const Shop = () => {
 	const handleUpdate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
 		
+		const socials: CreateSocial[] = [];
+		
+		for (const [key, value] of Object.entries(values.socials)) {
+			if (value) {
+				socials.push({
+					id: shop.socials.find(social => social.name === key)?.id,
+					name: key,
+					site: value
+				} as Social);
+			}
+		}
+		
 		const newShop: UpdateShop = {
 			id: shop.id,
 			title: values.title,
@@ -67,7 +84,8 @@ const Shop = () => {
 			categoryId: values.categoryId,
 			imageId: values.image.id,
 			link: transliteratedTitle,
-			routePath: `/${rootRoute}/${transliteratedTitle}`
+			routePath: `/${rootRoute}/${transliteratedTitle}/${shop.id}`,
+			socials: socials
 		};
 		
 		setIsLoading(true);
@@ -101,6 +119,15 @@ const Shop = () => {
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
+				
+				<Form.Item label={"Социальные сети"}>
+					<Space wrap>
+						{
+							socials.map(social => <SocialInput social={social} key={social}/>)
+						}
+					</Space>
+				</Form.Item>
+				
 				<RichTextInput {...initialOptions.description} form={form}/>
 				
 				<Space>

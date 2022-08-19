@@ -68,7 +68,7 @@ const Discount = () => {
 			description: values.description,
 			imageId: values.image.id,
 			link: transliteratedTitle,
-			routePath: `/${rootRoute}/${transliteratedTitle}`,
+			routePath: `/${rootRoute}/${transliteratedTitle}/${discount.id}`,
 			shopId: values.shopId
 		};
 		

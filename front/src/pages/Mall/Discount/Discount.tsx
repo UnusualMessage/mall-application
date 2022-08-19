@@ -17,6 +17,7 @@ import Loader from "../../../components/Loader";
 import icons from "../../../data/icons";
 import DiscountStore from "../../../stores/DiscountStore";
 import TextEditor from "../../../components/TextEditor/TextEditor";
+import {SocialType} from "../../../types/Social";
 
 const Discount = () => {
 	const { id } = useParams();
@@ -61,20 +62,25 @@ const Discount = () => {
 					</OuterLink>
 					
 					<div className={classNames(css.socials)}>
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
-						<OuterLink className={classNames(link.hovered)} to={"https://vk.com"}>
-							<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.vk}/>
-						</OuterLink>
+						{
+							discount.shop.socials.map(social => {
+								if (social.site) {
+									return (
+										<OuterLink className={classNames(link.hovered)}
+										           to={social.site}
+										           key={social.id}>
+											
+											<Icon className={classNames()}
+											      viewBox={"0 0 20 20"}
+											      icon={icons[social.name as SocialType]}/>
+										
+										</OuterLink>
+									);
+								}
+								
+								return;
+							})
+						}
 					</div>
 				</div>
 			</div>

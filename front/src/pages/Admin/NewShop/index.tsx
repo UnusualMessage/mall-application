@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
 import RichTextInput from "../../../components/Input/RichTextInput";
 import Loader from "../../../components/Loader";
+import SocialInput from "../../../components/Input/SocialInput";
 
 import transliterate from "../../../utils/transliterate";
 import CreateShop from "../../../api/interfaces/shop/CreateShop";
@@ -13,8 +14,12 @@ import CategoryStore from "../../../stores/CategoryStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
+import {CreateSocial} from "../../../api/interfaces/social";
+import {SocialType} from "../../../types/Social";
 
 const rootRoute = "shops";
+
+const socials: SocialType[] = ["vk", "odnoklassniki", "facebook", "twitter", "instagram"];
 
 const NewShop = () => {
 	const redirect = useNavigate();
@@ -48,6 +53,15 @@ const NewShop = () => {
 	const handleCreate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
 		
+		const socials: CreateSocial[] = [];
+		
+		for (const [key, value] of Object.entries(values.socials)) {
+			socials.push({
+				name: key,
+				site: value
+			} as CreateSocial);
+		}
+		
 		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
@@ -58,7 +72,8 @@ const NewShop = () => {
 			categoryId: values.categoryId,
 			imageId: values.image.id,
 			link: transliteratedTitle,
-			routePath: `/${rootRoute}/${transliteratedTitle}`
+			routePath: `/${rootRoute}/${transliteratedTitle}`,
+			socials: socials
 		};
 		
 		InterfaceStore.setLoading(true);
@@ -73,7 +88,7 @@ const NewShop = () => {
 			            style={{padding: 0, paddingBottom: 20}}
 			/>
 			
-			<Form form={form} onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues}>
+			<Form form={form} onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} labelWrap>
 				<TextInput {...initialOptions.title}/>
 				<NumberInput {...initialOptions.floor} min={1} max={2}/>
 				<TextInput {...initialOptions.schedule}/>
@@ -81,6 +96,15 @@ const NewShop = () => {
 				<TextInput {...initialOptions.site}/>
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
+				
+				<Form.Item label={"Социальные сети"}>
+					<Space wrap>
+						{
+							socials.map(social => <SocialInput social={social} key={social}/>)
+						}
+					</Space>
+				</Form.Item>
+				
 				<RichTextInput form={form} {...initialOptions.description} empty/>
 				
 				<Space>
@@ -92,7 +116,6 @@ const NewShop = () => {
 						Очистить
 					</Button>
 				</Space>
-			
 			</Form>
 		</Space>
 	);

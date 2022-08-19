@@ -3,10 +3,8 @@ import classNames from "classnames";
 
 import css from "./scaler.module.scss";
 
-import Icon from "../../../../components/Icon";
-
-import icons from "../../../../data/icons";
 import MapStore from "../../../../stores/MapStore";
+import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 
 const Scaler = () => {
 	const zoomIn = () => {
@@ -19,13 +17,8 @@ const Scaler = () => {
 	
 	return(
 		<div className={classNames(css.wrapper)}>
-			<div className={classNames(css.item)} onClick={zoomIn}>
-				<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.plus}/>
-			</div>
-			
-			<div className={classNames(css.item)} onClick={zoomOut}>
-				<Icon className={classNames()} viewBox={"0 0 20 20"} icon={icons.minus}/>
-			</div>
+			<PlusOutlined onClick={zoomIn} className={css.item}/>
+			<MinusOutlined onClick={zoomOut} className={css.item}/>
 		</div>
 	);
 };
