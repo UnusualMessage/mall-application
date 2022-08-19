@@ -1,5 +1,6 @@
 import Category from "../category/Category";
 import Image from "../image/Image";
+import {Social} from "../social";
 
 export default interface Shop {
 	id: string,
@@ -12,6 +13,7 @@ export default interface Shop {
 	link: string,
 	routePath: string,
 	
+	socials: Social[]
 	category: Category,
 	image: Image
 }

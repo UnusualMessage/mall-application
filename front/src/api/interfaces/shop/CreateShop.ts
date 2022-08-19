@@ -1,4 +1,6 @@
-export default interface CreateShop extends Record<Key, Value> {
+import {CreateSocial} from "../social";
+
+export default interface CreateShop {
 	floor: number,
 	title: string,
 	description: string,
@@ -10,7 +12,5 @@ export default interface CreateShop extends Record<Key, Value> {
 	
 	imageId: string,
 	categoryId: string,
+	socials: CreateSocial[]
 }
-
-type Key = string;
-type Value = string | number | undefined;
