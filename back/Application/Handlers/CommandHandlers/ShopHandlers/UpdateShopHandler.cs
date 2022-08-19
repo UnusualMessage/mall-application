@@ -34,6 +34,20 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse>
             Link = request.Link
         });
 
+        foreach (var social in shopToBeUpdated.Socials)
+        {
+            foreach (var newSocial in _mapper.Map<IEnumerable<Social>>(request.Socials))
+            {
+                if (social.Id != newSocial.Id)
+                {
+                    continue;
+                }
+                
+                social.Update(newSocial);
+                break;
+            }
+        }
+
         return _mapper.Map<ShopResponse>(await _shopRepository.UpdateAsync(_mapper.Map<Shop>(request)));
     }
 }

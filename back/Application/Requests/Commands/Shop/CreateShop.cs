@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Application.Requests.Commands.Social;
 using Application.Responses;
-
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Requests.Commands.Shop;
 
@@ -28,7 +27,9 @@ public class CreateShop : IRequest<ShopResponse>
     
     [Required] 
     public Guid? CategoryId { get; set; }
-    
+
+    public IEnumerable<CreateSocial>? Socials { get; set; }
+
     public string? Schedule { get; set; }
     
     public string? Phone { get; set; }

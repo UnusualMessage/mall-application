@@ -30,6 +30,7 @@ public class GetSievedDiscountsHandler : IRequestHandler<GetSievedDiscounts, IEn
             cfg.AddProfile(new ShopProfile());
             cfg.AddProfile(new CategoryProfile());
             cfg.AddProfile(new ImageProfile());
+            cfg.AddProfile(new SocialProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<DiscountResponse>(configuration);

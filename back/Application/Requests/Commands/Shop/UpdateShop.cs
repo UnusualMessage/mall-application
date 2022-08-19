@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using Application.Requests.Commands.Social;
 using Application.Responses;
-
+using Core.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Requests.Commands.Shop;
 
@@ -20,7 +19,8 @@ public class UpdateShop : IRequest<ShopResponse>
     public string? Link { get; set; }
     public string? RoutePath { get; set; }
     public short? Floor { get; set; }
-    
+    public IEnumerable<UpdateSocial>? Socials { get; set; }
+
     public Guid? ImageId { get; set; }
     public Guid? CategoryId { get; set; }
 }

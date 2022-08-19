@@ -29,6 +29,7 @@ public class GetSievedEventsHandler : IRequestHandler<GetSievedEvents, IEnumerab
             cfg.AddProfile(new ShopProfile());
             cfg.AddProfile(new CategoryProfile());
             cfg.AddProfile(new ImageProfile());
+            cfg.AddProfile(new SocialProfile());
         });
 
         var response = result.AsQueryable().ProjectTo<EventResponse>(configuration);

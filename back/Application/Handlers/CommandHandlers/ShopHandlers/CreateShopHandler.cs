@@ -12,19 +12,19 @@ namespace Application.Handlers.CommandHandlers.ShopHandlers;
 public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
 {
     private readonly IShopRepository _shopRepository;
-    private readonly ICategoryRepository _categoryRepository;
     private readonly IRouteRepository _routeRepository;
     private readonly IBreadcrumbRepository _breadcrumbRepository;
+    private readonly ISocialRepository _socialRepository;
     private readonly IMapper _mapper;
 
-    public CreateShopHandler(IShopRepository repository, ICategoryRepository categoryRepository, IMapper mapper, 
+    public CreateShopHandler(IShopRepository repository, IMapper mapper, ISocialRepository socialRepository,
         IRouteRepository routeRepository, IBreadcrumbRepository breadcrumbRepository)
     {
-        _categoryRepository = categoryRepository;
         _shopRepository = repository;
         _mapper = mapper;
         _routeRepository = routeRepository;
         _breadcrumbRepository = breadcrumbRepository;
+        _socialRepository = socialRepository;
     }
     
     public async Task<ShopResponse> Handle(CreateShop request, CancellationToken cancellationToken)
@@ -44,7 +44,7 @@ public class CreateShopHandler : IRequestHandler<CreateShop, ShopResponse>
                 Link = request.Link
             }
         );
-        
+
         if (route is null || breadcrumb is null)
         {
             return null;

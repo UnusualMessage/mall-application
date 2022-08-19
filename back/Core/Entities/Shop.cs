@@ -10,6 +10,7 @@ public class Shop : Entity, IUpdatable<Shop>
     public string? Phone { get; set; }
     public string? Site { get; set; }
     public short Floor { get; set; }
+    public IEnumerable<Social> Socials { get; set; } = new List<Social>();
     
     public Guid? ImageId { get; set; }
     public Image? Image { get; set; }
@@ -36,8 +37,5 @@ public class Shop : Entity, IUpdatable<Shop>
         Floor = shop.Floor;
         ImageId = shop.ImageId;
         CategoryId = shop.CategoryId;
-
-        BreadcrumbId = shop.BreadcrumbId;
-        RouteId = shop.RouteId;
     }
 }

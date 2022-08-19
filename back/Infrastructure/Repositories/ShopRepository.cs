@@ -20,6 +20,7 @@ public class ShopRepository : Repository<Shop>, IShopRepository
             .Include(e => e.Category)
             .Include(e => e.Breadcrumb)
             .Include(e => e.Image)
+            .Include(e => e.Socials)
             .FirstOrDefaultAsync(shop => shop.Id == id);
     }
 
