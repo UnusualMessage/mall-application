@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
 	output: {
@@ -16,6 +17,7 @@ module.exports = {
 	performance: {
 		hints: 'error',
 		maxAssetSize: 1048576,
+		maxEntrypointSize: 2 * 1048576
 	},
 
 	optimization: {
@@ -48,6 +50,8 @@ module.exports = {
 				},
 			]
 		}),
+
+		new BundleAnalyzerPlugin()
 	],
 
 	module: {

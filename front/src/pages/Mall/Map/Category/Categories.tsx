@@ -29,17 +29,13 @@ const Categories = () => {
 		[css.active]: InterfaceStore.isMapFilterActive()
 	});
 	
-	if (isFetching) {
-		return <Loader/>;
-	}
+	const element = isFetching
+		? <Loader/>
+		: categories.map(category => <Category category={category} key={category.id}/>);
 	
 	return(
 		<div className={classes}>
-			{categories.map(category => {
-				return(
-					<Category category={category} key={category.id}/>
-				);
-			})}
+			{element}
 		</div>
 	);
 };

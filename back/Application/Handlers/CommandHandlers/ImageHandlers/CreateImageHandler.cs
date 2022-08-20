@@ -25,7 +25,7 @@ public class CreateImageHandler : IRequestHandler<CreateImage, ImageResponse>
     {
         var newImage = new Image()
         {
-            Path = await _fileService.UploadFile(request.Image, request.Destination!) ?? ""
+            Path = "/" + await _fileService.UploadFile(request.Image, request.Destination!)
         };
 
         return _mapper.Map<ImageResponse>(await _imageRepository.AddAsync(newImage));

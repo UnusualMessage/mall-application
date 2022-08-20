@@ -14,7 +14,11 @@ const Filter = ({ store, categories }: Props ) => {
 	const isFilterActive = InterfaceStore.isFilterActive();
 	
 	useEffect(() => {
-		store.setFilter(categories[0].id, categories[0].title);
+		const category = categories[0] as Category | undefined;
+		
+		if (category) {
+			store.setFilter(category.id, category.title);
+		}
 	}, []);
 	
 	const classes = classNames({

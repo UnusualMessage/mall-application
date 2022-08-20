@@ -1,9 +1,9 @@
-import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Input, Row, Space} from "antd";
+import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Image, Input, Row, Space} from "antd";
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
 import ImageStore from "../../stores/ImageStore";
-import Image from "../../api/interfaces/image/Image";
+import ImageInterface from "../../api/interfaces/image/Image";
 
 const cardBreakpoints = {
 	xs: 12,
@@ -15,10 +15,10 @@ const cardBreakpoints = {
 };
 
 const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
-	const image = Form.useWatch<Image | undefined>(name, form);
+	const image = Form.useWatch<ImageInterface | undefined>(name, form);
 	const [visible, setVisible] = useState(false);
 	
-	const pick = (image: Image) => {
+	const pick = (image: ImageInterface) => {
 		form.setFieldValue(name, image);
 		setVisible(false);
 	};
@@ -35,6 +35,9 @@ const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 					<Button type="primary" onClick={open}>
 						Показать
 					</Button>
+					{
+						image ? <Image src={image.path} width={100}/> : <></>
+					}
 				</Space>
 			</Form.Item>
 			
@@ -97,7 +100,7 @@ interface Props {
 interface ImageDrawerProps {
 	visible: boolean,
 	setVisible: (visible: boolean) => void,
-	pick: (image: Image) => void
+	pick: (image: ImageInterface) => void
 }
 
 export default observer(ImagePicker);
