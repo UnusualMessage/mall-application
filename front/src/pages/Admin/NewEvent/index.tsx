@@ -3,16 +3,15 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {ImagePicker, SelectInput, TextInput} from "../../../components/Input";
-import RichTextInput from "../../../components/Input/RichTextInput";
+import {ImagePicker, SelectInput, TextInput, RichTextInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import transliterate from "../../../utils/transliterate";
 import ShopStore from "../../../stores/ShopStore";
-import CreateEvent from "../../../api/interfaces/event/CreateEvent";
-import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
 import EventStore from "../../../stores/EventStore";
+import { CreateEvent } from "../../../api/interfaces/event";
+import transliterate from "../../../utils/transliterate";
+import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
 
 const rootRoute = "events";
 

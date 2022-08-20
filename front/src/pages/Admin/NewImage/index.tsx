@@ -7,7 +7,7 @@ import {ImageInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ImageStore from "../../../stores/ImageStore";
-import CreateImage from "../../../api/interfaces/image/CreateImage";
+import { CreateImage } from "../../../api/interfaces/image";
 import {getImageInitialOptions, Values} from "../../../utils/getImageForm";
 
 const rootRoute = "images";

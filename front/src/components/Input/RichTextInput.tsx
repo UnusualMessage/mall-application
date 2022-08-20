@@ -2,7 +2,7 @@ import {Form, FormInstance, FormRule} from "antd";
 import React, {memo} from "react";
 import {Descendant} from "slate";
 
-import TextEditor from "../TextEditor/TextEditor";
+import TextEditor from "../TextEditor";
 
 const initialValue: Descendant[] = [
 	{

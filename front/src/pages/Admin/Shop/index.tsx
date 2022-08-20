@@ -3,22 +3,18 @@ import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
-import RichTextInput from "../../../components/Input/RichTextInput";
+import {SelectInput, TextInput, NumberInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
-import SocialInput from "../../../components/Input/SocialInput";
 
 import ShopStore from "../../../stores/ShopStore";
-import transliterate from "../../../utils/transliterate";
-import UpdateShop from "../../../api/interfaces/shop/UpdateShop";
 import CategoryStore from "../../../stores/CategoryStore";
+import {UpdateShop} from "../../../api/interfaces/shop";
+import {Social} from "../../../api/interfaces/social";
+import {socials} from "../../../types/Social";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
-import {SocialType} from "../../../types/Social";
-import {CreateSocial, Social} from "../../../api/interfaces/social";
+import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "shops";
-
-const socials: SocialType[] = ["vk", "odnoklassniki", "facebook", "twitter", "instagram"];
 
 const Shop = () => {
 	const { id } = useParams();
@@ -61,7 +57,7 @@ const Shop = () => {
 	const handleUpdate = async (values: Values) => {
 		const transliteratedTitle = transliterate(values.title);
 		
-		const socials: CreateSocial[] = [];
+		const socials: Social[] = [];
 		
 		for (const [key, value] of Object.entries(values.socials)) {
 			if (value) {

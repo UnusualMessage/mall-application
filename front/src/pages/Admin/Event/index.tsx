@@ -3,16 +3,15 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
-import RichTextInput from "../../../components/Input/RichTextInput";
 
-import InterfaceStore from "../../../stores/InterfaceStore";
-import transliterate from "../../../utils/transliterate";
 import ShopStore from "../../../stores/ShopStore";
-import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
+import InterfaceStore from "../../../stores/InterfaceStore";
 import EventStore from "../../../stores/EventStore";
-import UpdateEvent from "../../../api/interfaces/event/UpdateEvent";
+import { UpdateEvent } from "../../../api/interfaces/event";
+import transliterate from "../../../utils/transliterate";
+import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
 
 const rootRoute = "events";
 

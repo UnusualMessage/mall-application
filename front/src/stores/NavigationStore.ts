@@ -50,8 +50,6 @@ class NavigationStore {
 					name: route.name,
 					link: currentRoute
 				});
-			} else {
-				this.toStart();
 			}
 		}
 	};

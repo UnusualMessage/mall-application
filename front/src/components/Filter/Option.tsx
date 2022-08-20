@@ -15,13 +15,13 @@ const Option = ({ count, text, store, id }: Props) => {
 	if (Number(count) === 0) {
 		return null;
 	} else {
-		if (id === store.getFilter()) {
+		if (id === store.getFilter()?.id) {
 			active = true;
 		}
 	}
 	
 	const onClick = () => {
-		store.setFilter(id, text);
+		store.setFilter({ id, title: text });
 		InterfaceStore.switchFilter();
 	};
 	

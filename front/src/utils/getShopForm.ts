@@ -2,7 +2,7 @@ import {FormRule} from "antd";
 
 import Image from "../api/interfaces/image/Image";
 import Shop from "../api/interfaces/shop/Shop";
-import {SocialRecord, SocialType} from "../types/Social";
+import {SocialRecord} from "../types/Social";
 
 export interface Values {
 	title: string,
@@ -27,7 +27,7 @@ export const getShopInitialValues = (shop?: Shop) => {
 	
 	if (shop) {
 		for (const social of shop.socials) {
-			socials[social.name as SocialType] = social.site;
+			socials[social.name] = social.site;
 		}
 	}
 	

@@ -1,25 +1,19 @@
 import {action, makeObservable, observable} from "mobx";
 
-import Filterable from "../types/Filterable";
-import UpdateShop from "../api/interfaces/shop/UpdateShop";
-import CreateShop from "../api/interfaces/shop/CreateShop";
-import Shop from "../api/interfaces/shop/Shop";
+import { Shop, CreateShop, UpdateShop } from "../api/interfaces/shop";
+import { Category } from "../api/interfaces/category";
 import ShopService from "../api/services/ShopService";
-import Category from "../api/interfaces/category/Category";
+import Filterable from "../types/Filterable";
 
 import Store, {storeProps} from "./Store";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterable {
-	public filter: Category;
-	private readonly defaultFilter = {
-		id: "0",
-		title: "Все"
-	};
-	
+	public filter: Category | undefined;
+
 	constructor() {
 		super(new ShopService(), []);
 		
-		this.filter = this.defaultFilter;
+		this.filter = undefined;
 		
 		makeObservable(this, {
 			...storeProps,
@@ -31,10 +25,6 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterabl
 	}
 	
 	public getCountByCategoryId = (id: string) => {
-		if (id === "1") {
-			return this.data.length;
-		}
-		
 		let count = 0;
 		
 		for (const shop of this.data) {
@@ -53,22 +43,25 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterabl
 	};
 	
 	public getFiltered = () => {
-		if (this.filter.id === "0") {
-			return this.data;
+		const filter = this.filter;
+		
+		if (filter) {
+			return this.data.filter(shop => shop.category.id === filter.id);
 		}
 		
-		return this.data.filter(shop => shop.category.id === this.filter.id);
+		return this.data;
 	};
 	
 	public getFilter = () => {
-		return this.filter.id;
+		return this.filter;
 	};
 	
-	public setFilter = (id: string, title: string) => {
-		this.filter = {
-			id,
-			title
-		};
+	public setFilter = (category: Category | undefined) => {
+		if (category) {
+			this.filter = { ...category };
+		} else {
+			this.filter = undefined;
+		}
 	};
 }
 

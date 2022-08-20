@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
 import ImageStore from "../../stores/ImageStore";
-import ImageInterface from "../../api/interfaces/image/Image";
+import { Image as ImageInterface } from "../../api/interfaces/image";
 
 const cardBreakpoints = {
 	xs: 12,

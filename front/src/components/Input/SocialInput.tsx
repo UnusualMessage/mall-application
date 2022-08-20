@@ -1,8 +1,8 @@
 import {Input, Form} from "antd";
 
-import {Social} from "../../types/Social";
+import {SocialType} from "../../types/Social";
 
-const translated: Record<Social, string> = {
+const translated: Record<SocialType, string> = {
 	vk: "ВКонтакте",
 	odnoklassniki: "Одноклассники",
 	facebook: "Facebook",
@@ -19,7 +19,7 @@ const SocialInput = ({ social }: Props) => {
 };
 
 interface Props {
-	social: Social
+	social: SocialType
 }
 
 export default SocialInput;

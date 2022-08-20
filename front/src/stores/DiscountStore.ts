@@ -1,26 +1,20 @@
 import {action, makeObservable, observable} from "mobx";
 
-import DiscountService from "../api/services/DiscountService";
-import Discount from "../api/interfaces/discount/Discount";
-import CreateDiscount from "../api/interfaces/discount/CreateDiscount";
+import { Discount, CreateDiscount, UpdateDiscount } from "../api/interfaces/discount";
+import { Category } from "../api/interfaces/category";
 import Filterable from "../types/Filterable";
-import UpdateDiscount from "../api/interfaces/discount/UpdateDiscount";
-import Category from "../api/interfaces/category/Category";
+import DiscountService from "../api/services/DiscountService";
 
 import Store, {storeProps} from "./Store";
 
 class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> implements Filterable {
-	public filter: Category;
-	private readonly defaultFilter = {
-		id: "0",
-		title: "Все"
-	};
-	
+	public filter: Category | undefined;
+
 	constructor() {
 		super(new DiscountService(), []);
-
-		this.filter = this.defaultFilter;
 		
+		this.filter = undefined;
+
 		makeObservable(this, {
 			...storeProps,
 			filter: observable,
@@ -30,10 +24,6 @@ class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> impl
 	}
 	
 	public getCountByCategoryId = (id: string) => {
-		if (id === "1") {
-			return this.data.length;
-		}
-		
 		let count = 0;
 		
 		for (const discount of this.data) {
@@ -46,27 +36,30 @@ class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> impl
 	};
 	
 	public getFilter() {
-		return this.filter.id;
+		return this.filter;
 	}
 	
 	public getFiltered() {
-		if (this.filter.id === "0") {
-			return this.data;
+		const filter = this.filter;
+		
+		if (filter) {
+			return this.data.filter(discount => discount.shop.category.id === filter.id);
 		}
 		
-		return this.data.filter(discount => discount.shop.category.id === this.filter.id);
+		return this.data;
 	}
 	
-	public getDiscountsByShopId = async (id: string) => {
-		await this.getAsync(`shopId=${id}`);
-		return this.data;
+	public setFilter = (category: Category | undefined) => {
+		if (category) {
+			this.filter = { ...category };
+		} else {
+			this.filter = undefined;
+		}
 	};
 	
-	public setFilter = (id: string, title: string) => {
-		this.filter = {
-			id,
-			title
-		};
+	public getDiscountsByShopId = async (id: string) => {
+		await this.getAsync(`Filters=shopId==${id}`);
+		return this.data;
 	};
 }
 

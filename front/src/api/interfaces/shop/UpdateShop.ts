@@ -1,4 +1,4 @@
-import {ShopSocial} from "../../../types/Social";
+import {Social} from "../social";
 
 export default interface UpdateShop {
 	id: string,
@@ -11,7 +11,7 @@ export default interface UpdateShop {
 	link: string,
 	routePath: string,
 	
-	socials: ShopSocial[]
+	socials: Social[]
 	categoryId: string,
 	imageId: string,
 }

@@ -1,5 +1,5 @@
 import {observer} from "mobx-react-lite";
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 
 import css from "./category.module.scss";
@@ -11,7 +11,7 @@ import Loader from "../../../../components/Loader";
 import {Shops} from "../Shop";
 
 import ShopStore from "../../../../stores/ShopStore";
-import Category from "../../../../api/interfaces/category/Category";
+import { Category } from "../../../../api/interfaces/category";
 import icons from "../../../../data/icons";
 import useElementHider from "../../../../hooks/useElementHider";
 
@@ -36,6 +36,10 @@ const Category = ({ category }: Props) => {
 	
 	if (isFetching) {
 		return <Loader/>;
+	}
+	
+	if (shops.length === 0) {
+		return null;
 	}
 	
 	const onClick = () => {

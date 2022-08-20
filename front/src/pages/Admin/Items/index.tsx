@@ -1,6 +1,7 @@
 import {Col, Empty, PageHeader, Row} from "antd";
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import ItemCard from "./ItemCard";
 
@@ -9,12 +10,12 @@ import ShopStore from "../../../stores/ShopStore";
 import EventStore from "../../../stores/EventStore";
 import ImageStore from "../../../stores/ImageStore";
 import CategoryStore from "../../../stores/CategoryStore";
-import {ShopInterface} from "../../../api/interfaces/shop";
-import Category from "../../../api/interfaces/category/Category";
-import Image from "../../../api/interfaces/image/Image";
-import Discount from "../../../api/interfaces/discount/Discount";
-import Event from "../../../api/interfaces/event/Event";
-import {useNavigate} from "react-router-dom";
+
+import { Shop } from "../../../api/interfaces/shop";
+import { Category } from "../../../api/interfaces/category";
+import { Image } from "../../../api/interfaces/image";
+import { Discount } from "../../../api/interfaces/discount";
+import { Event } from "../../../api/interfaces/event";
 
 const cardBreakpoints = {
 	xs: 12,
@@ -47,7 +48,7 @@ const Items = ({ storeType }: Props) => {
 		}
 	}, [storeType]);
 	
-	const items = store.get() as ShopInterface[] | Category[] | Event[] | Image[] | Discount[];
+	const items = store.get() as Shop[] | Category[] | Event[] | Image[] | Discount[];
 	
 	useEffect(() => {
 		const getItems = async () => {

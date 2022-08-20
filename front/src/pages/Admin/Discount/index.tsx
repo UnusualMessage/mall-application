@@ -3,8 +3,7 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
 
-import {SelectInput, TextInput, ImagePicker} from "../../../components/Input";
-import RichTextInput from "../../../components/Input/RichTextInput";
+import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
 
 import DiscountStore from "../../../stores/DiscountStore";

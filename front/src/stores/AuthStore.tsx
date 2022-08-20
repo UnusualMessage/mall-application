@@ -3,7 +3,7 @@ import AuthService from "../api/services/AuthService";
 import AuthenticateUser from "../api/interfaces/user/AuthenticateUser";
 
 class AuthStore {
-	private isLogin;
+	private isLogin: boolean;
 	private authService: AuthService;
 	private accessToken: string;
 	
@@ -24,11 +24,9 @@ class AuthStore {
 		
 		runInAction(() => {
 			if (data.successful) {
-				this.accessToken = data.accessToken;
-				this.isLogin = true;
+				this.login(data.accessToken);
 			} else {
-				this.accessToken = "";
-				this.isLogin = false;
+				this.logout();
 			}
 		});
 	};
@@ -38,13 +36,21 @@ class AuthStore {
 		
 		runInAction(() => {
 			if (data.successful) {
-				this.accessToken = data.accessToken;
-				this.isLogin = true;
+				this.login(data.accessToken);
 			} else {
-				this.accessToken = "";
-				this.isLogin = false;
+				this.logout();
 			}
 		});
+	};
+	
+	private login = (accessToken: string) => {
+		this.accessToken = accessToken;
+		this.isLogin = true;
+	};
+	
+	private logout = () => {
+		this.accessToken = "";
+		this.isLogin = false;
 	};
 }
 

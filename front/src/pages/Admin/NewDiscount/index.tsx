@@ -3,17 +3,15 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {SelectInput, TextInput} from "../../../components/Input";
-import ImagePicker from "../../../components/Input/ImagePicker";
+import {SelectInput, TextInput, RichTextInput, ImagePicker} from "../../../components/Input";
 import Loader from "../../../components/Loader";
-import RichTextInput from "../../../components/Input/RichTextInput";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import transliterate from "../../../utils/transliterate";
-import CreateDiscount from "../../../api/interfaces/discount/CreateDiscount";
-import ShopStore from "../../../stores/ShopStore";
-import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
 import DiscountStore from "../../../stores/DiscountStore";
+import ShopStore from "../../../stores/ShopStore";
+import { CreateDiscount } from "../../../api/interfaces/discount";
+import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
+import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "discounts";
 

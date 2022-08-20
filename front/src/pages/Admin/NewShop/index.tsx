@@ -3,23 +3,19 @@ import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {SelectInput, TextInput, NumberInput, ImagePicker} from "../../../components/Input";
-import RichTextInput from "../../../components/Input/RichTextInput";
+import {SelectInput, TextInput, NumberInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
-import SocialInput from "../../../components/Input/SocialInput";
 
-import transliterate from "../../../utils/transliterate";
-import CreateShop from "../../../api/interfaces/shop/CreateShop";
+import {CreateShop} from "../../../api/interfaces/shop";
+import {CreateSocial} from "../../../api/interfaces/social";
+import {socials} from "../../../types/Social";
 import CategoryStore from "../../../stores/CategoryStore";
-import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
-import {CreateSocial} from "../../../api/interfaces/social";
-import {SocialType} from "../../../types/Social";
+import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "shops";
-
-const socials: SocialType[] = ["vk", "odnoklassniki", "facebook", "twitter", "instagram"];
 
 const NewShop = () => {
 	const redirect = useNavigate();

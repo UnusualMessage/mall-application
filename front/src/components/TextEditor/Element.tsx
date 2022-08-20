@@ -9,7 +9,7 @@ import link from "/src/components/Link/link.module.scss";
 import {OuterLink} from "../Link";
 import TitleElement from "./refs/Title";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const Element = ({ children, element, attributes }: RenderElementProps) => {
 	const align = element.align;

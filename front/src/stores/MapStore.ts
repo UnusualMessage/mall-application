@@ -55,10 +55,8 @@ class MapStore {
 		this.scale = (newScale >= this.scaleLimit.lower) ? newScale : this.scale;
 	};
 	
-	public toFloor = (floor: number) => {
-		if (floor == 1 || floor == 2) {
-			this.floor = floor;
-		}
+	public toFloor = (floor: 1 | 2) => {
+		this.floor = floor;
 	};
 }
 

@@ -6,9 +6,9 @@ import {useMemo} from "react";
 import {TextInput} from "../../../components/Input";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
-import CreateCategory from "../../../api/interfaces/category/CreateCategory";
-import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
 import CategoryStore from "../../../stores/CategoryStore";
+import { CreateCategory } from "../../../api/interfaces/category";
+import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
 
 const rootRoute = "categories";
 

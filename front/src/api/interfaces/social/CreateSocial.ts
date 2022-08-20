@@ -1,4 +1,6 @@
+import {SocialType} from "../../../types/Social";
+
 export default interface CreateSocial {
-	name: string,
+	name: SocialType,
 	site: string
 }

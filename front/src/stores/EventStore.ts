@@ -16,7 +16,7 @@ class EventStore extends Store<Event, CreateEvent, UpdateEvent> {
 	}
 	
 	public getEventsByShopId = async (id: string) => {
-		await this.getAsync(`shopId=${id}`);
+		await this.getAsync(`Filters=ShopId==${id}`);
 		return this.data;
 	};
 }

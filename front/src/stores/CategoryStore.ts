@@ -1,9 +1,7 @@
 import {makeObservable} from "mobx";
 
-import CreateCategory from "../api/interfaces/category/CreateCategory";
-import UpdateCategory from "../api/interfaces/category/UpdateCategory";
+import { Category, UpdateCategory, CreateCategory } from "../api/interfaces/category";
 import CategoryService from "../api/services/CategoryService";
-import Category from "../api/interfaces/category/Category";
 
 import Store, {storeProps} from "./Store";
 
