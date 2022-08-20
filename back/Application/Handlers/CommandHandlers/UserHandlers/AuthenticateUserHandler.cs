@@ -13,19 +13,22 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUser, Authent
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     private readonly ITokenService _tokenService;
-
-    public AuthenticateUserHandler(IUserRepository repository, IMapper mapper, ITokenService service)
+    private readonly IPasswordHasher _passwordHasher;
+    
+    public AuthenticateUserHandler(IUserRepository repository, IMapper mapper, ITokenService service, 
+        IPasswordHasher hasher)
     {
         _userRepository = repository;
         _mapper = mapper;
         _tokenService = service;
+        _passwordHasher = hasher;
     }
     
     public async Task<AuthenticateUserResponse> Handle(AuthenticateUser request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByLoginAsync(request.Login ?? "");
 
-        var passwordInvalid = user?.Password != request.Password;
+        var passwordInvalid = !_passwordHasher.VerifyPassword(request.Password, user.Password);
 
         AuthenticateUserResponse response = new();
 

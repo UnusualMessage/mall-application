@@ -52,8 +52,6 @@ public class RefreshUserHandler : IRequestHandler<RefreshUser, AuthenticateUserR
         return new AuthenticateUserResponse()
         {
             Id = user.Id,
-            Login = user.Login,
-            Password = user.Password,
             RefreshToken = newRefreshToken.Token,
             AccessToken = jwt.Token,
             Successful = true

@@ -14,12 +14,15 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, AuthenticateUse
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
     private readonly ITokenService _tokenService;
+    private readonly IPasswordHasher _passwordHasher;
 
-    public RegisterUserHandler(IUserRepository userRepository, IMapper mapper, ITokenService tokenService)
+    public RegisterUserHandler(IUserRepository userRepository, IMapper mapper, ITokenService tokenService, 
+        IPasswordHasher hasher)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _tokenService = tokenService;
+        _passwordHasher = hasher;
     }
 
     public async Task<AuthenticateUserResponse> Handle(RegisterUser request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, AuthenticateUse
         var user = await _userRepository.GetUserByLoginAsync(request.Login ?? "");
 
         AuthenticateUserResponse response = new();
-
+        
         if (user is not null)
         {
             response.Successful = false;
@@ -38,6 +41,8 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, AuthenticateUse
         var refreshToken = _tokenService.GetGeneratedRefreshToken(request.IpAddress ?? "");
 
         newUser.RefreshTokens.Add(refreshToken);
+        
+        newUser.Password = _passwordHasher.HashPassword(request.Password);
 
         user = await _userRepository.AddAsync(newUser);
 

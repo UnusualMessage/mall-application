@@ -10,5 +10,10 @@ public class RefreshTokensConfiguration : IEntityTypeConfiguration<RefreshToken>
     public void Configure(EntityTypeBuilder<RefreshToken> builder)
     {
         builder.ToTable("REFRESH_TOKENS");
+
+        builder
+            .HasOne(e => e.User)
+            .WithMany(e => e.RefreshTokens)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
