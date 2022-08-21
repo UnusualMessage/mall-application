@@ -1,7 +1,75 @@
+import {useNavigate} from "react-router-dom";
+import {useEffect, useMemo, useState} from "react";
+import {Button, Form, PageHeader, Space} from "antd";
+
+import Loader from "../../../components/Loader";
+import {TextInput} from "../../../components/Input";
+
+import InterfaceStore from "../../../stores/InterfaceStore";
+import ContactsStore from "../../../stores/ContactsStore";
+import {getContactsInitialOptions, getContactsInitialValues, Values} from "../../../utils/forms/getInfoForm";
+import {UpdateContacts} from "../../../api/interfaces/contacts";
+
 const Info = () => {
-	return (
-		<>
-		</>
+	const redirect = useNavigate();
+	const [isFetching, setIsFetching] = useState(true);
+	
+	const interfaceLocked = InterfaceStore.isLoading();
+	const contacts = ContactsStore.get();
+	
+	const initialValues = useMemo(() => {
+		return getContactsInitialValues(contacts);
+	}, [contacts]);
+	
+	const initialOptions = useMemo(() => {
+		return getContactsInitialOptions();
+	}, [contacts]);
+	
+	useEffect(() => {
+		const getCategory = async () => {
+			await ContactsStore.getAsync();
+			setIsFetching(false);
+		};
+		
+		void getCategory();
+	}, []);
+	
+	if (!contacts || isFetching) {
+		return <Loader/>;
+	}
+	
+	const handleUpdate = async (values: Values) => {
+		const newContacts: UpdateContacts = {
+			id: contacts.id,
+			city: values.city,
+			street: values.street,
+			phone: values.phone,
+			schedule: values.schedule,
+		};
+		
+		InterfaceStore.setLoading(true);
+		await ContactsStore.updateAsync(newContacts);
+		InterfaceStore.setLoading(false);
+	};
+	
+	return(
+		<Space direction={"vertical"} style={{width: "100%"}}>
+			<PageHeader onBack={() => redirect("../")}
+			            title="Редактирование контактов"
+			            style={{padding: 0, paddingBottom: 20}}
+			/>
+			
+			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
+				<TextInput {...initialOptions.city}/>
+				<TextInput {...initialOptions.street}/>
+				<TextInput {...initialOptions.phone}/>
+				<TextInput {...initialOptions.schedule}/>
+				
+				<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
+					Изменить
+				</Button>
+			</Form>
+		</Space>
 	);
 };
 

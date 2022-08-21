@@ -9,7 +9,7 @@ import {TextInput} from "../../../components/Input";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import { UpdateCategory } from "../../../api/interfaces/category";
-import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/getCategoryForm";
+import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/forms/getCategoryForm";
 
 const rootRoute = "categories";
 

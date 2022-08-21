@@ -11,7 +11,7 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import EventStore from "../../../stores/EventStore";
 import { UpdateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
-import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
+import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
 
 const rootRoute = "events";
 

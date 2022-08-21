@@ -12,7 +12,7 @@ import {socials} from "../../../types/Social";
 import CategoryStore from "../../../stores/CategoryStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
-import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "shops";

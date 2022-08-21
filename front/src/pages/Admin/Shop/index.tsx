@@ -11,7 +11,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 import {UpdateShop} from "../../../api/interfaces/shop";
 import {Social} from "../../../api/interfaces/social";
 import {socials} from "../../../types/Social";
-import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/getShopForm";
+import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "shops";

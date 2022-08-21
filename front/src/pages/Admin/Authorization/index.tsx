@@ -9,7 +9,7 @@ import {TextInput} from "../../../components/Input";
 
 import AuthenticateUser from "../../../api/interfaces/user/AuthenticateUser";
 import AuthStore from "../../../stores/AuthStore";
-import {getAuthInitialOptions, Values} from "../../../utils/getAuthForm";
+import {getAuthInitialOptions, Values} from "../../../utils/forms/getAuthForm";
 import InterfaceStore from "../../../stores/InterfaceStore";
 
 const { Content } = Layout;

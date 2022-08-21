@@ -11,7 +11,7 @@ import ShopStore from "../../../stores/ShopStore";
 import EventStore from "../../../stores/EventStore";
 import { CreateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
-import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/getEventForm";
+import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
 
 const rootRoute = "events";
 

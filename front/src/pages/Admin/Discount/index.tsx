@@ -10,7 +10,7 @@ import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
 import { UpdateDiscount } from "../../../api/interfaces/discount";
-import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/getDiscountForm";
+import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/forms/getDiscountForm";
 import transliterate from "../../../utils/transliterate";
 
 const rootRoute = "discounts";
