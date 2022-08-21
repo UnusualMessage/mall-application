@@ -1,7 +1,7 @@
 import {FormRule} from "antd";
 
-import Discount from "../api/interfaces/discount/Discount";
-import Image from "../api/interfaces/image/Image";
+import Discount from "../../api/interfaces/discount/Discount";
+import Image from "../../api/interfaces/image/Image";
 
 export interface Values {
 	image: Image,

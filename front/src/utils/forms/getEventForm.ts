@@ -1,5 +1,5 @@
-import Event from "../api/interfaces/event/Event";
-import Image from "../api/interfaces/image/Image";
+import Event from "../../api/interfaces/event/Event";
+import Image from "../../api/interfaces/image/Image";
 import {FormRule} from "antd";
 
 export interface Values {

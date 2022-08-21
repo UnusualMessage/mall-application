@@ -1,4 +1,4 @@
-import Category from "../api/interfaces/category/Category";
+import Category from "../../api/interfaces/category/Category";
 
 export interface Values {
 	title: string,

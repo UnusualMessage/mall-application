@@ -1,8 +1,8 @@
 import {FormRule} from "antd";
 
-import Image from "../api/interfaces/image/Image";
-import Shop from "../api/interfaces/shop/Shop";
-import {SocialRecord} from "../types/Social";
+import Image from "../../api/interfaces/image/Image";
+import Shop from "../../api/interfaces/shop/Shop";
+import {SocialRecord} from "../../types/Social";
 
 export interface Values {
 	title: string,
