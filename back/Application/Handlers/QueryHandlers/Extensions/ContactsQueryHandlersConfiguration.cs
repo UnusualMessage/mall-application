@@ -12,6 +12,6 @@ public static class ContactsQueryHandlersConfiguration
     public static void AddContactsQueryHandlers(this IServiceCollection services)
     {
         services
-            .AddScoped<IRequestHandler<GetSievedContacts, IEnumerable<ContactsResponse>>, GetSievedContactsHandler>();
+            .AddScoped<IRequestHandler<GetContacts, ContactsResponse>, GetContactsHandler>();
     }
 }

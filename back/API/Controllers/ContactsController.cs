@@ -23,21 +23,9 @@ public class ContactsController : ControllerBase
 
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] SieveModel model)
+    public async Task<IActionResult> Get()
     {
-        return Ok(await _mediator.Send(new GetSievedContacts(model)));
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateContacts request)
-    {
-        return Ok(await _mediator.Send(request));
-    }
-
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id)
-    {
-        return Ok(await _mediator.Send(new DeleteContacts(id)));
+        return Ok(await _mediator.Send(new GetContacts()));
     }
 
     [HttpPut]

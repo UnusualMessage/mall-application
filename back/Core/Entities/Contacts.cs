@@ -6,12 +6,14 @@ public class Contacts : Entity, IUpdatable<Contacts>
 {
     public string? Phone { get; set; }
     public string? Schedule { get; set; }
-    public string? Location { get; set; }
+    public string? City { get; set; }
+    public string? Street { get; set; }
 
     public void Update(Contacts contacts)
     {
         Phone = contacts.Phone;
         Schedule = contacts.Schedule;
-        Location = contacts.Location;
+        City = contacts.City;
+        Street = contacts.Street;
     }
 }

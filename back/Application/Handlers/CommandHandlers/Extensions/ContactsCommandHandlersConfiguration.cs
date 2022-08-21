@@ -12,8 +12,6 @@ public static class ContactsCommandHandlersConfiguration
 {
     public static void AddContactsCommandHandlers(this IServiceCollection services)
     {
-        services.AddScoped<IRequestHandler<CreateContacts, ContactsResponse>, CreateContactsHandler>();
         services.AddScoped<IRequestHandler<UpdateContacts, ContactsResponse>, UpdateContactsHandler>();
-        services.AddScoped<IRequestHandler<DeleteContacts, ContactsResponse>, DeleteContactsHandler>();
     }
 }

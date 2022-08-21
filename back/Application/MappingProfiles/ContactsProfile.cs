@@ -11,7 +11,6 @@ public class ContactsProfile : Profile
     public ContactsProfile()
     {
         CreateMap<Contacts, ContactsResponse>();
-        CreateMap<CreateContacts, Contacts>();
         CreateMap<UpdateContacts, Contacts>();
     }
 }

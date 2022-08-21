@@ -5,9 +5,6 @@ using Sieve.Models;
 
 namespace Application.Requests.Queries.Contacts;
 
-public class GetSievedContacts : SievedQuery, IRequest<IEnumerable<ContactsResponse>>
+public class GetContacts : IRequest<ContactsResponse>
 {
-    public GetSievedContacts(SieveModel model) : base(model)
-    {
-    }
 }
