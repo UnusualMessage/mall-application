@@ -1,11 +1,12 @@
 import {action, observable, runInAction, toJS} from "mobx";
 import Service from "../api/services/Service";
+import RequestInfo from "../api/interfaces/RequestInfo";
+import isError from "../utils/isError";
 
 export const storeProps = {
 	data: observable,
 	current: observable,
-	error: observable,
-	successful: observable,
+	lastRequest: observable,
 	
 	invokeError: action,
 	getByIdAsync: action,
@@ -24,22 +25,31 @@ class Store<T extends Model, CreateT, UpdateT> {
 	protected data: T[];
 	protected current: T | undefined;
 	
-	protected error: string;
-	protected successful: boolean;
+	protected lastRequest: RequestInfo;
 	
 	constructor(service: Service<T, CreateT, UpdateT>, data: T[]) {
 		this.service = service;
 		this.data = data;
 		this.current = undefined;
 		
-		this.error = "";
-		this.successful = true;
+		this.lastRequest = {
+			message: "",
+			successful: true
+		};
 	}
 	
 	protected invokeError = (error: string) => {
-		this.error = error;
-		this.successful = false;
-		console.error(this.error);
+		this.lastRequest = {
+			message: error,
+			successful: false
+		};
+	};
+	
+	protected invokeSuccess = () => {
+		this.lastRequest = {
+			message: "",
+			successful: true
+		};
 	};
 	
 	public get = () => {
@@ -51,12 +61,22 @@ class Store<T extends Model, CreateT, UpdateT> {
 	};
 
 	public isRequestSuccessful = () => {
-		return this.successful;
+		return this.lastRequest.successful;
+	};
+	
+	public getErrorMessage = () => {
+		return this.lastRequest.message;
 	};
 	
 	public getAsync = async (query: string) => {
 		const data = await this.service.get(query);
 		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+
+		this.invokeSuccess();
 		runInAction(() => {
 			this.data = data;
 		});
@@ -65,6 +85,12 @@ class Store<T extends Model, CreateT, UpdateT> {
 	public getByIdAsync = async (id: string) => {
 		const data = await this.service.getById(id);
 		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+		
+		this.invokeSuccess();
 		runInAction(() => {
 			this.current = data;
 		});
@@ -75,6 +101,12 @@ class Store<T extends Model, CreateT, UpdateT> {
 	public createAsync = async (newData: CreateT) => {
 		const data = await this.service.post(newData);
 		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+		
+		this.invokeSuccess();
 		runInAction(() => {
 			this.data.push(data);
 		});
@@ -83,6 +115,12 @@ class Store<T extends Model, CreateT, UpdateT> {
 	public updateAsync = async (newData: UpdateT) => {
 		const data = await this.service.put(newData);
 		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+		
+		this.invokeSuccess();
 		runInAction(() => {
 			this.data = this.data.map(item => item.id === data.id ? data : item);
 			this.current = data;
@@ -92,6 +130,12 @@ class Store<T extends Model, CreateT, UpdateT> {
 	public deleteAsync = async (id: string) => {
 		const data = await this.service.delete(id);
 		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+		
+		this.invokeSuccess();
 		runInAction(() => {
 			this.data = this.data.filter(item => item.id !== data.id);
 		});

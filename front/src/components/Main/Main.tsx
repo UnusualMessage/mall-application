@@ -18,7 +18,7 @@ const Main = ({ children }: Props) => {
 	
 	useEffect(() => {
 		const setupRoutes = async () => {
-			await NavigationStore.getAsync("");
+			await NavigationStore.getAsync();
 			NavigationStore.toNext(location.pathname);
 		};
 		

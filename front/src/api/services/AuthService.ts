@@ -1,5 +1,6 @@
 import AuthenticateUser from "../interfaces/user/AuthenticateUser";
-import User from "../interfaces/user/User";
+import {Error} from "../interfaces/Error";
+import resolveResponse from "../../utils/resolveResponse";
 
 class AuthService {
 	protected readonly webApiUrl: string;
@@ -8,7 +9,7 @@ class AuthService {
 		this.webApiUrl = "https://localhost:44328/api/users/";
 	}
 	
-	public authenticate = async (model: AuthenticateUser): Promise<User> => {
+	public authenticate = async (model: AuthenticateUser): Promise<unknown | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -21,10 +22,10 @@ class AuthService {
 		const request = new Request(this.webApiUrl + "authenticate", options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public refresh = async (): Promise<User> => {
+	public refresh = async (): Promise<unknown | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -37,7 +38,7 @@ class AuthService {
 		const request = new Request(this.webApiUrl + "refresh", options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 }
 

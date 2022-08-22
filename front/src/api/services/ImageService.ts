@@ -1,5 +1,7 @@
 import Image from "../interfaces/image/Image";
 import CreateImage from "../interfaces/image/CreateImage";
+import {Error} from "../interfaces/Error";
+import resolveResponse from "../../utils/resolveResponse";
 
 class ImageService {
 	protected readonly webApiUrl: string;
@@ -8,7 +10,7 @@ class ImageService {
 		this.webApiUrl = "https://localhost:44328/api/images/";
 	}
 	
-	public get = async (urlParams: string): Promise<Image[]> => {
+	public get = async (urlParams: string): Promise<Image[] | Error> => {
 		const options = {
 			method: "GET",
 		};
@@ -16,10 +18,10 @@ class ImageService {
 		const request = new Request(this.webApiUrl + "?" + urlParams, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public post = async (model: CreateImage): Promise<Image> => {
+	public post = async (model: CreateImage): Promise<Image | Error> => {
 		const formData = new FormData();
 		
 		formData.append("image", model.image);
@@ -32,10 +34,10 @@ class ImageService {
 		const request = new Request(this.webApiUrl, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public delete = async (id: string): Promise<Image> => {
+	public delete = async (id: string): Promise<Image | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -47,7 +49,7 @@ class ImageService {
 		const request = new Request(this.webApiUrl + id, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 }
 

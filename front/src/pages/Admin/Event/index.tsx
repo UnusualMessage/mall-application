@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
+import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
 
 import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
@@ -36,14 +36,14 @@ const Event = () => {
 	
 	useEffect(() => {
 		const getEvent = async () => {
-			const event = await EventStore.getByIdAsync(id ?? "");
-			await ShopStore.getAsync("");
+			await EventStore.getByIdAsync(id ?? "");
 			
-			setIsFetching(false);
-			
-			if (!event) {
+			if (!EventStore.isRequestSuccessful()) {
+				message.error(EventStore.getErrorMessage());
 				redirect(`../${rootRoute}`);
 			}
+			
+			setIsFetching(false);
 		};
 		
 		void getEvent();

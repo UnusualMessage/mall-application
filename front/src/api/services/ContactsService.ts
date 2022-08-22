@@ -1,4 +1,6 @@
 import {Contacts, UpdateContacts} from "../interfaces/contacts";
+import resolveResponse from "../../utils/resolveResponse";
+import {Error} from "../interfaces/Error";
 
 class ContactsService {
 	protected readonly webApiUrl: string;
@@ -7,7 +9,7 @@ class ContactsService {
 		this.webApiUrl = "https://localhost:44328/api/contacts/";
 	}
 	
-	public get = async (): Promise<Contacts> => {
+	public get = async (): Promise<Contacts | Error> => {
 		const options = {
 			method: "GET",
 		};
@@ -15,10 +17,10 @@ class ContactsService {
 		const request = new Request(this.webApiUrl, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public put = async (model: UpdateContacts): Promise<Contacts> => {
+	public put = async (model: UpdateContacts): Promise<Contacts | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -31,7 +33,7 @@ class ContactsService {
 		const request = new Request(this.webApiUrl, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 }
 

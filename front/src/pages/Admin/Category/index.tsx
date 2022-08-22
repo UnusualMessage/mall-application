@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
+import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
 
 import Loader from "../../../components/Loader";
 import {TextInput} from "../../../components/Input";
@@ -28,12 +28,13 @@ const Category = () => {
 	const initialOptions = useMemo(() => {
 		return getCategoryInitialOptions();
 	}, [category]);
-	
+
 	useEffect(() => {
 		const getCategory = async () => {
-			const category = await CategoryStore.getByIdAsync(id ?? "");
+			await CategoryStore.getByIdAsync(id ?? "");
 			
-			if (!category) {
+			if (!CategoryStore.isRequestSuccessful()) {
+				message.error(CategoryStore.getErrorMessage());
 				redirect(`../${rootRoute}`);
 			}
 			
@@ -41,7 +42,7 @@ const Category = () => {
 		};
 		
 		void getCategory();
-	}, [category]);
+	}, []);
 	
 	if (!category || isFetching) {
 		return <Loader/>;

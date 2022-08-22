@@ -1,3 +1,6 @@
+import {Error} from "../interfaces/Error";
+import resolveResponse from "../../utils/resolveResponse";
+
 class Service<T, CreateT, UpdateT> {
 	protected readonly webApiUrl: string;
 	
@@ -5,7 +8,7 @@ class Service<T, CreateT, UpdateT> {
 		this.webApiUrl = webApiUrl;
 	}
 	
-	public get = async (urlParams: string): Promise<T[]> => {
+	public get = async (urlParams: string): Promise<T[] | Error> => {
 		const options = {
 			method: "GET",
 		};
@@ -13,21 +16,20 @@ class Service<T, CreateT, UpdateT> {
 		const request = new Request(this.webApiUrl + "?" + urlParams, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public getById = async (id: string): Promise<T> => {
+	public getById = async (id: string): Promise<T | Error> => {
 		const options = {
 			method: "GET",
 		};
 		
 		const request = new Request(this.webApiUrl + id, options);
 		const response = await fetch(request);
-		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public post = async (model: CreateT): Promise<T> => {
+	public post = async (model: CreateT): Promise<T | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -40,10 +42,10 @@ class Service<T, CreateT, UpdateT> {
 		const request = new Request(this.webApiUrl, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public put = async (model: UpdateT): Promise<T> => {
+	public put = async (model: UpdateT): Promise<T | Error> => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/json");
 		
@@ -56,10 +58,10 @@ class Service<T, CreateT, UpdateT> {
 		const request = new Request(this.webApiUrl, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 	
-	public delete = async (id: string): Promise<T> => {
+	public delete = async (id: string): Promise<T | Error> => {
 		const options = {
 			method: "DELETE",
 		};
@@ -67,7 +69,7 @@ class Service<T, CreateT, UpdateT> {
 		const request = new Request(this.webApiUrl + id, options);
 		const response = await fetch(request);
 		
-		return response.json();
+		return resolveResponse(response);
 	};
 }
 

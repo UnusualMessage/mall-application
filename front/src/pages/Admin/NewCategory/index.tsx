@@ -26,7 +26,6 @@ const NewCategory = () => {
 	}, []);
 	
 	const handleCreate = async (values: Values) => {
-		console.log(values);
 		const newCategory: CreateCategory = {
 			title: values.title,
 		};
