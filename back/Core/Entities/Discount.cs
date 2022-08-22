@@ -4,29 +4,27 @@ namespace Core.Entities;
 
 public class Discount : Entity, IUpdatable<Discount>
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-
-    public Guid? ImageId { get; set; }
-    public Image? Image { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     
-    public Guid? BreadcrumbId { get; set; }
-    public Breadcrumb? Breadcrumb { get; set; }
+    public Guid ImageId { get; set; }
+    public Image Image { get; set; } = new();
     
-    public Guid? RouteId { get; set; }
-    public Route? Route { get; set; }
-
-    public Guid? ShopId { get; set; }
-    public Shop? Shop { get; set; }
-
-    public void Update(Discount discount)
+    public Guid RouteId { get; set; }
+    public Route Route { get; set; } = new();
+    
+    public Guid BreadcrumbId { get; set; }
+    public Breadcrumb Breadcrumb { get; set; } = new();
+    
+    public Guid ShopId { get; set; }
+    public Shop Shop { get; set; } = new();
+    
+    public void Update(Discount entity)
     {
-        Title = discount.Title;
-        Description = discount.Description;
-
-        ImageId = discount.ImageId;
-        RouteId = discount.RouteId;
-        BreadcrumbId = discount.BreadcrumbId;
-        ShopId = discount.ShopId;
+        Title = entity.Title;
+        Description = entity.Description;
+    
+        ImageId = entity.ImageId;
+        ShopId = entity.ShopId;
     }
 }
