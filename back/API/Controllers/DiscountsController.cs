@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Discount;
-using Application.Requests.Queries;
 using Application.Requests.Queries.Discount;
 
 namespace API.Controllers;

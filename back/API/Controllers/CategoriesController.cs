@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Category;
-using Application.Requests.Queries;
 using Application.Requests.Queries.Category;
 
 namespace API.Controllers;
@@ -32,7 +31,14 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        return Ok(await _mediator.Send(new GetCategoryById(id)));
+        var response = await _mediator.Send(new GetCategoryById(id));
+
+        if (response is null)
+        {
+            return BadRequest("Данной категории не существует!");
+        }
+        
+        return Ok(response);
     }
 
     [HttpPost]

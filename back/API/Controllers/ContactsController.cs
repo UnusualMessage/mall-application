@@ -1,11 +1,9 @@
-﻿using Sieve.Models;
-using MediatR;
+﻿using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Contacts;
-using Application.Requests.Queries;
 using Application.Requests.Queries.Contacts;
 
 namespace API.Controllers;

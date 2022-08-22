@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Event;
-using Application.Requests.Queries;
 using Application.Requests.Queries.Event;
 
 namespace API.Controllers;

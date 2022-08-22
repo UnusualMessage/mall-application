@@ -1,5 +1,4 @@
-﻿using Application.Requests.Queries;
-using Application.Requests.Queries.Breadcrumb;
+﻿using Application.Requests.Queries.Breadcrumb;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

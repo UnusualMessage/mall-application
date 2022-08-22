@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Application.Requests.Commands.Shop;
-using Application.Requests.Queries;
 using Application.Requests.Queries.Shop;
 
 namespace API.Controllers;
