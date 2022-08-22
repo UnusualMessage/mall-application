@@ -19,28 +19,34 @@ public class RevokeUserHandler : IRequestHandler<RevokeUser, RevokeUserResponse>
     {
         var user = await _userRepository.GetUserByTokenAsync(request.RefreshToken ?? "");
 
-        RevokeUserResponse response = new();
-        
         if (user is null)
         {
-            response.Revoked = false;
-            return response;
+            return FailRevoke();
         }
 
         var refreshToken = user.RefreshTokens.Single(x => x.Token == request.RefreshToken);
 
         if (refreshToken.IsActive == false)
         {
-            response.Revoked = false;
-            return response;
+            return FailRevoke();
         }
 
         refreshToken.Revoked = DateTime.UtcNow;
         refreshToken.RevokedByIp = request.IpAddress;
 
-        _ = await _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateAsync(user);
 
-        response.Revoked = true;
-        return response;
+        return new RevokeUserResponse()
+        {
+            Revoked = true
+        };
+    }
+
+    private RevokeUserResponse FailRevoke()
+    {
+        return new RevokeUserResponse()
+        {
+            Revoked = false
+        };
     }
 }

@@ -41,7 +41,6 @@ public class GetAccessTokenHandler : IRequestHandler<GetAccessToken, Authenticat
 
         return new AuthenticateUserResponse()
         {
-            Id = user.Id,
             RefreshToken = request.RefreshToken,
             AccessToken = jwt.Token,
             Successful = true

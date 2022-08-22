@@ -9,7 +9,7 @@ using Core.Interfaces.Services;
 
 namespace Application.Handlers.CommandHandlers.ShopHandlers;
 
-public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse>
+public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
 {
     private readonly IShopRepository _shopRepository;
     private readonly IMapper _mapper;
@@ -20,15 +20,21 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse>
         _mapper = mapper;
     }
 
-    public async Task<ShopResponse> Handle(UpdateShop request, CancellationToken cancellationToken)
+    public async Task<ShopResponse?> Handle(UpdateShop request, CancellationToken cancellationToken)
     {
         var shopToBeUpdated = await _shopRepository.GetByIdAsync(request.Id);
-        shopToBeUpdated?.Route?.Update(new Route()
+
+        if (shopToBeUpdated is null)
+        {
+            return null;
+        }
+        
+        shopToBeUpdated.Route.Update(new Route()
         {
             Path = request.RoutePath
         });
         
-        shopToBeUpdated?.Breadcrumb?.Update(new Breadcrumb()
+        shopToBeUpdated.Breadcrumb.Update(new Breadcrumb()
         {
             Name = request.Title,
             Link = request.Link

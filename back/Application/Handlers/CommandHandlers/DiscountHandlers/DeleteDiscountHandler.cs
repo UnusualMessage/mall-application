@@ -7,7 +7,7 @@ using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.DiscountHandlers;
 
-public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountResponse>
+public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountResponse?>
 {
     private readonly IDiscountRepository _discountRepository;
     private readonly IRouteRepository _routeRepository;
@@ -23,9 +23,14 @@ public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountRes
         _mapper = mapper;
     }
 
-    public async Task<DiscountResponse> Handle(DeleteDiscount request, CancellationToken cancellationToken)
+    public async Task<DiscountResponse?> Handle(DeleteDiscount request, CancellationToken cancellationToken)
     {
         var removedDiscount = await _discountRepository.DeleteByIdAsync(request.Id);
+
+        if (removedDiscount is null)
+        {
+            return null;
+        }
 
         var routeId = removedDiscount.RouteId;
         var breadcrumbId = removedDiscount.BreadcrumbId;

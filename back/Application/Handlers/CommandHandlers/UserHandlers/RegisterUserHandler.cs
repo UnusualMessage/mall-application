@@ -27,37 +27,39 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, AuthenticateUse
 
     public async Task<AuthenticateUserResponse> Handle(RegisterUser request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetUserByLoginAsync(request.Login ?? "");
+        var user = await _userRepository.GetUserByLoginAsync(request.Login);
 
-        AuthenticateUserResponse response = new();
-        
         if (user is not null)
         {
-            response.Successful = false;
-            return response;
+            return FailRegistration();
         }
 
         var newUser = _mapper.Map<User>(request);
         var refreshToken = _tokenService.GetGeneratedRefreshToken(request.IpAddress ?? "");
 
         newUser.RefreshTokens.Add(refreshToken);
-        
         newUser.Password = _passwordHasher.HashPassword(request.Password);
 
         user = await _userRepository.AddAsync(newUser);
 
         if (user is null)
         {
-            response.Successful = false;
-            return response;
+            return FailRegistration();
         }
-        
-        response = _mapper.Map<AuthenticateUserResponse>(newUser);
 
-        response.RefreshToken = refreshToken.Token;
-        response.AccessToken = _tokenService.GetGeneratedAccessToken(user).Token;
-        response.Successful = true;
-
-        return response;
+        return new AuthenticateUserResponse()
+        {
+            RefreshToken = refreshToken.Token,
+            AccessToken = _tokenService.GetGeneratedAccessToken(user).Token,
+            Successful = true,
+        };
+    }
+    
+    private static AuthenticateUserResponse FailRegistration()
+    {
+        return new AuthenticateUserResponse()
+        {
+            Successful = false
+        };
     }
 }

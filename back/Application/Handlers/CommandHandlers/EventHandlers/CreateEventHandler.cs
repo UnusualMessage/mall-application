@@ -9,7 +9,7 @@ using Core.Interfaces.Services;
 
 namespace Application.Handlers.CommandHandlers.EventHandlers;
 
-public class CreateEventHandler : IRequestHandler<CreateEvent, EventResponse>
+public class CreateEventHandler : IRequestHandler<CreateEvent, EventResponse?>
 {
     private readonly IEventRepository _eventRepository;
     private readonly IRouteRepository _routeRepository;
@@ -25,7 +25,7 @@ public class CreateEventHandler : IRequestHandler<CreateEvent, EventResponse>
         _mapper = mapper;
     }
     
-    public async Task<EventResponse> Handle(CreateEvent request, CancellationToken cancellationToken)
+    public async Task<EventResponse?> Handle(CreateEvent request, CancellationToken cancellationToken)
     {
         var newEvent = _mapper.Map<Event>(request);
         

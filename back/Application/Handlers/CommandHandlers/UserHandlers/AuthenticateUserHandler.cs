@@ -26,28 +26,40 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUser, Authent
     
     public async Task<AuthenticateUserResponse> Handle(AuthenticateUser request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetUserByLoginAsync(request.Login ?? "");
+        var user = await _userRepository.GetUserByLoginAsync(request.Login);
 
-        var passwordInvalid = !_passwordHasher.VerifyPassword(request.Password, user.Password);
-
-        AuthenticateUserResponse response = new();
-
-        if (user == null || passwordInvalid)
+        if (user is null)
         {
-            response.Successful = false;
-            return response;
+            return FailAuthentication();
         }
 
-        var refreshToken = _tokenService.GetGeneratedRefreshToken(request.IpAddress ?? "");
+        var passwordInvalid = _passwordHasher.VerifyPassword(request.Password, user.Password) == false;
+        
+        if (passwordInvalid)
+        {
+            return FailAuthentication();
+        }
+
+        var refreshToken = _tokenService.GetGeneratedRefreshToken(request.IpAddress ?? "0.0.0.0");
         user.RefreshTokens.Add(refreshToken);
 
         await _userRepository.UpdateAsync(user);
-
-        response = _mapper.Map<AuthenticateUserResponse>(user);
-        response.RefreshToken = refreshToken.Token;
-        response.AccessToken = _tokenService.GetGeneratedAccessToken(user).Token;
-        response.Successful = true;
+        
+        AuthenticateUserResponse response = new()
+        {
+            RefreshToken = refreshToken.Token,
+            AccessToken = _tokenService.GetGeneratedAccessToken(user).Token,
+            Successful = true
+        };
 
         return response;
+    }
+
+    private static AuthenticateUserResponse FailAuthentication()
+    {
+        return new AuthenticateUserResponse()
+        {
+            Successful = false
+        };
     }
 }

@@ -22,20 +22,16 @@ public class RefreshUserHandler : IRequestHandler<RefreshUser, AuthenticateUserR
     {
         var user = await _userRepository.GetUserByTokenAsync(request.RefreshToken ?? "");
         
-        AuthenticateUserResponse response = new();
-
-        if (user == null)
+        if (user is null)
         {
-            response.Successful = false;
-            return response;
+            return FailAuthentication();
         }
 
         var refreshToken = user.RefreshTokens.Single(x => x.Token == request.RefreshToken);
 
         if (refreshToken.IsActive == false)
         {
-            response.Successful = false;
-            return response;
+            return FailAuthentication();
         }
 
         var newRefreshToken = _tokenService.GetGeneratedRefreshToken(request.IpAddress ?? "");
@@ -45,16 +41,23 @@ public class RefreshUserHandler : IRequestHandler<RefreshUser, AuthenticateUserR
         refreshToken.ReplacedByToken = newRefreshToken.Token;
         user.RefreshTokens.Add(newRefreshToken);
 
-        _ = await _userRepository.UpdateAsync(user);
+        await _userRepository.UpdateAsync(user);
 
         var jwt = _tokenService.GetGeneratedAccessToken(user);
 
         return new AuthenticateUserResponse()
         {
-            Id = user.Id,
             RefreshToken = newRefreshToken.Token,
             AccessToken = jwt.Token,
             Successful = true
+        };
+    }
+    
+    private static AuthenticateUserResponse FailAuthentication()
+    {
+        return new AuthenticateUserResponse()
+        {
+            Successful = false
         };
     }
 }

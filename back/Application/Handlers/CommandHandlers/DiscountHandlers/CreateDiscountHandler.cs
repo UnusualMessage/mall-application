@@ -5,11 +5,10 @@ using Application.Requests.Commands.Discount;
 using Application.Responses;
 using Core.Entities;
 using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
 
 namespace Application.Handlers.CommandHandlers.DiscountHandlers;
 
-public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountResponse>
+public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountResponse?>
 {
     private readonly IDiscountRepository _discountRepository;
     private readonly IRouteRepository _routeRepository;
@@ -25,7 +24,7 @@ public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountRes
         _mapper = mapper;
     }
     
-    public async Task<DiscountResponse> Handle(CreateDiscount request, CancellationToken cancellationToken)
+    public async Task<DiscountResponse?> Handle(CreateDiscount request, CancellationToken cancellationToken)
     {
         var newDiscount = _mapper.Map<Discount>(request);
         
@@ -47,7 +46,7 @@ public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountRes
         {
             return null;
         }
-
+        
         newDiscount.RouteId = route.Id;
         newDiscount.BreadcrumbId = breadcrumb.Id;
         newDiscount.Id = id;

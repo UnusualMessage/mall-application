@@ -7,7 +7,7 @@ using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.ShopHandlers;
 
-public class DeleteShopHandler : IRequestHandler<DeleteShop, ShopResponse>
+public class DeleteShopHandler : IRequestHandler<DeleteShop, ShopResponse?>
 {
     private readonly IShopRepository _shopRepository;
     private readonly IRouteRepository _routeRepository;
@@ -23,9 +23,14 @@ public class DeleteShopHandler : IRequestHandler<DeleteShop, ShopResponse>
         _mapper = mapper;
     }
 
-    public async Task<ShopResponse> Handle(DeleteShop request, CancellationToken cancellationToken)
+    public async Task<ShopResponse?> Handle(DeleteShop request, CancellationToken cancellationToken)
     {
         var removedShop = await _shopRepository.DeleteByIdAsync(request.Id);
+
+        if (removedShop is null)
+        {
+            return null;
+        }
 
         var routeId = removedShop.RouteId;
         var breadcrumbId = removedShop.BreadcrumbId;

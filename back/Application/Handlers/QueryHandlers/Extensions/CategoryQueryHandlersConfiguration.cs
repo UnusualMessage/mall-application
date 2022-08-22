@@ -15,7 +15,7 @@ public static class CategoryQueryHandlersConfiguration
         services.AddScoped<IRequestHandler<GetSievedCategories, IEnumerable<CategoryResponse>>, 
             GetSievedCategoriesHandler>();
         
-        services.AddScoped<IRequestHandler<GetCategoryById, CategoryResponse>, 
+        services.AddScoped<IRequestHandler<GetCategoryById, CategoryResponse?>, 
             GetCategoryByIdHandler>();
     }
 }
