@@ -12,7 +12,7 @@ public class SocialRepository : Repository<Social>, ISocialRepository
     {
     }
 
-    public override async Task<Social> UpdateAsync(Social entity)
+    public override async Task<Social?> UpdateAsync(Social entity)
     {
         var selected = await ApplicationContext.Set<Social>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

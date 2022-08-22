@@ -13,7 +13,7 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
     }
 
-    public override async Task<Category> UpdateAsync(Category entity)
+    public override async Task<Category?> UpdateAsync(Category entity)
     {
         var selected = await ApplicationContext.Set<Category>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

@@ -12,7 +12,7 @@ public class ImageRepository : Repository<Image>, IImageRepository
     {
     }
 
-    public override async Task<Image> UpdateAsync(Image entity)
+    public override async Task<Image?> UpdateAsync(Image entity)
     {
         var selected = await ApplicationContext.Set<Image>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

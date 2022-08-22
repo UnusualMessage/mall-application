@@ -18,13 +18,20 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
 
     public virtual async Task<T?> AddAsync(T entity)
     {
-        await ApplicationContext.Set<T>().AddAsync(entity);
-        await ApplicationContext.SaveChangesAsync();
+        try
+        {
+            await ApplicationContext.Set<T>().AddAsync(entity);
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 
-    public virtual async Task<T?> DeleteByIdAsync(Guid? id)
+    public virtual async Task<T?> DeleteByIdAsync(Guid id)
     {
         var entity = await GetByIdAsync(id);
 
@@ -44,10 +51,10 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         return await ApplicationContext.Set<T>().ToListAsync();
     }
 
-    public virtual async Task<T?> GetByIdAsync(Guid? id)
+    public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         return await ApplicationContext.Set<T>().FindAsync(id);
     }
 
-    public abstract Task<T> UpdateAsync(T entity);
+    public abstract Task<T?> UpdateAsync(T entity);
 }

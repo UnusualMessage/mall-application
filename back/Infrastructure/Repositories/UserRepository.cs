@@ -13,7 +13,7 @@ public class UserRepository : Repository<User>, IUserRepository
     {
     }
 
-    public override async Task<User> UpdateAsync(User entity)
+    public override async Task<User?> UpdateAsync(User entity)
     {
         var selected = await ApplicationContext.Set<User>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

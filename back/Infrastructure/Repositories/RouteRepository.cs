@@ -12,7 +12,7 @@ public class RouteRepository : Repository<Route>, IRouteRepository
     {
     }
 
-    public override async Task<Route> UpdateAsync(Route entity)
+    public override async Task<Route?> UpdateAsync(Route entity)
     {
         var selected = await ApplicationContext.Set<Route>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

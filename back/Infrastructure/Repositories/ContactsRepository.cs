@@ -13,7 +13,7 @@ public class ContactsRepository : Repository<Contacts>, IContactsRepository
     {
     }
 
-    public override async Task<Contacts> UpdateAsync(Contacts entity)
+    public override async Task<Contacts?> UpdateAsync(Contacts entity)
     {
         var selected = await ApplicationContext.Set<Contacts>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

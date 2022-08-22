@@ -13,7 +13,7 @@ public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRep
     {
     }
 
-    public override async Task<RefreshToken> UpdateAsync(RefreshToken entity)
+    public override async Task<RefreshToken?> UpdateAsync(RefreshToken entity)
     {
         var selected = await ApplicationContext.Set<RefreshToken>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 

@@ -12,7 +12,7 @@ public class BreadcrumbRepository : Repository<Breadcrumb>, IBreadcrumbRepositor
     {
     }
 
-    public override async Task<Breadcrumb> UpdateAsync(Breadcrumb entity)
+    public override async Task<Breadcrumb?> UpdateAsync(Breadcrumb entity)
     {
         var selected = await ApplicationContext.Set<Breadcrumb>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
