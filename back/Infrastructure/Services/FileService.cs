@@ -15,13 +15,8 @@ public class FileService : IFileService
         _storageSettings = settings;
     }
 
-    public async Task<string?> UploadFile(IFormFile? file, string? destination)
+    public async Task<string> UploadFile(IFormFile file, string destination)
     {
-        if (file is null || destination is null)
-        {
-            return null;
-        }
-
         var fullPath = Path.Combine(destination, _storageSettings.Value.ContentFolderName!, file.FileName);
 
         await using FileStream fileStream = new(fullPath, FileMode.Create);
