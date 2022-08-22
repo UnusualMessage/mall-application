@@ -4,5 +4,5 @@ namespace Application.Responses;
 
 public class RouteResponse : Response
 {
-    public string? Path { get; set; }
+    public string Path { get; set; } = string.Empty;
 }

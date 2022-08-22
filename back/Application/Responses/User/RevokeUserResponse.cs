@@ -2,7 +2,7 @@
 
 namespace Application.Responses.User;
 
-public class RevokeUserResponse : Response
+public class RevokeUserResponse
 {
     public bool Revoked { get; set; }
 }

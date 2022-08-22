@@ -4,6 +4,6 @@ namespace Application.Responses;
 
 public class BreadcrumbResponse : Response
 {
-    public string? Name { get; set; }
-    public string? Link { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Link { get; set; } = string.Empty;
 }

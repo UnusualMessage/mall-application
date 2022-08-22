@@ -5,16 +5,16 @@ namespace Application.Responses;
 
 public class ShopResponse : Response
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? Schedule { get; set; }
-    public string? Phone { get; set; }
-    public string? Site { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Schedule { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Site { get; set; } = string.Empty;
     public short Floor { get; set; }
-    public string? Link { get; set; }
-    public string? RoutePath { get; set; }
-    
-    public IEnumerable<SocialResponse>? Socials { get; set; }
-    public ImageResponse? Image { get; set; }
-    public CategoryResponse? Category { get; set; }
+    public string Link { get; set; } = string.Empty;
+    public string RoutePath { get; set; } = string.Empty;
+
+    public IEnumerable<SocialResponse> Socials { get; set; } = new List<SocialResponse>();
+    public ImageResponse Image { get; set; } = new();
+    public CategoryResponse Category { get; set; } = new();
 }

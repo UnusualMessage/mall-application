@@ -5,14 +5,14 @@ namespace Application.Responses;
 
 public class DiscountResponse : Response
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? Link { get; set; }
-    public string? RoutePath { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Link { get; set; } = string.Empty;
+    public string RoutePath { get; set; } = string.Empty;
     
     [Sieve(CanFilter = true)]
-    public Guid? ShopId { get; set; }
-    
-    public ShopResponse? Shop { get; set; }
-    public ImageResponse? Image { get; set; }
+    public Guid ShopId { get; set; }
+
+    public ShopResponse Shop { get; set; } = new();
+    public ImageResponse Image { get; set; } = new();
 }

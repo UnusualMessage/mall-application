@@ -4,7 +4,7 @@ using Application.Responses.Base;
 
 namespace Application.Responses.User;
 
-public class AuthenticateUserResponse : Response
+public class AuthenticateUserResponse
 {
     public string? AccessToken { get; set; }
     public bool Successful { get; set; }
