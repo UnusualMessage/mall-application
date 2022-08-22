@@ -15,12 +15,19 @@ public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRep
 
     public override async Task<RefreshToken?> UpdateAsync(RefreshToken entity)
     {
-        var selected = await ApplicationContext.Set<RefreshToken>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+        try
+        {
+            var selected = await ApplicationContext.Set<RefreshToken>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Update(entity);
+            selected?.Update(entity);
 
-        await ApplicationContext.SaveChangesAsync();
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 }

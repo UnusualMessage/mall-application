@@ -35,7 +35,7 @@ public class CategoriesController : ControllerBase
 
         if (response is null)
         {
-            return BadRequest("Данной категории не существует!");
+            return NotFound("Категория не найдена!");
         }
         
         return Ok(response);
@@ -44,12 +44,26 @@ public class CategoriesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCategory request)
     {
+        var response = await _mediator.Send(request);
+
+        if (response is null)
+        {
+            return BadRequest("Не удалось добавить категорию!");
+        }
+        
         return Ok(await _mediator.Send(request));
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
+        var response = await _mediator.Send(new DeleteCategory(id));
+
+        if (response is null)
+        {
+            return NotFound("Не удалось удалить категорию!");
+        }
+        
         return Ok(await _mediator.Send(new DeleteCategory(id)));
     }
 

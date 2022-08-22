@@ -14,12 +14,19 @@ public class RouteRepository : Repository<Route>, IRouteRepository
 
     public override async Task<Route?> UpdateAsync(Route entity)
     {
-        var selected = await ApplicationContext.Set<Route>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+        try
+        {
+            var selected = await ApplicationContext.Set<Route>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Update(entity);
+            selected?.Update(entity);
 
-        await ApplicationContext.SaveChangesAsync();
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 }

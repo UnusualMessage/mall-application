@@ -36,12 +36,19 @@ public class ShopRepository : Repository<Shop>, IShopRepository
 
     public override async Task<Shop?> UpdateAsync(Shop entity)
     {
-        var selected = await ApplicationContext.Set<Shop>().FirstOrDefaultAsync(e => e.Id == entity.Id);
-        
-        selected?.Update(entity);
+        try
+        {
+            var selected = await ApplicationContext.Set<Shop>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        await ApplicationContext.SaveChangesAsync();
+            selected?.Update(entity);
 
-        return await GetByIdAsync(entity.Id);
+            await ApplicationContext.SaveChangesAsync();
+
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 }

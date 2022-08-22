@@ -33,17 +33,24 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
 
     public virtual async Task<T?> DeleteByIdAsync(Guid id)
     {
-        var entity = await GetByIdAsync(id);
+        try
+        {
+            var entity = await GetByIdAsync(id);
 
-        if (entity == null)
+            if (entity == null)
+            {
+                return null;
+            }
+        
+            ApplicationContext.Set<T>().Remove(entity);
+            await ApplicationContext.SaveChangesAsync();
+
+            return entity;
+        }
+        catch (DbUpdateException)
         {
             return null;
         }
-        
-        ApplicationContext.Set<T>().Remove(entity);
-        await ApplicationContext.SaveChangesAsync();
-
-        return entity;
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()

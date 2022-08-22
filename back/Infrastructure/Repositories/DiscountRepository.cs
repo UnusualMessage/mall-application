@@ -33,12 +33,19 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
 
     public override async Task<Discount?> UpdateAsync(Discount entity)
     {
-        var selected = await ApplicationContext.Set<Discount>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+        try
+        {
+            var selected = await ApplicationContext.Set<Discount>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Update(entity);
+            selected?.Update(entity);
 
-        await ApplicationContext.SaveChangesAsync();
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 }

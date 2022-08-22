@@ -15,13 +15,20 @@ public class UserRepository : Repository<User>, IUserRepository
 
     public override async Task<User?> UpdateAsync(User entity)
     {
-        var selected = await ApplicationContext.Set<User>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+        try
+        {
+            var selected = await ApplicationContext.Set<User>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Set(entity);
+            selected?.Set(entity);
 
-        await ApplicationContext.SaveChangesAsync();
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
     
     public async Task<User?> GetUserByLoginAsync(string name)

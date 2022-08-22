@@ -14,12 +14,19 @@ public class ImageRepository : Repository<Image>, IImageRepository
 
     public override async Task<Image?> UpdateAsync(Image entity)
     {
-        var selected = await ApplicationContext.Set<Image>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+        try
+        {
+            var selected = await ApplicationContext.Set<Image>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-        selected?.Update(entity);
+            selected?.Update(entity);
 
-        await ApplicationContext.SaveChangesAsync();
+            await ApplicationContext.SaveChangesAsync();
 
-        return await GetByIdAsync(entity.Id);
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            return null;
+        }
     }
 }
