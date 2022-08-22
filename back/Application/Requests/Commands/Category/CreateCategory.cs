@@ -8,6 +8,6 @@ namespace Application.Requests.Commands.Category;
 
 public class CreateCategory : IRequest<CategoryResponse>
 {
-    [Required]
-    public string? Title { get; set; }
+    [Required] 
+    public string Title { get; set; } = string.Empty;
 }

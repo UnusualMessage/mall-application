@@ -8,7 +8,7 @@ namespace Application.Requests.Commands.Image;
 public class CreateImage : IRequest<ImageResponse>
 {
     [Required]
-    public IFormFile? Image { get; set; }
-    
-    public string? Destination { get; set; }
+    public IFormFile Image { get; set; }
+
+    public string Destination { get; set; } = string.Empty;
 }

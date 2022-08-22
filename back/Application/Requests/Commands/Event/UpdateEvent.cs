@@ -12,11 +12,11 @@ public class UpdateEvent : IRequest<EventResponse>
     [Required]
     public Guid Id { get; set; }
     
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? Link { get; set; }
-    public string? RoutePath { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Link { get; set; } = string.Empty;
+    public string RoutePath { get; set; } = string.Empty;
     
-    public Guid? ImageId { get; set; }
-    public Guid? ShopId { get; set; }
+    public Guid ImageId { get; set; }
+    public Guid ShopId { get; set; }
 }

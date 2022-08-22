@@ -7,7 +7,7 @@ namespace Application.Requests.Queries.Shop;
 public class GetShopById : IRequest<ShopResponse>
 {
     [Required]
-    public Guid? Id { get; set; }
+    public Guid Id { get; set; }
 
     public GetShopById(Guid id)
     {
