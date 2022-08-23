@@ -2,9 +2,11 @@ import {makeAutoObservable} from "mobx";
 
 import map from "../data/map";
 import Cell from "../api/interfaces/cell/Cell";
+import CellInner from "../types/CellInner";
 
 class MapStore {
-	private readonly map: Cell[];
+	private readonly map: CellInner[];
+	private clicked: Cell | undefined;
 	
 	private scale: number;
 	private readonly scaleInc: number;
@@ -14,6 +16,7 @@ class MapStore {
 	
 	constructor() {
 		this.map = map;
+		this.clicked = undefined;
 		
 		this.scale = 1;
 		this.scaleInc = 0.1;
@@ -31,6 +34,10 @@ class MapStore {
 		return this.map;
 	};
 	
+	public getClicked = () => {
+		return this.clicked;
+	};
+	
 	public getSchemaByFloor = () => {
 		return this.map.filter(cell => cell.floor === this.floor);
 	};
@@ -41,6 +48,12 @@ class MapStore {
 	
 	public getFloor = () => {
 		return this.floor;
+	};
+	
+	public click = (cell: Cell) => {
+		this.clicked = {
+			...cell
+		};
 	};
 	
 	public zoomIn = () => {

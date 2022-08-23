@@ -6,12 +6,13 @@ import {SocialRecord} from "../../types/Social";
 
 export interface Values {
 	title: string,
-	floor: number,
 	schedule: string,
 	phone: string,
 	site: string,
 	description: string
 	categoryId: string,
+	
+	cellId: string
 	image: Image,
 	socials: SocialRecord
 }
@@ -34,13 +35,13 @@ export const getShopInitialValues = (shop?: Shop) => {
 	return {
 		image: shop?.image,
 		title: shop?.title,
-		floor: shop?.floor ?? 1,
 		schedule: shop?.schedule,
 		phone: shop?.phone,
 		site: shop?.site,
 		categoryId: shop?.category.id,
 		description: shop?.description,
-		socials: socials
+		socials: socials,
+		cellId: shop?.cell.id
 	};
 };
 
@@ -73,10 +74,10 @@ export const getShopInitialOptions = (): Options => {
 			]
 		},
 		
-		floor: {
-			name: "floor",
-			placeholder: "Введите номер этажа",
-			label: "Этаж",
+		cellId: {
+			name: "cellId",
+			placeholder: "Выберите расположение",
+			label: "Расположение",
 			rules: [
 				{ required: true, message: "Обязательно для заполнения" }
 			]
