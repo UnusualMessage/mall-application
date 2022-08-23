@@ -16,13 +16,8 @@ const FloorSwitcher = () => {
 		setSwitcher(true);
 	};
 	
-	const onFirstFloorSwitch = () => {
-		MapStore.toFloor(1);
-		setSwitcher(false);
-	};
-	
-	const onSecondFloorSwitch = () => {
-		MapStore.toFloor(2);
+	const onFloorSwitch = (floor: 1 | 2) => {
+		MapStore.toFloor(floor);
 		setSwitcher(false);
 	};
 	
@@ -33,11 +28,11 @@ const FloorSwitcher = () => {
 					<div className={classNames(css.wrapper)}>
 						<Label text={"1 Этаж"}
 						       className={classNames(css.item, label.mini, label.bold)}
-						       onClick={onFirstFloorSwitch}/>
+						       onClick={() => onFloorSwitch(1)}/>
 						
 						<Label text={"2 Этаж"}
 						       className={classNames(css.item, label.mini, label.bold)}
-						       onClick={onSecondFloorSwitch}/>
+						       onClick={() => onFloorSwitch(2)}/>
 					</div>
 					:
 					<div className={classNames(css.wrapper)} onClick={onSwitcherShow}>

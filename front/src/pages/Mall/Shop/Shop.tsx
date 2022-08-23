@@ -52,7 +52,7 @@ const Shop = () => {
 					<Image classes={classNames(css.image)} source={shop.image.path}/>
 					
 					<div className={`${css.contacts}`}>
-						<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
+						<Label className={classNames(label.big)} text={`${shop.cell.floor}-й этаж`} />
 						<Label className={classNames(label.big)} text={shop.schedule}/>
 						<Label className={classNames(label.big)} text={shop.phone}/>
 						

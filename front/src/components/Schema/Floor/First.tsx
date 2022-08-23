@@ -2,14 +2,14 @@ import classNames from "classnames";
 
 import css from "./floor.module.scss";
 
-import {Cells} from "../Cell";
+import {Cells} from "../Cells";
 
-const First = () => {
+const First = ({ readonly }: Props) => {
 	return(
 		<svg className={classNames(css.wrapper)} viewBox="0 0 992 576">
 			<path fill={"#dfdfdf"} d="M0,0v470h510v106h289.81C905.95,576,992,489.95,992,383.81V0H0z"/>
 			
-			<Cells/>
+			<Cells readonly={readonly}/>
 			
 			<g>
 				<path fill="#FF7800" d="M510,10v125h-60V10H510z"/>
@@ -54,5 +54,9 @@ const First = () => {
 		</svg>
 	);
 };
+
+interface Props {
+	readonly?: boolean
+}
 
 export default First;
