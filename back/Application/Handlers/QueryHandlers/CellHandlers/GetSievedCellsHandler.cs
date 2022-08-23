@@ -1,5 +1,5 @@
 ﻿using Application.MappingProfiles;
-using Application.Requests.Queries.Shop;
+using Application.Requests.Queries.Cell;
 using Application.Responses;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -7,22 +7,22 @@ using Core.Interfaces.Repositories;
 using MediatR;
 using Sieve.Services;
 
-namespace Application.Handlers.QueryHandlers.ShopHandlers;
+namespace Application.Handlers.QueryHandlers.CellHandlers;
 
-public class GetSievedShopsHandler : IRequestHandler<GetSievedShops, IEnumerable<ShopResponse>>
+public class GetSievedCellsHandler : IRequestHandler<GetSievedCells, IEnumerable<CellResponse>>
 {
-    private readonly IShopRepository _shopRepository;
+    private readonly ICellRepository _cellRepository;
     private readonly ISieveProcessor _processor;
 
-    public GetSievedShopsHandler(IShopRepository repository, ISieveProcessor processor)
+    public GetSievedCellsHandler(ICellRepository repository, ISieveProcessor processor)
     {
-        _shopRepository = repository;
+        _cellRepository = repository;
         _processor = processor;
     }
     
-    public async Task<IEnumerable<ShopResponse>> Handle(GetSievedShops request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CellResponse>> Handle(GetSievedCells request, CancellationToken cancellationToken)
     {
-        var result = await _shopRepository.GetAllAsync();
+        var result = await _cellRepository.GetAllAsync();
 
         MapperConfiguration configuration = new(cfg => {
             cfg.AddProfile(new ShopProfile());
@@ -32,7 +32,7 @@ public class GetSievedShopsHandler : IRequestHandler<GetSievedShops, IEnumerable
             cfg.AddProfile(new CellProfile());
         });
 
-        var response = result.AsQueryable().ProjectTo<ShopResponse>(configuration);
+        var response = result.AsQueryable().ProjectTo<CellResponse>(configuration);
 
         return _processor.Apply(request.SieveModel, response).AsEnumerable();
     }

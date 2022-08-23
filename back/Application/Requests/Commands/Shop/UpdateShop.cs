@@ -23,4 +23,5 @@ public class UpdateShop : IRequest<ShopResponse>
 
     public Guid ImageId { get; set; }
     public Guid CategoryId { get; set; }
+    public Guid CellId { get; set; }
 }

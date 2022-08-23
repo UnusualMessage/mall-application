@@ -10,7 +10,6 @@ public class ShopResponse : Response
     public string Schedule { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string Site { get; set; } = string.Empty;
-    public short Floor { get; set; }
     public string Link { get; set; } = string.Empty;
     public string RoutePath { get; set; } = string.Empty;
 

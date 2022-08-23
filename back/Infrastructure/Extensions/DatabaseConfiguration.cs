@@ -24,6 +24,7 @@ public static class DatabaseConfiguration
         services.AddScoped<IBreadcrumbRepository, BreadcrumbRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
         services.AddScoped<ISocialRepository, SocialRepository>();
+        services.AddScoped<ICellRepository, CellRepository>();
         
         services.AddScoped<IShopRepository, ShopRepository>();
         services.AddScoped<IEventRepository, EventRepository>();

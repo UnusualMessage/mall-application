@@ -9,8 +9,11 @@ public class Shop : Entity, IUpdatable<Shop>
     public string? Schedule { get; set; }
     public string? Phone { get; set; }
     public string? Site { get; set; }
-    public short Floor { get; set; }
+    
     public IEnumerable<Social> Socials { get; set; } = new List<Social>();
+    
+    public Guid CellId { get; set; }
+    public Cell Cell { get; set; } = new();
     
     public Guid ImageId { get; set; }
     public Image Image { get; set; } = new();
@@ -34,8 +37,8 @@ public class Shop : Entity, IUpdatable<Shop>
         Schedule = shop.Schedule;
         Phone = shop.Phone;
         Site = shop.Site;
-        Floor = shop.Floor;
-        
+
+        CellId = shop.CellId;
         ImageId = shop.ImageId;
         CategoryId = shop.CategoryId;
     }

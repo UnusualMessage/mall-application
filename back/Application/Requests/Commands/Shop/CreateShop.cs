@@ -23,6 +23,9 @@ public class CreateShop : IRequest<ShopResponse>
     public short Floor { get; set; }
     
     [Required]
+    public Guid CellId { get; set; }
+    
+    [Required]
     public Guid ImageId { get; set; }
     
     [Required] 

@@ -20,5 +20,6 @@ public static class MappingProfilesConfiguration
         services.AddAutoMapper(typeof(BreadcrumbProfile));
         services.AddAutoMapper(typeof(ImageProfile));
         services.AddAutoMapper(typeof(SocialProfile));
+        services.AddAutoMapper(typeof(CellProfile));
     }
 }

@@ -13,6 +13,7 @@ public class ApplicationContext : DbContext
     public DbSet<Route>? Routes { get; set; }
     public DbSet<Breadcrumb>? Breadcrumbs { get; set; }
     public DbSet<Image>? Images { get; set; }
+    public DbSet<Cell>? Cells { get; set; }
 
     public DbSet<Shop>? Shops { get; set; }
     public DbSet<Event>? Events { get; set; }
@@ -44,5 +45,6 @@ public class ApplicationContext : DbContext
         modelBuilder.ApplyConfiguration(new RoutesConfiguration());
         modelBuilder.ApplyConfiguration(new BreadcrumbConfiguration());
         modelBuilder.ApplyConfiguration(new ImagesConfiguration());
+        modelBuilder.ApplyConfiguration(new CellConfiguration());
     }
 }
