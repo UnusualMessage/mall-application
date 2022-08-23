@@ -1,8 +1,8 @@
-import Cell from "../api/interfaces/cell/Cell";
+import CellInner from "../types/CellInner";
 
-const map: Cell[] = [
+const map: CellInner[] = [
 	{
-		id: "1",
+		number: 1,
 		path:
 			<>
 				<g>
@@ -16,7 +16,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "2",
+		number: 2,
 		path:
 			<>
 				<g>
@@ -29,7 +29,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "3",
+		number: 3,
 		path:
 			<>
 				<g>
@@ -42,7 +42,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "4",
+		number: 4,
 		path:
 			<>
 				<g>
@@ -55,7 +55,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "5",
+		number: 5,
 		path:
 			<>
 				<g>
@@ -68,7 +68,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "6",
+		number: 6,
 		path:
 			<>
 				<g>
@@ -81,7 +81,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "7",
+		number: 7,
 		path:
 			<>
 				<g>
@@ -95,7 +95,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "8",
+		number: 8,
 		path:
 			<>
 				<g>
@@ -108,7 +108,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "9",
+		number: 9,
 		path:
 			<>
 				<g>
@@ -121,7 +121,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "10",
+		number: 10,
 		path:
 			<>
 				<g>
@@ -134,7 +134,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "11",
+		number: 11,
 		path:
 			<>
 				<g>
@@ -147,7 +147,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "12",
+		number: 12,
 		path:
 			<>
 				<g>
@@ -161,7 +161,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "13",
+		number: 14,
 		path:
 			<>
 				<g>
@@ -175,7 +175,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "14",
+		number: 15,
 		path:
 			<>
 				<g>
@@ -189,7 +189,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "15",
+		number: 16,
 		path:
 			<>
 				<g>
@@ -203,7 +203,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "16",
+		number: 17,
 		path:
 			<>
 				<g>
@@ -216,7 +216,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "17",
+		number: 18,
 		path:
 			<>
 				<g>
@@ -229,7 +229,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "18",
+		number: 19,
 		path:
 			<>
 				<g>
@@ -242,7 +242,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "19",
+		number: 20,
 		path:
 			<>
 				<g>
@@ -255,7 +255,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "20",
+		number: 21,
 		path:
 			<>
 				<g>
@@ -268,7 +268,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "21",
+		number: 22,
 		path:
 			<>
 				<g>
@@ -281,7 +281,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "22",
+		number: 23,
 		path:
 			<>
 				<g>
@@ -295,7 +295,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "23",
+		number: 24,
 		path:
 			<>
 				<g>
@@ -308,7 +308,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "24",
+		number: 25,
 		path:
 			<>
 				<g>
@@ -323,7 +323,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "25",
+		number: 26,
 		path:
 			<>
 				<g>
@@ -339,7 +339,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "26",
+		number: 27,
 		path:
 			<>
 				<g>
@@ -352,7 +352,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "27",
+		number: 28,
 		path:
 			<>
 				<g>
@@ -365,7 +365,7 @@ const map: Cell[] = [
 	},
 	
 	{
-		id: "28",
+		number: 29,
 		path:
 			<>
 				<g>

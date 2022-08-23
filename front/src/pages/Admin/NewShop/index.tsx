@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {SelectInput, TextInput, NumberInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
 
 import {CreateShop} from "../../../api/interfaces/shop";
@@ -14,6 +14,7 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
+import CellPicker from "../../../components/Input/CellPicker";
 
 const rootRoute = "shops";
 
@@ -61,7 +62,7 @@ const NewShop = () => {
 		const newShop: CreateShop = {
 			title: values.title,
 			description: values.description,
-			floor: values.floor,
+			cellId: values.cellId,
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
@@ -86,7 +87,7 @@ const NewShop = () => {
 			
 			<Form form={form} onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} labelWrap>
 				<TextInput {...initialOptions.title}/>
-				<NumberInput {...initialOptions.floor} min={1} max={2}/>
+				<CellPicker {...initialOptions.cellId} form={form}/>
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>

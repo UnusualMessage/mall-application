@@ -1,7 +1,6 @@
 import {CreateSocial} from "../social";
 
 export default interface CreateShop {
-	floor: number,
 	title: string,
 	description: string,
 	schedule: string,
@@ -12,5 +11,6 @@ export default interface CreateShop {
 	
 	imageId: string,
 	categoryId: string,
+	cellId: string,
 	socials: CreateSocial[]
 }

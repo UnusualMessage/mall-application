@@ -2,7 +2,6 @@ import {Social} from "../social";
 
 export default interface UpdateShop {
 	id: string,
-	floor: number,
 	title: string,
 	description: string,
 	schedule: string,
@@ -11,7 +10,8 @@ export default interface UpdateShop {
 	link: string,
 	routePath: string,
 	
-	socials: Social[]
+	socials: Social[],
+	cellId: string,
 	categoryId: string,
 	imageId: string,
 }

@@ -13,6 +13,7 @@ import {Social} from "../../../api/interfaces/social";
 import {socials} from "../../../types/Social";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
+import CellPicker from "../../../components/Input/CellPicker";
 
 const rootRoute = "shops";
 
@@ -73,7 +74,6 @@ const Shop = () => {
 			id: shop.id,
 			title: values.title,
 			description: values.description,
-			floor: values.floor,
 			schedule: values.schedule,
 			site: values.site,
 			phone: values.phone,
@@ -81,6 +81,7 @@ const Shop = () => {
 			imageId: values.image.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}/${shop.id}`,
+			cellId: values.cellId,
 			socials: socials
 		};
 		
@@ -109,7 +110,7 @@ const Shop = () => {
 			
 			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
-				<NumberInput {...initialOptions.floor} min={1} max={2}/>
+				<CellPicker {...initialOptions.cellId} form={form}/>
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>

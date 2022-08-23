@@ -1,5 +1,8 @@
+import {Shop} from "../shop";
+
 export default interface Cell {
-	id: string
-	path: JSX.Element,
-	floor: number
+	id: string,
+	number: number,
+	floor: number,
+	shop?: Shop
 }
