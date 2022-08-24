@@ -53,7 +53,7 @@ const Discount = () => {
 				</InnerLink>
 				
 				<div className={classNames(css.contacts)}>
-					<Label className={classNames(label.big)} text={`${discount.shop.cell.floor}-й этаж`} />
+					<Label className={classNames(label.big)} text={`${discount.shop.floor}-й этаж`} />
 					<Label className={classNames(label.big)} text={discount.shop.schedule} />
 					<Label className={classNames(label.big)} text={discount.shop.phone} />
 					

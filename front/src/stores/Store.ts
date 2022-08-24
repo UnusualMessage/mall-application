@@ -1,6 +1,6 @@
 import {action, observable, runInAction, toJS} from "mobx";
 import Service from "../api/services/Service";
-import RequestInfo from "../api/interfaces/RequestInfo";
+import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
 
 export const storeProps = {

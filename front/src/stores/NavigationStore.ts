@@ -4,7 +4,7 @@ import Breadcrumb from "../api/interfaces/breadcrumb/Breadcrumb";
 import BreadcrumbService from "../api/services/BreadcrumbService";
 import RouteService from "../api/services/RouteService";
 import Route from "../api/interfaces/route/Route";
-import RequestInfo from "../api/interfaces/RequestInfo";
+import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
 
 class NavigationStore {

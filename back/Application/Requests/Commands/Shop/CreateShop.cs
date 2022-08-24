@@ -20,9 +20,6 @@ public class CreateShop : IRequest<ShopResponse>
     public string RoutePath { get; set; } = string.Empty;
 
     [Required]
-    public short Floor { get; set; }
-    
-    [Required]
     public Guid CellId { get; set; }
     
     [Required]

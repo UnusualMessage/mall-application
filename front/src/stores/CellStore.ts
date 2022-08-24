@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction, toJS} from "mobx";
 
 import isError from "../utils/isError";
-import RequestInfo from "../api/interfaces/RequestInfo";
+import RequestInfo from "../api/interfaces/Response";
 import CellService from "../api/services/CellService";
 import Cell from "../api/interfaces/cell/Cell";
 

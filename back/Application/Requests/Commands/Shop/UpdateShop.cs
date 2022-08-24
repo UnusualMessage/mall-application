@@ -18,7 +18,6 @@ public class UpdateShop : IRequest<ShopResponse>
     public string Site { get; set; } = string.Empty;
     public string Link { get; set; } = string.Empty;
     public string RoutePath { get; set; } = string.Empty;
-    public short Floor { get; set; }
     public IEnumerable<UpdateSocial> Socials { get; set; } = new List<UpdateSocial>();
 
     public Guid ImageId { get; set; }

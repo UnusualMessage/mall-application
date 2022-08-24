@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import AuthService from "../api/services/AuthService";
 import AuthenticateUser from "../api/interfaces/user/AuthenticateUser";
-import RequestInfo from "../api/interfaces/RequestInfo";
+import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
 import User from "../api/interfaces/user/User";
 

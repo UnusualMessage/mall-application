@@ -22,7 +22,7 @@ const ShopCard = ({ shop }: Props) => {
 					<Label className={classNames(label.mini)} text={shop.site}/>
 				</div>
 				
-				<Label className={classNames(css.floor, label.mini)} text={`${shop.cell.floor}-й этаж`}/>
+				<Label className={classNames(css.floor, label.mini)} text={`${shop.floor}-й этаж`}/>
 			</div>
 		</InnerLink>
 	);

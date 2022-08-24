@@ -2,7 +2,7 @@ import {makeAutoObservable, runInAction, toJS} from "mobx";
 
 import {Contacts, UpdateContacts} from "../api/interfaces/contacts";
 import ContactsService from "../api/services/ContactsService";
-import RequestInfo from "../api/interfaces/RequestInfo";
+import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
 
 class ContactsStore {

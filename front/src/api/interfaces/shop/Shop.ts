@@ -1,7 +1,6 @@
 import Category from "../category/Category";
 import Image from "../image/Image";
 import {Social} from "../social";
-import Cell from "../cell/Cell";
 
 export default interface Shop {
 	id: string,
@@ -12,8 +11,9 @@ export default interface Shop {
 	site: string,
 	link: string,
 	routePath: string,
-
-	cell: Omit<Cell, "path">,
+	floor: number,
+	
+	cellId: string,
 	socials: Social[],
 	category: Category,
 	image: Image

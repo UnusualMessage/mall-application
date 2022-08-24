@@ -51,7 +51,7 @@ const Event = () => {
 				</InnerLink>
 				
 				<div className={`${css.contacts}`}>
-					<Label className={classNames(label.big)} text={`${event.shop.cell.floor}-й этаж`}/>
+					<Label className={classNames(label.big)} text={`${event.shop.floor}-й этаж`}/>
 					<Label className={classNames(label.big)} text={event.shop.schedule}/>
 					<Label className={classNames(label.big)} text={event.shop.phone}/>
 					

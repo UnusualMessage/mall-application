@@ -1,4 +1,4 @@
-export default interface RequestInfo {
+export default interface Response {
 	message: string,
 	successful: boolean
 }

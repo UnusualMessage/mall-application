@@ -12,7 +12,8 @@ public class ShopProfile : Profile
     {
         CreateMap<Shop, ShopResponse>()
             .ForMember(dest => dest.RoutePath, opt => opt.MapFrom(src => src.Route.Path))
-            .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.Breadcrumb.Link));
+            .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.Breadcrumb.Link))
+            .ForMember(dest => dest.Floor, opt => opt.MapFrom(src => src.Cell.Floor));
         
         CreateMap<CreateShop, Shop>();
         CreateMap<UpdateShop, Shop>();

@@ -41,7 +41,7 @@ export const getShopInitialValues = (shop?: Shop) => {
 		categoryId: shop?.category.id,
 		description: shop?.description,
 		socials: socials,
-		cellId: shop?.cell.id
+		cellId: shop?.cellId
 	};
 };
 
