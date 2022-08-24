@@ -9,5 +9,20 @@ public class ImagesConfiguration : IEntityTypeConfiguration<Image>
     public void Configure(EntityTypeBuilder<Image> builder)
     {
         builder.ToTable("IMAGES");
+
+        builder
+            .HasMany<Shop>()
+            .WithOne(e => e.Image)
+            .HasForeignKey(e => e.ImageId);
+        
+        builder
+            .HasMany<Event>()
+            .WithOne(e => e.Image)
+            .HasForeignKey(e => e.ImageId);
+        
+        builder
+            .HasMany<Discount>()
+            .WithOne(e => e.Image)
+            .HasForeignKey(e => e.ImageId);
     }
 }

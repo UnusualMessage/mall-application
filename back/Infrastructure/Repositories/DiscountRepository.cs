@@ -19,6 +19,18 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
             .Include(e => e.Image)
+            
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Image)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Breadcrumb)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Route)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Cell)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Socials)
+            
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
@@ -28,6 +40,18 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
             .Include(e => e.Route)
             .Include(e => e.Breadcrumb)
             .Include(e => e.Image)
+            
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Image)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Breadcrumb)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Route)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Cell)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Socials)
+            
             .ToListAsync();
     }
 

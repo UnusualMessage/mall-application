@@ -13,6 +13,11 @@ public class CellConfiguration : IEntityTypeConfiguration<Cell>
     {
         builder.ToTable("СELLS");
 
+        builder
+            .HasOne(e => e.Shop)
+            .WithOne(e => e.Cell)
+            .HasForeignKey<Shop>(e => e.CellId);
+
         IList<Cell> cells = new List<Cell>();
         
         for (var i = 0; i < FirstFloorCellsCount; ++i)

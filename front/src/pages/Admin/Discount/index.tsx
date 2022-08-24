@@ -36,6 +36,7 @@ const Discount = () => {
 	
 	useEffect(() => {
 		const getDiscount = async () => {
+			await ShopStore.getAsync("");
 			await DiscountStore.getByIdAsync(id ?? "");
 			
 			if (!DiscountStore.isRequestSuccessful()) {
@@ -47,7 +48,7 @@ const Discount = () => {
 		};
 		
 		void getDiscount();
-	}, [discount]);
+	}, [id]);
 	
 	if (!discount || isFetching) {
 		return <Loader/>;
@@ -57,6 +58,10 @@ const Discount = () => {
 		InterfaceStore.setLoading(true);
 		await DiscountStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
+		
+		if (!DiscountStore.isRequestSuccessful()) {
+			message.error(DiscountStore.getErrorMessage());
+		}
 	};
 	
 	const handleUpdate = async (values: Values) => {

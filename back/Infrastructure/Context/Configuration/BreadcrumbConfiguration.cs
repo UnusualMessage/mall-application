@@ -9,6 +9,21 @@ public class BreadcrumbConfiguration : IEntityTypeConfiguration<Breadcrumb>
     public void Configure(EntityTypeBuilder<Breadcrumb> builder)
     {
         builder.ToTable("BREADCRUMBS");
+        
+        builder
+            .HasOne<Shop>()
+            .WithOne(e => e.Breadcrumb)
+            .HasForeignKey<Shop>(e => e.BreadcrumbId);
+        
+        builder
+            .HasOne<Event>()
+            .WithOne(e => e.Breadcrumb)
+            .HasForeignKey<Event>(e => e.BreadcrumbId);
+        
+        builder
+            .HasOne<Discount>()
+            .WithOne(e => e.Breadcrumb)
+            .HasForeignKey<Discount>(e => e.BreadcrumbId);
 
         builder.HasData(new Breadcrumb[]
         {

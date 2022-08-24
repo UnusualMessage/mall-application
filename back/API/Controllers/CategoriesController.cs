@@ -51,7 +51,7 @@ public class CategoriesController : ControllerBase
             return BadRequest("Не удалось добавить категорию!");
         }
         
-        return Ok(await _mediator.Send(request));
+        return Ok(response);
     }
 
     [HttpDelete("{id:guid}")]
@@ -64,7 +64,7 @@ public class CategoriesController : ControllerBase
             return NotFound("Не удалось удалить категорию!");
         }
         
-        return Ok(await _mediator.Send(new DeleteCategory(id)));
+        return Ok(response);
     }
 
     [HttpPut]

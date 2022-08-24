@@ -19,4 +19,16 @@
       <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\1000h1000_300_365_jpg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\sm_300_365_jpg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\sm_krosy_300_365_jpg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\sm_voda_300_365_jpg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\discounts\tt_300_365_jpg.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images" />
+    </ItemGroup>
+
 </Project>

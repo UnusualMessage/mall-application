@@ -4,8 +4,8 @@ namespace Core.Entities;
 
 public class Shop : Entity, IUpdatable<Shop>
 {
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public string Title { get; set; }
+    public string Description { get; set; }
     public string? Schedule { get; set; }
     public string? Phone { get; set; }
     public string? Site { get; set; }
@@ -13,19 +13,19 @@ public class Shop : Entity, IUpdatable<Shop>
     public IEnumerable<Social> Socials { get; set; } = new List<Social>();
     
     public Guid CellId { get; set; }
-    public Cell Cell { get; set; } = new();
+    public Cell? Cell { get; set; }
     
     public Guid ImageId { get; set; }
-    public Image Image { get; set; } = new();
+    public Image? Image { get; set; }
 
     public Guid BreadcrumbId { get; set; }
-    public Breadcrumb Breadcrumb { get; set; } = new();
+    public Breadcrumb? Breadcrumb { get; set; }
     
     public Guid RouteId { get; set; }
-    public Route Route { get; set; } = new();
+    public Route? Route { get; set; }
     
     public Guid CategoryId { get; set; }
-    public Category Category { get; set; } = new();
+    public Category? Category { get; set; }
     
     public IEnumerable<Discount> Discounts { get; set; } = new List<Discount>();
     public IEnumerable<Event> Events { get; set; } = new List<Event>();

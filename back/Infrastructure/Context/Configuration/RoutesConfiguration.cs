@@ -10,6 +10,21 @@ public class RoutesConfiguration : IEntityTypeConfiguration<Route>
     {
         builder.ToTable("ROUTES");
         
+        builder
+            .HasOne<Shop>()
+            .WithOne(e => e.Route)
+            .HasForeignKey<Shop>(e => e.RouteId);
+        
+        builder
+            .HasOne<Event>()
+            .WithOne(e => e.Route)
+            .HasForeignKey<Event>(e => e.RouteId);
+        
+        builder
+            .HasOne<Discount>()
+            .WithOne(e => e.Route)
+            .HasForeignKey<Discount>(e => e.RouteId);
+        
         builder.HasData(new Route[]
         {
             new()

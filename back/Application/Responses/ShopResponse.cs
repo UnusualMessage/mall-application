@@ -15,7 +15,7 @@ public class ShopResponse : Response
     public string RoutePath { get; set; } = string.Empty;
 
     public IEnumerable<SocialResponse> Socials { get; set; } = new List<SocialResponse>();
-    public ImageResponse Image { get; set; } = new();
-    public CategoryResponse Category { get; set; } = new();
+    public ImageResponse Image { get; set; }
+    public CategoryResponse Category { get; set; }
     public Guid CellId { get; set; }
 }

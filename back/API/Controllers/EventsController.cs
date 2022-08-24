@@ -38,7 +38,7 @@ public class EventsController : ControllerBase
             return NotFound("Статья не найдена!");
         }
         
-        return Ok(await _mediator.Send(new GetEventById(id)));
+        return Ok(response);
     }
 
     [HttpPost]

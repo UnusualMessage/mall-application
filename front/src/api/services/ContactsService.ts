@@ -25,7 +25,7 @@ class ContactsService {
 		headers.append("Content-Type", "application/json");
 		
 		const options = {
-			method: "POST",
+			method: "PUT",
 			headers,
 			body: JSON.stringify(model)
 		};

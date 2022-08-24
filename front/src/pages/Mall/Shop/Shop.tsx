@@ -70,7 +70,7 @@ const Shop = () => {
 											           key={social.id}>
 												
 												<Icon className={classNames()}
-												      viewBox={"0 0 20 20"}
+												      viewBox={social.name === "odnoklassniki" ? "0 0 95.481 95.481" : "0 0 20 20"}
 												      icon={icons[social.name as SocialType]}/>
 												
 											</OuterLink>

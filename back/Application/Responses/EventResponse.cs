@@ -13,6 +13,6 @@ public class EventResponse : Response
     [Sieve(CanFilter = true)]
     public Guid ShopId { get; set; }
 
-    public ShopResponse Shop { get; set; } = new();
-    public ImageResponse Image { get; set; } = new();
+    public ShopResponse Shop { get; set; }
+    public ImageResponse Image { get; set; }
 }

@@ -38,7 +38,7 @@ public class ShopsController : ControllerBase
             return NotFound("Статья не найдена!");
         }
         
-        return Ok(await _mediator.Send(new GetShopById(id)));
+        return Ok(response);
     }
 
     [HttpPost]

@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, PageHeader, Popconfirm, Space} from "antd";
+import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
 
 import {SelectInput, TextInput, NumberInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
@@ -14,6 +14,7 @@ import {socials} from "../../../types/Social";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
 import CellPicker from "../../../components/Input/CellPicker";
+import DiscountStore from "../../../stores/DiscountStore";
 
 const rootRoute = "shops";
 
@@ -97,6 +98,8 @@ const Shop = () => {
 		
 		if (ShopStore.isRequestSuccessful()) {
 			redirect(`../${rootRoute}`);
+		} else {
+			message.error(ShopStore.getErrorMessage());
 		}
 	};
 	

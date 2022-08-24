@@ -38,7 +38,7 @@ public class DiscountsController : ControllerBase
             return NotFound("Статья не найдена!");
         }
         
-        return Ok(await _mediator.Send(new GetDiscountById(id)));
+        return Ok(response);
     }
 
     [HttpPost]

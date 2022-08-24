@@ -12,7 +12,7 @@ public class SocialsConfiguration : IEntityTypeConfiguration<Social>
         builder.ToTable("SOCIALS");
 
         builder
-            .HasOne(e => e.Shop)
+            .HasOne<Shop>()
             .WithMany(e => e.Socials)
             .OnDelete(DeleteBehavior.Cascade);
     }
