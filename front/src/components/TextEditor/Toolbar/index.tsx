@@ -7,7 +7,7 @@ import {
 	UnderlineOutlined, UndoOutlined, UnorderedListOutlined, UpSquareOutlined
 } from "@ant-design/icons";
 
-import css from "./toolbar.module.scss";
+import css from "./index.module.scss";
 
 import {AlignButton, ClearButton, ElementButton, HistoryButton, ImageButton, LinkButton, TextButton} from "../buttons";
 

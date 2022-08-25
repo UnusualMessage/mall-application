@@ -2,7 +2,7 @@ import Carousel from "better-react-carousel";
 import classNames from "classnames";
 import {memo} from "react";
 
-import css from "./carousel.module.scss";
+import css from "./index.module.scss";
 import link from "/src/components/Link/link.module.scss";
 import label from "/src/components/Label/label.module.scss";
 

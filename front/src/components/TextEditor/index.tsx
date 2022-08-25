@@ -4,11 +4,11 @@ import {withHistory} from "slate-history";
 import {memo, useCallback, useState} from "react";
 import classNames from "classnames";
 
-import css from "./editor.module.scss";
+import css from "./index.module.scss";
 
-import Text from "./Leaf";
-import Element from "./Element";
-import Toolbar from "./Toolbar/Toolbar";
+import Text from "./base/Leaf";
+import Element from "./base/Element";
+import Toolbar from "./Toolbar";
 import {withInlines} from "./buttons/LinkButton";
 import {withImages} from "./buttons/ImageButton";
 

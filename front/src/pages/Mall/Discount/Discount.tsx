@@ -16,7 +16,7 @@ import Loader from "../../../components/Loader";
 
 import icons from "../../../data/icons";
 import DiscountStore from "../../../stores/DiscountStore";
-import TextEditor from "../../../components/TextEditor/TextEditor";
+import TextEditor from "../../../components/TextEditor";
 import {SocialType} from "../../../types/Social";
 import {
 	EnvironmentOutlined,

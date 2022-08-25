@@ -21,6 +21,7 @@
 
 	.title {
 	  border-bottom: 3px solid $hover;
+	  font-size: 30px;
 
 	  @media screen and (max-width: $pre-medium) {
 		font-size: 26px;

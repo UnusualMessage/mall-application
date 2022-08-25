@@ -6,8 +6,8 @@ import {Image, Typography} from "antd";
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
-import {OuterLink} from "../Link";
-import TitleElement from "./refs/Title";
+import {OuterLink} from "../../Link";
+import TitleElement from "../refs/Title";
 
 const { Title, Paragraph } = Typography;
 

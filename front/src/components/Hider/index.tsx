@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
-import css from "./hider.module.scss";
+import css from "./index.module.scss";
 
 import Label from "../Label";
 
