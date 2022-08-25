@@ -2,15 +2,15 @@ import React from "react";
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
 
-import css from "./link.module.scss";
-import label from "../Label/label.module.scss";
-import link from "../Link/link.module.scss";
+import css from "./index.module.scss";
+import label from "../../Label/label.module.scss";
+import link from "../../Link/link.module.scss";
 
-import {InnerLink} from "../Link";
-import Label from "../Label";
-import Icon from "../Icon";
+import {InnerLink} from "../../Link";
+import Label from "../../Label";
+import Icon from "../../Icon";
 
-import InterfaceStore from "../../stores/InterfaceStore";
+import InterfaceStore from "../../../stores/InterfaceStore";
 
 const NavLink = ({children, title, to, viewBox}: Props) => {
 	const classes = classNames({

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import css from "./floor.module.scss";
+import css from "./index.module.scss";
 
 import {Cells} from "../Cells";
 

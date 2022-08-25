@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import {observer} from "mobx-react-lite";
 
-import css from "./burger.module.scss";
+import css from "./index.module.scss";
 
-import InterfaceStore from "../../stores/InterfaceStore";
+import InterfaceStore from "../../../stores/InterfaceStore";
 
 const Burger = () => {
 	const onMenuSwitch = () => {

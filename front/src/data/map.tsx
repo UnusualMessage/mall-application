@@ -1,6 +1,10 @@
-import CellInner from "../types/CellInner";
+import Cell from "../api/interfaces/cell/Cell";
 
-const map: CellInner[] = [
+interface Path {
+	path: JSX.Element
+}
+
+const map: Omit<Cell & Path, "shop" | "id">[] = [
 	{
 		number: 1,
 		path:

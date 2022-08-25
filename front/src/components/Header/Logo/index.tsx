@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import {memo} from "react";
 
-import css from "./logo.module.scss";
+import css from "./index.module.scss";
 
-import Burger from "./Burger";
-import Image from "../Image";
+import Burger from "../Burger";
+import Image from "../../Image";
 
 const Logo = () => {
 	return (

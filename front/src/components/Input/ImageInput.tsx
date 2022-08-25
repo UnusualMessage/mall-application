@@ -11,9 +11,8 @@ const ImageInput = ({ label, name, rules }: Props) => {
 	};
 	
 	return (
-		<Form.Item label={label} name={name} valuePropName="fileList" getValueFromEvent={normFile}
-		           rules={rules}>
-			<Upload action={"https://localhost:44328/api/mock/"} maxCount={1} id={name}>
+		<Form.Item label={label} name={name} valuePropName="fileList" getValueFromEvent={normFile} rules={rules}>
+			<Upload action={"/api/mock/"} maxCount={1} id={name}>
 				<Button icon={<UploadOutlined />}>Выбрать изображение</Button>
 			</Upload>
 		</Form.Item>

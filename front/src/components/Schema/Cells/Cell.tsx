@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import classNames from "classnames";
 
-import css from "./cell.module.scss";
+import css from "./index.module.scss";
 
 import {useNavigate} from "react-router-dom";
 import MapStore from "../../../stores/MapStore";
@@ -18,8 +18,6 @@ const Cell = ({ cell, readonly }: Props) => {
 			if (cell.shop) {
 				redirect(cell.shop.routePath);
 			}
-			
-			console.log(cell);
 		}
 	};
 	

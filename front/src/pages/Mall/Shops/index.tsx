@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 
 import css from "./index.module.scss";
 
-import Filter from "../../../components/Filter/Filter";
+import Filter from "../../../components/Filter";
 import Loader from "../../../components/Loader";
 import ShopCards from "./ShopCards";
 

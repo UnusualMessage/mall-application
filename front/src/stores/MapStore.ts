@@ -2,10 +2,13 @@ import {makeAutoObservable} from "mobx";
 
 import map from "../data/map";
 import Cell from "../api/interfaces/cell/Cell";
-import CellInner from "../types/CellInner";
+
+interface Path {
+	path: JSX.Element
+}
 
 class MapStore {
-	private readonly map: CellInner[];
+	private readonly map: Omit<Cell & Path, "shop" | "id">[];
 	private clicked: Cell | undefined;
 	
 	private scale: number;

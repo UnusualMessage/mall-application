@@ -1,23 +1,30 @@
 import {observer} from "mobx-react-lite";
+import {useEffect, useState} from "react";
 
 import {Cell} from "./index";
 
 import MapStore from "../../../stores/MapStore";
 import CellStore from "../../../stores/CellStore";
-import {useEffect} from "react";
 
 const Cells = ({ readonly }: Props) => {
-	const floor = MapStore.getFloor();
+	const [isFetching, setIsFetching] = useState(true);
 	
+	const floor = MapStore.getFloor();
 	const cells = CellStore.get();
 	
 	useEffect(() => {
 		const getCells = async () => {
+			setIsFetching(true);
 			await CellStore.getAsync(`Filters=Floor==${floor}`);
+			setIsFetching(false);
 		};
 		
 		void getCells();
 	}, [floor]);
+	
+	if (isFetching) {
+		return null;
+	}
 	
 	return(
 		<>

@@ -1,5 +1,5 @@
-@use "/src/utils/constants/sizes" as *;
-@use "/src/utils/mixins/flex.scss" as *;
+@use "../../../utils/constants/sizes" as *;
+@use "../../../utils/mixins/flex" as *;
 
 .wrapper {
   @include flexible(row, center, center);
