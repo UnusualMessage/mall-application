@@ -1,9 +1,11 @@
+import {Options} from "../../types/Options";
+
 export interface Values {
 	login: string,
 	password: string
 }
 
-export const getAuthInitialOptions = () => {
+export const getAuthInitialOptions = (): Options<Values> => {
 	return {
 		login: {
 			name: "login",

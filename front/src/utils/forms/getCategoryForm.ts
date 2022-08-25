@@ -1,4 +1,5 @@
 import Category from "../../api/interfaces/category/Category";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	title: string,
@@ -10,7 +11,7 @@ export const getCategoryInitialValues = (category?: Category) => {
 	};
 };
 
-export const getCategoryInitialOptions = () => {
+export const getCategoryInitialOptions = (): Options<Values> => {
 	return {
 		title: {
 			name: "title",

@@ -1,6 +1,6 @@
 import Event from "../../api/interfaces/event/Event";
 import Image from "../../api/interfaces/image/Image";
-import {FormRule} from "antd";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	title: string,
@@ -18,16 +18,7 @@ export const getEventInitialValues = (event?: Event) => {
 	};
 };
 
-interface Option {
-	name: string,
-	placeholder: string,
-	label: string,
-	rules?: FormRule[]
-}
-
-type Options = Record<keyof Values, Option>;
-
-export const getEventInitialOptions = (): Options => {
+export const getEventInitialOptions = (): Options<Values> => {
 	return {
 		image: {
 			name: "image",

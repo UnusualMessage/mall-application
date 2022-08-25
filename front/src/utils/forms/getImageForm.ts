@@ -1,12 +1,13 @@
 import {UploadFile} from "antd";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	image: UploadFile[],
 }
 
-export const getImageInitialOptions = () => {
+export const getImageInitialOptions = (): Options<Values> => {
 	return {
-		title: {
+		image: {
 			name: "image",
 			placeholder: "Выберите изображение",
 			label: "Изображение",

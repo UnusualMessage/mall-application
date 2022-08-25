@@ -1,5 +1,5 @@
 import {Contacts} from "../../api/interfaces/contacts";
-import {FormRule} from "antd";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	phone: string,
@@ -17,16 +17,7 @@ export const getContactsInitialValues = (contacts?: Contacts) => {
 	};
 };
 
-interface Option {
-	name: string,
-	placeholder: string,
-	label: string,
-	rules?: FormRule[]
-}
-
-type Options = Record<keyof Values, Option>;
-
-export const getContactsInitialOptions = (): Options => {
+export const getContactsInitialOptions = (): Options<Values> => {
 	return {
 		phone: {
 			name: "phone",

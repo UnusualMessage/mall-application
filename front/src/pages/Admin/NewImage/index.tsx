@@ -39,7 +39,7 @@ const NewImage = () => {
 			/>
 			
 			<Form onFinish={handleCreate} labelCol={{span: 24}} form={form}>
-				<ImageInput {...initialOptions.title}/>
+				<ImageInput {...initialOptions.image}/>
 				
 				<Space>
 					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>

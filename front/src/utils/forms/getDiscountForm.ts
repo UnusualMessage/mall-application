@@ -1,7 +1,6 @@
-import {FormRule} from "antd";
-
 import Discount from "../../api/interfaces/discount/Discount";
 import Image from "../../api/interfaces/image/Image";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	image: Image,
@@ -19,16 +18,7 @@ export const getDiscountInitialValues = (discount?: Discount) => {
 	};
 };
 
-interface Option {
-	name: string,
-	placeholder: string,
-	label: string,
-	rules?: FormRule[]
-}
-
-type Options = Record<keyof Values, Option>;
-
-export const getDiscountInitialOptions = (): Options => {
+export const getDiscountInitialOptions = (): Options<Values> => {
 	return {
 		image: {
 			name: "image",

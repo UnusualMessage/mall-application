@@ -1,8 +1,7 @@
-import {FormRule} from "antd";
-
 import Image from "../../api/interfaces/image/Image";
 import Shop from "../../api/interfaces/shop/Shop";
 import {SocialRecord} from "../../types/Social";
+import {Options} from "../../types/Options";
 
 export interface Values {
 	title: string,
@@ -45,16 +44,7 @@ export const getShopInitialValues = (shop?: Shop) => {
 	};
 };
 
-interface Option {
-	name: string,
-	placeholder: string,
-	label: string,
-	rules?: FormRule[]
-}
-
-type Options = Record<keyof Values, Option>;
-
-export const getShopInitialOptions = (): Options => {
+export const getShopInitialOptions = (): Options<Values> => {
 	return {
 		image: {
 			name: "image",
