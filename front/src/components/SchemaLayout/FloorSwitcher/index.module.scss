@@ -1,5 +1,5 @@
-@use "/src/utils/mixins/flex" as *;
-@use "/src/utils/constants/colors" as *;
+@use "../../../utils/mixins/flex" as *;
+@use "../../../utils/constants/colors" as *;
 
 .wrapper {
   @include flexible(column, flex-start, flex-start);

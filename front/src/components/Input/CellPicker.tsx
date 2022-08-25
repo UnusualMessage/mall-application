@@ -2,7 +2,7 @@ import {Button, Drawer, Form, FormInstance, FormRule, Input, Space} from "antd";
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
-import Schema from "../Schema";
+import SchemaLayout from "../SchemaLayout";
 
 import MapStore from "../../stores/MapStore";
 
@@ -40,7 +40,7 @@ const CellPicker = ({ form, label, placeholder, name, rules }: Props) => {
 export const SchemaDrawer = ({ visible }: SchemaDrawerProps) => {
 	return (
 		<Drawer placement="right" visible={visible} width={"100%"}>
-			<Schema readonly/>
+			<SchemaLayout readonly/>
 		</Drawer>
 	);
 };

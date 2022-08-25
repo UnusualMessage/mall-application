@@ -1,9 +1,9 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
 
-import css from "./scaler.module.scss";
+import css from "./index.module.scss";
 
-import MapStore from "../../../../stores/MapStore";
+import MapStore from "../../../stores/MapStore";
 import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 
 const Scaler = () => {

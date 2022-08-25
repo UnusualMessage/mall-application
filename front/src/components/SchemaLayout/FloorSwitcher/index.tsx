@@ -2,12 +2,12 @@ import {observer} from "mobx-react-lite";
 import {useState} from "react";
 import classNames from "classnames";
 
-import css from "./switcher.module.scss";
+import css from "./index.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
-import Label from "../../../../components/Label";
+import Label from "../../Label";
 
-import MapStore from "../../../../stores/MapStore";
+import MapStore from "../../../stores/MapStore";
 
 const FloorSwitcher = () => {
 	const [switcher, setSwitcher] = useState(false);

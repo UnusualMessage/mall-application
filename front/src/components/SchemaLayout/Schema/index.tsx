@@ -2,12 +2,12 @@ import classNames from "classnames";
 import {useRef} from "react";
 import {observer} from "mobx-react-lite";
 
-import css from "../../pages/Mall/Map/index.module.scss";
+import css from "./index.module.scss";
 
-import {First, Second} from "./Floor";
+import {First, Second} from "../Floor";
 
-import MapStore from "../../stores/MapStore";
-import useDragging from "../../hooks/useDragging";
+import MapStore from "../../../stores/MapStore";
+import useDragging from "../../../hooks/useDragging";
 
 const Schema = ({ readonly }: Props) => {
 	const defaultMapState = {

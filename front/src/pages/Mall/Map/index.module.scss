@@ -35,49 +35,4 @@
       }
     }
   }
-
-  .content {
-    width: 100%;
-    height: 576px;
-    position: relative;
-    overflow: hidden;
-    touch-action: none;
-
-    @media screen and (max-width: $medium) {
-      height: 300px;
-    }
-
-    .dragger {
-      @include flexible(row, center, center);
-      width: 100%;
-      height: 100%;
-      position: relative;
-      background-color: $back;
-      overflow: hidden;
-
-      border: 1px solid $hover;
-      touch-action: none;
-
-      .floor {
-        flex-shrink: 0;
-        flex-grow: 0;
-        width: 80%;
-        position: relative;
-        touch-action: none;
-
-        transition: transform 0.3s ease-in-out;
-
-        @media screen and (max-width: $pre-big) {
-          transform: scale(0.3);
-          width: $medium - 40px;
-        }
-      }
-    }
-
-    .dragging {
-      @media screen and (min-width: $pre-big) {
-        cursor: grab;
-      }
-    }
-  }
 }

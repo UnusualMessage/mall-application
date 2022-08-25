@@ -5,10 +5,8 @@ import css from "./index.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
 import {Categories} from "./Category";
-import Scaler from "./Scaler";
-import FloorSwitcher from "./FloorSwitcher";
 import Label from "../../../components/Label";
-import Schema from "../../../components/Schema";
+import SchemaLayout from "../../../components/SchemaLayout";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 
@@ -25,12 +23,10 @@ const Map = () => {
 				       onClick={onFilterSwitch}/>
 			</div>
 			
-			<div className={classNames(css.content)}>
+			<SchemaLayout>
 				<Categories/>
-				<Scaler/>
-				<FloorSwitcher/>
-				<Schema/>
-			</div>
+			</SchemaLayout>
+
 		</div>
 	);
 };
