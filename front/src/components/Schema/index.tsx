@@ -2,7 +2,7 @@ import classNames from "classnames";
 import {useRef} from "react";
 import {observer} from "mobx-react-lite";
 
-import css from "../../pages/Mall/Map/map.module.scss";
+import css from "../../pages/Mall/Map/index.module.scss";
 
 import {First, Second} from "./Floor";
 

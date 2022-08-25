@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import {useEffect, useState} from "react";
 
-import css from "./eventCards.module.scss";
+import css from "./index.module.scss";
 
 import EventCard from "../EventCard";
 import Loader from "../../../../components/Loader";

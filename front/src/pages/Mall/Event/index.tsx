@@ -1,6 +1,13 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import classNames from "classnames";
+import {
+	EnvironmentOutlined,
+	FieldTimeOutlined,
+	LaptopOutlined,
+	MessageOutlined,
+	PhoneOutlined
+} from "@ant-design/icons";
 
 import css from "../Article/article.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -12,18 +19,11 @@ import Label from "../../../components/Label";
 import {InnerLink, OuterLink} from "../../../components/Link";
 import Hider from "../../../components/Hider";
 import Loader from "../../../components/Loader";
+import TextEditor from "../../../components/TextEditor";
 
 import icons from "../../../data/icons";
 import EventStore from "../../../stores/EventStore";
-import TextEditor from "../../../components/TextEditor";
 import {SocialType} from "../../../types/Social";
-import {
-	EnvironmentOutlined,
-	FieldTimeOutlined,
-	LaptopOutlined,
-	MessageOutlined,
-	PhoneOutlined
-} from "@ant-design/icons";
 
 const Event = () => {
 	const { id } = useParams();

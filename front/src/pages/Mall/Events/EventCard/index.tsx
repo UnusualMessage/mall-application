@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import css from "./eventCard.module.scss";
+import css from "./index.module.scss";
 import label from "/src/components/Label/label.module.scss";
 
 import Image from "../../../../components/Image";
