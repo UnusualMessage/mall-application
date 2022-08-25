@@ -22,11 +22,11 @@ public class FileService : IFileService
         await using FileStream fileStream = new(fullPath, FileMode.Create);
         await file.CopyToAsync(fileStream);
 
-        return Path.Combine(_storageSettings.Value.ContentFolderName!, file.FileName);
+        return Path.Combine($"/{_storageSettings.Value.ContentFolderName!}/{file.FileName}");
     }
 
     public void DeleteFile(string rootPath, string localPath)
     {
-        File.Delete(Path.Combine(rootPath, localPath));
+        File.Delete(rootPath + localPath);
     }
 }

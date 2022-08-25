@@ -14,7 +14,8 @@ public class ShopsConfiguration : IEntityTypeConfiguration<Shop>
         builder
             .HasOne(e => e.Cell)
             .WithOne(e => e.Shop)
-            .HasForeignKey<Shop>(e => e.CellId);
+            .HasForeignKey<Shop>(e => e.CellId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder
             .HasMany(e => e.Discounts)

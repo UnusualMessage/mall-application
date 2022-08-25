@@ -13,17 +13,20 @@ public class RoutesConfiguration : IEntityTypeConfiguration<Route>
         builder
             .HasOne<Shop>()
             .WithOne(e => e.Route)
-            .HasForeignKey<Shop>(e => e.RouteId);
-        
+            .HasForeignKey<Shop>(e => e.RouteId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder
             .HasOne<Event>()
             .WithOne(e => e.Route)
-            .HasForeignKey<Event>(e => e.RouteId);
+            .HasForeignKey<Event>(e => e.RouteId)
+            .OnDelete(DeleteBehavior.Restrict);
         
         builder
             .HasOne<Discount>()
             .WithOne(e => e.Route)
-            .HasForeignKey<Discount>(e => e.RouteId);
+            .HasForeignKey<Discount>(e => e.RouteId)
+            .OnDelete(DeleteBehavior.Restrict);
         
         builder.HasData(new Route[]
         {

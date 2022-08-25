@@ -16,7 +16,8 @@ public class CellConfiguration : IEntityTypeConfiguration<Cell>
         builder
             .HasOne(e => e.Shop)
             .WithOne(e => e.Cell)
-            .HasForeignKey<Shop>(e => e.CellId);
+            .HasForeignKey<Shop>(e => e.CellId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         IList<Cell> cells = new List<Cell>();
         
