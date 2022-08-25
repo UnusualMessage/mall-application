@@ -15,7 +15,6 @@ public class RefreshToken : Entity, IUpdatable<RefreshToken>
     public bool IsActive => Revoked == null && !IsExpired;
 
     public Guid UserId { get; set; }
-    public User? User { get; set; }
 
     public void Update(RefreshToken token)
     {

@@ -27,13 +27,5 @@ public class ShopsConfiguration : IEntityTypeConfiguration<Shop>
             .WithOne(e => e.Shop)
             .HasForeignKey(e => e.ShopId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder
-            .HasOne(e => e.Category)
-            .WithMany(e => e.Shops)
-            .HasForeignKey(e => e.CategoryId)
-            .OnDelete(DeleteBehavior.Restrict);
-        
-        
     }
 }

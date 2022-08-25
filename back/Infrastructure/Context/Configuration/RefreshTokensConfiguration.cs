@@ -12,7 +12,7 @@ public class RefreshTokensConfiguration : IEntityTypeConfiguration<RefreshToken>
         builder.ToTable("REFRESH_TOKENS");
 
         builder
-            .HasOne(e => e.User)
+            .HasOne<User>()
             .WithMany(e => e.RefreshTokens)
             .HasForeignKey(e => e.UserId)
             .OnDelete(DeleteBehavior.Cascade);
