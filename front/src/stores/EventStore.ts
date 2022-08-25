@@ -1,9 +1,7 @@
 import {makeObservable} from "mobx";
 
-import Store, {storeProps} from "./Store";
-import Event from "../api/interfaces/event/Event";
-import CreateEvent from "../api/interfaces/event/CreateEvent";
-import UpdateEvent from "../api/interfaces/event/UpdateEvent";
+import Store, {storeProps} from "./base/Store";
+import { CreateEvent, UpdateEvent, Event } from "../api/interfaces/event/";
 import EventService from "../api/services/EventService";
 
 class EventStore extends Store<Event, CreateEvent, UpdateEvent> {

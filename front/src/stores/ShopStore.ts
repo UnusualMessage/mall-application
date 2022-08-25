@@ -5,7 +5,7 @@ import { Category } from "../api/interfaces/category";
 import ShopService from "../api/services/ShopService";
 import Filterable from "../types/Filterable";
 
-import Store, {storeProps} from "./Store";
+import Store, {storeProps} from "./base/Store";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterable {
 	public filter: Category | undefined;
@@ -34,12 +34,6 @@ class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterabl
 		}
 		
 		return count;
-	};
-	
-	public getByCategory = (id: string) => {
-		return this.data.filter(shop => {
-			return shop.category.id === id;
-		});
 	};
 	
 	public getFiltered = () => {

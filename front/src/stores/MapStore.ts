@@ -41,10 +41,6 @@ class MapStore {
 		return this.clicked;
 	};
 	
-	public getSchemaByFloor = () => {
-		return this.map.filter(cell => cell.floor === this.floor);
-	};
-	
 	public getScale = () => {
 		return this.scale;
 	};

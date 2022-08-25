@@ -1,24 +1,18 @@
 import Image from "../interfaces/image/Image";
 import CreateImage from "../interfaces/image/CreateImage";
-import {Error} from "../interfaces/Error";
+import {Error} from "../interfaces/fetch";
 import resolveResponse from "../../utils/resolveResponse";
+import {get, remove} from "./requests";
 
 class ImageService {
-	protected readonly webApiUrl: string;
+	protected readonly url: string;
 	
 	constructor() {
-		this.webApiUrl = "/api/images/";
+		this.url = "/api/images";
 	}
 	
-	public get = async (urlParams: string): Promise<Image[] | Error> => {
-		const options = {
-			method: "GET",
-		};
-		
-		const request = new Request(this.webApiUrl + "?" + urlParams, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+	public get = async (query: string): Promise<Image[] | Error> => {
+		return await get(this.url, "", query);
 	};
 	
 	public post = async (model: CreateImage): Promise<Image | Error> => {
@@ -31,25 +25,14 @@ class ImageService {
 			body: formData
 		};
 		
-		const request = new Request(this.webApiUrl, options);
+		const request = new Request(this.url, options);
 		const response = await fetch(request);
 		
 		return resolveResponse(response);
 	};
 	
 	public delete = async (id: string): Promise<Image | Error> => {
-		const headers = new Headers();
-		headers.append("Content-Type", "application/json");
-		
-		const options = {
-			method: "DELETE",
-			headers
-		};
-		
-		const request = new Request(this.webApiUrl + id, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+		return await remove(this.url, id, "");
 	};
 }
 

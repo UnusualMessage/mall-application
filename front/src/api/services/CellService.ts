@@ -1,23 +1,16 @@
-import resolveResponse from "../../utils/resolveResponse";
-import {Error} from "../interfaces/Error";
+import {Error} from "../interfaces/fetch";
 import Cell from "../interfaces/cell/Cell";
+import { get } from "./requests";
 
 class CellService {
-	protected readonly webApiUrl: string;
+	protected readonly url: string;
 	
 	constructor() {
-		this.webApiUrl = "/api/cells/";
+		this.url = "/api/cells";
 	}
 	
-	public get = async (urlParams: string): Promise<Cell[] | Error> => {
-		const options = {
-			method: "GET",
-		};
-		
-		const request = new Request(this.webApiUrl + "?" + urlParams, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+	public get = async (query: string): Promise<Cell[] | Error> => {
+		return await get(this.url, "", query);
 	};
 }
 

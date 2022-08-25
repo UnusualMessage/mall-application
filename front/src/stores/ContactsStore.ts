@@ -1,51 +1,35 @@
-import {makeAutoObservable, runInAction, toJS} from "mobx";
+import {action, makeObservable, observable, runInAction, toJS} from "mobx";
 
 import {Contacts, UpdateContacts} from "../api/interfaces/contacts";
 import ContactsService from "../api/services/ContactsService";
-import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
+import {Requester} from "./base";
+import {requesterProps} from "./base/Requester";
 
-class ContactsStore {
+const props = {
+	...requesterProps,
+	contacts: observable,
+	getAsync: action,
+	updateAsync: action
+};
+
+class ContactsStore extends Requester {
 	private contacts: Contacts | undefined;
 	private contactsService: ContactsService;
-	private lastRequest: RequestInfo;
 	
 	constructor() {
+		super();
+		
 		this.contacts = undefined;
 		this.contactsService = new ContactsService();
 		
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-		
-		makeAutoObservable(this);
+		makeObservable(this, {
+			...props
+		});
 	}
 	
 	public get = () => {
 		return toJS(this.contacts);
-	};
-	
-	protected invokeSuccess = () => {
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-	};
-	
-	private invokeError = (error: string) => {
-		this.lastRequest = {
-			message: error,
-			successful: false
-		};
-	};
-	
-	public isRequestSuccessful = () => {
-		return this.lastRequest.successful;
-	};
-	
-	public getErrorMessage = () => {
-		return this.lastRequest.message;
 	};
 	
 	public getAsync = async () => {

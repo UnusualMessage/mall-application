@@ -1,23 +1,16 @@
 import Breadcrumb from "../interfaces/breadcrumb/Breadcrumb";
-import resolveResponse from "../../utils/resolveResponse";
-import {Error} from "../interfaces/Error";
+import {Error} from "../interfaces/fetch";
+import { get } from "./requests";
 
 class BreadcrumbService {
-	protected readonly webApiUrl: string;
+	protected readonly url: string;
 	
 	constructor() {
-		this.webApiUrl = "/api/breadcrumbs/";
+		this.url = "/api/breadcrumbs";
 	}
 	
-	public get = async (urlParams: string): Promise<Breadcrumb[] | Error> => {
-		const options = {
-			method: "GET",
-		};
-		
-		const request = new Request(this.webApiUrl + "?" + urlParams, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+	public get = async (query: string): Promise<Breadcrumb[] | Error> => {
+		return await get(this.url, "", query);
 	};
 }
 

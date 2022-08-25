@@ -1,13 +1,27 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {action, makeObservable, observable, runInAction} from "mobx";
 
 import Breadcrumb from "../api/interfaces/breadcrumb/Breadcrumb";
 import BreadcrumbService from "../api/services/BreadcrumbService";
 import RouteService from "../api/services/RouteService";
 import Route from "../api/interfaces/route/Route";
-import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
+import {requesterProps} from "./base/Requester";
+import {Requester} from "./base";
 
-class NavigationStore {
+const props = {
+	...requesterProps,
+	
+	breadcrumbs: observable,
+	totalBreadcrumbs: observable,
+	totalRoutes: observable,
+	toStart: action,
+	toNext: action,
+	getBreadcrumbsAsync: action,
+	getRoutesAsync: action,
+	getAsync: action
+};
+
+class NavigationStore extends Requester {
 	private breadcrumbs: Breadcrumb[] = [];
 	
 	private totalBreadcrumbs: Breadcrumb[] = [];
@@ -16,45 +30,20 @@ class NavigationStore {
 	private breadcrumbService: BreadcrumbService;
 	private routeService: RouteService;
 	
-	private lastRequest: RequestInfo;
-	
 	constructor() {
+		super();
+		
 		this.toStart();
 		this.breadcrumbService = new BreadcrumbService();
 		this.routeService = new RouteService();
 		
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-		
-		makeAutoObservable(this);
+		makeObservable(this, {
+			...props
+		});
 	}
 	
 	public get = () => {
 		return this.breadcrumbs;
-	};
-	
-	protected invokeSuccess = () => {
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-	};
-	
-	private invokeError = (error: string) => {
-		this.lastRequest = {
-			message: error,
-			successful: false
-		};
-	};
-	
-	public isRequestSuccessful = () => {
-		return this.lastRequest.successful;
-	};
-	
-	public getErrorMessage = () => {
-		return this.lastRequest.message;
 	};
 	
 	public toStart = () => {

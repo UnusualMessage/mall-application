@@ -1,14 +1,14 @@
 import {action, observable, runInAction, toJS} from "mobx";
-import Service from "../api/services/Service";
-import RequestInfo from "../api/interfaces/Response";
-import isError from "../utils/isError";
+
+import Service from "../../api/services/Service";
+import isError from "../../utils/isError";
+import Requester, {requesterProps} from "./Requester";
 
 export const storeProps = {
+	...requesterProps,
 	data: observable,
 	current: observable,
-	lastRequest: observable,
 	
-	invokeError: action,
 	getByIdAsync: action,
 	getAsync: action,
 	createAsync: action,
@@ -20,37 +20,18 @@ interface Model {
 	id: string
 }
 
-class Store<T extends Model, CreateT, UpdateT> {
+class Store<T extends Model, CreateT, UpdateT> extends Requester {
 	protected service: Service<T, CreateT, UpdateT>;
 	protected data: T[];
 	protected current: T | undefined;
 	
-	protected lastRequest: RequestInfo;
-	
 	constructor(service: Service<T, CreateT, UpdateT>, data: T[]) {
+		super();
+		
 		this.service = service;
 		this.data = data;
 		this.current = undefined;
-		
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
 	}
-	
-	protected invokeError = (error: string) => {
-		this.lastRequest = {
-			message: error,
-			successful: false
-		};
-	};
-	
-	protected invokeSuccess = () => {
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-	};
 	
 	public get = () => {
 		return toJS(this.data);
@@ -60,14 +41,6 @@ class Store<T extends Model, CreateT, UpdateT> {
 		return toJS(this.current);
 	};
 
-	public isRequestSuccessful = () => {
-		return this.lastRequest.successful;
-	};
-	
-	public getErrorMessage = () => {
-		return this.lastRequest.message;
-	};
-	
 	public getAsync = async (query: string) => {
 		const data = await this.service.get(query);
 		

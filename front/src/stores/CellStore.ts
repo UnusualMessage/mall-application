@@ -1,53 +1,35 @@
-import {makeAutoObservable, runInAction, toJS} from "mobx";
+import {action, makeObservable, observable, runInAction, toJS} from "mobx";
 
 import isError from "../utils/isError";
-import RequestInfo from "../api/interfaces/Response";
 import CellService from "../api/services/CellService";
 import Cell from "../api/interfaces/cell/Cell";
+import {Requester} from "./base";
+import {requesterProps} from "./base/Requester";
 
-class CellStore {
+const props = {
+	...requesterProps,
+	cells: observable,
+	getAsync: action
+};
+
+class CellStore extends Requester {
 	private cells: Cell[];
 	private cellService: CellService;
 	
-	private lastRequest: RequestInfo;
-	
 	constructor() {
+		super();
+		
 		this.cells = [];
 		this.cellService = new CellService();
-		
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-		
-		makeAutoObservable(this);
+
+		makeObservable(this, {
+			...props
+		});
 	}
 	
 	public get() {
 		return toJS(this.cells);
 	}
-	
-	protected invokeSuccess = () => {
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-	};
-	
-	private invokeError = (error: string) => {
-		this.lastRequest = {
-			message: error,
-			successful: false
-		};
-	};
-	
-	public isRequestSuccessful = () => {
-		return this.lastRequest.successful;
-	};
-	
-	public getErrorMessage = () => {
-		return this.lastRequest.message;
-	};
 	
 	public getAsync = async (query: string) => {
 		const cells = await this.cellService.get(query);

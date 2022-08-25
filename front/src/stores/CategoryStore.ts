@@ -3,7 +3,7 @@ import {makeObservable} from "mobx";
 import { Category, UpdateCategory, CreateCategory } from "../api/interfaces/category";
 import CategoryService from "../api/services/CategoryService";
 
-import Store, {storeProps} from "./Store";
+import Store, {storeProps} from "./base/Store";
 
 class CategoryStore extends Store<Category, CreateCategory, UpdateCategory> {
 	constructor() {

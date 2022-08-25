@@ -1,53 +1,42 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {action, makeObservable, observable, runInAction} from "mobx";
+
 import AuthService from "../api/services/AuthService";
 import AuthenticateUser from "../api/interfaces/user/AuthenticateUser";
-import RequestInfo from "../api/interfaces/Response";
 import isError from "../utils/isError";
 import User from "../api/interfaces/user/User";
+import {Requester} from "./base";
+import {requesterProps} from "./base/Requester";
 
-class AuthStore {
+const props = {
+	...requesterProps,
+	
+	isLogin: observable,
+	accessToken: observable,
+	authenticateUser: action,
+	refreshUser: action,
+	login: action,
+	logout: action
+};
+
+class AuthStore extends Requester {
 	private isLogin: boolean;
 	private authService: AuthService;
 	private accessToken: string;
-	private lastRequest: RequestInfo;
 	
 	constructor() {
+		super();
+		
 		this.isLogin = false;
 		this.accessToken = "";
 		this.authService = new AuthService();
 		
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-		
-		makeAutoObservable(this);
+		makeObservable(this, {
+			...props
+		});
 	}
 	
 	public entered = () => {
 		return this.isLogin;
-	};
-	
-	private invokeSuccess = () => {
-		this.lastRequest = {
-			message: "",
-			successful: true
-		};
-	};
-	
-	private invokeError = (error: string) => {
-		this.lastRequest = {
-			message: error,
-			successful: false
-		};
-	};
-	
-	public isRequestSuccessful = () => {
-		return this.lastRequest.successful;
-	};
-	
-	public getErrorMessage = () => {
-		return this.lastRequest.message;
 	};
 	
 	public authenticateUser = async (user: AuthenticateUser) => {

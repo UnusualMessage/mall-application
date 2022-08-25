@@ -1,39 +1,20 @@
 import {Contacts, UpdateContacts} from "../interfaces/contacts";
-import resolveResponse from "../../utils/resolveResponse";
-import {Error} from "../interfaces/Error";
+import {Error} from "../interfaces/fetch";
+import { get, put } from "./requests";
 
 class ContactsService {
-	protected readonly webApiUrl: string;
+	protected readonly url: string;
 	
 	constructor() {
-		this.webApiUrl = "/api/contacts/";
+		this.url = "/api/contacts";
 	}
 	
 	public get = async (): Promise<Contacts | Error> => {
-		const options = {
-			method: "GET",
-		};
-		
-		const request = new Request(this.webApiUrl, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+		return await get(this.url, "", "");
 	};
 	
 	public put = async (model: UpdateContacts): Promise<Contacts | Error> => {
-		const headers = new Headers();
-		headers.append("Content-Type", "application/json");
-		
-		const options = {
-			method: "PUT",
-			headers,
-			body: JSON.stringify(model)
-		};
-		
-		const request = new Request(this.webApiUrl, options);
-		const response = await fetch(request);
-		
-		return resolveResponse(response);
+		return await put(model, this.url, "", "");
 	};
 }
 

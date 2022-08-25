@@ -5,7 +5,7 @@ import Service from "./Service";
 
 class EventService extends Service<Event, CreateEvent, UpdateEvent>{
 	constructor() {
-		super("/api/events/");
+		super("/api/events");
 	}
 }
 

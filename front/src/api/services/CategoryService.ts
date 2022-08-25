@@ -5,7 +5,7 @@ import UpdateCategory from "../interfaces/category/UpdateCategory";
 
 class CategoryService extends Service<Category, CreateCategory, UpdateCategory> {
 	constructor() {
-		super("/api/categories/");
+		super("/api/categories");
 	}
 }
 
