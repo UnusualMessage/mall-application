@@ -7,7 +7,7 @@ class ImageService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/images/";
+		this.webApiUrl = "/api/images/";
 	}
 	
 	public get = async (urlParams: string): Promise<Image[] | Error> => {

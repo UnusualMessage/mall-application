@@ -6,7 +6,7 @@ class CellService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/cells/";
+		this.webApiUrl = "/api/cells/";
 	}
 	
 	public get = async (urlParams: string): Promise<Cell[] | Error> => {

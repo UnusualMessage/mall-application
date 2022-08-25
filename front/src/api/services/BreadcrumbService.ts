@@ -6,7 +6,7 @@ class BreadcrumbService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/breadcrumbs/";
+		this.webApiUrl = "/api/breadcrumbs/";
 	}
 	
 	public get = async (urlParams: string): Promise<Breadcrumb[] | Error> => {

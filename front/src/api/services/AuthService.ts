@@ -6,7 +6,7 @@ class AuthService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/users/";
+		this.webApiUrl = "/api/users/";
 	}
 	
 	public authenticate = async (model: AuthenticateUser): Promise<unknown | Error> => {

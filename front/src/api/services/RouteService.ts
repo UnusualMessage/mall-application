@@ -6,7 +6,7 @@ class RouteService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/routes/";
+		this.webApiUrl = "/api/routes/";
 	}
 	
 	public get = async (urlParams: string): Promise<Route[] | Error> => {

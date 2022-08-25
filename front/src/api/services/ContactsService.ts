@@ -6,7 +6,7 @@ class ContactsService {
 	protected readonly webApiUrl: string;
 	
 	constructor() {
-		this.webApiUrl = "https://localhost:44328/api/contacts/";
+		this.webApiUrl = "/api/contacts/";
 	}
 	
 	public get = async (): Promise<Contacts | Error> => {

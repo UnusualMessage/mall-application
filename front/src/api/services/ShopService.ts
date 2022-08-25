@@ -5,7 +5,7 @@ import Service from "./Service";
 
 class ShopService extends Service<Shop, CreateShop, UpdateShop>{
 	constructor() {
-		super("https://localhost:44328/api/shops/");
+		super("/api/shops/");
 	}
 }
 

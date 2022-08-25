@@ -5,7 +5,7 @@ import Service from "./Service";
 
 class DiscountService extends Service<Discount, CreateDiscount, UpdateDiscount> {
 	constructor() {
-		super("https://localhost:44328/api/discounts/");
+		super("/api/discounts/");
 	}
 }
 
