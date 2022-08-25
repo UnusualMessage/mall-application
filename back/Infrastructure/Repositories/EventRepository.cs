@@ -30,7 +30,9 @@ public class EventRepository : Repository<Event>, IEventRepository
                 .ThenInclude(e => e.Cell)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Socials)
-
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Category)
+            
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
@@ -51,6 +53,8 @@ public class EventRepository : Repository<Event>, IEventRepository
                 .ThenInclude(e => e.Cell)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Socials)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Category)
             
             .ToListAsync();
     }

@@ -5,8 +5,10 @@
 .wrapper {
   @include flexible(row, center, center);
 
-  background: $back;
+  width: 100%;
   margin-top: 20px;
+
+  background: $back;
 
   .inner {
     @include flexible(row, flex-start, space-around);

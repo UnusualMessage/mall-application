@@ -12,7 +12,7 @@ import Discount from "../../../../api/interfaces/discount/Discount";
 
 const DiscountCard = ({ discount }: Props) => {
 	return(
-		<InnerLink className={classNames(css.wrapper)} to={discount.link}>
+		<InnerLink className={classNames(css.wrapper)} to={discount.routePath}>
 			<div className={classNames(css.info)}>
 				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={discount.title}/>
 			</div>

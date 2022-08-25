@@ -2,7 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import classNames from "classnames";
 
-import css from "./shop.module.scss";
+import css from "../Article/article.module.scss";
 import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
@@ -17,6 +17,13 @@ import icons from "../../../data/icons";
 import ShopStore from "../../../stores/ShopStore";
 import TextEditor from "../../../components/TextEditor/TextEditor";
 import {SocialType} from "../../../types/Social";
+import {
+	EnvironmentOutlined,
+	FieldTimeOutlined,
+	LaptopOutlined,
+	MessageOutlined,
+	PhoneOutlined
+} from "@ant-design/icons";
 
 const Shop = () => {
 	const { id } = useParams();
@@ -47,44 +54,62 @@ const Shop = () => {
 	
 	return(
 		<div className={classNames(css.wrapper)}>
-			<div className={classNames(css.shop)}>
+			<div className={classNames(css.content)}>
 				<div className={classNames(css.info)}>
 					<Image classes={classNames(css.image)} source={shop.image.path}/>
 					
 					<div className={`${css.contacts}`}>
-						<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
-						<Label className={classNames(label.big)} text={shop.schedule}/>
-						<Label className={classNames(label.big)} text={shop.phone}/>
+						<div className={css.contact}>
+							<EnvironmentOutlined className={css.pre}/>
+							<Label className={classNames(label.big)} text={`${shop.floor}-й этаж`} />
+						</div>
 						
-						<OuterLink className={classNames(link.hovered)} to={`https://${shop.site}`}>
-							<Label className={classNames(label.big, label.hovered)} text={shop.site}/>
-						</OuterLink>
+						<div className={css.contact}>
+							<FieldTimeOutlined className={css.pre}/>
+							<Label className={classNames(label.big)} text={shop.schedule}/>
+						</div>
 						
-						<div className={classNames(css.socials)}>
-							{
-								shop.socials.map(social => {
-									if (social.site) {
-										return (
-											<OuterLink className={classNames(link.hovered)}
-											           to={social.site}
-											           key={social.id}>
+						<div className={css.contact}>
+							<PhoneOutlined className={css.pre}/>
+							<Label className={classNames(label.big)} text={shop.phone}/>
+						</div>
+						
+						<div className={css.contact}>
+							<LaptopOutlined className={css.pre}/>
+							
+							<OuterLink className={classNames(link.hovered)} to={`https://${shop.site}`}>
+								<Label className={classNames(label.big, label.hovered)} text={shop.site}/>
+							</OuterLink>
+						</div>
+						
+						<div className={css.contact}>
+							<MessageOutlined className={css.pre}/>
+							<div className={classNames(css.socials)}>
+								{
+									shop.socials.map(social => {
+										if (social.site) {
+											return (
+												<OuterLink className={classNames(link.hovered)}
+												           to={`https://${social.site}`}
+												           key={social.id}>
+													
+													<Icon className={classNames()}
+													      viewBox={social.name === "odnoklassniki" ? "0 0 95.481 95.481" : "0 0 20 20"}
+													      icon={icons[social.name as SocialType]}/>
 												
-												<Icon className={classNames()}
-												      viewBox={social.name === "odnoklassniki" ? "0 0 95.481 95.481" : "0 0 20 20"}
-												      icon={icons[social.name as SocialType]}/>
-												
-											</OuterLink>
-										);
-									}
-									
-									return;
-								})
-							}
+												</OuterLink>
+											);
+										}
+										
+										return;
+									})
+								}
+							</div>
 						</div>
 					</div>
 				</div>
 				
-				<Hider className={classNames(css.description)} defaultHeight={230}>
+				<Hider className={classNames(css.description)} defaultHeight={250}>
 					<TextEditor readonly text={shop.description}/>
 				</Hider>
 			</div>

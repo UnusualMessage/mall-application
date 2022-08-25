@@ -1,0 +1,83 @@
+@use "/src/utils/mixins/flex.scss" as *;
+@use "/src/utils/constants/sizes.scss" as *;
+@use "/src/utils/constants/colors.scss" as *;
+
+.wrapper {
+  @include flexible(column, center, center);
+
+  width: 100%;
+  gap: 50px;
+
+  .content {
+	@include flexible(row, flex-start, center);
+
+	width: 100%;
+	margin-top: 20px;
+	gap: 50px;
+
+	@media screen and (max-width: $pre-medium) {
+	  flex-wrap: wrap;
+	}
+
+	.info {
+	  @include flexible(row, flex-start, center);
+
+	  flex-basis: 50%;
+	  gap: 50px;
+
+	  @media screen and (max-width: $pre-big) {
+		flex-wrap: wrap;
+	  }
+
+	  @media screen and (max-width: $pre-medium) {
+		flex-basis: 100%;
+	  }
+
+	  .image {
+		flex-basis: 50%;
+		padding: 5px;
+		border: 5px solid $shop;
+
+		@media screen and (max-width: $pre-big) {
+		  flex-basis: 100%;
+		}
+	  }
+
+	  .contacts {
+		@include flexible(column, center, flex-start);
+
+		flex-basis: 50%;
+		gap: 10px;
+
+		@media screen and (max-width: $pre-big) {
+		  flex-basis: 80%;
+		}
+
+		.contact {
+		  @include flexible(row, center, space-between);
+
+		  width: 100%;
+
+		  .pre {
+			font-size: 20px;
+		  }
+		}
+
+		.socials {
+		  @include flexible(row, flex-start, flex-end);
+
+		  width: 100%;
+		  gap: 5px;
+		}
+	  }
+	}
+
+	.description {
+	  flex-basis: 50%;
+
+	  @media screen and (max-width: $pre-medium) {
+		flex-basis: 100%;
+	  }
+	}
+  }
+}

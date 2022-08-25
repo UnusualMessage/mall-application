@@ -11,7 +11,7 @@ import Event from "../../../../api/interfaces/event/Event";
 
 const EventCard = ({ event }: Props) => {
 	return(
-		<InnerLink className={classNames(css.wrapper)} to={event.link}>
+		<InnerLink className={classNames(css.wrapper)} to={event.routePath}>
 			<div className={classNames(css.info)}>
 				<Label className={classNames(css.title, label.default, label.white, label.bold)} text={event.title}/>
 			</div>

@@ -39,6 +39,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 #root {
+  @include flexible(column, stretch, flex-start);
   min-width: $mini;
-  height: 100vh;
+  min-height: 100vh;
 }

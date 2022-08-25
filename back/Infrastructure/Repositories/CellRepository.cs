@@ -23,6 +23,8 @@ public class CellRepository : Repository<Cell>, ICellRepository
                 .ThenInclude(e => e.Route)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Socials)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Category)
             
             .FirstOrDefaultAsync(e => e.Id == id);
     }
@@ -39,6 +41,8 @@ public class CellRepository : Repository<Cell>, ICellRepository
                 .ThenInclude(e => e.Route)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Socials)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Category)
             
             .ToListAsync();
     }
