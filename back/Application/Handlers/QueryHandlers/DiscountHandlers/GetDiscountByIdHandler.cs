@@ -19,6 +19,13 @@ public class GetDiscountByIdHandler : IRequestHandler<GetDiscountById, DiscountR
     
     public async Task<DiscountResponse> Handle(GetDiscountById request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<DiscountResponse>(await _discountRepository.GetByIdAsync(request.Id));
+        var discount = await _discountRepository.GetByIdAsync(request.Id);
+
+        if (discount is null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        return _mapper.Map<DiscountResponse>(discount);
     }
 }

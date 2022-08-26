@@ -31,14 +31,15 @@ public class ShopsController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new GetShopById(id));
-
-        if (response is null)
+        try
+        {
+            var response = await _mediator.Send(new GetShopById(id));
+            return Ok(response);
+        }
+        catch (NullReferenceException)
         {
             return NotFound("Статья не найдена!");
         }
-        
-        return Ok(response);
     }
 
     [HttpPost]

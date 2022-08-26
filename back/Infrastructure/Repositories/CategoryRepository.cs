@@ -19,15 +19,19 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
         {
             var selected = await ApplicationContext.Set<Category>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-            selected?.Update(entity);
+            if (selected is null)
+            {
+                throw new NullReferenceException();
+            }
 
+            selected.Update(entity);
             await ApplicationContext.SaveChangesAsync();
 
             return await GetByIdAsync(entity.Id);
         }
         catch (DbUpdateException)
         {
-            return null;
+            throw new InvalidOperationException();
         }
     }
 }

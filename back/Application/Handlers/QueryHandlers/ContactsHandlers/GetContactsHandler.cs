@@ -19,7 +19,14 @@ public class GetContactsHandler : IRequestHandler<GetContacts, ContactsResponse>
     
     public async Task<ContactsResponse> Handle(GetContacts request, CancellationToken cancellationToken)
     {
-        var result = await _contactsRepository.GetAllAsync();
-        return _mapper.Map<ContactsResponse>(result.ToList().FirstOrDefault());
+        var contacts = await _contactsRepository.GetAllAsync();
+        var contact = contacts.ToList().FirstOrDefault();
+
+        if (contact is null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        return _mapper.Map<ContactsResponse>(contact);
     }
 }

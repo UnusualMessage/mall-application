@@ -27,17 +27,28 @@ public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountRes
     {
         var removedDiscount = await _discountRepository.DeleteByIdAsync(request.Id);
 
-        if (removedDiscount is null)
+        try
         {
-            return null;
+            if (removedDiscount is null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            var routeId = removedDiscount.RouteId;
+            var breadcrumbId = removedDiscount.BreadcrumbId;
+
+            await _routeRepository.DeleteByIdAsync(routeId);
+            await _breadcrumbRepository.DeleteByIdAsync(breadcrumbId);
+
+            return _mapper.Map<DiscountResponse>(removedDiscount);
         }
-
-        var routeId = removedDiscount.RouteId;
-        var breadcrumbId = removedDiscount.BreadcrumbId;
-
-        await _routeRepository.DeleteByIdAsync(routeId);
-        await _breadcrumbRepository.DeleteByIdAsync(breadcrumbId);
-
-        return _mapper.Map<DiscountResponse>(removedDiscount);
+        catch (NullReferenceException)
+        {
+            throw new NullReferenceException();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException();
+        }
     }
 }

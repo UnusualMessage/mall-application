@@ -44,13 +44,20 @@ public class CreateDiscountHandler : IRequestHandler<CreateDiscount, DiscountRes
         
         if (route is null || breadcrumb is null)
         {
-            return null;
+            throw new NullReferenceException();
         }
         
         newDiscount.RouteId = route.Id;
         newDiscount.BreadcrumbId = breadcrumb.Id;
         newDiscount.Id = id;
-        
-        return _mapper.Map<DiscountResponse>(await _discountRepository.AddAsync(newDiscount));
+
+        var discount = await _discountRepository.AddAsync(newDiscount);
+
+        if (discount is null)
+        {
+            throw new NullReferenceException();
+        }
+            
+        return _mapper.Map<DiscountResponse>(discount);
     }
 }

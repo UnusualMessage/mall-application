@@ -21,6 +21,24 @@ public class UpdateContactsHandler : IRequestHandler<UpdateContacts, ContactsRes
     
     public async Task<ContactsResponse> Handle(UpdateContacts request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<ContactsResponse>(await _contactsRepository.UpdateAsync(_mapper.Map<Contacts>(request)));
+        try
+        {
+            var contact = await _contactsRepository.UpdateAsync(_mapper.Map<Contacts>(request));
+
+            if (contact is null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            return _mapper.Map<ContactsResponse>(contact);
+        }
+        catch (NullReferenceException)
+        {
+            throw new NullReferenceException();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException();
+        }
     }
 }

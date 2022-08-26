@@ -19,6 +19,13 @@ public class GetEventByIdHandler : IRequestHandler<GetEventById, EventResponse>
     
     public async Task<EventResponse> Handle(GetEventById request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<EventResponse>(await _eventRepository.GetByIdAsync(request.Id));
+        var entity = await _eventRepository.GetByIdAsync(request.Id);
+
+        if (entity is null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        return _mapper.Map<EventResponse>(entity);
     }
 }

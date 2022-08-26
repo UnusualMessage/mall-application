@@ -19,6 +19,13 @@ public class GetCategoryByIdHandler : IRequestHandler<GetCategoryById, CategoryR
     
     public async Task<CategoryResponse?> Handle(GetCategoryById request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<CategoryResponse?>(await _categoryRepository.GetByIdAsync(request.Id));
+        var category = await _categoryRepository.GetByIdAsync(request.Id);
+
+        if (category is null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        return _mapper.Map<CategoryResponse?>(category);
     }
 }

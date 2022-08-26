@@ -39,7 +39,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
 
             if (entity == null)
             {
-                return null;
+                throw new NullReferenceException();
             }
         
             ApplicationContext.Set<T>().Remove(entity);
@@ -49,7 +49,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         }
         catch (DbUpdateException)
         {
-            return null;
+            throw new InvalidOperationException();
         }
     }
 

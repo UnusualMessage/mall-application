@@ -31,31 +31,59 @@ public class DiscountsController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new GetDiscountById(id));
-
-        if (response is null)
+        try
+        {
+            var response = await _mediator.Send(new GetDiscountById(id));
+            return Ok(response);
+        }
+        catch (NullReferenceException)
         {
             return NotFound("Статья не найдена!");
         }
-        
-        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateDiscount request)
     {
-        return Ok(await _mediator.Send(request));
+        try
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+        catch (NullReferenceException)
+        {
+            return BadRequest("Не удалось создать статью!");
+        }
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        return Ok(await _mediator.Send(new DeleteDiscount(id)));
+        try
+        {
+            var response = await _mediator.Send(new DeleteDiscount(id));
+            return Ok(response);
+        }
+        catch (NullReferenceException)
+        {
+            return NotFound("Не найдена статья для удаления!");
+        }
+        catch (InvalidOperationException)
+        {
+            return BadRequest("Не удалось удалить статью!");
+        }
     }
 
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateDiscount request)
     {
-        return Ok(await _mediator.Send(request));
+        var response = await _mediator.Send(request);
+
+        if (response is null)
+        {
+            return BadRequest("Не удалось обновить статью!");
+        }
+        
+        return Ok(response);
     }
 }

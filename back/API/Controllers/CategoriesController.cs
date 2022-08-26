@@ -31,45 +31,64 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new GetCategoryById(id));
-
-        if (response is null)
+        try
+        {
+            var response = await _mediator.Send(new GetCategoryById(id));
+            return Ok(response);
+        }
+        catch (NullReferenceException)
         {
             return NotFound("Категория не найдена!");
         }
-        
-        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCategory request)
     {
-        var response = await _mediator.Send(request);
-
-        if (response is null)
+        try
         {
-            return BadRequest("Не удалось добавить категорию!");
+            var response = await _mediator.Send(request);
+            return Ok(response);
         }
-        
-        return Ok(response);
+        catch (NullReferenceException)
+        {
+            return BadRequest("Не удалось создать категорию!");
+        }
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new DeleteCategory(id));
-
-        if (response is null)
+        try
         {
-            return NotFound("Не удалось удалить категорию!");
+            var response = await _mediator.Send(new DeleteCategory(id));
+            return Ok(response);
         }
-        
-        return Ok(response);
+        catch (NullReferenceException)
+        {
+            return NotFound("Не найдена категория для удаления!");
+        }
+        catch (InvalidOperationException)
+        {
+            return BadRequest("Не удалось удалить категорию. Возможно, к ней уже привязаны статьи.");
+        }
     }
 
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateCategory request)
     {
-        return Ok(await _mediator.Send(request));
+        try
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+        catch (NullReferenceException)
+        {
+            return NotFound("Не найдена категория для обновления!");
+        }
+        catch (InvalidOperationException)
+        {
+            return BadRequest("Не удалось обновить категорию! Повторите позже.");
+        }
     }
 }

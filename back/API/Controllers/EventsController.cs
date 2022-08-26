@@ -31,19 +31,27 @@ public class EventsController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var response = await _mediator.Send(new GetEventById(id));
-
-        if (response is null)
+        try
+        {
+            var response = await _mediator.Send(new GetEventById(id));
+            return Ok(response);
+        }
+        catch (NullReferenceException)
         {
             return NotFound("Статья не найдена!");
         }
-        
-        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateEvent request)
     {
+        var response = await _mediator.Send(request);
+
+        if (response is null)
+        {
+            return BadRequest("Не удалось создать категорию");
+        }
+        
         return Ok(await _mediator.Send(request));
     }
 

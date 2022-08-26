@@ -20,6 +20,24 @@ public class DeleteCategoryHandler : IRequestHandler<DeleteCategory, CategoryRes
     
     public async Task<CategoryResponse> Handle(DeleteCategory request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<CategoryResponse>(await _categoryRepository.DeleteByIdAsync(request.Id));
+        try
+        {
+            var category = await _categoryRepository.DeleteByIdAsync(request.Id);
+
+            if (category is null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            return _mapper.Map<CategoryResponse>(category);
+        }
+        catch (NullReferenceException)
+        {
+            throw new NullReferenceException();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException();
+        }
     }
 }

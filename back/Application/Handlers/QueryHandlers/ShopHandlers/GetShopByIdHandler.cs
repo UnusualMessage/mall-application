@@ -19,6 +19,13 @@ public class GetShopByIdHandler : IRequestHandler<GetShopById, ShopResponse>
     
     public async Task<ShopResponse> Handle(GetShopById request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<ShopResponse>(await _shopRepository.GetByIdAsync(request.Id));
+        var shop = await _shopRepository.GetByIdAsync(request.Id);
+
+        if (shop is null)
+        {
+            throw new NullReferenceException();
+        }
+        
+        return _mapper.Map<ShopResponse>(shop);
     }
 }

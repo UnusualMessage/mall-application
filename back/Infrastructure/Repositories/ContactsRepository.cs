@@ -19,15 +19,19 @@ public class ContactsRepository : Repository<Contacts>, IContactsRepository
         {
             var selected = await ApplicationContext.Set<Contacts>().FirstOrDefaultAsync(e => e.Id == entity.Id);
 
-            selected?.Update(entity);
+            if (selected is null)
+            {
+                throw new NullReferenceException();
+            }
 
+            selected.Update(entity);
             await ApplicationContext.SaveChangesAsync();
 
             return await GetByIdAsync(entity.Id);
         }
         catch (DbUpdateException)
         {
-            return null;
+            throw new InvalidOperationException();
         }
     }
 }

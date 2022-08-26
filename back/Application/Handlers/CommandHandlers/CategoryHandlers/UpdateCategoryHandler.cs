@@ -21,6 +21,24 @@ public class UpdateCategoryHandler : IRequestHandler<UpdateCategory, CategoryRes
     
     public async Task<CategoryResponse> Handle(UpdateCategory request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<CategoryResponse>(await _categoryRepository.UpdateAsync(_mapper.Map<Category>(request)));
+        try
+        {
+            var category = await _categoryRepository.UpdateAsync(_mapper.Map<Category>(request));
+
+            if (category is null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            return _mapper.Map<CategoryResponse>(category);
+        }
+        catch (NullReferenceException)
+        {
+            throw new NullReferenceException();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException();
+        }
     }
 }
