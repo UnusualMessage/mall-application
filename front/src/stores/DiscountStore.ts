@@ -5,7 +5,8 @@ import { Category } from "../api/interfaces/category";
 import Filterable from "../types/Filterable";
 import DiscountService from "../api/services/DiscountService";
 
-import Store, {storeProps} from "./base/Store";
+import { storeProps } from "./base/Store";
+import { Store } from "./base";
 
 class DiscountStore extends Store<Discount, CreateDiscount, UpdateDiscount> implements Filterable {
 	public filter: Category | undefined;

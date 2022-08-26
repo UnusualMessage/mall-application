@@ -6,8 +6,7 @@ import classNames from "classnames";
 
 import css from "./index.module.scss";
 
-import Text from "./base/Leaf";
-import Element from "./base/Element";
+import { Leaf, Element } from "./base";
 import Toolbar from "./Toolbar";
 import {withInlines} from "./buttons/LinkButton";
 import {withImages} from "./buttons/ImageButton";
@@ -17,9 +16,9 @@ const TextEditor = ({ readonly, onChange, placeholder, text }: Props) => {
 
 	const renderText = useCallback((props: RenderLeafProps) => {
 		return (
-			<Text {...props}>
+			<Leaf {...props}>
 				{props.children}
-			</Text>
+			</Leaf>
 		);
 	}, []);
 	

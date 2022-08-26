@@ -5,7 +5,8 @@ import { Category } from "../api/interfaces/category";
 import ShopService from "../api/services/ShopService";
 import Filterable from "../types/Filterable";
 
-import Store, {storeProps} from "./base/Store";
+import { storeProps } from "./base/Store";
+import { Store } from "./base";
 
 class ShopStore extends Store<Shop, CreateShop, UpdateShop> implements Filterable {
 	public filter: Category | undefined;

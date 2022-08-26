@@ -26,14 +26,6 @@
   }
 }
 
-.large {
-  @include text(30px, $title, none, bold);
-
-  @media screen and (max-width: $pre-medium) {
-    font-size: 24px;
-  }
-}
-
 .title {
   @include text(36px, $title, none, bold);
 
@@ -44,10 +36,6 @@
 
 .bold {
     font-weight: bold;
-}
-
-.italic {
-  font-style: italic;
 }
 
 .upper {
