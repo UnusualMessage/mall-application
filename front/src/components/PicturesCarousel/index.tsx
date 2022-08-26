@@ -1,6 +1,7 @@
 import Carousel from "better-react-carousel";
 import classNames from "classnames";
-import {memo} from "react";
+import React, {memo} from "react";
+import {Typography} from "antd";
 
 import css from "./index.module.scss";
 import link from "/src/components/Link/link.module.scss";
@@ -16,7 +17,9 @@ const PicturesCarousel = ({ items, title, linkLabel, to, borderColor, rows, cols
 	return(
 		<div className={classNames(css.wrapper, borderColor)}>
 			<div className={classNames(css.info)}>
-				<Label text={title} className={classNames(css.title, label.large, borderColor)}/>
+				<Typography.Title className={classNames(css.title, label.large, borderColor)} level={3}>
+					{title}
+				</Typography.Title>
 				
 				<InnerLink className={classNames(link.underlined)} to={to}>
 					<Label className={classNames(label.mini)} text={linkLabel}/>

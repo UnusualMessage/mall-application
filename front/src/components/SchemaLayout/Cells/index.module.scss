@@ -1,6 +1,13 @@
 @use "../../../utils/constants/colors" as *;
 
-.wrapper {
+.disabled {
+  text {
+	user-select: none;
+	font-weight: bold;
+  }
+}
+
+.active {
   cursor: pointer;
 
   text {

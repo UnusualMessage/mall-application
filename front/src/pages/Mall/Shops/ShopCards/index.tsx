@@ -1,6 +1,7 @@
 import {observer} from "mobx-react-lite";
 import classNames from "classnames";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {Typography} from "antd";
 
 import css from "./index.module.scss";
 import label from "/src/components/Label/label.module.scss";
@@ -45,7 +46,10 @@ const ShopCards = () => {
 				<Label className={classNames(css.switcher, label.mini, label.upper)} text={"Фильтр"} onClick={onFilterSwitch}/>
 				
 				<div className={classNames(css.container)}>
-					<Label className={classNames(label.large)} text={`${shops.length}`}/>
+					<Typography.Title level={3}>
+						{shops.length}
+					</Typography.Title>
+					
 					<Label text={toRightForm(shops.length, [" магазин", " магазина", " магазинов"])}
 					       className={classNames(label.default, label.big)}/>
 				</div>

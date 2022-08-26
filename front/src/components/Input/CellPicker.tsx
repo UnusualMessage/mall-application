@@ -32,14 +32,14 @@ const CellPicker = ({ form, label, placeholder, name, rules }: Props) => {
 				</Space>
 			</Form.Item>
 			
-			<SchemaDrawer visible={visible}/>
+			<SchemaDrawer visible={visible} setVisible={setVisible}/>
 		</>
 	);
 };
 
-export const SchemaDrawer = ({ visible }: SchemaDrawerProps) => {
+export const SchemaDrawer = ({ visible, setVisible }: SchemaDrawerProps) => {
 	return (
-		<Drawer placement="right" visible={visible} width={"100%"}>
+		<Drawer placement="right" visible={visible} onClose={() => setVisible(false) } width={"100%"}>
 			<SchemaLayout readonly/>
 		</Drawer>
 	);
@@ -55,6 +55,7 @@ interface Props {
 
 interface SchemaDrawerProps {
 	visible: boolean,
+	setVisible: (visible: boolean) => void
 }
 
 export default observer(CellPicker);

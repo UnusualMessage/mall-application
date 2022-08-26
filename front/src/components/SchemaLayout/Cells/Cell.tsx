@@ -11,9 +11,16 @@ import map from "../../../data/map";
 const Cell = ({ cell, readonly }: Props) => {
 	const redirect = useNavigate();
 	
+	const className = classNames({
+		[css.disabled]: readonly && cell.shop || !readonly && !cell.shop,
+		[css.active]: readonly && !cell.shop || !readonly && cell.shop
+	});
+	
 	const onClick = () => {
 		if (readonly) {
-			MapStore.click(cell);
+			if (!cell.shop) {
+				MapStore.click(cell);
+			}
 		} else {
 			if (cell.shop) {
 				redirect(cell.shop.routePath);
@@ -22,7 +29,7 @@ const Cell = ({ cell, readonly }: Props) => {
 	};
 	
 	return(
-		<g className={classNames(css.wrapper)} onClick={onClick}>
+		<g className={className} onClick={onClick}>
 			{map.find(item => item.number === cell.number)?.path}
 		</g>
 	);
