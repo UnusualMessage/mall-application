@@ -1,5 +1,6 @@
 ﻿using Application.Responses.Base;
 using Application.Responses.User;
+using Core.Entities;
 
 namespace Application.Responses;
 
@@ -15,6 +16,8 @@ public class ShopResponse : Response
     public string RoutePath { get; set; } = string.Empty;
 
     public IEnumerable<SocialResponse> Socials { get; set; } = new List<SocialResponse>();
+    public IEnumerable<ImageResponse> Gallery { get; set; } = new List<ImageResponse>();
+    
     public ImageResponse Image { get; set; }
     public CategoryResponse Category { get; set; }
     public Guid CellId { get; set; }

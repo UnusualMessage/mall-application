@@ -12,7 +12,16 @@ public class CreateShop : IRequest<ShopResponse>
     
     [Required]
     public string Description { get; set; } = string.Empty;
+    
+    [Required]
+    public string? Schedule { get; set; }
 
+    [Required]
+    public string? Phone { get; set; }
+
+    [Required]
+    public string? Site { get; set; }
+    
     [Required]
     public string Link { get; set; } = string.Empty;
     
@@ -30,10 +39,6 @@ public class CreateShop : IRequest<ShopResponse>
 
     [Required]
     public IEnumerable<CreateSocial> Socials { get; set; } = new List<CreateSocial>();
-
-    public string? Schedule { get; set; }
     
-    public string? Phone { get; set; }
-    
-    public string? Site { get; set; }
+    public IEnumerable<Guid> GalleryIds { get; set; } = new List<Guid>();
 }

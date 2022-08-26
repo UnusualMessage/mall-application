@@ -21,6 +21,7 @@ public class ShopRepository : Repository<Shop>, IShopRepository
             .Include(e => e.Breadcrumb)
             .Include(e => e.Image)
             .Include(e => e.Socials)
+            .Include(e => e.Gallery)
             .Include(e => e.Cell)
             .FirstOrDefaultAsync(shop => shop.Id == id);
     }
@@ -32,6 +33,8 @@ public class ShopRepository : Repository<Shop>, IShopRepository
             .Include(e => e.Breadcrumb)
             .Include(e => e.Category)
             .Include(e => e.Image)
+            .Include(e => e.Socials)
+            .Include(e => e.Gallery)
             .Include(e => e.Cell)
             .ToListAsync();
     }

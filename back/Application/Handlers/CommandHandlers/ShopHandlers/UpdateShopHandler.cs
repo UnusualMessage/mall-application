@@ -5,17 +5,18 @@ using Application.Requests.Commands.Shop;
 using Application.Responses;
 using Core.Entities;
 using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
 
 namespace Application.Handlers.CommandHandlers.ShopHandlers;
 
 public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
 {
     private readonly IShopRepository _shopRepository;
+    private readonly IImageRepository _imageRepository;
     private readonly IMapper _mapper;
 
-    public UpdateShopHandler(IShopRepository repository, IMapper mapper)
+    public UpdateShopHandler(IShopRepository repository, IImageRepository imageRepository, IMapper mapper)
     {
+        _imageRepository = imageRepository;
         _shopRepository = repository;
         _mapper = mapper;
     }
@@ -29,12 +30,12 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
             return null;
         }
         
-        shopToBeUpdated.Route.Update(new Route()
+        shopToBeUpdated.Route?.Update(new Route()
         {
             Path = request.RoutePath
         });
         
-        shopToBeUpdated.Breadcrumb.Update(new Breadcrumb()
+        shopToBeUpdated.Breadcrumb?.Update(new Breadcrumb()
         {
             Name = request.Title,
             Link = request.Link
@@ -51,6 +52,18 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
                 
                 social.Update(newSocial);
                 break;
+            }
+        }
+        
+        foreach (var imageId in request.GalleryIds)
+        {
+            shopToBeUpdated.Gallery.Clear();
+            
+            var image = await _imageRepository.GetByIdAsync(imageId);
+
+            if (image != null)
+            {
+                shopToBeUpdated.Gallery.Add(image);
             }
         }
 

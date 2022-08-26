@@ -11,15 +11,19 @@ public class ImagesConfiguration : IEntityTypeConfiguration<Image>
         builder.ToTable("IMAGES");
 
         builder
-            .HasMany<Shop>()
+            .HasMany(e => e.ShopsWithLogos)
             .WithOne(e => e.Image)
             .HasForeignKey(e => e.ImageId);
+        
+        builder
+            .HasMany(e => e.ShopsWithGallery)
+            .WithMany(e => e.Gallery);
         
         builder
             .HasMany<Event>()
             .WithOne(e => e.Image)
             .HasForeignKey(e => e.ImageId);
-        
+
         builder
             .HasMany<Discount>()
             .WithOne(e => e.Image)

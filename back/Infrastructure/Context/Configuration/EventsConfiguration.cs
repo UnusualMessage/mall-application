@@ -10,5 +10,11 @@ public class EventsConfiguration : IEntityTypeConfiguration<Event>
     public void Configure(EntityTypeBuilder<Event> builder)
     {
         builder.ToTable("EVENTS");
+
+        builder
+            .HasOne(e => e.Shop)
+            .WithMany(e => e.Events)
+            .HasForeignKey(e => e.ShopId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

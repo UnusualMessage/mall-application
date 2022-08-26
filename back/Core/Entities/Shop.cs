@@ -4,8 +4,8 @@ namespace Core.Entities;
 
 public class Shop : Entity, IUpdatable<Shop>
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public string? Schedule { get; set; }
     public string? Phone { get; set; }
     public string? Site { get; set; }
@@ -29,6 +29,7 @@ public class Shop : Entity, IUpdatable<Shop>
     
     public IEnumerable<Discount> Discounts { get; set; } = new List<Discount>();
     public IEnumerable<Event> Events { get; set; } = new List<Event>();
+    public ICollection<Image> Gallery { get; set; } = new List<Image>();
 
     public void Update(Shop shop)
     {
