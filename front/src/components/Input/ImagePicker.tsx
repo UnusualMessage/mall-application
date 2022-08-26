@@ -1,4 +1,4 @@
-import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Image, Input, Row, Space} from "antd";
+import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Image, Row, Space} from "antd";
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
@@ -14,12 +14,28 @@ const cardBreakpoints = {
 	xxl: 4
 };
 
-const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
-	const image = Form.useWatch<ImageInterface | undefined>(name, form);
+const ImagePicker = ({ form, label, name, rules, multiple }: Props) => {
+	const [images, setImages] = useState<ImageInterface[]>([]);
 	const [visible, setVisible] = useState(false);
 	
+	useEffect(() => {
+		if (multiple) {
+			setImages(form.getFieldValue(name));
+		} else {
+			setImages([form.getFieldValue(name)]);
+		}
+	}, []);
+	
 	const pick = (image: ImageInterface) => {
-		form.setFieldValue(name, image);
+		
+		if (multiple) {
+			form.setFieldValue(name, [...images.filter(item => item.id !== image.id), image]);
+			setImages(prevState => [...prevState.filter(item => item.id !== image.id), image]);
+		} else {
+			form.setFieldValue(name, image);
+			setImages([image]);
+		}
+		
 		setVisible(false);
 	};
 	
@@ -31,13 +47,21 @@ const ImagePicker = ({ form, label, placeholder, name, rules }: Props) => {
 		<>
 			<Form.Item label={label} name={name} hasFeedback rules={rules}>
 				<Space>
-					<Input id={name} disabled placeholder={placeholder} value={image?.path}/>
 					<Button type="primary" onClick={open}>
-						Показать
+						{
+							multiple ? "Добавить изображение" : "Выбрать изображение"
+						}
 					</Button>
-					{
-						image ? <Image src={image.path} width={100}/> : <></>
-					}
+					
+					<Image.PreviewGroup>
+						{
+							images.map(image => {
+								return (
+									<Image src={image.path} width={100} key={image.id}/>
+								);
+							})
+						}
+					</Image.PreviewGroup>
 				</Space>
 			</Form.Item>
 			
@@ -94,7 +118,8 @@ interface Props {
 	label: string,
 	placeholder: string,
 	name: string,
-	rules?: FormRule[]
+	rules?: FormRule[],
+	multiple?: boolean
 }
 
 interface ImageDrawerProps {

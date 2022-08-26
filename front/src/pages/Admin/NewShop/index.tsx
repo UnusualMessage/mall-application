@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
 import Loader from "../../../components/Loader";
+import CellPicker from "../../../components/Input/CellPicker";
 
 import {CreateShop} from "../../../api/interfaces/shop";
 import {CreateSocial} from "../../../api/interfaces/social";
@@ -14,7 +15,6 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
-import CellPicker from "../../../components/Input/CellPicker";
 
 const rootRoute = "shops";
 
@@ -67,7 +67,7 @@ const NewShop = () => {
 			site: values.site,
 			phone: values.phone,
 			categoryId: values.categoryId,
-			imageId: values.image.id,
+			imageId: values.logo.id,
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
 			socials: socials
@@ -91,7 +91,8 @@ const NewShop = () => {
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
-				<ImagePicker {...initialOptions.image} form={form}/>
+				<ImagePicker {...initialOptions.logo} form={form}/>
+				<ImagePicker {...initialOptions.gallery} form={form} multiple/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
 				
 				<Form.Item label={"Социальные сети"}>

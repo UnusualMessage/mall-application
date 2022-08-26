@@ -12,7 +12,8 @@ export interface Values {
 	categoryId: string,
 	
 	cellId: string
-	image: Image,
+	logo: Image,
+	gallery: Image[],
 	socials: SocialRecord
 }
 
@@ -46,13 +47,19 @@ export const getShopInitialValues = (shop?: Shop) => {
 
 export const getShopInitialOptions = (): Options<Values> => {
 	return {
-		image: {
-			name: "image",
+		logo: {
+			name: "logo",
 			placeholder: "Выберите логотип магазина",
 			label: "Логотип",
 			rules: [
 				{ required: true, message: "Обязательно для заполнения" }
 			]
+		},
+		
+		gallery: {
+			name: "gallery",
+			placeholder: "Выберите новое изображение",
+			label: "Галерея",
 		},
 		
 		title: {
