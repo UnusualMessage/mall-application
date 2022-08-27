@@ -2,11 +2,11 @@
 
 namespace Core.Entities;
 
-public class Route : Entity, IUpdatable<Route>
+public class Route : Entity<Route>
 {
     public string Path { get; set; } = string.Empty;
     
-    public void Update(Route route)
+    public override void Update(Route route)
     {
         Path = route.Path;
     }

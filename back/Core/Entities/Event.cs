@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class Event : Entity, IUpdatable<Event>
+public class Event : Entity<Event>
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ public class Event : Entity, IUpdatable<Event>
     public Guid ShopId { get; set; }
     public Shop? Shop { get; set; }
     
-    public void Update(Event entity)
+    public override void Update(Event entity)
     {
         Title = entity.Title;
         Description = entity.Description;

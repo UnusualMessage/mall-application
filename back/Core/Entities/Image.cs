@@ -2,14 +2,14 @@
 
 namespace Core.Entities;
 
-public class Image : Entity, IUpdatable<Image>
+public class Image : Entity<Image>
 {
     public string Path { get; set; } = string.Empty;
 
-    public IEnumerable<Shop> ShopsWithLogos { get; set; } = new List<Shop>();
-    public ICollection<Shop> ShopsWithGallery { get; set; } = new List<Shop>();
+    public IEnumerable<Shop> ShopsWithLogos { get; } = new List<Shop>();
+    public IEnumerable<Shop> ShopsWithGallery { get; } = new List<Shop>();
 
-    public void Update(Image entity)
+    public override void Update(Image entity)
     {
         Path = entity.Path;
     }

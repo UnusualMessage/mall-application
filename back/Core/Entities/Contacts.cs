@@ -2,14 +2,14 @@
 
 namespace Core.Entities;
 
-public class Contacts : Entity, IUpdatable<Contacts>
+public class Contacts : Entity<Contacts>
 {
     public string Phone { get; set; } = string.Empty;
     public string Schedule { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string Street { get; set; } = string.Empty;
 
-    public void Update(Contacts contacts)
+    public override void Update(Contacts contacts)
     {
         Phone = contacts.Phone;
         Schedule = contacts.Schedule;

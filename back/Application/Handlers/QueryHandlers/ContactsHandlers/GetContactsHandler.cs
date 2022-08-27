@@ -1,6 +1,7 @@
 ﻿using Application.Requests.Queries.Contacts;
 using Application.Responses;
 using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using MediatR;
 
@@ -24,7 +25,7 @@ public class GetContactsHandler : IRequestHandler<GetContacts, ContactsResponse>
 
         if (contact is null)
         {
-            throw new NullReferenceException();
+            throw new NotFoundException("Не удалось найти контактную информацию!");
         }
         
         return _mapper.Map<ContactsResponse>(contact);

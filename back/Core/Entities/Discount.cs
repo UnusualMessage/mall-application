@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class Discount : Entity, IUpdatable<Discount>
+public class Discount : Entity<Discount>
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ public class Discount : Entity, IUpdatable<Discount>
     public Guid ShopId { get; set; }
     public Shop? Shop { get; set; }
 
-    public void Update(Discount entity)
+    public override void Update(Discount entity)
     {
         Title = entity.Title;
         Description = entity.Description;
