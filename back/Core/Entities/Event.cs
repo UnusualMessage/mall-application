@@ -8,16 +8,16 @@ public class Event : Entity<Event>
     public string Description { get; set; } = string.Empty;
     
     public Guid ImageId { get; set; }
-    public Image? Image { get; set; }
+    public Image Image { get; set; } = default!;
     
     public Guid RouteId { get; set; }
-    public Route? Route { get; set; }
+    public Route Route { get; set; } = default!;
     
     public Guid BreadcrumbId { get; set; }
-    public Breadcrumb? Breadcrumb { get; set; }
+    public Breadcrumb Breadcrumb { get; set; } = default!;
     
     public Guid ShopId { get; set; }
-    public Shop? Shop { get; set; }
+    public Shop Shop { get; set; } = default!;
     
     public override void Update(Event entity)
     {

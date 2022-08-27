@@ -13,6 +13,6 @@ public class DiscountResponse : Response
     [Sieve(CanFilter = true)]
     public Guid ShopId { get; set; }
 
-    public ShopResponse Shop { get; set; }
-    public ImageResponse Image { get; set; }
+    public ShopResponse Shop { get; set; } = default!;
+    public ImageResponse Image { get; set; } = default!;
 }

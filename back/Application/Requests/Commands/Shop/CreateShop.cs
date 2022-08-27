@@ -14,13 +14,13 @@ public class CreateShop : IRequest<ShopResponse>
     public string Description { get; set; } = string.Empty;
     
     [Required]
-    public string? Schedule { get; set; }
+    public string Schedule { get; set; } = string.Empty;
 
     [Required]
-    public string? Phone { get; set; }
+    public string Phone { get; set; } = string.Empty;
 
     [Required]
-    public string? Site { get; set; }
+    public string Site { get; set; } = string.Empty;
     
     [Required]
     public string Link { get; set; } = string.Empty;

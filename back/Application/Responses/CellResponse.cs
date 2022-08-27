@@ -9,6 +9,6 @@ public class CellResponse : Response
     
     [Sieve(CanFilter = true)]
     public short Floor { get; set; }
-    
-    public ShopResponse Shop { get; set; }
+
+    public ShopResponse Shop { get; set; } = default!;
 }
