@@ -34,7 +34,7 @@ public class DeleteCategoryHandler : IRequestHandler<DeleteCategory, CategoryRes
         }
         catch (InvalidOperationException)
         {
-            throw new BadRequestException("Не удалось удалить категорию!");
+            throw new BadRequestException("Ошибка при удалении категории! Возможно, к ней привязаны магазины.");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Requests.Queries.Discount;
 using Application.Responses;
 using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using MediatR;
 
@@ -23,7 +24,7 @@ public class GetDiscountByIdHandler : IRequestHandler<GetDiscountById, DiscountR
 
         if (discount is null)
         {
-            throw new NullReferenceException();
+            throw new NotFoundException("Статья не найдена!");
         }
         
         return _mapper.Map<DiscountResponse>(discount);

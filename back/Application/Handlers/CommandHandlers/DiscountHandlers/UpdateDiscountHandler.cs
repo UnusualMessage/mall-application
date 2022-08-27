@@ -4,6 +4,7 @@ using MediatR;
 using Application.Requests.Commands.Discount;
 using Application.Responses;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 
@@ -23,17 +24,30 @@ public class UpdateDiscountHandler : IRequestHandler<UpdateDiscount, DiscountRes
     public async Task<DiscountResponse> Handle(UpdateDiscount request, CancellationToken cancellationToken)
     {
         var discountToBeUpdated = await _discountRepository.GetByIdAsync(request.Id);
-        discountToBeUpdated?.Route?.Update(new Route()
+
+        if (discountToBeUpdated is null)
+        {
+            throw new NotFoundException("Не удалось найти статью!");
+        }
+        
+        discountToBeUpdated.Route?.Update(new()
         {
             Path = request.RoutePath
         });
         
-        discountToBeUpdated?.Breadcrumb?.Update(new Breadcrumb()
+        discountToBeUpdated.Breadcrumb?.Update(new()
         {
             Name = request.Title,
             Link = request.Link
         });
 
-        return _mapper.Map<DiscountResponse>(await _discountRepository.UpdateAsync(_mapper.Map<Discount>(request)));
+        try
+        {
+            return _mapper.Map<DiscountResponse>(await _discountRepository.UpdateAsync(_mapper.Map<Discount>(request)));
+        }
+        catch (InvalidOperationException)
+        {
+            throw new BadRequestException("Не удалось обновить статью!");
+        }
     }
 }

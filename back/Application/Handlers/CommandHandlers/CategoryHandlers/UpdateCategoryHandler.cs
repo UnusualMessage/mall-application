@@ -35,7 +35,7 @@ public class UpdateCategoryHandler : IRequestHandler<UpdateCategory, CategoryRes
         }
         catch (InvalidOperationException)
         {
-            throw new BadRequestException("Ошибка при удалении категории! Возможно, к ней привязаны магазины.");
+            throw new BadRequestException("Не удалось обновить категорию!");
         }
     }
 }

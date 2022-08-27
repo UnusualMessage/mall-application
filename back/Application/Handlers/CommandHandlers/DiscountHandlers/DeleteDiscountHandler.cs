@@ -3,11 +3,13 @@ using MediatR;
 
 using Application.Requests.Commands.Discount;
 using Application.Responses;
+using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.DiscountHandlers;
 
-public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountResponse?>
+public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountResponse>
 {
     private readonly IDiscountRepository _discountRepository;
     private readonly IRouteRepository _routeRepository;
@@ -23,32 +25,30 @@ public class DeleteDiscountHandler : IRequestHandler<DeleteDiscount, DiscountRes
         _mapper = mapper;
     }
 
-    public async Task<DiscountResponse?> Handle(DeleteDiscount request, CancellationToken cancellationToken)
+    public async Task<DiscountResponse> Handle(DeleteDiscount request, CancellationToken cancellationToken)
     {
-        var removedDiscount = await _discountRepository.DeleteByIdAsync(request.Id);
-
+        Discount? removedDiscount;
+        
         try
         {
+            removedDiscount = await _discountRepository.DeleteByIdAsync(request.Id);
+
             if (removedDiscount is null)
             {
-                throw new NullReferenceException();
+                throw new NotFoundException("Не удалось найти статью!");
             }
-            
-            var routeId = removedDiscount.RouteId;
-            var breadcrumbId = removedDiscount.BreadcrumbId;
-
-            await _routeRepository.DeleteByIdAsync(routeId);
-            await _breadcrumbRepository.DeleteByIdAsync(breadcrumbId);
-
-            return _mapper.Map<DiscountResponse>(removedDiscount);
-        }
-        catch (NullReferenceException)
-        {
-            throw new NullReferenceException();
         }
         catch (InvalidOperationException)
         {
-            throw new InvalidOperationException();
+            throw new BadRequestException("Не удалось удалить статью!");
         }
+        
+        var routeId = removedDiscount.RouteId;
+        var breadcrumbId = removedDiscount.BreadcrumbId;
+
+        await _routeRepository.DeleteByIdAsync(routeId);
+        await _breadcrumbRepository.DeleteByIdAsync(breadcrumbId);
+
+        return _mapper.Map<DiscountResponse>(removedDiscount);
     }
 }
