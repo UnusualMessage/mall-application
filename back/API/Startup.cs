@@ -1,5 +1,4 @@
-﻿using System.Net;
-using MediatR;
+﻿using MediatR;
 
 using System.Text;
 
@@ -9,8 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 
 using Infrastructure.Extensions;
 using API.Extensions;
+using API.Middlewares;
 using Core.Settings;
-using Microsoft.AspNetCore.Diagnostics;
 
 namespace API;
 
@@ -87,6 +86,7 @@ public class Startup
         }
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseDefaultFiles();
         app.UseStaticFiles();

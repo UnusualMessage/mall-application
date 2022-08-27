@@ -23,32 +23,12 @@ public class ContactsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        try
-        {
-            var response = await _mediator.Send(new GetContacts());
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return NotFound("Информация по контактам не найдена!");
-        }
+        return Ok(await _mediator.Send(new GetContacts()));
     }
 
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateContacts request)
     {
-        try
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return NotFound("Не найдена информация для обновления!");
-        }
-        catch (InvalidOperationException)
-        {
-            return BadRequest("Не удалось обновить информацию! Повторите позже.");
-        }
+        return Ok(await _mediator.Send(request));
     }
 }

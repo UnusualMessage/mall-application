@@ -31,64 +31,24 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        try
-        {
-            var response = await _mediator.Send(new GetCategoryById(id));
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return NotFound("Категория не найдена!");
-        }
+        return Ok(await _mediator.Send(new GetCategoryById(id)));
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCategory request)
     {
-        try
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return BadRequest("Не удалось создать категорию!");
-        }
+        return Ok(await _mediator.Send(request));
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        try
-        {
-            var response = await _mediator.Send(new DeleteCategory(id));
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return NotFound("Не найдена категория для удаления!");
-        }
-        catch (InvalidOperationException)
-        {
-            return BadRequest("Не удалось удалить категорию. Возможно, к ней уже привязаны статьи.");
-        }
+        return Ok(await _mediator.Send(new DeleteCategory(id)));
     }
 
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateCategory request)
     {
-        try
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
-        catch (NullReferenceException)
-        {
-            return NotFound("Не найдена категория для обновления!");
-        }
-        catch (InvalidOperationException)
-        {
-            return BadRequest("Не удалось обновить категорию! Повторите позже.");
-        }
+        return Ok(await _mediator.Send(request));
     }
 }

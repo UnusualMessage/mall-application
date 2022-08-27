@@ -4,6 +4,7 @@ using AutoMapper;
 using Application.Requests.Commands.Category;
 using Application.Responses;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.CategoryHandlers;
@@ -27,18 +28,14 @@ public class UpdateCategoryHandler : IRequestHandler<UpdateCategory, CategoryRes
 
             if (category is null)
             {
-                throw new NullReferenceException();
+                throw new NotFoundException("Не удалось найти категорию!");
             }
             
             return _mapper.Map<CategoryResponse>(category);
         }
-        catch (NullReferenceException)
-        {
-            throw new NullReferenceException();
-        }
         catch (InvalidOperationException)
         {
-            throw new InvalidOperationException();
+            throw new BadRequestException("Ошибка при удалении категории! Возможно, к ней привязаны магазины.");
         }
     }
 }

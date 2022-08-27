@@ -4,6 +4,7 @@ using AutoMapper;
 using Application.Requests.Commands.Category;
 using Application.Responses;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.CategoryHandlers;
@@ -21,13 +22,20 @@ public class CreateCategoryHandler : IRequestHandler<CreateCategory, CategoryRes
         
     public async Task<CategoryResponse> Handle(CreateCategory request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.AddAsync(_mapper.Map<Category>(request));
-
-        if (category is null)
+        try
         {
-            throw new NullReferenceException();
+            var category = await _categoryRepository.AddAsync(_mapper.Map<Category>(request));
+            
+            if (category is null)
+            {
+                throw new BadRequestException("Не удалось создать категорию!");
+            }
+            
+            return _mapper.Map<CategoryResponse>(category);
         }
-        
-        return _mapper.Map<CategoryResponse>(category);
+        catch (InvalidOperationException)
+        {
+            throw new BadRequestException("Не удалось создать категорию!");
+        }
     }
 }
