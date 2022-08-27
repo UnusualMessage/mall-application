@@ -13,12 +13,13 @@ public class ImagesConfiguration : IEntityTypeConfiguration<Image>
         builder
             .HasMany(e => e.ShopsWithLogos)
             .WithOne(e => e.Image)
-            .HasForeignKey(e => e.ImageId);
-        
+            .HasForeignKey(e => e.ImageId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder
             .HasMany(e => e.ShopsWithGallery)
             .WithMany(e => e.Gallery);
-        
+
         builder
             .HasMany<Event>()
             .WithOne(e => e.Image)

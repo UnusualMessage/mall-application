@@ -2,9 +2,9 @@ import {Button, Drawer, Form, FormInstance, FormRule, Input, Space} from "antd";
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
-import SchemaLayout from "../SchemaLayout";
+import SchemaLayout from "../../SchemaLayout";
 
-import MapStore from "../../stores/MapStore";
+import MapStore from "../../../stores/MapStore";
 
 const CellPicker = ({ form, label, placeholder, name, rules }: Props) => {
 	const cell = Form.useWatch<string | undefined>(name, form);

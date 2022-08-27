@@ -5,7 +5,7 @@ import {Button, Form, Layout, PageHeader, Space} from "antd";
 
 import css from "./index.module.scss";
 
-import {TextInput} from "../../../components/Input";
+import {TextInput} from "../../../components/Form/inputs";
 
 import AuthenticateUser from "../../../api/interfaces/user/AuthenticateUser";
 import AuthStore from "../../../stores/AuthStore";

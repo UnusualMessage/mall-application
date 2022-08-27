@@ -1,15 +1,17 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
+import {Form, message, PageHeader, Space} from "antd";
 
 import Loader from "../../../components/Loader";
-import {TextInput} from "../../../components/Input";
+import {TextInput} from "../../../components/Form/inputs";
+import {Update} from "../../../components/Form/buttons";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import { UpdateCategory } from "../../../api/interfaces/category";
 import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/forms/getCategoryForm";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "categories";
 
@@ -52,7 +54,16 @@ const Category = () => {
 		InterfaceStore.setLoading(true);
 		await CategoryStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
-		redirect(`../${rootRoute}`);
+		
+		const successful = CategoryStore.isRequestSuccessful();
+		
+		await showMessage(successful,
+			"Категория удалена!",
+			CategoryStore.getErrorMessage());
+		
+		if (successful) {
+			redirect(`../${rootRoute}`);
+		}
 	};
 	
 	const handleUpdate = async (values: Values) => {
@@ -64,6 +75,10 @@ const Category = () => {
 		InterfaceStore.setLoading(true);
 		await CategoryStore.updateAsync(newCategory);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(CategoryStore.isRequestSuccessful(),
+			"Категория обновлена!",
+			CategoryStore.getErrorMessage());
 	};
 	
 	return(
@@ -76,18 +91,7 @@ const Category = () => {
 			
 			<Form onFinish={handleUpdate} labelCol={{span: 24}} initialValues={initialValues}>
 				<TextInput {...initialOptions.title}/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Изменить
-					</Button>
-					
-					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
-							Удалить
-						</Button>
-					</Popconfirm>
-				</Space>
+				<Update isLoading={interfaceLocked} handleDelete={handleDelete}/>
 			</Form>
 		</Space>
 	);

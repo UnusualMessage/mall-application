@@ -1,10 +1,11 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
+import {Form, message, PageHeader, Space} from "antd";
 
-import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
+import {Update} from "../../../components/Form/buttons";
 
 import DiscountStore from "../../../stores/DiscountStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -12,6 +13,7 @@ import ShopStore from "../../../stores/ShopStore";
 import { UpdateDiscount } from "../../../api/interfaces/discount";
 import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/forms/getDiscountForm";
 import transliterate from "../../../utils/transliterate";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "discounts";
 
@@ -59,8 +61,14 @@ const Discount = () => {
 		await DiscountStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
 		
-		if (!DiscountStore.isRequestSuccessful()) {
-			message.error(DiscountStore.getErrorMessage());
+		const successful = DiscountStore.isRequestSuccessful();
+		
+		await showMessage(successful,
+			"Статья удалена!",
+			DiscountStore.getErrorMessage());
+		
+		if (successful) {
+			redirect(`../${rootRoute}`);
 		}
 	};
 	
@@ -78,8 +86,12 @@ const Discount = () => {
 		};
 		
 		InterfaceStore.setLoading(true);
-		await DiscountStore.createAsync(newDiscount);
+		await DiscountStore.updateAsync(newDiscount);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(DiscountStore.isRequestSuccessful(),
+			"Статья обновлена!",
+			DiscountStore.getErrorMessage());
 	};
 	
 	return(
@@ -95,18 +107,7 @@ const Discount = () => {
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<RichTextInput form={form} {...initialOptions.description}/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Изменить
-					</Button>
-					
-					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
-							Удалить
-						</Button>
-					</Popconfirm>
-				</Space>
+				<Update isLoading={interfaceLocked} handleDelete={handleDelete}/>
 			</Form>
 		</Space>
 	);

@@ -1,6 +1,6 @@
-import {Input, Form} from "antd";
+import {Input, Form, Space} from "antd";
 
-import {SocialType} from "../../types/Social";
+import {socials, SocialType} from "../../../types/Social";
 
 const translated: Record<SocialType, string> = {
 	vk: "ВКонтакте",
@@ -8,6 +8,18 @@ const translated: Record<SocialType, string> = {
 	facebook: "Facebook",
 	twitter: "twitter",
 	instagram: "instagram"
+};
+
+const SocialsInput = () => {
+	return (
+		<Form.Item label={"Социальные сети"}>
+			<Space wrap>
+				{
+					socials.map(social => <SocialInput social={social} key={social}/>)
+				}
+			</Space>
+		</Form.Item>
+	);
 };
 
 const SocialInput = ({ social }: Props) => {
@@ -22,4 +34,4 @@ interface Props {
 	social: SocialType
 }
 
-export default SocialInput;
+export default SocialsInput;

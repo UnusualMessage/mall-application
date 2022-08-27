@@ -3,7 +3,7 @@ import {useSlate} from "slate-react";
 import {Editor, Transforms, Element} from "slate";
 
 import Button from "./Button";
-import {ImageDrawer} from "../../Input/ImagePicker";
+import {ImageDrawer} from "../../Form/inputs/ImagePicker";
 import {Image} from "../../../api/interfaces/image";
 
 const ImageButton = ({ icon }: Props) => {

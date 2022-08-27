@@ -1,10 +1,11 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
+import {Form, message, PageHeader, Space} from "antd";
 
-import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
+import {Update} from "../../../components/Form/buttons";
 
 import ShopStore from "../../../stores/ShopStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -12,6 +13,7 @@ import EventStore from "../../../stores/EventStore";
 import { UpdateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "events";
 
@@ -47,7 +49,7 @@ const Event = () => {
 		};
 		
 		void getEvent();
-	}, [event]);
+	}, [id]);
 	
 	if (!event || isFetching) {
 		return <Loader/>;
@@ -57,6 +59,16 @@ const Event = () => {
 		InterfaceStore.setLoading(true);
 		await EventStore.deleteAsync(id ?? "");
 		InterfaceStore.setLoading(false);
+		
+		const successful = EventStore.isRequestSuccessful();
+		
+		await showMessage(successful,
+			"Статья удалена!",
+			EventStore.getErrorMessage());
+		
+		if (successful) {
+			redirect(`../${rootRoute}`);
+		}
 	};
 	
 	const handleUpdate = async (values: Values) => {
@@ -73,8 +85,12 @@ const Event = () => {
 		};
 		
 		InterfaceStore.setLoading(true);
-		await EventStore.createAsync(newEvent);
+		await EventStore.updateAsync(newEvent);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(EventStore.isRequestSuccessful(),
+			"Статья обновлена!",
+			EventStore.getErrorMessage());
 	};
 	
 	return(
@@ -90,18 +106,7 @@ const Event = () => {
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<RichTextInput form={form} {...initialOptions.description}/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Изменить
-					</Button>
-					
-					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={interfaceLocked} disabled={interfaceLocked}>
-							Удалить
-						</Button>
-					</Popconfirm>
-				</Space>
+				<Update isLoading={interfaceLocked} handleDelete={handleDelete}/>
 			</Form>
 		</Space>
 	);

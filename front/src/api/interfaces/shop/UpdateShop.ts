@@ -10,8 +10,9 @@ export default interface UpdateShop {
 	link: string,
 	routePath: string,
 	
-	socials: Social[],
 	cellId: string,
 	categoryId: string,
 	imageId: string,
+	galleryIds: string[],
+	socials: Social[],
 }

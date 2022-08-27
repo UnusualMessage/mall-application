@@ -1,19 +1,19 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, message, PageHeader, Popconfirm, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 
-import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialsInput, CellPicker} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
+import {Update} from "../../../components/Form/buttons";
 
 import ShopStore from "../../../stores/ShopStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import {UpdateShop} from "../../../api/interfaces/shop";
 import {Social} from "../../../api/interfaces/social";
-import {socials} from "../../../types/Social";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
-import CellPicker from "../../../components/Input/CellPicker";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "shops";
 
@@ -38,12 +38,10 @@ const Shop = () => {
 		const getShop = async () => {
 			await ShopStore.getByIdAsync(id ?? "");
 			await CategoryStore.getAsync("");
-			
-			const shop = ShopStore.getCurrent();
-			
+
 			setIsLoading(false);
 			
-			if (!shop) {
+			if (!ShopStore.isRequestSuccessful()) {
 				redirect(`../${rootRoute}`);
 			}
 		};
@@ -78,7 +76,8 @@ const Shop = () => {
 			site: values.site,
 			phone: values.phone,
 			categoryId: values.categoryId,
-			imageId: values.image.id,
+			imageId: values.logo.id,
+			galleryIds: values.gallery.map(item => item.id),
 			link: transliteratedTitle,
 			routePath: `/${rootRoute}/${transliteratedTitle}/${shop.id}`,
 			cellId: values.cellId,
@@ -88,6 +87,10 @@ const Shop = () => {
 		setIsLoading(true);
 		await ShopStore.updateAsync(newShop);
 		setIsLoading(false);
+		
+		await showMessage(ShopStore.isRequestSuccessful(),
+			"Статья обновлена!",
+			ShopStore.getErrorMessage());
 	};
 	
 	const handleDelete = async () => {
@@ -95,10 +98,14 @@ const Shop = () => {
 		await ShopStore.deleteAsync(id ?? "");
 		setIsLoading(false);
 		
-		if (ShopStore.isRequestSuccessful()) {
+		const successful = ShopStore.isRequestSuccessful();
+		
+		await showMessage(successful,
+			"Статья удалена!",
+			ShopStore.getErrorMessage());
+		
+		if (successful) {
 			redirect(`../${rootRoute}`);
-		} else {
-			message.error(ShopStore.getErrorMessage());
 		}
 	};
 	
@@ -116,30 +123,12 @@ const Shop = () => {
 				<TextInput {...initialOptions.schedule}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.site}/>
-				<ImagePicker {...initialOptions.image} form={form}/>
+				<ImagePicker {...initialOptions.logo} form={form}/>
+				<ImagePicker {...initialOptions.gallery} form={form} multiple/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
-				
-				<Form.Item label={"Социальные сети"}>
-					<Space wrap>
-						{
-							socials.map(social => <SocialInput social={social} key={social}/>)
-						}
-					</Space>
-				</Form.Item>
-				
+				<SocialsInput/>
 				<RichTextInput {...initialOptions.description} form={form}/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-						Изменить
-					</Button>
-					
-					<Popconfirm title={"Удалить?"} okText={"Да"} cancelText={"Нет"} onConfirm={handleDelete}>
-						<Button type="primary" danger loading={isLoading} disabled={isLoading}>
-							Удалить
-						</Button>
-					</Popconfirm>
-				</Space>
+				<Update isLoading={isLoading} handleDelete={handleDelete}/>
 			</Form>
 		</Space>
 	);

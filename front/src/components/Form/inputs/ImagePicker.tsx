@@ -2,8 +2,9 @@ import {Button, Card, Col, Drawer, Form, FormInstance, FormRule, Image, Row, Spa
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 
-import ImageStore from "../../stores/ImageStore";
-import { Image as ImageInterface } from "../../api/interfaces/image";
+import ImageStore from "../../../stores/ImageStore";
+import { Image as ImageInterface } from "../../../api/interfaces/image";
+import {DeleteOutlined} from "@ant-design/icons";
 
 const cardBreakpoints = {
 	xs: 12,
@@ -20,11 +21,21 @@ const ImagePicker = ({ form, label, name, rules, multiple }: Props) => {
 	
 	useEffect(() => {
 		if (multiple) {
-			setImages(form.getFieldValue(name));
+			setImages(form.getFieldValue(name) ?? []);
 		} else {
-			setImages([form.getFieldValue(name)]);
+			setImages(form.getFieldValue(name) ? [form.getFieldValue(name)] : []);
 		}
 	}, []);
+	
+	const remove = (id: string) => {
+		if (multiple) {
+			form.setFieldValue(name, [...images.filter(item => item.id !== id)]);
+			setImages(prevState => [...prevState.filter(item => item.id !== id)]);
+		} else {
+			form.setFieldValue(name, undefined);
+			setImages([]);
+		}
+	};
 	
 	const pick = (image: ImageInterface) => {
 		
@@ -57,7 +68,13 @@ const ImagePicker = ({ form, label, name, rules, multiple }: Props) => {
 						{
 							images.map(image => {
 								return (
-									<Image src={image.path} width={100} key={image.id}/>
+									<div key={image.id} style={{ position: "relative" }}>
+										<DeleteOutlined style={
+											{ position: "absolute", top: "5px", right: "5px", cursor: "pointer", zIndex: 1}
+										} onClick={() => remove(image.id)}/>
+										
+										<Image src={image.path} width={100}/>
+									</div>
 								);
 							})
 						}

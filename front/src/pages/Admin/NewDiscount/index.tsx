@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {SelectInput, TextInput, RichTextInput, ImagePicker} from "../../../components/Input";
+import {SelectInput, TextInput, RichTextInput, ImagePicker} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
@@ -12,6 +12,8 @@ import ShopStore from "../../../stores/ShopStore";
 import { CreateDiscount } from "../../../api/interfaces/discount";
 import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/forms/getDiscountForm";
 import transliterate from "../../../utils/transliterate";
+import {showMessage} from "../../../utils/showMessage";
+import {Create} from "../../../components/Form/buttons";
 
 const rootRoute = "discounts";
 
@@ -60,6 +62,10 @@ const NewDiscount = () => {
 		InterfaceStore.setLoading(true);
 		await DiscountStore.createAsync(newDiscount);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(DiscountStore.isRequestSuccessful(),
+			"Статья добавлена!",
+			DiscountStore.getErrorMessage());
 	};
 	
 	return(
@@ -74,16 +80,7 @@ const NewDiscount = () => {
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<RichTextInput form={form} {...initialOptions.description} empty/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Добавить
-					</Button>
-					
-					<Button type="dashed" onClick={() => form.resetFields()}>
-						Очистить
-					</Button>
-				</Space>
+				<Create isLoading={interfaceLocked} form={form}/>
 			</Form>
 		</Space>
 	);

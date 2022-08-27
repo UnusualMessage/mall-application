@@ -1,20 +1,21 @@
 import {useEffect, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialInput} from "../../../components/Input";
+import {SelectInput, TextInput, ImagePicker, RichTextInput, SocialsInput} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
-import CellPicker from "../../../components/Input/CellPicker";
+import CellPicker from "../../../components/Form/inputs/CellPicker";
+import {Create} from "../../../components/Form/buttons";
 
 import {CreateShop} from "../../../api/interfaces/shop";
 import {CreateSocial} from "../../../api/interfaces/social";
-import {socials} from "../../../types/Social";
 import CategoryStore from "../../../stores/CategoryStore";
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "shops";
 
@@ -69,6 +70,7 @@ const NewShop = () => {
 			categoryId: values.categoryId,
 			imageId: values.logo.id,
 			link: transliteratedTitle,
+			galleryIds: values.gallery.map(item => item.id),
 			routePath: `/${rootRoute}/${transliteratedTitle}`,
 			socials: socials
 		};
@@ -76,6 +78,10 @@ const NewShop = () => {
 		InterfaceStore.setLoading(true);
 		await ShopStore.createAsync(newShop);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(ShopStore.isRequestSuccessful(),
+			"Статья добавлена!",
+			ShopStore.getErrorMessage());
 	};
 	
 	return(
@@ -94,26 +100,9 @@ const NewShop = () => {
 				<ImagePicker {...initialOptions.logo} form={form}/>
 				<ImagePicker {...initialOptions.gallery} form={form} multiple/>
 				<SelectInput values={categories} {...initialOptions.categoryId}/>
-				
-				<Form.Item label={"Социальные сети"}>
-					<Space wrap>
-						{
-							socials.map(social => <SocialInput social={social} key={social}/>)
-						}
-					</Space>
-				</Form.Item>
-				
+				<SocialsInput/>
 				<RichTextInput form={form} {...initialOptions.description} empty/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Добавить
-					</Button>
-					
-					<Button type="dashed" onClick={() => form.resetFields()}>
-						Очистить
-					</Button>
-				</Space>
+				<Create isLoading={interfaceLocked} form={form}/>
 			</Form>
 		</Space>
 	);

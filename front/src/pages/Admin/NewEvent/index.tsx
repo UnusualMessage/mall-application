@@ -1,10 +1,11 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
-import {ImagePicker, SelectInput, TextInput, RichTextInput} from "../../../components/Input";
+import {ImagePicker, SelectInput, TextInput, RichTextInput} from "../../../components/Form/inputs";
 import Loader from "../../../components/Loader";
+import {Create} from "../../../components/Form/buttons";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ShopStore from "../../../stores/ShopStore";
@@ -12,6 +13,7 @@ import EventStore from "../../../stores/EventStore";
 import { CreateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "events";
 
@@ -59,6 +61,10 @@ const NewEvent = () => {
 		InterfaceStore.setLoading(true);
 		await EventStore.createAsync(newEvent);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(EventStore.isRequestSuccessful(),
+			"Статья добавлена!",
+			EventStore.getErrorMessage());
 	};
 	
 	return(
@@ -73,16 +79,7 @@ const NewEvent = () => {
 				<ImagePicker {...initialOptions.image} form={form}/>
 				<SelectInput values={shops} {...initialOptions.shopId}/>
 				<RichTextInput form={form} {...initialOptions.description} empty/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Добавить
-					</Button>
-					
-					<Button type="dashed" onClick={() => form.resetFields()}>
-						Очистить
-					</Button>
-				</Space>
+				<Create isLoading={interfaceLocked} form={form}/>
 			</Form>
 		</Space>
 	);

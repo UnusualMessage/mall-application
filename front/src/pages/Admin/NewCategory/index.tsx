@@ -1,14 +1,16 @@
 import {observer} from "mobx-react-lite";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useMemo} from "react";
 
-import {TextInput} from "../../../components/Input";
+import {TextInput} from "../../../components/Form/inputs";
+import {Create} from "../../../components/Form/buttons";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import CategoryStore from "../../../stores/CategoryStore";
 import { CreateCategory } from "../../../api/interfaces/category";
 import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/forms/getCategoryForm";
+import {showMessage} from "../../../utils/showMessage";
 
 const rootRoute = "categories";
 
@@ -33,6 +35,10 @@ const NewCategory = () => {
 		InterfaceStore.setLoading(true);
 		await CategoryStore.createAsync(newCategory);
 		InterfaceStore.setLoading(false);
+		
+		await showMessage(CategoryStore.isRequestSuccessful(),
+			"Статья добавлена!",
+			CategoryStore.getErrorMessage());
 	};
 	
 	return(
@@ -44,16 +50,7 @@ const NewCategory = () => {
 			
 			<Form onFinish={handleCreate} labelCol={{span: 24}} initialValues={initialValues} form={form}>
 				<TextInput {...initialOptions.title}/>
-
-				<Space>
-					<Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-						Добавить
-					</Button>
-					
-					<Button type="dashed" onClick={() => form.resetFields()}>
-						Очистить
-					</Button>
-				</Space>
+				<Create isLoading={isLoading} form={form}/>
 			</Form>
 		</Space>
 	);

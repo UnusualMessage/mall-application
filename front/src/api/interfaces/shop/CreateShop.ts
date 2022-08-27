@@ -12,5 +12,6 @@ export default interface CreateShop {
 	imageId: string,
 	categoryId: string,
 	cellId: string,
+	galleryIds: string[],
 	socials: CreateSocial[]
 }

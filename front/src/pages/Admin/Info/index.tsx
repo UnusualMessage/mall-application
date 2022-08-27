@@ -1,9 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 
 import Loader from "../../../components/Loader";
-import {TextInput} from "../../../components/Input";
+import {TextInput} from "../../../components/Form/inputs";
+import {Update} from "../../../components/Form/buttons";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ContactsStore from "../../../stores/ContactsStore";
@@ -64,10 +65,7 @@ const Info = () => {
 				<TextInput {...initialOptions.street}/>
 				<TextInput {...initialOptions.phone}/>
 				<TextInput {...initialOptions.schedule}/>
-				
-				<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-					Изменить
-				</Button>
+				<Update isLoading={interfaceLocked}/>
 			</Form>
 		</Space>
 	);

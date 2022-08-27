@@ -1,9 +1,10 @@
 import {observer} from "mobx-react-lite";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import {useMemo} from "react";
 
-import {ImageInput} from "../../../components/Input";
+import {ImageInput} from "../../../components/Form/inputs";
+import {Create} from "../../../components/Form/buttons";
 
 import InterfaceStore from "../../../stores/InterfaceStore";
 import ImageStore from "../../../stores/ImageStore";
@@ -40,16 +41,7 @@ const NewImage = () => {
 			
 			<Form onFinish={handleCreate} labelCol={{span: 24}} form={form}>
 				<ImageInput {...initialOptions.image}/>
-				
-				<Space>
-					<Button type="primary" htmlType="submit" loading={interfaceLocked} disabled={interfaceLocked}>
-						Добавить
-					</Button>
-					
-					<Button type="dashed" onClick={() => form.resetFields()}>
-						Очистить
-					</Button>
-				</Space>
+				<Create isLoading={interfaceLocked} form={form}/>
 			</Form>
 		</Space>
 	);
