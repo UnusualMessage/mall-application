@@ -46,9 +46,4 @@ public class CellRepository : Repository<Cell>, ICellRepository
             
             .ToListAsync();
     }
-
-    public override async Task<Cell?> UpdateAsync(Cell entity)
-    {
-        return await GetByIdAsync(entity.Id);
-    }
 }

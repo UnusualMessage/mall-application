@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Base;
+using Core.Exceptions;
 using Core.Interfaces.Repositories.Base;
 
 using Infrastructure.Context;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories.Base;
 
-public abstract class Repository<T> : IRepository<T> where T : Entity
+public abstract class Repository<T> : IRepository<T> where T : Entity<T>
 {
     protected readonly ApplicationContext ApplicationContext;
 
@@ -27,7 +28,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         }
         catch (DbUpdateException)
         {
-            return null;
+            throw new InvalidCastException();
         }
     }
 
@@ -39,7 +40,7 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
 
             if (entity == null)
             {
-                throw new NullReferenceException();
+                return null;
             }
         
             ApplicationContext.Set<T>().Remove(entity);
@@ -63,5 +64,21 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         return await ApplicationContext.Set<T>().FindAsync(id);
     }
 
-    public abstract Task<T?> UpdateAsync(T entity);
+    public virtual async Task<T?> UpdateAsync(T entity)
+    {
+        try
+        {
+            var selected = await ApplicationContext.Set<T>().FirstOrDefaultAsync(e => e.Id == entity.Id);
+
+            selected?.Update(entity);
+
+            await ApplicationContext.SaveChangesAsync();
+
+            return await GetByIdAsync(entity.Id);
+        }
+        catch (DbUpdateException)
+        {
+            throw new InvalidOperationException();
+        }   
+    }
 }

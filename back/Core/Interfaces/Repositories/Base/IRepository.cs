@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces.Repositories.Base;
 
-public interface IRepository<T> where T : Entity
+public interface IRepository<T> where T : Entity<T>
 {
     public Task<IEnumerable<T>> GetAllAsync();
     public Task<T?> GetByIdAsync(Guid id);

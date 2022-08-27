@@ -32,6 +32,8 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
                 .ThenInclude(e => e.Socials)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Category)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Gallery)
             
             .FirstOrDefaultAsync(e => e.Id == id);
     }
@@ -55,25 +57,9 @@ public class DiscountRepository : Repository<Discount>, IDiscountRepository
                 .ThenInclude(e => e.Socials)
             .Include(e => e.Shop)
                 .ThenInclude(e => e.Category)
+            .Include(e => e.Shop)
+                .ThenInclude(e => e.Gallery)
             
             .ToListAsync();
-    }
-
-    public override async Task<Discount?> UpdateAsync(Discount entity)
-    {
-        try
-        {
-            var selected = await ApplicationContext.Set<Discount>().FirstOrDefaultAsync(e => e.Id == entity.Id);
-
-            selected?.Update(entity);
-
-            await ApplicationContext.SaveChangesAsync();
-
-            return await GetByIdAsync(entity.Id);
-        }
-        catch (DbUpdateException)
-        {
-            return null;
-        }
     }
 }

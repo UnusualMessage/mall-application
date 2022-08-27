@@ -38,22 +38,4 @@ public class ShopRepository : Repository<Shop>, IShopRepository
             .Include(e => e.Cell)
             .ToListAsync();
     }
-
-    public override async Task<Shop?> UpdateAsync(Shop entity)
-    {
-        try
-        {
-            var selected = await ApplicationContext.Set<Shop>().FirstOrDefaultAsync(e => e.Id == entity.Id);
-
-            selected?.Update(entity);
-
-            await ApplicationContext.SaveChangesAsync();
-
-            return await GetByIdAsync(entity.Id);
-        }
-        catch (DbUpdateException)
-        {
-            return null;
-        }
-    }
 }

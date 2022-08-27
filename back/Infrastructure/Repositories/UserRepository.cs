@@ -12,24 +12,6 @@ public class UserRepository : Repository<User>, IUserRepository
     public UserRepository(ApplicationContext applicationContext) : base(applicationContext)
     {
     }
-
-    public override async Task<User?> UpdateAsync(User entity)
-    {
-        try
-        {
-            var selected = await ApplicationContext.Set<User>().FirstOrDefaultAsync(e => e.Id == entity.Id);
-
-            selected?.Set(entity);
-
-            await ApplicationContext.SaveChangesAsync();
-
-            return await GetByIdAsync(entity.Id);
-        }
-        catch (DbUpdateException)
-        {
-            return null;
-        }
-    }
     
     public async Task<User?> GetUserByLoginAsync(string name)
     {
