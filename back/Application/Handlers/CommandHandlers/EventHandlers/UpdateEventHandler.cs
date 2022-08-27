@@ -4,8 +4,8 @@ using AutoMapper;
 using Application.Requests.Commands.Event;
 using Application.Responses;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
 
 namespace Application.Handlers.CommandHandlers.EventHandlers;
 
@@ -23,17 +23,30 @@ public class UpdateEventHandler : IRequestHandler<UpdateEvent, EventResponse>
     public async Task<EventResponse> Handle(UpdateEvent request, CancellationToken cancellationToken)
     {
         var eventToBeUpdated = await _eventRepository.GetByIdAsync(request.Id);
-        eventToBeUpdated?.Route?.Update(new Route()
+
+        if (eventToBeUpdated is null)
+        {
+            throw new NotFoundException("Не удалось найти статью!");
+        }
+        
+        eventToBeUpdated.Route?.Update(new()
         {
             Path = request.RoutePath
         });
         
-        eventToBeUpdated?.Breadcrumb?.Update(new Breadcrumb()
+        eventToBeUpdated.Breadcrumb?.Update(new()
         {
             Name = request.Title,
             Link = request.Link
         });
 
-        return _mapper.Map<EventResponse>(await _eventRepository.UpdateAsync(_mapper.Map<Event>(request)));
+        try
+        {
+            return _mapper.Map<EventResponse>(await _eventRepository.UpdateAsync(_mapper.Map<Event>(request)));
+        }
+        catch (InvalidOperationException)
+        {
+            throw new BadRequestException("Не удалось обновить статью!");
+        }
     }
 }

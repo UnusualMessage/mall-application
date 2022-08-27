@@ -3,11 +3,13 @@ using MediatR;
 
 using Application.Requests.Commands.Event;
 using Application.Responses;
+using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.EventHandlers;
 
-public class DeleteEventHandler : IRequestHandler<DeleteEvent, EventResponse?>
+public class DeleteEventHandler : IRequestHandler<DeleteEvent, EventResponse>
 {
     private readonly IEventRepository _eventRepository;
     private readonly IRouteRepository _routeRepository;
@@ -23,15 +25,24 @@ public class DeleteEventHandler : IRequestHandler<DeleteEvent, EventResponse?>
         _mapper = mapper;
     }
 
-    public async Task<EventResponse?> Handle(DeleteEvent request, CancellationToken cancellationToken)
+    public async Task<EventResponse> Handle(DeleteEvent request, CancellationToken cancellationToken)
     {
-        var removedEvent = await _eventRepository.DeleteByIdAsync(request.Id);
-
-        if (removedEvent is null)
+        Event? removedEvent;
+        
+        try
         {
-            return null;
-        }
+            removedEvent = await _eventRepository.DeleteByIdAsync(request.Id);
 
+            if (removedEvent is null)
+            {
+                throw new NotFoundException("Не удалось найти статью!");
+            }
+        }
+        catch (InvalidOperationException)
+        {
+            throw new BadRequestException("Не удалось удалить статью!");
+        }
+        
         var routeId = removedEvent.RouteId;
         var breadcrumbId = removedEvent.BreadcrumbId;
 

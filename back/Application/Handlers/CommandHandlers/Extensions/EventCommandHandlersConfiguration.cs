@@ -12,8 +12,8 @@ public static class EventCommandHandlersConfiguration
 {
     public static void AddEventCommandHandlers(this IServiceCollection services)
     {
-        services.AddScoped<IRequestHandler<CreateEvent, EventResponse?>, CreateEventHandler>();
+        services.AddScoped<IRequestHandler<CreateEvent, EventResponse>, CreateEventHandler>();
         services.AddScoped<IRequestHandler<UpdateEvent, EventResponse>, UpdateEventHandler>();
-        services.AddScoped<IRequestHandler<DeleteEvent, EventResponse?>, DeleteEventHandler>();
+        services.AddScoped<IRequestHandler<DeleteEvent, EventResponse>, DeleteEventHandler>();
     }
 }
