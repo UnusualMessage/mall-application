@@ -4,11 +4,12 @@ using AutoMapper;
 using Application.Requests.Commands.Shop;
 using Application.Responses;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 
 namespace Application.Handlers.CommandHandlers.ShopHandlers;
 
-public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
+public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse>
 {
     private readonly IShopRepository _shopRepository;
     private readonly IImageRepository _imageRepository;
@@ -21,13 +22,13 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
         _mapper = mapper;
     }
 
-    public async Task<ShopResponse?> Handle(UpdateShop request, CancellationToken cancellationToken)
+    public async Task<ShopResponse> Handle(UpdateShop request, CancellationToken cancellationToken)
     {
         var shopToBeUpdated = await _shopRepository.GetByIdAsync(request.Id);
 
         if (shopToBeUpdated is null)
         {
-            return null;
+            throw new NotFoundException("Не удалось найти статью!");
         }
         
         shopToBeUpdated.Route?.Update(new Route()
@@ -67,6 +68,13 @@ public class UpdateShopHandler : IRequestHandler<UpdateShop, ShopResponse?>
             }
         }
 
-        return _mapper.Map<ShopResponse>(await _shopRepository.UpdateAsync(_mapper.Map<Shop>(request)));
+        try
+        {
+            return _mapper.Map<ShopResponse>(await _shopRepository.UpdateAsync(_mapper.Map<Shop>(request)));
+        }
+        catch (InvalidOperationException)
+        {
+            throw new BadRequestException("Не удалось обновить статью!");
+        }
     }
 }

@@ -34,7 +34,7 @@ public class ExceptionMiddleware
     
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "text/plain";
+        context.Response.ContentType = "text/plain; charset=utf-8";
 
         context.Response.StatusCode = exception switch
         {

@@ -1,6 +1,7 @@
 ﻿using Application.Requests.Queries.Shop;
 using Application.Responses;
 using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using MediatR;
 
@@ -23,7 +24,7 @@ public class GetShopByIdHandler : IRequestHandler<GetShopById, ShopResponse>
 
         if (shop is null)
         {
-            throw new NullReferenceException();
+            throw new NotFoundException("Не удалось найти статью!");
         }
         
         return _mapper.Map<ShopResponse>(shop);
