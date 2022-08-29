@@ -13,8 +13,8 @@ class ContactsService {
 		return await get(this.url, "", "");
 	};
 	
-	public put = async (model: UpdateContacts): Promise<Contacts | Error> => {
-		return await put(model, this.url, "", "");
+	public put = async (model: UpdateContacts, token = ""): Promise<Contacts | Error> => {
+		return await put(model, this.url, "", "", token);
 	};
 }
 

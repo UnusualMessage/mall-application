@@ -3,7 +3,6 @@ import {action, makeObservable, observable, runInAction} from "mobx";
 import AuthService from "../api/services/AuthService";
 import AuthenticateUser from "../api/interfaces/user/AuthenticateUser";
 import isError from "../utils/isError";
-import User from "../api/interfaces/user/User";
 import {Requester} from "./base";
 import {requesterProps} from "./base/Requester";
 
@@ -39,8 +38,26 @@ class AuthStore extends Requester {
 		return this.isLogin;
 	};
 	
+	public getAccessToken = () => {
+		return this.accessToken;
+	};
+	
+	public access = async () => {
+		const data = await this.authService.access();
+		
+		if (isError(data)) {
+			this.invokeError(data.message);
+			return;
+		}
+		
+		this.invokeSuccess();
+		runInAction(() => {
+			this.login(data.token);
+		});
+	};
+	
 	public authenticateUser = async (user: AuthenticateUser) => {
-		const data = await this.authService.authenticate(user) as User;
+		const data = await this.authService.authenticate(user);
 		
 		if (isError(data)) {
 			this.invokeError(data.message);
@@ -50,12 +67,12 @@ class AuthStore extends Requester {
 		
 		this.invokeSuccess();
 		runInAction(() => {
-			this.login(data.accessToken);
+			this.login(data.token);
 		});
 	};
 	
 	public refreshUser = async () => {
-		const data = await this.authService.refresh() as User;
+		const data = await this.authService.refresh();
 		
 		if (isError(data)) {
 			this.invokeError(data.message);
@@ -65,7 +82,7 @@ class AuthStore extends Requester {
 		
 		this.invokeSuccess();
 		runInAction(() => {
-			this.login(data.accessToken);
+			this.login(data.token);
 		});
 	};
 	

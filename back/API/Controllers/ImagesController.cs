@@ -27,6 +27,7 @@ public class ImagesController : ControllerBase
         return Ok(await _mediator.Send(new GetSievedImages(model)));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Post([FromForm] CreateImage request)
     {
@@ -35,6 +36,7 @@ public class ImagesController : ControllerBase
         return Ok(await _mediator.Send(request));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {

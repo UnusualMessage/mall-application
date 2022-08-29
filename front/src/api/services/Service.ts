@@ -16,16 +16,16 @@ class Service<T, CreateT, UpdateT> {
 		return await get(this.url, id, "");
 	};
 	
-	public post = async (model: CreateT): Promise<T | Error> => {
-		return await post(model, this.url, "", "");
+	public post = async (model: CreateT, token = ""): Promise<T | Error> => {
+		return await post(model, this.url, "", "", token);
 	};
 	
-	public put = async (model: UpdateT): Promise<T | Error> => {
-		return await put(model, this.url, "", "");
+	public put = async (model: UpdateT, token = ""): Promise<T | Error> => {
+		return await put(model, this.url, "", "", token);
 	};
 	
-	public delete = async (id: string): Promise<T | Error> => {
-		return await remove(this.url, id, "");
+	public delete = async (id: string, token = ""): Promise<T | Error> => {
+		return await remove(this.url, id, "", token);
 	};
 }
 

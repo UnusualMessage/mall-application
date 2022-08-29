@@ -11,6 +11,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 import { CreateCategory } from "../../../api/interfaces/category";
 import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/forms/getCategoryForm";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "categories";
 
@@ -32,8 +33,10 @@ const NewCategory = () => {
 			title: values.title,
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await CategoryStore.createAsync(newCategory);
+		await CategoryStore.createAsync(newCategory, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(CategoryStore.isRequestSuccessful(),

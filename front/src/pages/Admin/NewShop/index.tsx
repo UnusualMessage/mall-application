@@ -16,6 +16,7 @@ import ShopStore from "../../../stores/ShopStore";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "shops";
 
@@ -75,8 +76,10 @@ const NewShop = () => {
 			socials: socials
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await ShopStore.createAsync(newShop);
+		await ShopStore.createAsync(newShop, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(ShopStore.isRequestSuccessful(),

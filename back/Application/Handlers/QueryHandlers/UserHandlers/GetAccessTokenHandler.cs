@@ -1,5 +1,6 @@
 ﻿using Application.Requests.Queries.User;
 using Application.Responses.User;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using MediatR;
@@ -21,20 +22,16 @@ public class GetAccessTokenHandler : IRequestHandler<GetAccessToken, Authenticat
     {
         var user = await _userRepository.GetUserByTokenAsync(request.RefreshToken ?? "");
         
-        AuthenticateUserResponse response = new();
-
-        if (user == null)
+        if (user is null)
         {
-            response.Successful = false;
-            return response;
+            return FailToAccessToken();
         }
 
         var refreshToken = user.RefreshTokens.Single(x => x.Token == request.RefreshToken);
 
         if (refreshToken.IsActive == false)
         {
-            response.Successful = false;
-            return response;
+            return FailToAccessToken();
         }
         
         var jwt = _tokenService.GetGeneratedAccessToken(user);
@@ -43,7 +40,11 @@ public class GetAccessTokenHandler : IRequestHandler<GetAccessToken, Authenticat
         {
             RefreshToken = request.RefreshToken,
             AccessToken = jwt.Token,
-            Successful = true
         };
+    }
+
+    private AuthenticateUserResponse FailToAccessToken()
+    {
+        throw new NotFoundException("Не удалось получить токен!");
     }
 }

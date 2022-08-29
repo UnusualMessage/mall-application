@@ -14,6 +14,7 @@ import { UpdateDiscount } from "../../../api/interfaces/discount";
 import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../../../utils/forms/getDiscountForm";
 import transliterate from "../../../utils/transliterate";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "discounts";
 
@@ -57,8 +58,10 @@ const Discount = () => {
 	}
 	
 	const handleDelete = async () => {
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await DiscountStore.deleteAsync(id ?? "");
+		await DiscountStore.deleteAsync(id ?? "", AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		const successful = DiscountStore.isRequestSuccessful();
@@ -85,8 +88,10 @@ const Discount = () => {
 			shopId: values.shopId
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await DiscountStore.updateAsync(newDiscount);
+		await DiscountStore.updateAsync(newDiscount, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(DiscountStore.isRequestSuccessful(),

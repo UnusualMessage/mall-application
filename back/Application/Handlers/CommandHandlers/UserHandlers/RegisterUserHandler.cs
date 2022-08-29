@@ -4,6 +4,7 @@ using AutoMapper;
 using Application.Requests.Commands.User;
 using Application.Responses.User;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 
@@ -51,15 +52,11 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, AuthenticateUse
         {
             RefreshToken = refreshToken.Token,
             AccessToken = _tokenService.GetGeneratedAccessToken(user).Token,
-            Successful = true,
         };
     }
     
     private static AuthenticateUserResponse FailRegistration()
     {
-        return new AuthenticateUserResponse()
-        {
-            Successful = false
-        };
+        throw new BadRequestException("Данный логин уже занят!");
     }
 }

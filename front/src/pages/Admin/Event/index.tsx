@@ -14,6 +14,7 @@ import { UpdateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "events";
 
@@ -56,8 +57,10 @@ const Event = () => {
 	}
 	
 	const handleDelete = async () => {
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await EventStore.deleteAsync(id ?? "");
+		await EventStore.deleteAsync(id ?? "", AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		const successful = EventStore.isRequestSuccessful();
@@ -84,8 +87,10 @@ const Event = () => {
 			shopId: values.shopId
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await EventStore.updateAsync(newEvent);
+		await EventStore.updateAsync(newEvent, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(EventStore.isRequestSuccessful(),

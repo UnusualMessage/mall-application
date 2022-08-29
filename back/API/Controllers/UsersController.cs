@@ -37,7 +37,7 @@ namespace API.Controllers;
             return Ok(response);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("register")]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterUser request)
@@ -46,11 +46,6 @@ namespace API.Controllers;
 
             var response = await _mediator.Send(request);
 
-            if (response.Successful == false)
-            {
-                return BadRequest();
-            }
-            
             SetTokenCookie(response.RefreshToken ?? "");
 
             return Ok(response);

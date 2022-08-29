@@ -34,18 +34,21 @@ public class DiscountsController : ControllerBase
         return Ok(await _mediator.Send(new GetDiscountById(id)));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateDiscount request)
     {
         return Ok(await _mediator.Send(request));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         return Ok(await _mediator.Send(new DeleteDiscount(id)));
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateDiscount request)
     {

@@ -18,5 +18,3 @@ interface Props {
 	isLoading: boolean,
 	form: FormInstance
 }
-
-export default Create;

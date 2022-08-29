@@ -10,6 +10,7 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import ImageStore from "../../../stores/ImageStore";
 import { CreateImage } from "../../../api/interfaces/image";
 import {getImageInitialOptions, Values} from "../../../utils/forms/getImageForm";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "images";
 
@@ -27,8 +28,10 @@ const NewImage = () => {
 			image: values.image[0].originFileObj as File,
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await ImageStore.createAsync(newImage);
+		await ImageStore.createAsync(newImage, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 	};
 	

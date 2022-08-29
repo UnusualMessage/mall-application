@@ -1,5 +1,5 @@
 import {action, observable} from "mobx";
-import Response from "../../api/interfaces/fetch/Response";
+import { Response } from "../../api/interfaces/fetch";
 
 export const requesterProps = {
 	response: observable,

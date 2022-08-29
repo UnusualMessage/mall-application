@@ -34,18 +34,21 @@ public class CategoriesController : ControllerBase
         return Ok(await _mediator.Send(new GetCategoryById(id)));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCategory request)
     {
         return Ok(await _mediator.Send(request));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         return Ok(await _mediator.Send(new DeleteCategory(id)));
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateCategory request)
     {

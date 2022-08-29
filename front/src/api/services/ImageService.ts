@@ -15,14 +15,18 @@ class ImageService {
 		return await get(this.url, "", query);
 	};
 	
-	public post = async (model: CreateImage): Promise<Image | Error> => {
+	public post = async (model: CreateImage, token = ""): Promise<Image | Error> => {
 		const formData = new FormData();
 		
 		formData.append("image", model.image);
 		
+		const headers = new Headers();
+		headers.append("Authorization", `Bearer ${token}`);
+		
 		const options = {
 			method: "POST",
-			body: formData
+			body: formData,
+			headers: headers
 		};
 		
 		const request = new Request(this.url, options);
@@ -31,8 +35,8 @@ class ImageService {
 		return resolveResponse(response);
 	};
 	
-	public delete = async (id: string): Promise<Image | Error> => {
-		return await remove(this.url, id, "");
+	public delete = async (id: string, token = ""): Promise<Image | Error> => {
+		return await remove(this.url, id, "", token);
 	};
 }
 

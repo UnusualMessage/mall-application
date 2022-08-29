@@ -12,6 +12,7 @@ import CategoryStore from "../../../stores/CategoryStore";
 import { UpdateCategory } from "../../../api/interfaces/category";
 import {getCategoryInitialOptions, getCategoryInitialValues, Values} from "../../../utils/forms/getCategoryForm";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "categories";
 
@@ -51,8 +52,10 @@ const Category = () => {
 	}
 	
 	const handleDelete = async () => {
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await CategoryStore.deleteAsync(id ?? "");
+		await CategoryStore.deleteAsync(id ?? "", AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		const successful = CategoryStore.isRequestSuccessful();
@@ -72,8 +75,10 @@ const Category = () => {
 			title: values.title,
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await CategoryStore.updateAsync(newCategory);
+		await CategoryStore.updateAsync(newCategory, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(CategoryStore.isRequestSuccessful(),

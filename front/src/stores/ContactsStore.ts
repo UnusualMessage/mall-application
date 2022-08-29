@@ -48,8 +48,8 @@ class ContactsStore extends Requester {
 		return this.contacts;
 	};
 	
-	public updateAsync = async (newData: UpdateContacts) => {
-		const data = await this.contactsService.put(newData);
+	public updateAsync = async (newData: UpdateContacts, token = "") => {
+		const data = await this.contactsService.put(newData, token);
 		
 		if (isError(data)) {
 			this.invokeError(data.message);

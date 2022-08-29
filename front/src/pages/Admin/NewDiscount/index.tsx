@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, PageHeader, Space} from "antd";
+import {Form, PageHeader, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 
 import {SelectInput, TextInput, RichTextInput, ImagePicker} from "../../../components/Form/inputs";
@@ -14,6 +14,7 @@ import {getDiscountInitialOptions, getDiscountInitialValues, Values} from "../..
 import transliterate from "../../../utils/transliterate";
 import {showMessage} from "../../../utils/showMessage";
 import {Create} from "../../../components/Form/buttons";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "discounts";
 
@@ -59,8 +60,10 @@ const NewDiscount = () => {
 			shopId: values.shopId
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await DiscountStore.createAsync(newDiscount);
+		await DiscountStore.createAsync(newDiscount, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(DiscountStore.isRequestSuccessful(),

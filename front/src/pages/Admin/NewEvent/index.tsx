@@ -14,6 +14,7 @@ import { CreateEvent } from "../../../api/interfaces/event";
 import transliterate from "../../../utils/transliterate";
 import {getEventInitialOptions, getEventInitialValues, Values} from "../../../utils/forms/getEventForm";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "events";
 
@@ -58,8 +59,10 @@ const NewEvent = () => {
 			shopId: values.shopId
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await EventStore.createAsync(newEvent);
+		await EventStore.createAsync(newEvent, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 		
 		await showMessage(EventStore.isRequestSuccessful(),

@@ -48,8 +48,8 @@ class ImageStore extends Requester {
 		});
 	};
 	
-	public createAsync = async (image: CreateImage) => {
-		const newImage = await this.imageService.post(image);
+	public createAsync = async (image: CreateImage, token = "") => {
+		const newImage = await this.imageService.post(image, token);
 		
 		if (isError(newImage)) {
 			this.invokeError(newImage.message);
@@ -62,8 +62,8 @@ class ImageStore extends Requester {
 		});
 	};
 	
-	public deleteAsync = async (id: string) => {
-		const removedImage = await this.imageService.delete(id);
+	public deleteAsync = async (id: string, token = "") => {
+		const removedImage = await this.imageService.delete(id, token);
 		
 		if (isError(removedImage)) {
 			this.invokeError(removedImage.message);

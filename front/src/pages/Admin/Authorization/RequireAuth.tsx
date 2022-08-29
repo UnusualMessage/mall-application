@@ -6,11 +6,11 @@ import AuthStore from "../../../stores/AuthStore";
 
 const RequireAuth = ({ children }: PropsWithChildren) => {
 	const redirect = useNavigate();
-	const [allowed, setAllowed] = useState(true);
+	const [allowed, setAllowed] = useState(false);
 	
 	useEffect(() => {
 		const getResponse = async () => {
-			await AuthStore.refreshUser();
+			await AuthStore.access();
 			
 			if (AuthStore.entered()) {
 				setAllowed(true);
@@ -19,7 +19,7 @@ const RequireAuth = ({ children }: PropsWithChildren) => {
 			}
 		};
 		
-		// void getResponse();
+		void getResponse();
 	}, []);
 	
 	if (!allowed) {

@@ -2,6 +2,7 @@
 
 using Application.Requests.Commands.User;
 using Application.Responses.User;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 
@@ -49,15 +50,11 @@ public class RefreshUserHandler : IRequestHandler<RefreshUser, AuthenticateUserR
         {
             RefreshToken = newRefreshToken.Token,
             AccessToken = jwt.Token,
-            Successful = true
         };
     }
     
     private static AuthenticateUserResponse FailAuthentication()
     {
-        return new AuthenticateUserResponse()
-        {
-            Successful = false
-        };
+        throw new NotFoundException("");
     }
 }

@@ -71,8 +71,8 @@ class Store<T extends Model, CreateT, UpdateT> extends Requester {
 		return this.current;
 	};
 	
-	public createAsync = async (newData: CreateT) => {
-		const data = await this.service.post(newData);
+	public createAsync = async (newData: CreateT, token = "") => {
+		const data = await this.service.post(newData, token);
 		
 		if (isError(data)) {
 			this.invokeError(data.message);
@@ -85,8 +85,8 @@ class Store<T extends Model, CreateT, UpdateT> extends Requester {
 		});
 	};
 	
-	public updateAsync = async (newData: UpdateT) => {
-		const data = await this.service.put(newData);
+	public updateAsync = async (newData: UpdateT, token = "") => {
+		const data = await this.service.put(newData, token);
 		
 		if (isError(data)) {
 			this.invokeError(data.message);
@@ -100,8 +100,8 @@ class Store<T extends Model, CreateT, UpdateT> extends Requester {
 		});
 	};
 	
-	public deleteAsync = async (id: string) => {
-		const data = await this.service.delete(id);
+	public deleteAsync = async (id: string, token = "") => {
+		const data = await this.service.delete(id, token);
 		
 		if (isError(data)) {
 			this.invokeError(data.message);

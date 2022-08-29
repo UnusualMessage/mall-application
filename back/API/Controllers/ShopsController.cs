@@ -34,18 +34,21 @@ public class ShopsController : ControllerBase
         return Ok(await _mediator.Send(new GetShopById(id)));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateShop request)
     {
         return Ok(await _mediator.Send(request));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         return Ok(await _mediator.Send(new DeleteShop(id)));
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateShop request)
     {

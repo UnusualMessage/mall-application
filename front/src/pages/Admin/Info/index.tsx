@@ -10,6 +10,7 @@ import InterfaceStore from "../../../stores/InterfaceStore";
 import ContactsStore from "../../../stores/ContactsStore";
 import {getContactsInitialOptions, getContactsInitialValues, Values} from "../../../utils/forms/getInfoForm";
 import {UpdateContacts} from "../../../api/interfaces/contacts";
+import AuthStore from "../../../stores/AuthStore";
 
 const Info = () => {
 	const redirect = useNavigate();
@@ -48,8 +49,10 @@ const Info = () => {
 			schedule: values.schedule,
 		};
 		
+		await AuthStore.access();
+		
 		InterfaceStore.setLoading(true);
-		await ContactsStore.updateAsync(newContacts);
+		await ContactsStore.updateAsync(newContacts, AuthStore.getAccessToken());
 		InterfaceStore.setLoading(false);
 	};
 	

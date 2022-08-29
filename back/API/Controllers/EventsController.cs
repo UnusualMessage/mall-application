@@ -34,18 +34,21 @@ public class EventsController : ControllerBase
         return Ok(await _mediator.Send(new GetEventById(id)));
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateEvent request)
     {
         return Ok(await _mediator.Send(request));
     }
 
+    [Authorize]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         return Ok(await _mediator.Send(new DeleteEvent(id)));
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateEvent request)
     {

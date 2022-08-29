@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using AutoMapper;
 
 using Application.Requests.Commands.User;
 using Application.Responses.User;
+using Core.Exceptions;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 
@@ -11,15 +11,12 @@ namespace Application.Handlers.CommandHandlers.UserHandlers;
 public class AuthenticateUserHandler : IRequestHandler<AuthenticateUser, AuthenticateUserResponse>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
     private readonly ITokenService _tokenService;
     private readonly IPasswordHasher _passwordHasher;
     
-    public AuthenticateUserHandler(IUserRepository repository, IMapper mapper, ITokenService service, 
-        IPasswordHasher hasher)
+    public AuthenticateUserHandler(IUserRepository repository, ITokenService service, IPasswordHasher hasher)
     {
         _userRepository = repository;
-        _mapper = mapper;
         _tokenService = service;
         _passwordHasher = hasher;
     }
@@ -49,7 +46,6 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUser, Authent
         {
             RefreshToken = refreshToken.Token,
             AccessToken = _tokenService.GetGeneratedAccessToken(user).Token,
-            Successful = true
         };
 
         return response;
@@ -57,9 +53,6 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUser, Authent
 
     private static AuthenticateUserResponse FailAuthentication()
     {
-        return new AuthenticateUserResponse()
-        {
-            Successful = false
-        };
+        throw new NotFoundException("Неверный логин или пароль!");
     }
 }

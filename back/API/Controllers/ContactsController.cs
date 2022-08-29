@@ -26,6 +26,7 @@ public class ContactsController : ControllerBase
         return Ok(await _mediator.Send(new GetContacts()));
     }
 
+    [Authorize]
     [HttpPut]
     public async Task<IActionResult> Put([FromBody] UpdateContacts request)
     {

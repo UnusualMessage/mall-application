@@ -1,6 +1,4 @@
-﻿using Application.Responses.Base;
-
-namespace Application.Responses.User;
+﻿namespace Application.Responses.User;
 
 public class RevokeUserResponse
 {

@@ -1,8 +1,9 @@
 import resolveResponse from "../../../utils/resolveResponse";
 
-export const put = async (model: unknown, url: string, route: string, query: string) => {
+export const put = async (model: unknown, url: string, route: string, query: string, token = "") => {
 	const headers = new Headers();
 	headers.append("Content-Type", "application/json");
+	headers.append("Authorization", `Bearer ${token}`);
 	
 	const options = {
 		method: "PUT",

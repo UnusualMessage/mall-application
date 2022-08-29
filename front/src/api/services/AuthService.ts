@@ -1,7 +1,7 @@
 import AuthenticateUser from "../interfaces/user/AuthenticateUser";
 import {Error} from "../interfaces/fetch";
-import User from "../interfaces/user/User";
-import {post} from "./requests";
+import {get, post} from "./requests";
+import AccessToken from "../interfaces/user/AccessToken";
 
 class AuthService {
 	protected readonly url: string;
@@ -10,12 +10,16 @@ class AuthService {
 		this.url = "/api/users";
 	}
 	
-	public authenticate = async (model: AuthenticateUser): Promise<User | Error> => {
-		return post(model, this.url, "authenticate", "");
+	public access = async (): Promise<AccessToken | Error> => {
+		return await get(this.url, "access", "");
 	};
 	
-	public refresh = async (): Promise<User | Error> => {
-		return post({}, this.url, "refresh", "");
+	public authenticate = async (model: AuthenticateUser): Promise<AccessToken | Error> => {
+		return await post(model, this.url, "authenticate", "");
+	};
+	
+	public refresh = async (): Promise<AccessToken | Error> => {
+		return await post({}, this.url, "refresh", "");
 	};
 }
 

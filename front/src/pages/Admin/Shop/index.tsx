@@ -14,6 +14,7 @@ import {Social} from "../../../api/interfaces/social";
 import {getShopInitialOptions, getShopInitialValues, Values} from "../../../utils/forms/getShopForm";
 import transliterate from "../../../utils/transliterate";
 import {showMessage} from "../../../utils/showMessage";
+import AuthStore from "../../../stores/AuthStore";
 
 const rootRoute = "shops";
 
@@ -84,8 +85,10 @@ const Shop = () => {
 			socials: socials
 		};
 		
+		await AuthStore.access();
+		
 		setIsLoading(true);
-		await ShopStore.updateAsync(newShop);
+		await ShopStore.updateAsync(newShop, AuthStore.getAccessToken());
 		setIsLoading(false);
 		
 		await showMessage(ShopStore.isRequestSuccessful(),
@@ -94,8 +97,10 @@ const Shop = () => {
 	};
 	
 	const handleDelete = async () => {
+		await AuthStore.access();
+		
 		setIsLoading(true);
-		await ShopStore.deleteAsync(id ?? "");
+		await ShopStore.deleteAsync(id ?? "", AuthStore.getAccessToken());
 		setIsLoading(false);
 		
 		const successful = ShopStore.isRequestSuccessful();
