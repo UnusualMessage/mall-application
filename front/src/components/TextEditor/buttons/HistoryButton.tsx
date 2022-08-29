@@ -20,9 +20,21 @@ const HistoryButton = ({ icon, action }: Props) => {
 			void message.info("Действие отменено!", 1);
 		}
 	};
-
+	
+	let label;
+	
+	switch (action) {
+		case Action.undo:
+			label = "Отмена действия";
+			break;
+			
+		case Action.redo:
+			label = "Возврат действия";
+			break;
+	}
+	
 	return (
-		<Button icon={icon} onClick={onClick} active={false} />
+		<Button icon={icon} onClick={onClick} active={false} label={label}/>
 	);
 };
 

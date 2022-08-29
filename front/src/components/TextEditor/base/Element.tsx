@@ -7,14 +7,14 @@ import label from "/src/components/Label/label.module.scss";
 import link from "/src/components/Link/link.module.scss";
 
 import {OuterLink} from "../../Link";
-import TitleElement from "../refs/Title";
 
 const { Title, Paragraph } = Typography;
 
 const Element = ({ children, element, attributes }: RenderElementProps) => {
 	const align = element.align;
-	let classes = "";
+	const level = element.level;
 	
+	let classes = classNames();
 	if (align) {
 		classes = classNames(label[align]);
 	}
@@ -38,22 +38,16 @@ const Element = ({ children, element, attributes }: RenderElementProps) => {
 					{children}
 				</li>
 			);
-		case "heading-one":
+		case "heading":
 			return (
-				<TitleElement classes={classNames(classes)} level={2} {...attributes}>
-					{children}
-				</TitleElement>
-			);
-		case "heading-two":
-			return (
-				<Title className={classNames(classes)} level={3} {...attributes}>
+				<Title className={classNames(classes)} level={level ?? 1} {...attributes}>
 					{children}
 				</Title>
 			);
 		case "image":
 			return (
 				<>
-					<Image src={element.src} {...attributes}/>
+					<Image src={element.src} preview={false} {...attributes}/>
 					{children}
 				</>
 			);

@@ -3,6 +3,7 @@ import {useSlate} from "slate-react";
 import {Editor} from "slate";
 
 import Button from "./Button";
+import {TextFormat} from "../../../types/CustomTypes";
 
 const TextButton = ({ icon, format }: Props) => {
 	const editor = useSlate();
@@ -14,8 +15,24 @@ const TextButton = ({ icon, format }: Props) => {
 	
 	const active = isMarkActive(editor, format);
 	
+	let label;
+	
+	switch (format) {
+		case "bold":
+			label = "Полужирный";
+			break;
+			
+		case "italic":
+			label = "Курсив";
+			break;
+			
+		case "underlined":
+			label = "Подчеркнутый";
+			break;
+	}
+	
 	return (
-		<Button icon={icon} onMouseDown={onClick} active={active}/>
+		<Button icon={icon} onMouseDown={onClick} active={active} label={label}/>
 	);
 };
 
@@ -41,7 +58,7 @@ const isMarkActive = (editor: Editor, format: string) => {
 
 interface Props {
 	icon: React.ReactNode,
-	format: string
+	format: TextFormat
 }
 
 export default TextButton;

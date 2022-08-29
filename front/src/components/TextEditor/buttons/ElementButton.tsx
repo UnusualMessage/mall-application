@@ -14,8 +14,18 @@ const ElementButton = ({ icon, type }: Props) => {
 	
 	const active = isBlockActive(editor, type);
 	
+	let label = "";
+	
+	if (type === "ol-list") {
+		label = "Упорядоченный список";
+	}
+	
+	if (type === "ul-list") {
+		label = "Неупорядоченный список";
+	}
+	
 	return(
-		<Button icon={icon} active={active} onClick={onClick}/>
+		<Button icon={icon} active={active} onClick={onClick} label={label}/>
 	);
 };
 
@@ -53,17 +63,15 @@ const isBlockActive = (editor: Editor, type: ElementType) => {
 	const { selection } = editor;
 	if (!selection) return false;
 	
-	const [match] = Array.from(
-		Editor.nodes(editor, {
-			at: Editor.unhangRange(editor, selection),
-			match: node =>
-				!Editor.isEditor(node) &&
-				Element.isElement(node) &&
-				node.type === type,
-		})
-	);
+	const matches = Editor.nodes(editor, {
+		at: Editor.unhangRange(editor, selection),
+		match: node =>
+			!Editor.isEditor(node) &&
+			Element.isElement(node) &&
+			node.type === type,
+	});
 	
-	return !!match;
+	return !!matches.next().value;
 };
 
 interface Props {

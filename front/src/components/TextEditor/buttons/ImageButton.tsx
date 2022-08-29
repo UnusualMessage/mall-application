@@ -29,7 +29,7 @@ const ImageButton = ({ icon }: Props) => {
 	
 	return (
 		<>
-			<Button icon={icon} onMouseDown={onMouseDown} active={false}/>
+			<Button icon={icon} onMouseDown={onMouseDown} active={false} label={"Добавить изображения"}/>
 			<ImageDrawer visible={visible} setVisible={setVisible} pick={pick}/>
 		</>
 	);

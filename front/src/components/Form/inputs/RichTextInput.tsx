@@ -21,12 +21,13 @@ const RichTextInput = ({ label, name, rules, placeholder, form, empty }: Props) 
 	const onChange = (value: Descendant[]) => {
 		const stringify = JSON.stringify(value);
 		form.setFieldValue(name, stringify);
+		console.log(stringify);
 	};
 	
 	const initialText = empty ? JSON.stringify(initialValue) : text;
 
 	return (
-		<Form.Item label={label} name={name} rules={rules} hasFeedback>
+		<Form.Item label={label} name={name} rules={rules}>
 			<TextEditor placeholder={placeholder} onChange={onChange}
 			            text={initialText}/>
 		</Form.Item>

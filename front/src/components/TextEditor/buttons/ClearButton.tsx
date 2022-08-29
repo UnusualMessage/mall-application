@@ -18,7 +18,7 @@ const ClearButton = ({ icon }: Props) => {
 	};
 	
 	return (
-		<Button icon={icon} onClick={onClick} active={false} />
+		<Button icon={icon} onClick={onClick} active={false} label={"Очистить"}/>
 	);
 };
 

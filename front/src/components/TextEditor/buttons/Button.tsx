@@ -1,9 +1,9 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import {Tooltip} from "antd";
 
-const Button = ({ icon, active, ...props }: Props) => {
+const Button = ({ icon, active, label, ...props }: Props) => {
 	return (
-		<Tooltip title="Кнопка редактора">
+		<Tooltip title={label}>
 			<span style={active ?
 				{ color: "#ff9a00", cursor: "pointer", fontSize: "20px" } :
 				{ cursor: "pointer", fontSize: "20px" }} {...props}
@@ -16,7 +16,8 @@ const Button = ({ icon, active, ...props }: Props) => {
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
 	icon: React.ReactNode,
-	active: boolean
+	active: boolean,
+	label: string
 }
 
 export default Button;

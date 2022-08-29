@@ -36,8 +36,19 @@ const LinkButton = ({ icon, action }: Props) => {
 	
 	const active = isLinkActive(editor);
 	
+	let label;
+	
+	switch (action) {
+		case LinkButtonType.add:
+			label = "Добавить ссылку";
+			break;
+		case LinkButtonType.remove:
+			label = "Удалить ссылку";
+			break;
+	}
+	
 	return (
-		<Button active={active} onMouseDown={onClick} icon={icon}/>
+		<Button active={active} onMouseDown={onClick} icon={icon} label={label}/>
 	);
 };
 

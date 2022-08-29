@@ -15,8 +15,22 @@ const AlignButton = ({ icon, align }: Props) => {
 	
 	const active = isAlignActive(editor, align);
 	
+	let label;
+	
+	switch (align) {
+		case "center":
+			label = "По центру";
+			break;
+		case "left":
+			label = "По левому краю";
+			break;
+		case "right":
+			label = "По правому краю";
+			break;
+	}
+	
 	return (
-		<Button icon={icon} active={active} onClick={onClick} />
+		<Button icon={icon} active={active} onClick={onClick} label={label}/>
 	);
 };
 
