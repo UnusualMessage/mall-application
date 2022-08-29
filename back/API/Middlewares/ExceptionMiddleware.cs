@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using Application.Responses.Base;
 using Core.Exceptions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace API.Middlewares;
 
@@ -34,7 +37,7 @@ public class ExceptionMiddleware
     
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentType = "application/json; charset=utf-8";
 
         context.Response.StatusCode = exception switch
         {
@@ -42,9 +45,12 @@ public class ExceptionMiddleware
             BadRequestException => (int)HttpStatusCode.BadRequest,
             _ => (int)HttpStatusCode.InternalServerError
         };
-
-        var message = exception.Message;
         
-        await context.Response.WriteAsync(message);
+        var response = new ErrorResponse(exception.Message);  
+        await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),     	
+            Formatting = Formatting.Indented
+        }));
     }
 }

@@ -5,10 +5,7 @@ const resolveResponse = async (response: Response): Promise<any | Error> => {
 		return response.json();
 	}
 	
-	return {
-		message: await response.json(),
-		error: true
-	} as Error;
+	return response.json();
 };
 
 export default resolveResponse;
