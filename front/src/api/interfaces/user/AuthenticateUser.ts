@@ -1,4 +1,4 @@
 export default interface AuthenticateUser {
-	login: string,
-	password: string
+    login: string;
+    password: string;
 }

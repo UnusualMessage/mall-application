@@ -13,8 +13,10 @@
 
   "extends": [
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/strict"
+    "plugin:@typescript-eslint/strict",
+    "prettier"
   ],
 
   "rules": {
@@ -23,6 +25,8 @@
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off",
 
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/quotes": ["error", "double"],

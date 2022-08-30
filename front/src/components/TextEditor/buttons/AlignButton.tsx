@@ -1,69 +1,69 @@
 import React from "react";
-import {Editor, Element, Transforms} from "slate";
-import {useSlate} from "slate-react";
+import { Editor, Element, Transforms } from "slate";
+import { useSlate } from "slate-react";
 
 import Button from "./Button";
 
-import {Align} from "../../../types/CustomTypes";
+import { Align } from "../../../types/CustomTypes";
 
 const AlignButton = ({ icon, align }: Props) => {
-	const editor = useSlate();
-	
-	const onClick = () => {
-		toggleAlign(editor, align);
-	};
-	
-	const active = isAlignActive(editor, align);
-	
-	let label;
-	
-	switch (align) {
-		case "center":
-			label = "По центру";
-			break;
-		case "left":
-			label = "По левому краю";
-			break;
-		case "right":
-			label = "По правому краю";
-			break;
-	}
-	
-	return (
-		<Button icon={icon} active={active} onClick={onClick} label={label}/>
-	);
+    const editor = useSlate();
+
+    const onClick = () => {
+        toggleAlign(editor, align);
+    };
+
+    const active = isAlignActive(editor, align);
+
+    let label;
+
+    switch (align) {
+        case "center":
+            label = "По центру";
+            break;
+        case "left":
+            label = "По левому краю";
+            break;
+        case "right":
+            label = "По правому краю";
+            break;
+    }
+
+    return (
+        <Button icon={icon} active={active} onClick={onClick} label={label} />
+    );
 };
 
 const isAlignActive = (editor: Editor, align: Align) => {
-	const { selection } = editor;
-	if (!selection) return false;
-	
-	const [match] = Array.from(
-		Editor.nodes(editor, {
-			at: Editor.unhangRange(editor, selection),
-			match: node =>
-				!Editor.isEditor(node) &&
-				Element.isElement(node) &&
-				node.align === align,
-		})
-	);
-	
-	return !!match;
+    const { selection } = editor;
+    if (!selection) return false;
+
+    const [match] = Array.from(
+        Editor.nodes(editor, {
+            at: Editor.unhangRange(editor, selection),
+            match: (node) =>
+                !Editor.isEditor(node) &&
+                Element.isElement(node) &&
+                node.align === align,
+        })
+    );
+
+    return !!match;
 };
 
 const toggleAlign = (editor: Editor, align: Align) => {
-	if (isAlignActive(editor, align)) {
-		Transforms.unsetNodes(editor, "align");
-	} else {
-		Transforms.setNodes(editor, {
-			align: align
-		});
-	}
+    if (isAlignActive(editor, align)) {
+        Transforms.unsetNodes(editor, "align");
+    } else {
+        Transforms.setNodes(editor, {
+            align: align,
+        });
+    }
 };
 
 interface Props {
-	icon: React.ReactNode,
-	align: Align
+    icon: React.ReactNode;
+    align: Align;
 }
 
 export default AlignButton;

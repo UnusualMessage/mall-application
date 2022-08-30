@@ -8,19 +8,19 @@ import FloorSwitcher from "./FloorSwitcher";
 import Schema from "./Schema";
 
 const SchemaLayout = ({ children, readonly }: Props) => {
-	return (
-		<div className={classNames(css.wrapper)}>
-			{children}
-			<Scaler/>
-			<FloorSwitcher/>
-			<Schema readonly={readonly}/>
-		</div>
-	);
+    return (
+        <div className={classNames(css.wrapper)}>
+            {children}
+            <Scaler />
+            <FloorSwitcher />
+            <Schema readonly={readonly} />
+        </div>
+    );
 };
 
 interface Props {
-	children?: React.ReactNode,
-	readonly?: boolean
+    children?: React.ReactNode;
+    readonly?: boolean;
 }
 
 export default SchemaLayout;
