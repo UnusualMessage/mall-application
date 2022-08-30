@@ -1,7 +1,7 @@
-import { SocialType } from "../../../types/Social";
+import {SocialType} from "../../../types/Social";
 
 export default interface Social {
-    id: string;
-    name: SocialType;
-    site: string;
+	id: string,
+	name: SocialType,
+	site: string
 }

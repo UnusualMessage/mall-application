@@ -1,4 +1,4 @@
 export default interface Breadcrumb {
-    name: string;
-    link: string;
+	name: string,
+	link: string
 }

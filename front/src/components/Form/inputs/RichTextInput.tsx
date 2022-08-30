@@ -1,56 +1,46 @@
-import { Form, FormInstance, FormRule } from "antd";
-import React, { memo } from "react";
-import { Descendant } from "slate";
+import {Form, FormInstance, FormRule} from "antd";
+import React, {memo} from "react";
+import {Descendant} from "slate";
 
 import TextEditor from "../../TextEditor";
 
 const initialValue: Descendant[] = [
-    {
-        type: "paragraph",
-        children: [
-            {
-                text: "",
-            },
-        ],
-    },
+	{
+		type: "paragraph",
+		children: [
+			{
+				text: ""
+			}
+		],
+	},
 ];
 
-const RichTextInput = ({
-    label,
-    name,
-    rules,
-    placeholder,
-    form,
-    empty,
-}: Props) => {
-    const text = Form.useWatch<string | undefined>(name, form);
+const RichTextInput = ({ label, name, rules, placeholder, form, empty }: Props) => {
+	const text = Form.useWatch<string | undefined>(name, form);
+	
+	const onChange = (value: Descendant[]) => {
+		const stringify = JSON.stringify(value);
+		form.setFieldValue(name, stringify);
+		console.log(stringify);
+	};
+	
+	const initialText = empty ? JSON.stringify(initialValue) : text;
 
-    const onChange = (value: Descendant[]) => {
-        const stringify = JSON.stringify(value);
-        form.setFieldValue(name, stringify);
-        console.log(stringify);
-    };
-
-    const initialText = empty ? JSON.stringify(initialValue) : text;
-
-    return (
-        <Form.Item label={label} name={name} rules={rules}>
-            <TextEditor
-                placeholder={placeholder}
-                onChange={onChange}
-                text={initialText}
-            />
-        </Form.Item>
-    );
+	return (
+		<Form.Item label={label} name={name} rules={rules}>
+			<TextEditor placeholder={placeholder} onChange={onChange}
+			            text={initialText}/>
+		</Form.Item>
+	);
 };
 
 interface Props {
-    form: FormInstance;
-    label: string;
-    name: string;
-    rules?: FormRule[];
-    placeholder: string;
-    empty?: boolean;
+	form: FormInstance,
+	label: string,
+	name: string,
+	rules?: FormRule[],
+	placeholder: string,
+	empty?: boolean
 }
 
 export default memo(RichTextInput);

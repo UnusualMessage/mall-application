@@ -7,13 +7,4 @@ import SocialsInput from "./SocialsInput";
 import RichTextInput from "./RichTextInput";
 import CellPicker from "./CellPicker";
 
-export {
-    TextInput,
-    SelectInput,
-    ImageInput,
-    NumberInput,
-    ImagePicker,
-    SocialsInput,
-    RichTextInput,
-    CellPicker,
-};
+export { TextInput, SelectInput, ImageInput, NumberInput, ImagePicker, SocialsInput, RichTextInput, CellPicker };

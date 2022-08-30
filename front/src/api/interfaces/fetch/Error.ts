@@ -1,4 +1,4 @@
 export default interface Error {
-    message: string;
-    error: true;
+	message: string,
+	error: true
 }

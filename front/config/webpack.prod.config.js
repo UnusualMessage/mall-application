@@ -6,7 +6,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer");
 module.exports = {
 	output: {
 		filename: './static/js/[name].[contenthash].js',
-		path: path.resolve(__dirname, '../../back/API/wwwroot'),
+		path: path.resolve(__dirname, '../build'),
 		publicPath: "/"
 	},
 

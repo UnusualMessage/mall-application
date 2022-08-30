@@ -1,3 +1,3 @@
 export default interface CreateCategory {
-    title: string;
+	title: string
 }

@@ -1,3 +1,3 @@
 export default interface CreateImage {
-    image: File;
+	image: File
 }
