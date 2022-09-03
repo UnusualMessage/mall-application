@@ -1,4 +1,4 @@
-import {action, makeObservable, observable, runInAction} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 
 import AuthService from "../api/services/AuthService";
 import AuthenticateUser from "../api/interfaces/user/AuthenticateUser";
@@ -8,9 +8,10 @@ import {requesterProps} from "./base/Requester";
 
 const props = {
 	...requesterProps,
-	
+
 	isLogin: observable,
 	accessToken: observable,
+	access: action,
 	authenticateUser: action,
 	refreshUser: action,
 	login: action,
@@ -21,14 +22,14 @@ class AuthStore extends Requester {
 	private isLogin: boolean;
 	private authService: AuthService;
 	private accessToken: string;
-	
+
 	constructor() {
 		super();
 		
 		this.isLogin = false;
 		this.accessToken = "";
 		this.authService = new AuthService();
-		
+
 		makeObservable(this, {
 			...props
 		});
@@ -37,23 +38,21 @@ class AuthStore extends Requester {
 	public entered = () => {
 		return this.isLogin;
 	};
-	
+
 	public getAccessToken = () => {
 		return this.accessToken;
 	};
 	
 	public access = async () => {
 		const data = await this.authService.access();
-		
+
 		if (isError(data)) {
 			this.invokeError(data.message);
 			return;
 		}
 		
 		this.invokeSuccess();
-		runInAction(() => {
-			this.login(data.token);
-		});
+		this.login(data.accessToken);
 	};
 	
 	public authenticateUser = async (user: AuthenticateUser) => {
@@ -66,9 +65,7 @@ class AuthStore extends Requester {
 		}
 		
 		this.invokeSuccess();
-		runInAction(() => {
-			this.login(data.token);
-		});
+		this.login(data.accessToken);
 	};
 	
 	public refreshUser = async () => {
@@ -81,9 +78,7 @@ class AuthStore extends Requester {
 		}
 		
 		this.invokeSuccess();
-		runInAction(() => {
-			this.login(data.token);
-		});
+		this.login(data.accessToken);
 	};
 	
 	private login = (accessToken: string) => {
